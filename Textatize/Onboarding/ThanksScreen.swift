@@ -11,7 +11,8 @@ struct ThanksScreen: View {
     var body: some View {
         ZStack {
             
-            LinearGradient(colors: [AppColors.Onboarding.topColor, AppColors.Onboarding.bottomColor], startPoint: .top, endPoint: .bottom)
+            AppColors.Onboarding.redLinearGradientBackground
+                .ignoresSafeArea()
             
             VStack(spacing: 20) {
                 AppImages.Onboarding.smile
@@ -35,7 +36,6 @@ struct ThanksScreen: View {
             .padding(.horizontal, 20)
             
         }
-        .ignoresSafeArea()
     }
 }
 

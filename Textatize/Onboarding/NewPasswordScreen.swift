@@ -15,7 +15,8 @@ struct NewPasswordScreen: View {
     var body: some View {
         ZStack {
             
-            LinearGradient(colors: [AppColors.Onboarding.topColor, AppColors.Onboarding.bottomColor], startPoint: .top, endPoint: .bottom)
+            AppColors.Onboarding.redLinearGradientBackground
+                .ignoresSafeArea()
             
             VStack {
                 
@@ -67,7 +68,6 @@ struct NewPasswordScreen: View {
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
         }
-        .ignoresSafeArea()
     }
     
     private func continueAction() {

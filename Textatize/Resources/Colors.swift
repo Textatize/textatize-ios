@@ -11,6 +11,7 @@ import SwiftUI
 enum AppColors {
     
     enum Onboarding {
+        static let redLinearGradientBackground = LinearGradient(colors: [topColor, bottomColor], startPoint: .top, endPoint: .bottom)
         static let loginScreenForegroundColor =  Color(red: 60/255, green: 0, blue: 0)
         static let topColor = Color(red: 255/255, green: 170/255, blue: 170/255)
         static let bottomColor = Color(red: 255/255, green: 99/255, blue: 99/255)

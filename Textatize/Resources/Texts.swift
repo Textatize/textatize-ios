@@ -8,7 +8,6 @@
 import Foundation
 
 // MARK: Strings
-
 enum Texts {
     
     enum Onboarding {
@@ -16,6 +15,5 @@ enum Texts {
         static let verificationText = "Enter the verification code that was sent to your email"
         static let confirmPasswordText = "Password should include at least one number, one letter, one symbol( ! @ # $ %)"
     }
-
 
 }
