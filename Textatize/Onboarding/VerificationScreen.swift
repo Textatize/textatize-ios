@@ -80,7 +80,6 @@ struct VerificationScreen: View {
                 }
                 .padding()
                 
-                
             }
             .customBackground()
             .padding(.vertical, 45)

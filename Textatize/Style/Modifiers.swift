@@ -29,6 +29,7 @@ struct OnboardingTextfieldBorder: ViewModifier {
     }
 }
 
+// MARK: - Custom Background
 struct CustomBackground: ViewModifier {
     func body(content: Content) -> some View {
         content

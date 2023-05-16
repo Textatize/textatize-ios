@@ -19,7 +19,7 @@ struct LoginScreen: View {
             VStack(spacing: 10) {
                 
                 
-                Text(Texts.Onboarding.welcomeText)
+                Text("Welcome \n to the Textatize!")
                     .onboardingTitle()
                     .padding(.top, 30)
                 
@@ -80,7 +80,7 @@ struct LoginScreen: View {
                                     .resizable()
                                     .frame(width: 40, height: 40)
                                 
-                                Text(Texts.Onboarding.checkMarkButtonText)
+                                Text("Remember me")
                                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                                     .font(.subheadline)
                                     .fontWeight(.light)
