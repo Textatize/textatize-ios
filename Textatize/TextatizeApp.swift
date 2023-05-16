@@ -11,7 +11,7 @@ import SwiftUI
 struct TextatizeApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginScreen()
         }
     }
 }
