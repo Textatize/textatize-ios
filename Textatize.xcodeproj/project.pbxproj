@@ -349,6 +349,9 @@
 				Base,
 			);
 			mainGroup = 54568E882A127D89001F5CE7;
+			packageReferences = (
+				54DD60422A15893F00ED1FA7 /* XCRemoteSwiftPackageReference "AlamofireObjectMapper" */,
+			);
 			productRefGroup = 54568E922A127D89001F5CE7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -735,6 +738,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		54DD60422A15893F00ED1FA7 /* XCRemoteSwiftPackageReference "AlamofireObjectMapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tristanhimmelman/AlamofireObjectMapper.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 54568E892A127D89001F5CE7 /* Project object */;
 }
