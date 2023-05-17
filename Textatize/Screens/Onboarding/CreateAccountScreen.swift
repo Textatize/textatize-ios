@@ -108,9 +108,11 @@ struct CreateAccountScreen: View {
                     
                     Spacer()
                     
-                    // Continue Button
-                    CustomButton(filled: true, name: "Register", action: register)
-                    
+                    NavigationLink {
+                        VerificationScreen()
+                    } label: {
+                        CustomButtonView(filled: true, name:"Register")
+                    }
                 }
                 .padding()
                 
@@ -120,10 +122,6 @@ struct CreateAccountScreen: View {
             .padding(.horizontal, 20)
             
         }
-    }
-    
-    private func register() {
-        print("Register Pressed")
     }
 }
 

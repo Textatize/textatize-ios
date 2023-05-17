@@ -19,7 +19,7 @@ struct ForgotPasswordScreen: View {
             VStack(spacing: 10) {
                 
                 Spacer()
-                            
+                
                 Text("Forgot \n password?")
                     .onboardingTitle()
                     .padding(.top, 30)
@@ -56,8 +56,11 @@ struct ForgotPasswordScreen: View {
                     
                     Spacer()
                     
-                    // Continue Button
-                    CustomButton(filled: true, name: "Continue", action: continueAction)
+                    NavigationLink {
+                        RecoveryScreen()
+                    } label: {
+                        CustomButtonView(filled: true, name: "Continue")
+                    }
                     
                 }
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)

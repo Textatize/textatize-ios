@@ -7,39 +7,32 @@
 
 import SwiftUI
 
-struct CustomButton: View {
+struct CustomButtonView: View {
     
     var filled: Bool
     var name: String
-    var action: () -> ()
     
     var body: some View {
-        Button {
-            action()
-        } label: {
-            
-            if filled {
-                Text(name)
+        if filled {
+            Text(name)
+            .font(.headline)
+            .foregroundColor(.white)
+            .frame(maxWidth: .infinity)
+            .frame(height: 50)
+            .background(
+                RoundedRectangle(cornerRadius: 10, style: .continuous)
+                    .fill(AppColors.Onboarding.loginButton)
+            )
+        } else {
+            Text(name)
                 .font(.headline)
-                .foregroundColor(.white)
+                .foregroundColor(AppColors.Onboarding.loginButton)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .background(
                     RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(AppColors.Onboarding.loginButton)
+                        .stroke(AppColors.Onboarding.loginButton, lineWidth: 2)
                 )
-            } else {
-                Text(name)
-                    .font(.headline)
-                    .foregroundColor(AppColors.Onboarding.loginButton)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(
-                        RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .stroke(AppColors.Onboarding.loginButton, lineWidth: 2)
-                    )
-            }
-           
         }
     }
 }

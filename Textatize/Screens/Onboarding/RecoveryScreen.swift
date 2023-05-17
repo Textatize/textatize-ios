@@ -1,36 +1,37 @@
 //
-//  VerificationScreen.swift
+//  RecoveryScreen.swift
 //  Textatize
 //
-//  Created by Tornelius Broadwater, Jr on 5/16/23.
+//  Created by Tornelius Broadwater, Jr on 5/15/23.
 //
 
 import SwiftUI
 
-struct VerificationScreen: View {
+struct RecoveryScreen: View {
     
     @State private var verificationTxt = ""
     
     var body: some View {
         ZStack {
-            
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
             
             VStack {
                 
-                Text("Verification")
+                Spacer()
+                
+                Text("Recovery")
                     .onboardingTitle()
                     .padding(.top, 30)
                 
-                VStack(spacing: 5) {
-                    Text("Enter the code")
+                VStack(spacing: 10) {
+                    Text("Verification")
                         .lineLimit(nil)
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .font(.title2)
                         .fontWeight(.semibold)
                     
-                    Text("Please enter the code sent to \n +8 850  7758989")
+                    Text(Texts.Onboarding.verificationText)
                         .font(.callout)
                         .fontWeight(.light)
                         .multilineTextAlignment(.center)
@@ -46,7 +47,6 @@ struct VerificationScreen: View {
                         .padding()
                         .frame(height: 50)
                         .onboardingBorder()
-
                     
                     HStack(spacing: 5) {
                         Text("You can request the code again via:")
@@ -64,10 +64,11 @@ struct VerificationScreen: View {
                     
                     Spacer()
                     
+                    
                     Button {
-                        // Login Action
+                       
                     } label: {
-                        Text("Verify")
+                        Text("Continue")
                             .font(.headline)
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
@@ -85,13 +86,12 @@ struct VerificationScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
-            
         }
     }
 }
 
-struct VerificationScreen_Previews: PreviewProvider {
+struct RecoveryScreen_Previews: PreviewProvider {
     static var previews: some View {
-        VerificationScreen()
+        RecoveryScreen()
     }
 }

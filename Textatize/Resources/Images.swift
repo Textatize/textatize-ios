@@ -14,6 +14,5 @@ enum AppImages {
         static let checkIcon = Image("Check icon")
         static let eyeIcon = Image("Eye icon")
         static let smile = Image("Smile")
-    }
-    
+    }    
 }

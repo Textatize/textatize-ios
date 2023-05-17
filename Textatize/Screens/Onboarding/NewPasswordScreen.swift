@@ -57,9 +57,15 @@ struct NewPasswordScreen: View {
                     
                     Spacer()
                     
-                    // Continue Button
-                    CustomButton(filled: true, name: "Continue", action: continueAction)
-                    .padding()
+                    NavigationLink {
+                        LoginScreen()
+                    } label: {
+                        CustomButtonView(filled: true, name: "Continue")
+                            .padding()
+                    }
+                    
+                    
+                    
                     
                 }
                 
