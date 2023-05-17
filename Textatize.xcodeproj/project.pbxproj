@@ -17,6 +17,8 @@
 		54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C892A13A8D300C02B14 /* ThanksScreen.swift */; };
 		54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8C2A13AA9000C02B14 /* Modifiers.swift */; };
 		54309C902A13C89800C02B14 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8F2A13C89700C02B14 /* CustomButton.swift */; };
+		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
+		54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EC42A156A4D002590A7 /* NewEventScreen.swift */; };
 		54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568E942A127D89001F5CE7 /* TextatizeApp.swift */; };
 		54568E992A127D91001F5CE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54568E982A127D91001F5CE7 /* Assets.xcassets */; };
 		54568E9C2A127D91001F5CE7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54568E9B2A127D91001F5CE7 /* Preview Assets.xcassets */; };
@@ -25,6 +27,7 @@
 		54568EB22A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EB12A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift */; };
 		54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EC02A1283F5001F5CE7 /* LoginScreen.swift */; };
 		54568EC42A128496001F5CE7 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EC32A128496001F5CE7 /* Texts.swift */; };
+		549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549E60FA2A15834700C00231 /* EventDetailScreen.swift */; };
 		54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9D2A1517EF0066302E /* MainTabView.swift */; };
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
 		54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA12A15181D0066302E /* TemplatesScreen.swift */; };
@@ -59,6 +62,8 @@
 		54309C892A13A8D300C02B14 /* ThanksScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksScreen.swift; sourceTree = "<group>"; };
 		54309C8C2A13AA9000C02B14 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		54309C8F2A13C89700C02B14 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		54511EBF2A152F75002590A7 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
+		54511EC42A156A4D002590A7 /* NewEventScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventScreen.swift; sourceTree = "<group>"; };
 		54568E912A127D89001F5CE7 /* Textatize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textatize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54568E942A127D89001F5CE7 /* TextatizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextatizeApp.swift; sourceTree = "<group>"; };
 		54568E982A127D91001F5CE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,6 +75,7 @@
 		54568EB12A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextatizeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54568EC02A1283F5001F5CE7 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		54568EC32A128496001F5CE7 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
+		549E60FA2A15834700C00231 /* EventDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreen.swift; sourceTree = "<group>"; };
 		54B45D9D2A1517EF0066302E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
 		54B45DA12A15181D0066302E /* TemplatesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreen.swift; sourceTree = "<group>"; };
@@ -113,8 +119,35 @@
 			isa = PBXGroup;
 			children = (
 				54309C8F2A13C89700C02B14 /* CustomButton.swift */,
+				54511EBF2A152F75002590A7 /* EventCard.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		54511EC12A156A0A002590A7 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				54B45D9F2A15180C0066302E /* EventsScreen.swift */,
+				54511EC42A156A4D002590A7 /* NewEventScreen.swift */,
+				549E60FA2A15834700C00231 /* EventDetailScreen.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		54511EC22A156A0F002590A7 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				54B45DA12A15181D0066302E /* TemplatesScreen.swift */,
+			);
+			path = Templates;
+			sourceTree = "<group>";
+		};
+		54511EC32A156A14002590A7 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		54568E882A127D89001F5CE7 = {
@@ -213,19 +246,19 @@
 			isa = PBXGroup;
 			children = (
 				54B45D9D2A1517EF0066302E /* MainTabView.swift */,
-				54B45DA52A1518320066302E /* TabScreens */,
+				54B45DA52A1518320066302E /* TabSections */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		54B45DA52A1518320066302E /* TabScreens */ = {
+		54B45DA52A1518320066302E /* TabSections */ = {
 			isa = PBXGroup;
 			children = (
-				54B45D9F2A15180C0066302E /* EventsScreen.swift */,
-				54B45DA12A15181D0066302E /* TemplatesScreen.swift */,
-				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+				54511EC12A156A0A002590A7 /* Events */,
+				54511EC22A156A0F002590A7 /* Templates */,
+				54511EC32A156A14002590A7 /* Settings */,
 			);
-			path = TabScreens;
+			path = TabSections;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,7 +398,9 @@
 				54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */,
 				54309C7E2A12DDB500C02B14 /* Images.swift in Sources */,
 				54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */,
+				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
+				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
@@ -374,6 +409,7 @@
 				54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */,
 				54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */,
 				54309C862A13331100C02B14 /* CreateAccountScreen.swift in Sources */,
+				54511EC02A152F75002590A7 /* EventCard.swift in Sources */,
 				54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
