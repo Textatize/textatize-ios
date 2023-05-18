@@ -10,6 +10,7 @@ import SwiftUI
 struct TemplateCard: View {
     
     @State private var isSelected: Bool = false
+    @Binding var editSelected: Bool
     var image: Image? = nil
     
     var body: some View {
@@ -35,6 +36,7 @@ struct TemplateCard: View {
             VStack(alignment: .leading) {
                 Button {
                     print("Edit Template Selected")
+                    editSelected = true
                 } label: {
                     HStack {
                         AppImages.editIcon
@@ -80,6 +82,6 @@ struct TemplateCard: View {
 
 struct TemplateCard_Previews: PreviewProvider {
     static var previews: some View {
-        TemplateCard()
+        TemplateCard(editSelected: .constant(false))
     }
 }

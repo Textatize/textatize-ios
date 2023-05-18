@@ -12,6 +12,8 @@ struct TemplatesScreen: View {
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
     @State private var eventSelected = false
+    @State private var selectEvent = false
+    @State private var editSelected = false
     
     let iPadLayout = [
         GridItem(.flexible()),
@@ -24,13 +26,12 @@ struct TemplatesScreen: View {
         GridItem(.flexible())
     ]
     
-    @State private var selectEvent = false
     
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
+                .ignoresSafeArea(edges: selectEvent ? .all : .top)
+
             VStack {
                 
                 Text("Templates")
@@ -59,7 +60,7 @@ struct TemplatesScreen: View {
                                         .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
                                         .padding()
                                 } else {
-                                    TemplateCard()
+                                    TemplateCard(editSelected: $editSelected)
                                         .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
                                         .padding()
 
@@ -121,9 +122,6 @@ struct TemplatesScreen: View {
                                 .padding()
                             
                         }
-                        
-                        
-                        
                     }
                     .customBackground()
                     .frame(height: UIScreen.main.bounds.height * 0.6)
@@ -142,8 +140,12 @@ struct TemplatesScreen: View {
 
                 }
                 .opacity(selectEvent ? 1 : 0)
+                .toolbar(selectEvent ? .hidden : .visible, for: .tabBar)
             
             
+        }
+        .fullScreenCover(isPresented: $editSelected) {
+            TemplateEditingScreen()
         }
     }
 }

@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct ChangePasswordScreen: View {
-
+    @Environment(\.dismiss) var dismiss
+    
     @State private var oldPassword = ""
     @State private var newPassword = ""
     @State private var confirmPassword = ""
@@ -18,6 +19,18 @@ struct ChangePasswordScreen: View {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
+            
+            Button {
+                dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             
             VStack {
                 

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ContactInformationScreen: View {
+    @Environment(\.dismiss) var dismiss
     
     @State private var nameTxt = ""
     @State private var emailTxt = ""
@@ -17,6 +18,18 @@ struct ContactInformationScreen: View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
+            
+            Button {
+                dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             
             VStack {
                 

@@ -8,81 +8,91 @@
 import SwiftUI
 
 struct SettingsScreen: View {
+    
+    @State private var showContactInformationScreen = false
+    @State private var showPasswordChangeScreen = false
+    
     var body: some View {
-        NavigationView {
-            ZStack {
-                AppColors.Onboarding.redLinearGradientBackground
-                    .ignoresSafeArea()
+        ZStack {
+            AppColors.Onboarding.redLinearGradientBackground
+                .ignoresSafeArea(edges: .top)
+            
+            VStack {
+                Spacer()
+                Text("Settings")
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
                 
-                VStack {
-                    Spacer()
-                    Text("Settings")
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        .font(.title)
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .padding()
+                VStack(spacing: 15) {
                     
-                    VStack(spacing: 15) {
+                    Button {
+                        showContactInformationScreen = true
+                    } label: {
+                        SettingsButton(name: "Contact Information")
+                    }
+                    
+                    
+                    VStack(spacing: 5) {
                         
-                        NavigationLink {
-                            ContactInformationScreen()
-                        } label: {
-                            SettingsButton(name: "Contact Information")
-                        }
+                        Text("Your balance")
+                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            .fontWeight(.semibold)
+                            .font(.title2)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
                         
-                        VStack(spacing: 5) {
-                            
-                            Text("Your balance")
-                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                                .fontWeight(.semibold)
-                                .font(.title2)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal)
+                        HStack {
                             
                             HStack {
-                                
-                                HStack {
-                                    AppImages.settings.logo3
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                    Text("10 Points")
-                                        .foregroundColor(AppColors.Onboarding.loginButton)
-                                        .font(.headline)
-                                }
-                                .padding()
-                                
-                                Spacer()
-                                CustomButtonView(filled: true, name: "Buy points")
-                                    .padding(.trailing)
-                                
+                                AppImages.settings.logo3
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                Text("10 Points")
+                                    .foregroundColor(AppColors.Onboarding.loginButton)
+                                    .font(.headline)
                             }
-                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .frame(height: 100)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .stroke(AppColors.Onboarding.loginButton, lineWidth: 2)
-                            )
                             .padding()
                             
+                            Spacer()
+                            CustomButtonView(filled: true, name: "Buy points")
+                                .frame(width: UIScreen.main.bounds.width * 0.25)
+                                .padding(.trailing)
+                            
                         }
-
-                        NavigationLink {
-                            ChangePasswordScreen()
-                        } label: {
-                            SettingsButton(name: "Password Change")
-                        }
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .frame(height: 100)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                                .stroke(AppColors.Onboarding.loginButton, lineWidth: 2)
+                        )
+                        .padding()
                         
-                        Spacer()
-                        Spacer()
                     }
+                    
+                    Button {
+                        showPasswordChangeScreen = true
+                    } label: {
+                        SettingsButton(name: "Password Change")
+                    }
+                    
+                    Spacer()
+                    Spacer()
                 }
-                .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal)
-                
             }
+            .customBackground()
+            .padding(.vertical, 45)
+            .padding(.horizontal)
+            .fullScreenCover(isPresented: $showContactInformationScreen) {
+                ContactInformationScreen()
+            }
+            .fullScreenCover(isPresented: $showPasswordChangeScreen) {
+                ChangePasswordScreen()
+            }
+            
         }
     }
 }
