@@ -16,6 +16,10 @@ enum AppImages {
     static let imageIcon = Image("Image icon")
     static let textIcon = Image("Text icon")
     static let diagramIcon = Image("Diagram")
+    static let diagramFull = Image("Diagram full")
+    static let position1 = Image("Position 1")
+    static let position2 = Image("Position 2")
+
     
     enum Onboarding {
         static let checkIcon = Image("Check icon")

@@ -16,6 +16,7 @@ struct NewEventScreen: View {
     @State private var eventHostName = ""
     @State private var orientationSelected = "Portrait"
     @State private var cameraSelected = "Front"
+    @State private var nextButtonPressed = false
     
     var orientationOptions = ["Portrait", "Landscape", "Square"]
     var cameraOptions = ["Front", "Rear"]
@@ -197,8 +198,9 @@ struct NewEventScreen: View {
                     
                     Button {
                        print("Create Event Pressed")
+                        nextButtonPressed = true
                     } label: {
-                        CustomButtonView(filled: true, name: "Create")
+                        CustomButtonView(filled: true, name: "Next")
                     }
 
                     
@@ -210,6 +212,9 @@ struct NewEventScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal)
+            .fullScreenCover(isPresented: $nextButtonPressed) {
+                FrameScreen()
+            }
         }
     }
 }

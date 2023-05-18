@@ -10,7 +10,6 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            
             EventsScreen()
                 .tabItem {
                     Label("Events", image: "events icon")
@@ -25,7 +24,6 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Settings", image: "settings icon")
                 }
-            
         }
     }
 }

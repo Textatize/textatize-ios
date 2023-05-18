@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
 		54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7B2A128A5B00C02B14 /* Colors.swift */; };
 		54309C7E2A12DDB500C02B14 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7D2A12DDB500C02B14 /* Images.swift */; };
 		54309C802A13013100C02B14 /* ForgotPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
 		54309C7B2A128A5B00C02B14 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		54309C7D2A12DDB500C02B14 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordScreen.swift; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				54B45D9F2A15180C0066302E /* EventsScreen.swift */,
 				54511EC42A156A4D002590A7 /* NewEventScreen.swift */,
+				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
 				549E60FA2A15834700C00231 /* EventDetailScreen.swift */,
 			);
 			path = Events;
@@ -433,6 +436,7 @@
 				54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */,
 				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
+				541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
 				54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */,

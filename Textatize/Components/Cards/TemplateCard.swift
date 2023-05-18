@@ -11,6 +11,7 @@ struct TemplateCard: View {
     
     @State private var isSelected: Bool = false
     @Binding var editSelected: Bool
+    var showDuplicate: Bool = true
     var image: Image? = nil
     
     var body: some View {
@@ -48,18 +49,21 @@ struct TemplateCard: View {
                     .padding(.leading)
                 }
                 
-                Button {
-                    print("Duplicate Template Selected")
-                } label: {
-                    HStack {
-                        AppImages.duplicateIcon
-                            .resizable()
-                            .frame(width: 20, height: 20)
-                        Text("Duplicate")
+                if showDuplicate {
+                    Button {
+                        print("Duplicate Template Selected")
+                    } label: {
+                        HStack {
+                            AppImages.duplicateIcon
+                                .resizable()
+                                .frame(width: 20, height: 20)
+                            Text("Duplicate")
+                        }
+                        .foregroundColor(AppColors.Onboarding.loginButton)
+                        .padding(.leading)
                     }
-                    .foregroundColor(AppColors.Onboarding.loginButton)
-                    .padding(.leading)
                 }
+                
             }
         }
         .padding()
