@@ -10,6 +10,10 @@ import SwiftUI
 
 enum AppImages {
     
+    static let editIcon = Image("edit icon")
+    static let duplicateIcon = Image("Duplicate icon")
+    static let checkSmall = Image("Check small")
+    
     enum Onboarding {
         static let checkIcon = Image("Check icon")
         static let eyeIcon = Image("Eye icon")

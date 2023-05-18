@@ -17,6 +17,8 @@
 		54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C892A13A8D300C02B14 /* ThanksScreen.swift */; };
 		54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8C2A13AA9000C02B14 /* Modifiers.swift */; };
 		54309C902A13C89800C02B14 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8F2A13C89700C02B14 /* CustomButton.swift */; };
+		54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAC2A1662EC00E47732 /* AddCard.swift */; };
+		54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* TemplateCard.swift */; };
 		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
 		54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EC42A156A4D002590A7 /* NewEventScreen.swift */; };
 		54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568E942A127D89001F5CE7 /* TextatizeApp.swift */; };
@@ -64,6 +66,8 @@
 		54309C892A13A8D300C02B14 /* ThanksScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksScreen.swift; sourceTree = "<group>"; };
 		54309C8C2A13AA9000C02B14 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		54309C8F2A13C89700C02B14 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		54355EAC2A1662EC00E47732 /* AddCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCard.swift; sourceTree = "<group>"; };
+		54355EAE2A1666C300E47732 /* TemplateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCard.swift; sourceTree = "<group>"; };
 		54511EBF2A152F75002590A7 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
 		54511EC42A156A4D002590A7 /* NewEventScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventScreen.swift; sourceTree = "<group>"; };
 		54568E912A127D89001F5CE7 /* Textatize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textatize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,10 +126,20 @@
 		54309C8E2A13C87A00C02B14 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				54355EAB2A1662CA00E47732 /* Cards */,
 				54309C8F2A13C89700C02B14 /* CustomButton.swift */,
 				54511EBF2A152F75002590A7 /* EventCard.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		54355EAB2A1662CA00E47732 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				54355EAC2A1662EC00E47732 /* AddCard.swift */,
+				54355EAE2A1666C300E47732 /* TemplateCard.swift */,
+			);
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		54511EC12A156A0A002590A7 /* Events */ = {
@@ -411,6 +425,8 @@
 				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
 				5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */,
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
+				54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */,
+				54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */,
 				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
