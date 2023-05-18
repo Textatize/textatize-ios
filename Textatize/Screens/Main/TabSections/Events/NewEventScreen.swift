@@ -176,10 +176,6 @@ struct NewEventScreen: View {
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 .padding()
 
-                
-               
-                
-                
             }
             .customBackground()
             .padding(.vertical, 45)
