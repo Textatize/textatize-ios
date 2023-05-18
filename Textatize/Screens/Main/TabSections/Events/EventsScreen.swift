@@ -88,34 +88,32 @@ struct EventsScreen: View {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(AppColors.Onboarding.topColor)
-                                    .frame(width: UIScreen.main.bounds.width * 0.8, height: 10)
-                                    .padding(.horizontal, 20)
+                                    .frame(height: 10)
+                                    .padding(.horizontal)
                                 
                                 RoundedRectangle(cornerRadius: 10)
                                     .fill(AppColors.Onboarding.bottomColor)
                                     .frame(width: UIScreen.main.bounds.width * 0.4, height: 10)
                                     .frame(maxWidth: .infinity, alignment: currentSelected ? .leading : .trailing)
-                                    .padding(.horizontal, 20)
+                                    .padding(.horizontal)
                             }
-                            .padding(.horizontal, 20)
                         }
                         
                     }
-                    .frame(maxWidth: .infinity)
                     
                     HStack {
                         TextField("\(Image(systemName: "magnifyingglass")) Search", text: $search)
                             .padding()
                             .frame(width: UIScreen.main.bounds.width * 0.4, height: 40)
                             .onboardingBorder()
-                        
+
                         Spacer()
-                        
+
                         Text("All Events")
                             .font(.headline)
                             .foregroundColor(AppColors.Onboarding.loginButton)
                             .padding()
-                        
+
                     }
                     .padding()
                     
@@ -130,16 +128,16 @@ struct EventsScreen: View {
                                     } else {
                                         EventCard(new: false, eventSelected: $eventPressed)
                                             .frame(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.25)
-                                        
+
                                     }
-                                    
+
                                 }
-                                
+
                             }
                             .padding()
 
                         }
-                        
+
                     }
                 }
             }
