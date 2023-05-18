@@ -23,5 +23,12 @@ enum AppImages {
     enum EventCard {
         static let plus = Image("Plus")
         static let plusSmall = Image("Plus small")
+        static let arrow = Image("Arrow")
+        static let arrowSmall = Image("arrow small")
+        static let camera = Image("Camera")
+    }
+    
+    enum settings {
+        static let logo3 = Image("logo 3")
     }
 }
