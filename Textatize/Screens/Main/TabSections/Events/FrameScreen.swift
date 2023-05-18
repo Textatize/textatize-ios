@@ -15,6 +15,7 @@ struct FrameScreen: View {
     @State private var editTemplateSelected = false
     @State private var watermarkSwitch = false
     @State private var transparencyValue = 50.0
+    @State private var nextPressed = false
     
     var body: some View {
         ZStack {
@@ -138,6 +139,9 @@ struct FrameScreen: View {
 
                         
                         CustomButtonView(filled: true, name: "Next")
+                            .onTapGesture {
+                                nextPressed = true
+                            }
                             .padding()
 
                     }
@@ -151,6 +155,9 @@ struct FrameScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal)
+            .fullScreenCover(isPresented: $nextPressed) {
+                CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+            }
             
         }
     }

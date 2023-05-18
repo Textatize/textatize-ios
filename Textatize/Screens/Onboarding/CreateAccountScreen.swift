@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CreateAccountScreen: View {
+    @Environment(\.dismiss) var dismiss
     
     @State private var nameTxt = ""
     @State private var emailTxt = ""
@@ -15,11 +16,25 @@ struct CreateAccountScreen: View {
     @State private var passwordTxt = ""
     @State private var confirmPasswordTxt = ""
     
+    @State private var registerPressed = false
+    
     var body: some View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
+            
+            Button {
+                dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             
             VStack {
                 
@@ -109,11 +124,11 @@ struct CreateAccountScreen: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        VerificationScreen()
-                    } label: {
-                        CustomButtonView(filled: true, name:"Register")
-                    }
+                    CustomButtonView(filled: true, name:"Register")
+                        .onTapGesture {
+                            registerPressed = true
+                        }
+
                 }
                 .padding()
                 
@@ -121,6 +136,9 @@ struct CreateAccountScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
+            .fullScreenCover(isPresented: $registerPressed) {
+                VerificationScreen()
+            }
             
         }
     }

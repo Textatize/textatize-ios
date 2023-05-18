@@ -8,15 +8,29 @@
 import SwiftUI
 
 struct NewPasswordScreen: View {
+    @Environment(\.dismiss) var dismiss
     
     @State private var password = ""
     @State private var confirmPassword = ""
+    @State private var continuePressed = false
     
     var body: some View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
+            
+            Button {
+                dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             
             VStack {
                 
@@ -81,22 +95,19 @@ struct NewPasswordScreen: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        LoginScreen()
-                    } label: {
-                        CustomButtonView(filled: true, name: "Continue")
-                            .padding()
-                    }
-                    
-                    
-                    
-                    
+                    CustomButtonView(filled: true, name: "Log in")
+                        .onTapGesture {
+                            continuePressed = true
+                        }
                 }
-                
+                .padding()
             }
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
+            .fullScreenCover(isPresented: $continuePressed) {
+                LoginScreen()
+            }
         }
     }
     

@@ -11,132 +11,142 @@ struct LoginScreen: View {
     
     @State private var emailTxt = ""
     @State private var passwordTxt = ""
-        
+    
+    @State private var loginPressed = false
+    @State private var signupPressed = false
+    @State private var forgotPasswordPressed = false
+    
+    
     var body: some View {
-        NavigationView {
-            ZStack {
-                AppColors.Onboarding.redLinearGradientBackground
-                    .ignoresSafeArea()
+        ZStack {
+            AppColors.Onboarding.redLinearGradientBackground
+                .ignoresSafeArea()
+            
+            VStack(spacing: 10) {
                 
-                VStack(spacing: 10) {
+                Text("Welcome \n to the Textatize!")
+                    .onboardingTitle()
+                    .padding(.top, 30)
+                
+                VStack(alignment: .leading, spacing: 30) {
                     
-                    Text("Welcome \n to the Textatize!")
-                        .onboardingTitle()
-                        .padding(.top, 30)
+                    VStack(spacing: 10) {
+                        Text("Log in")
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("Please fill in all fields")
+                            .font(.callout)
+                            .fontWeight(.light)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
                     
-                    VStack(alignment: .leading, spacing: 30) {
+                    // Email
+                    VStack(alignment: .leading) {
+                        Text("Email")
+                            .font(.caption)
                         
-                        VStack(spacing: 10) {
-                            Text("Log in")
-                                .fontWeight(.semibold)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            
-                            Text("Please fill in all fields")
-                                .font(.callout)
-                                .fontWeight(.light)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                        TextField("Enter your email", text: $emailTxt)
+                            .padding()
+                            .frame(height: 50)
+                            .onboardingBorder()
+                    }
+                    
+                    // Password
+                    VStack(alignment: .leading) {
+                        Text("Password")
+                            .font(.caption)
                         
-                        // Email
-                        VStack(alignment: .leading) {
-                            Text("Email")
-                                .font(.caption)
-                            
-                            TextField("Enter your email", text: $emailTxt)
+                        ZStack {
+                            SecureField("Enter your password", text: $passwordTxt)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
-                        }
-                        
-                        // Password
-                        VStack(alignment: .leading) {
-                            Text("Password")
-                                .font(.caption)
-
-                            ZStack {
-                                SecureField("Enter your password", text: $passwordTxt)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
-                                
-                                Button {
-                                    // Show Password
-                                } label: {
-                                    AppImages.Onboarding.eyeIcon
-                                        .resizable()
-                                        .frame(width: 40, height: 40)
-                                        .padding(.trailing, 5)
-                                }
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                            }
-                        }
-                        
-                        // Remember me and Forgot Password
-                        HStack {
-                            Spacer()
                             
-                            // Forgot Password
-                            NavigationLink {
-                                ForgotPasswordScreen()
+                            Button {
+                                // Show Password
                             } label: {
-                                Text("Forgot the password?")
-                                    .underline()
-                                    .font(.caption)
-                                    .foregroundColor(AppColors.Onboarding.topColor)
+                                AppImages.Onboarding.eyeIcon
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .padding(.trailing, 5)
                             }
-                            
+                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                        .padding(.top, -10)
-                        
+                    }
+                    
+                    // Remember me and Forgot Password
+                    HStack {
                         Spacer()
                         
-                        // Log in and sign up buttons
-                        VStack(spacing: 20) {
-                           
-                            NavigationLink {
-                              MainTabView()
-                            } label: {
-                                CustomButtonView(filled: true, name: "Log in")
+                        // Forgot Password
+                        Text("Forgot the password?")
+                            .underline()
+                            .font(.caption)
+                            .foregroundColor(AppColors.Onboarding.topColor)
+                            .onTapGesture {
+                                forgotPasswordPressed = true
                             }
-                            
-                            // Separator
-                            HStack {
-                                Rectangle()
-                                    .fill(Color.gray)
-                                    .frame(height: 1)
-                                
-                                Text("Or")
-                                    .font(.caption)
-                                    .foregroundColor(Color.gray)
-                                
-                                Rectangle()
-                                    .fill(Color.gray)
-                                    .frame(height: 1)
-                                    
-                            }
-                            
-                            NavigationLink {
-                               CreateAccountScreen()
-                            } label: {
-                                CustomButtonView(filled: false, name: "Sign up")
-                            }
-
-                        }
-                                
+                        
                     }
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    .padding(.vertical, 30)
-                    .padding()
-
+                    .padding(.top, -10)
+                    
+                    Spacer()
+                    
+                    // Log in and sign up buttons
+                    VStack(spacing: 20) {
+                        
+                        CustomButtonView(filled: true, name: "Log in")
+                            .onTapGesture {
+                                loginPressed = true
+                            }
+                        
+                        // Separator
+                        HStack {
+                            Rectangle()
+                                .fill(Color.gray)
+                                .frame(height: 1)
+                            
+                            Text("Or")
+                                .font(.caption)
+                                .foregroundColor(Color.gray)
+                            
+                            Rectangle()
+                                .fill(Color.gray)
+                                .frame(height: 1)
+                            
+                        }
+                        
+                        CustomButtonView(filled: false, name: "Sign up")
+                            .onTapGesture {
+                                signupPressed = true
+                            }
+                        
+                        
+                    }
+                    
                 }
-                .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal, 20)
+                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                .padding(.vertical, 30)
+                .padding()
+                
             }
-
+            .customBackground()
+            .padding(.vertical, 45)
+            .padding(.horizontal, 20)
+            .fullScreenCover(isPresented: $loginPressed) {
+                MainTabView()
+            }
+            .fullScreenCover(isPresented: $signupPressed) {
+                CreateAccountScreen()
+            }
+            .fullScreenCover(isPresented: $forgotPasswordPressed) {
+                ForgotPasswordScreen()
+            }
         }
-
+        
     }
+    
 }
 
 struct LoginScreen_Previews: PreviewProvider {

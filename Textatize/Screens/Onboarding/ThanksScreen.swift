@@ -8,11 +8,27 @@
 import SwiftUI
 
 struct ThanksScreen: View {
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var loginPressed = false
+    
     var body: some View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
+            
+            Button {
+                dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
             
             VStack(spacing: 20) {
                 AppImages.Onboarding.smile
@@ -30,10 +46,19 @@ struct ThanksScreen: View {
                     .fontWeight(.semibold)
                     .multilineTextAlignment(.center)
                 
+                CustomButtonView(filled: true, name: "Log in")
+                    .onTapGesture {
+                        loginPressed = true
+                    }
+                    .padding()
+                
             }
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
+            .fullScreenCover(isPresented: $loginPressed) {
+                LoginScreen()
+            }
             
         }
     }
