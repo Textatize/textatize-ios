@@ -7,9 +7,5 @@ target 'Textatize' do
 
   # Pods for Textatize
 
-	pod 'Alamofire'
-	pod 'AlamofireObjectMapper'
-	pod 'Alamofire'
-	pod 'ObjectMapper'
-	pod 'AlamofireNetworkActivityLogger'
+
 end
