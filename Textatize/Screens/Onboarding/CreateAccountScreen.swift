@@ -28,81 +28,82 @@ struct CreateAccountScreen: View {
                     .padding(.top, 30)
                                 
                 VStack(spacing: 20) {
-                   
-                    VStack(alignment: .leading) {
-                        Text("Your name")
-                            .font(.caption)
-                        
-                        TextField("Enter your name", text: $nameTxt)
-                            .padding()
-                            .frame(height: 50)
-                            .onboardingBorder()
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("Your email")
-                            .font(.caption)
-                        
-                        TextField("Enter your email", text: $emailTxt)
-                            .padding()
-                            .frame(height: 50)
-                            .onboardingBorder()
-
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("Phone Number")
-                            .font(.caption)
-                        
-                        TextField("Enter your phone number", text: $phoneNumberTxt)
-                            .padding()
-                            .frame(height: 50)
-                            .onboardingBorder()
-
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("Password")
-                            .font(.caption)
-
-                        ZStack {
-                            SecureField("Enter your password", text: $passwordTxt)
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            Text("Your name")
+                                .font(.caption)
+                            
+                            TextField("Enter your name", text: $nameTxt)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
-                            
-                            Button {
-                                // Show Password
-                            } label: {
-                                AppImages.Onboarding.eyeIcon
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .padding(.trailing, 5)
-                            }
-                            .frame(maxWidth: .infinity, alignment: .trailing)
                         }
-                    }
-                    
-                    VStack(alignment: .leading) {
-                        Text("Confirm the password")
-                            .font(.caption)
-
-                        ZStack {
-                            SecureField("Enter your password", text: $confirmPasswordTxt)
+                        
+                        VStack(alignment: .leading) {
+                            Text("Your email")
+                                .font(.caption)
+                            
+                            TextField("Enter your email", text: $emailTxt)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
 
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Phone Number")
+                                .font(.caption)
                             
-                            Button {
-                                // Show Password
-                            } label: {
-                                AppImages.Onboarding.eyeIcon
-                                    .resizable()
-                                    .frame(width: 40, height: 40)
-                                    .padding(.trailing, 5)
+                            TextField("Enter your phone number", text: $phoneNumberTxt)
+                                .padding()
+                                .frame(height: 50)
+                                .onboardingBorder()
+
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Password")
+                                .font(.caption)
+
+                            ZStack {
+                                SecureField("Enter your password", text: $passwordTxt)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+                                
+                                Button {
+                                    // Show Password
+                                } label: {
+                                    AppImages.Onboarding.eyeIcon
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .padding(.trailing, 5)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .trailing)
                             }
-                            .frame(maxWidth: .infinity, alignment: .trailing)
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Confirm the password")
+                                .font(.caption)
+
+                            ZStack {
+                                SecureField("Enter your password", text: $confirmPasswordTxt)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+
+                                
+                                Button {
+                                    // Show Password
+                                } label: {
+                                    AppImages.Onboarding.eyeIcon
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .padding(.trailing, 5)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
                         }
                     }
                     
