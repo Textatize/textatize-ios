@@ -1,22 +1,18 @@
 //
-//  CreateAccountScreen.swift
+//  ChangePassword.swift
 //  Textatize
 //
-//  Created by Tornelius Broadwater, Jr on 5/15/23.
+//  Created by Tornelius Broadwater, Jr on 5/18/23.
 //
 
 import SwiftUI
 
-struct CreateAccountScreen: View {
+struct ChangePasswordScreen: View {
     @Environment(\.dismiss) var dismiss
     
-    @State private var nameTxt = ""
-    @State private var emailTxt = ""
-    @State private var phoneNumberTxt = ""
-    @State private var passwordTxt = ""
-    @State private var confirmPasswordTxt = ""
-    
-    @State private var registerPressed = false
+    @State private var oldPassword = ""
+    @State private var newPassword = ""
+    @State private var confirmPassword = ""
     
     var body: some View {
         ZStack {
@@ -38,50 +34,32 @@ struct CreateAccountScreen: View {
             
             VStack {
                 
-                Text("Create \n your account")
-                    .onboardingTitle()
-                    .padding(.top, 30)
-                                
-                VStack(spacing: 20) {
-                    ScrollView {
-                        VStack(alignment: .leading) {
-                            Text("Your name")
-                                .font(.caption)
-                            
-                            TextField("Enter your name", text: $nameTxt)
-                                .padding()
-                                .frame(height: 50)
-                                .onboardingBorder()
-                        }
+                Spacer()
+                
+                Text("Change Password")
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding()
+                
+                VStack {
+                    
+                    Text("Fill out the forms")
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        .fontWeight(.semibold)
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal)
+                    
+                    VStack(spacing: 15) {
                         
                         VStack(alignment: .leading) {
-                            Text("Your email")
-                                .font(.caption)
-                            
-                            TextField("Enter your email", text: $emailTxt)
-                                .padding()
-                                .frame(height: 50)
-                                .onboardingBorder()
-
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("Phone Number")
-                                .font(.caption)
-                            
-                            TextField("Enter your phone number", text: $phoneNumberTxt)
-                                .padding()
-                                .frame(height: 50)
-                                .onboardingBorder()
-
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("Password")
+                            Text("Old password")
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $passwordTxt)
+                                SecureField("Enter your password", text: $oldPassword)
                                     .padding()
                                     .frame(height: 50)
                                     .onboardingBorder()
@@ -99,15 +77,14 @@ struct CreateAccountScreen: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("Confirm the password")
+                            Text("New password")
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $confirmPasswordTxt)
+                                SecureField("Enter your password", text: $newPassword)
                                     .padding()
                                     .frame(height: 50)
                                     .onboardingBorder()
-
                                 
                                 Button {
                                     // Show Password
@@ -120,32 +97,50 @@ struct CreateAccountScreen: View {
                                 .frame(maxWidth: .infinity, alignment: .trailing)
                             }
                         }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Confirm password")
+                                .font(.caption)
+
+                            ZStack {
+                                SecureField("Enter your password", text: $confirmPassword)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+                                
+                                Button {
+                                    // Show Password
+                                } label: {
+                                    AppImages.Onboarding.eyeIcon
+                                        .resizable()
+                                        .frame(width: 40, height: 40)
+                                        .padding(.trailing, 5)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                            }
+                        }
+                        
                     }
+                    .padding()
                     
                     Spacer()
                     
-                    CustomButtonView(filled: true, name:"Register")
-                        .onTapGesture {
-                            registerPressed = true
-                        }
-
+                    CustomButtonView(filled: true, name: "Save")
+                        .padding()
+                    
                 }
-                .padding()
                 
             }
             .customBackground()
             .padding(.vertical, 45)
-            .padding(.horizontal, 20)
-            .fullScreenCover(isPresented: $registerPressed) {
-                VerificationScreen()
-            }
+            .padding(.horizontal)
             
         }
     }
 }
 
-struct CreateAccountScreen_Previews: PreviewProvider {
+struct ChangePassword_Previews: PreviewProvider {
     static var previews: some View {
-        CreateAccountScreen()
+        ChangePasswordScreen()
     }
 }

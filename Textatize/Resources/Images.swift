@@ -10,6 +10,17 @@ import SwiftUI
 
 enum AppImages {
     
+    static let editIcon = Image("edit icon")
+    static let duplicateIcon = Image("Duplicate icon")
+    static let checkSmall = Image("Check small")
+    static let imageIcon = Image("Image icon")
+    static let textIcon = Image("Text icon")
+    static let diagramIcon = Image("Diagram")
+    static let diagramFull = Image("Diagram full")
+    static let position1 = Image("Position 1")
+    static let position2 = Image("Position 2")
+
+    
     enum Onboarding {
         static let checkIcon = Image("Check icon")
         static let eyeIcon = Image("Eye icon")
@@ -23,5 +34,12 @@ enum AppImages {
     enum EventCard {
         static let plus = Image("Plus")
         static let plusSmall = Image("Plus small")
+        static let arrow = Image("Arrow")
+        static let arrowSmall = Image("arrow small")
+        static let camera = Image("Camera")
+    }
+    
+    enum settings {
+        static let logo3 = Image("logo 3")
     }
 }

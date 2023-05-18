@@ -8,14 +8,29 @@
 import SwiftUI
 
 struct VerificationScreen: View {
+    @Environment(\.dismiss) var dismiss
     
     @State private var verificationTxt = ""
+    @State private var verifyPressed = false
     
     var body: some View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
+            
+            Button {
+                dismiss()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
+            
             
             VStack {
                 
@@ -64,20 +79,10 @@ struct VerificationScreen: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        ThanksScreen()
-                    } label: {
-                        Text("Verify")
-                            .font(.headline)
-                            .foregroundColor(.white)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                    .fill(Color.gray)
-                            )
-                            .opacity(0.4)
-                    }
+                        CustomButtonView(filled: true, name: "Verify")
+                        .onTapGesture {
+                            verifyPressed = true
+                        }
                     
                 }
                 .padding()
@@ -86,6 +91,9 @@ struct VerificationScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
+            .fullScreenCover(isPresented: $verifyPressed) {
+                ThanksScreen()
+            }
             
         }
     }

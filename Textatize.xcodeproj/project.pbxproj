@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		409ABA6FFDBFFBE1EA77923A /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14B84A474017171755494860 /* Pods_Textatize.framework */; };
+		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
 		54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7B2A128A5B00C02B14 /* Colors.swift */; };
 		54309C7E2A12DDB500C02B14 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7D2A12DDB500C02B14 /* Images.swift */; };
 		54309C802A13013100C02B14 /* ForgotPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */; };
@@ -18,6 +18,8 @@
 		54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C892A13A8D300C02B14 /* ThanksScreen.swift */; };
 		54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8C2A13AA9000C02B14 /* Modifiers.swift */; };
 		54309C902A13C89800C02B14 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8F2A13C89700C02B14 /* CustomButton.swift */; };
+		54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAC2A1662EC00E47732 /* AddCard.swift */; };
+		54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* TemplateCard.swift */; };
 		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
 		54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EC42A156A4D002590A7 /* NewEventScreen.swift */; };
 		54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568E942A127D89001F5CE7 /* TextatizeApp.swift */; };
@@ -28,6 +30,10 @@
 		54568EB22A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EB12A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift */; };
 		54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EC02A1283F5001F5CE7 /* LoginScreen.swift */; };
 		54568EC42A128496001F5CE7 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EC32A128496001F5CE7 /* Texts.swift */; };
+		5459E5AA2A16551D0008930B /* ContactInformationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459E5A92A16551C0008930B /* ContactInformationScreen.swift */; };
+		5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */; };
+		5460D3492A167D7300D7265C /* TemplateEditingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */; };
+		546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */; };
 		549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549E60FA2A15834700C00231 /* EventDetailScreen.swift */; };
 		54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9D2A1517EF0066302E /* MainTabView.swift */; };
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
@@ -53,7 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		14B84A474017171755494860 /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
 		54309C7B2A128A5B00C02B14 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		54309C7D2A12DDB500C02B14 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordScreen.swift; sourceTree = "<group>"; };
@@ -64,6 +70,8 @@
 		54309C892A13A8D300C02B14 /* ThanksScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThanksScreen.swift; sourceTree = "<group>"; };
 		54309C8C2A13AA9000C02B14 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		54309C8F2A13C89700C02B14 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		54355EAC2A1662EC00E47732 /* AddCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCard.swift; sourceTree = "<group>"; };
+		54355EAE2A1666C300E47732 /* TemplateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCard.swift; sourceTree = "<group>"; };
 		54511EBF2A152F75002590A7 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
 		54511EC42A156A4D002590A7 /* NewEventScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventScreen.swift; sourceTree = "<group>"; };
 		54568E912A127D89001F5CE7 /* Textatize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textatize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -77,6 +85,10 @@
 		54568EB12A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextatizeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54568EC02A1283F5001F5CE7 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		54568EC32A128496001F5CE7 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
+		5459E5A92A16551C0008930B /* ContactInformationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInformationScreen.swift; sourceTree = "<group>"; };
+		5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordScreen.swift; sourceTree = "<group>"; };
+		5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingScreen.swift; sourceTree = "<group>"; };
+		546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAllInfoScreen.swift; sourceTree = "<group>"; };
 		549E60FA2A15834700C00231 /* EventDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreen.swift; sourceTree = "<group>"; };
 		54B45D9D2A1517EF0066302E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
@@ -123,10 +135,20 @@
 		54309C8E2A13C87A00C02B14 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				54355EAB2A1662CA00E47732 /* Cards */,
 				54309C8F2A13C89700C02B14 /* CustomButton.swift */,
 				54511EBF2A152F75002590A7 /* EventCard.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		54355EAB2A1662CA00E47732 /* Cards */ = {
+			isa = PBXGroup;
+			children = (
+				54355EAC2A1662EC00E47732 /* AddCard.swift */,
+				54355EAE2A1666C300E47732 /* TemplateCard.swift */,
+			);
+			path = Cards;
 			sourceTree = "<group>";
 		};
 		54511EC12A156A0A002590A7 /* Events */ = {
@@ -135,6 +157,8 @@
 				54B45D9F2A15180C0066302E /* EventsScreen.swift */,
 				54511EC42A156A4D002590A7 /* NewEventScreen.swift */,
 				549E60FA2A15834700C00231 /* EventDetailScreen.swift */,
+				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
+				546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -143,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				54B45DA12A15181D0066302E /* TemplatesScreen.swift */,
+				5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -151,6 +176,8 @@
 			isa = PBXGroup;
 			children = (
 				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+				5459E5A92A16551C0008930B /* ContactInformationScreen.swift */,
+				5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -376,6 +403,10 @@
 				Base,
 			);
 			mainGroup = 54568E882A127D89001F5CE7;
+			packageReferences = (
+				54DD60422A15893F00ED1FA7 /* XCRemoteSwiftPackageReference "AlamofireObjectMapper" */,
+				54DD60432A158AD600ED1FA7 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 54568E922A127D89001F5CE7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -460,6 +491,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5460D3492A167D7300D7265C /* TemplateEditingScreen.swift in Sources */,
 				54309C902A13C89800C02B14 /* CustomButton.swift in Sources */,
 				54309C802A13013100C02B14 /* ForgotPasswordScreen.swift in Sources */,
 				54309C882A13A77400C02B14 /* VerificationScreen.swift in Sources */,
@@ -467,15 +499,21 @@
 				54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */,
 				54309C7E2A12DDB500C02B14 /* Images.swift in Sources */,
 				54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */,
+				546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */,
 				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
+				5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */,
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
+				54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */,
+				54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */,
 				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
+				541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
 				54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */,
 				54309C822A130D1F00C02B14 /* RecoveryScreen.swift in Sources */,
 				54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */,
+				5459E5AA2A16551D0008930B /* ContactInformationScreen.swift in Sources */,
 				54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */,
 				54309C862A13331100C02B14 /* CreateAccountScreen.swift in Sources */,
 				54511EC02A152F75002590A7 /* EventCard.swift in Sources */,
@@ -806,6 +844,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		54DD60422A15893F00ED1FA7 /* XCRemoteSwiftPackageReference "AlamofireObjectMapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tristanhimmelman/AlamofireObjectMapper.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 6.3.0;
+			};
+		};
+		54DD60432A158AD600ED1FA7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 54568E892A127D89001F5CE7 /* Project object */;
 }
