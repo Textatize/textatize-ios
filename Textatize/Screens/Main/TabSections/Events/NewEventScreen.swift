@@ -13,6 +13,7 @@ struct NewEventScreen: View {
     
     @State private var eventName = ""
     @State private var eventDate = ""
+    @State private var eventHostName = ""
     @State private var orientationSelected = "Portrait"
     @State private var cameraSelected = "Front"
     
@@ -46,7 +47,28 @@ struct NewEventScreen: View {
                     .fontWeight(.semibold)
                     .padding()
                 
-                VStack(spacing: 15) {
+                VStack(spacing: 10) {
+                    
+                    HStack {
+                        Group {
+                            VStack(spacing: 10) {
+                                Text("Editing on event")
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                Text("Next Step: Template")
+                                    .font(.caption2)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                            }
+                        }
+                        
+                        AppImages.diagramIcon
+                            .overlay {
+                                Text("1 of 2")
+                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            }
+                        
+                    }
+                    
                     
                     VStack(alignment: .leading) {
                         
@@ -81,7 +103,7 @@ struct NewEventScreen: View {
                         }
                         
                     }
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 5)
                     
                     Text("Orientation")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -98,17 +120,17 @@ struct NewEventScreen: View {
                                 } label: {
                                     Circle()
                                         .fill(AppColors.Onboarding.loginButton)
-                                        .frame(width: 30)
+                                        .frame(width: 25)
                                         .overlay {
                                             Circle()
                                                 .fill(.white)
-                                                .frame(width: 25)
+                                                .frame(width: 20)
                                         }
                                         .overlay {
                                             if orientationSelected == orientationOptions[item] {
                                                 Circle()
                                                     .fill(AppColors.Onboarding.loginButton)
-                                                    .frame(width: 15)
+                                                    .frame(width: 10)
                                             }
                                         }
                                         
@@ -138,17 +160,17 @@ struct NewEventScreen: View {
                                 } label: {
                                     Circle()
                                         .fill(AppColors.Onboarding.loginButton)
-                                        .frame(width: 30)
+                                        .frame(width: 25)
                                         .overlay {
                                             Circle()
                                                 .fill(.white)
-                                                .frame(width: 25)
+                                                .frame(width: 20)
                                         }
                                         .overlay {
                                             if cameraSelected == cameraOptions[item] {
                                                 Circle()
                                                     .fill(AppColors.Onboarding.loginButton)
-                                                    .frame(width: 15)
+                                                    .frame(width: 10)
                                             }
                                         }
                                         
@@ -162,6 +184,15 @@ struct NewEventScreen: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    Text("Event host name")
+                        .font(.caption)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    TextField("Enter the host's name", text: $eventHostName)
+                        .padding()
+                        .frame(height: 50)
+                        .onboardingBorder()
+                    
                     Spacer()
                     
                     Button {
@@ -170,7 +201,6 @@ struct NewEventScreen: View {
                         CustomButtonView(filled: true, name: "Create")
                     }
 
-                    Spacer()
                     
                 }
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
