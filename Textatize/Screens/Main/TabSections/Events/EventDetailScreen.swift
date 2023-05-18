@@ -273,7 +273,7 @@ struct EventDetailScreen: View {
                 
                 if showGallaryImage {
                     ZStack {
-                        Color.black.opacity(0.5)
+                        Color.black.opacity(0.75)
                             .ignoresSafeArea()
                         
                         VStack {

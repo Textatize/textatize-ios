@@ -11,6 +11,8 @@ struct TemplatesScreen: View {
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
+    @State private var eventSelected = false
+    
     let iPadLayout = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -21,6 +23,8 @@ struct TemplatesScreen: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    
+    @State private var selectEvent = false
     
     var body: some View {
         ZStack {
@@ -64,7 +68,12 @@ struct TemplatesScreen: View {
                         }
                     }
                     
-                    CustomButtonView(filled: true, name: "Choose")
+                    CustomButtonView(filled: true, name: "Select Event")
+                        .onTapGesture {
+                            withAnimation {
+                                selectEvent = true
+                            }
+                        }
                         .padding()
                     
                 }
@@ -73,6 +82,66 @@ struct TemplatesScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal)
+            
+                ZStack {
+                    
+                    Color.black.opacity(0.75)
+                        .ignoresSafeArea()
+                    
+                    VStack {
+                        
+                        
+                        RoundedRectangle(cornerRadius: 10)
+                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            .frame(height: 5)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .frame(width: UIScreen.main.bounds.width * 0.2)
+                            .padding(.top, 20)
+                        
+                        Text("Events")
+                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .padding()
+                        
+                        VStack {
+                            
+                            ScrollView {
+                                LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
+                                    ForEach(0..<8) { _ in
+                                        EventCard(new: false, eventSelected: $eventSelected)
+                                            .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.45, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.30)
+                                            .padding()
+                                    }
+                                }
+                            }
+                            
+                            CustomButtonView(filled: true, name: "Choose")
+                                .padding()
+                            
+                        }
+                        
+                        
+                        
+                    }
+                    .customBackground()
+                    .frame(height: UIScreen.main.bounds.height * 0.6)
+                    .overlay {
+                        Button {
+                            withAnimation {
+                                selectEvent = false
+                            }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .accentColor(.black)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                        .padding(20)
+                    }
+
+                }
+                .opacity(selectEvent ? 1 : 0)
             
             
         }
