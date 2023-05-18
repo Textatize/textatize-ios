@@ -103,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				409ABA6FFDBFFBE1EA77923A /* Pods_Textatize.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,14 +300,12 @@
 				FBAE25BF82808C3E9911EE67 /* Pods-Textatize.debug.xcconfig */,
 				D3B49DCFC5E8DEE115579B09 /* Pods-Textatize.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		C6522F4A9744B4F837ADCABC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				14B84A474017171755494860 /* Pods_Textatize.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -404,8 +401,6 @@
 			);
 			mainGroup = 54568E882A127D89001F5CE7;
 			packageReferences = (
-				54DD60422A15893F00ED1FA7 /* XCRemoteSwiftPackageReference "AlamofireObjectMapper" */,
-				54DD60432A158AD600ED1FA7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 54568E922A127D89001F5CE7 /* Products */;
 			projectDirPath = "";
@@ -844,25 +839,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		54DD60422A15893F00ED1FA7 /* XCRemoteSwiftPackageReference "AlamofireObjectMapper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tristanhimmelman/AlamofireObjectMapper.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 6.3.0;
-			};
-		};
-		54DD60432A158AD600ED1FA7 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 54568E892A127D89001F5CE7 /* Project object */;
 }
