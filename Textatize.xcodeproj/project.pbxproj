@@ -33,6 +33,7 @@
 		5459E5AA2A16551D0008930B /* ContactInformationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459E5A92A16551C0008930B /* ContactInformationScreen.swift */; };
 		5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */; };
 		5460D3492A167D7300D7265C /* TemplateEditingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */; };
+		546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */; };
 		549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549E60FA2A15834700C00231 /* EventDetailScreen.swift */; };
 		54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9D2A1517EF0066302E /* MainTabView.swift */; };
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
@@ -87,6 +88,7 @@
 		5459E5A92A16551C0008930B /* ContactInformationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInformationScreen.swift; sourceTree = "<group>"; };
 		5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordScreen.swift; sourceTree = "<group>"; };
 		5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingScreen.swift; sourceTree = "<group>"; };
+		546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAllInfoScreen.swift; sourceTree = "<group>"; };
 		549E60FA2A15834700C00231 /* EventDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreen.swift; sourceTree = "<group>"; };
 		54B45D9D2A1517EF0066302E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
@@ -151,8 +153,9 @@
 			children = (
 				54B45D9F2A15180C0066302E /* EventsScreen.swift */,
 				54511EC42A156A4D002590A7 /* NewEventScreen.swift */,
-				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
 				549E60FA2A15834700C00231 /* EventDetailScreen.swift */,
+				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
+				546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -429,6 +432,7 @@
 				54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */,
 				54309C7E2A12DDB500C02B14 /* Images.swift in Sources */,
 				54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */,
+				546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */,
 				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
 				5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */,
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
