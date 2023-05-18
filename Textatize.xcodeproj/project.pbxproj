@@ -325,6 +325,7 @@
 				54568E8D2A127D89001F5CE7 /* Sources */,
 				54568E8E2A127D89001F5CE7 /* Frameworks */,
 				54568E8F2A127D89001F5CE7 /* Resources */,
+				5060E4918917FA158BE80572 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -441,6 +442,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		5060E4918917FA158BE80572 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C922BF5D3FAA631445913B00 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

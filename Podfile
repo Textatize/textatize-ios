@@ -6,6 +6,6 @@ target 'Textatize' do
   use_frameworks!
 
   # Pods for Textatize
-
+	pod 'Alamofire'
 
 end

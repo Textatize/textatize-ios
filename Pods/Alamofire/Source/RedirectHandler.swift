@@ -35,10 +35,10 @@ public protocol RedirectHandler {
     ///   3. A `nil` value to deny the redirect request and return the body of the redirect response.
     ///
     /// - Parameters:
-    ///   - task:       The task whose request resulted in a redirect.
-    ///   - request:    The URL request object to the new location specified by the redirect response.
-    ///   - response:   The response containing the server's response to the original request.
-    ///   - completion: The closure to execute containing the new request, a modified request, or `nil`.
+    ///   - task:       The `URLSessionTask` whose request resulted in a redirect.
+    ///   - request:    The `URLRequest` to the new location specified by the redirect response.
+    ///   - response:   The `HTTPURLResponse` containing the server's response to the original request.
+    ///   - completion: The closure to execute containing the new `URLRequest`, a modified `URLRequest`, or `nil`.
     func task(_ task: URLSessionTask,
               willBeRedirectedTo request: URLRequest,
               for response: HTTPURLResponse,
@@ -91,5 +91,21 @@ extension Redirector: RedirectHandler {
             let request = closure(task, request, response)
             completion(request)
         }
+    }
+}
+
+extension RedirectHandler where Self == Redirector {
+    /// Provides a `Redirector` which follows redirects. Equivalent to `Redirector.follow`.
+    public static var follow: Redirector { .follow }
+
+    /// Provides a `Redirector` which does not follow redirects. Equivalent to `Redirector.doNotFollow`.
+    public static var doNotFollow: Redirector { .doNotFollow }
+
+    /// Creates a `Redirector` which modifies the redirected `URLRequest` using the provided closure.
+    ///
+    /// - Parameter closure: Closure used to modify the redirect.
+    /// - Returns:           The `Redirector`.
+    public static func modify(using closure: @escaping (URLSessionTask, URLRequest, HTTPURLResponse) -> URLRequest?) -> Redirector {
+        Redirector(behavior: .modify(closure))
     }
 }
