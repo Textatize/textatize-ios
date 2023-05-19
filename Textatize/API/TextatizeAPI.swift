@@ -54,11 +54,13 @@ class TextatizeAPI {
         
         AF.request(TextatizeAPI.API_URL + "auth/login", method: .get, parameters: parameters).validate().responseJSON { [weak self] response  in
             if let api = self {
-                
+                 
                 switch response.result {
                     
-                case .success:
+                case .success(let item):
                     
+                    print(item)
+                                        
                     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                         let userResponse: UserResponse = UserResponse(JSONString: utf8Text)!
                         
@@ -72,7 +74,6 @@ class TextatizeAPI {
                         }
                         
                         api.handleLogin(userResponse, api, completionHandler: completionHandler)
-                        return
                     }
                     
                 case .failure(let error):

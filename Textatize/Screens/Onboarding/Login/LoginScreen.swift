@@ -8,11 +8,8 @@
 import SwiftUI
 
 struct LoginScreen: View {
+    @StateObject private var vm = LoginViewModel()
     
-    @State private var emailTxt = "test@bortnet.com"
-    @State private var passwordTxt = "zzz123"
-    
-    @State private var loginPressed = false
     @State private var signupPressed = false
     @State private var forgotPasswordPressed = false
     
@@ -46,7 +43,7 @@ struct LoginScreen: View {
                         Text("Email")
                             .font(.caption)
                         
-                        TextField("Enter your email", text: $emailTxt)
+                        TextField("Enter your email", text: $vm.email)
                             .padding()
                             .frame(height: 50)
                             .onboardingBorder()
@@ -58,7 +55,7 @@ struct LoginScreen: View {
                             .font(.caption)
                         
                         ZStack {
-                            SecureField("Enter your password", text: $passwordTxt)
+                            SecureField("Enter your password", text: $vm.password)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
@@ -93,15 +90,13 @@ struct LoginScreen: View {
                     
                     Spacer()
                     
-                    // Log in and sign up buttons
                     VStack(spacing: 20) {
                         
                         CustomButtonView(filled: true, name: "Log in")
                             .onTapGesture {
-                                loginPressed = true
+                                vm.login()
                             }
                         
-                        // Separator
                         HStack {
                             Rectangle()
                                 .fill(Color.gray)
@@ -134,7 +129,7 @@ struct LoginScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
-            .fullScreenCover(isPresented: $loginPressed) {
+            .fullScreenCover(isPresented: $vm.loginSuccess) {
                 MainTabView()
             }
             .fullScreenCover(isPresented: $signupPressed) {
