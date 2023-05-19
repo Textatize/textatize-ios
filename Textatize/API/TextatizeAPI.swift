@@ -88,4 +88,32 @@ class TextatizeAPI {
         
     }
     
+    func getEvent(completionHandler: @escaping (ServerError?, EventResponse?) -> Void) {
+        if let sessionToken = sessionToken {
+            
+            let parameters: Parameters = [:]
+            
+            AF.request(TextatizeAPI.API_URL + "event/my", method: .get, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
+                if let api = self {
+                    
+                    switch response.result {
+                    case .success:
+                        if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                            let eventResponse = EventResponse(JSONString: utf8Text)
+                            completionHandler(nil, eventResponse)
+                            
+                        } else {
+                            completionHandler(ServerError.defaultError, nil)
+                        }
+                        
+                    case .failure(_):
+                        completionHandler(ServerError.defaultError, nil)
+                    }
+                    
+                }
+            }
+            
+        }
+    }
+    
 }

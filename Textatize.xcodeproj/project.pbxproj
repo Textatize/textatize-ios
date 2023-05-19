@@ -28,6 +28,8 @@
 		5432634C2A17562D00C96A1A /* TextatizeLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5432634B2A17562D00C96A1A /* TextatizeLoginManager.swift */; };
 		5432634E2A17571900C96A1A /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5432634D2A17571900C96A1A /* Keychain.swift */; };
 		543263502A175A0100C96A1A /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5432634F2A175A0100C96A1A /* ServerError.swift */; };
+		543263522A17603200C96A1A /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263512A17603200C96A1A /* Event.swift */; };
+		543263542A1760E700C96A1A /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263532A1760E700C96A1A /* EventResponse.swift */; };
 		54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAC2A1662EC00E47732 /* AddCard.swift */; };
 		54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* TemplateCard.swift */; };
 		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
@@ -88,6 +90,8 @@
 		5432634B2A17562D00C96A1A /* TextatizeLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextatizeLoginManager.swift; sourceTree = "<group>"; };
 		5432634D2A17571900C96A1A /* Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
 		5432634F2A175A0100C96A1A /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
+		543263512A17603200C96A1A /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		543263532A1760E700C96A1A /* EventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
 		54355EAC2A1662EC00E47732 /* AddCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCard.swift; sourceTree = "<group>"; };
 		54355EAE2A1666C300E47732 /* TemplateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCard.swift; sourceTree = "<group>"; };
 		54511EBF2A152F75002590A7 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			children = (
 				543263402A173D7600C96A1A /* AbstractServerObject.swift */,
 				543263422A173FD000C96A1A /* User.swift */,
+				543263512A17603200C96A1A /* Event.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -186,6 +191,7 @@
 			children = (
 				543263492A17525400C96A1A /* ServerResponse.swift */,
 				543263472A17521D00C96A1A /* UserResponse.swift */,
+				543263532A1760E700C96A1A /* EventResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -503,11 +509,13 @@
 				543263502A175A0100C96A1A /* ServerError.swift in Sources */,
 				541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
+				543263542A1760E700C96A1A /* EventResponse.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
 				5432634A2A17525400C96A1A /* ServerResponse.swift in Sources */,
 				54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */,
 				54309C822A130D1F00C02B14 /* RecoveryScreen.swift in Sources */,
 				543263452A1749F700C96A1A /* TextatizeAPI.swift in Sources */,
+				543263522A17603200C96A1A /* Event.swift in Sources */,
 				543263482A17521D00C96A1A /* UserResponse.swift in Sources */,
 				54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */,
 				5459E5AA2A16551D0008930B /* ContactInformationScreen.swift in Sources */,
