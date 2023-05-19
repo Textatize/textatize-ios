@@ -57,13 +57,15 @@ class TextatizeAPI {
                  
                 switch response.result {
                     
-                case .success(let item):
-                    
-                    print(item)
-                                        
+                case .success:
+                                                            
                     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                         let userResponse: UserResponse = UserResponse(JSONString: utf8Text)!
                         
+                        if let error = userResponse.error {
+                            completionHandler(ServerError(WithMessage: error), nil)
+                            return
+                        }
                         
                         if let username = username {
                             TextatizeLoginManager.shared.storeUsername(username: username)

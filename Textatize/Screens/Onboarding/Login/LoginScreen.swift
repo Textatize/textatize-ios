@@ -138,6 +138,9 @@ struct LoginScreen: View {
             .fullScreenCover(isPresented: $forgotPasswordPressed) {
                 ForgotPasswordScreen()
             }
+            .alert(isPresented: $vm.showAlert) {
+                Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
+            }
         }
     }
 }
