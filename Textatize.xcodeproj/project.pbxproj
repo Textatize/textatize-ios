@@ -39,7 +39,6 @@
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
 		54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA12A15181D0066302E /* TemplatesScreen.swift */; };
 		54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA32A15182E0066302E /* SettingsScreen.swift */; };
-		715449EAE0999A155BAA3B39 /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC00C69BBD10C2D4ECAA743F /* Pods_Textatize.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,9 +94,6 @@
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
 		54B45DA12A15181D0066302E /* TemplatesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreen.swift; sourceTree = "<group>"; };
 		54B45DA32A15182E0066302E /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
-		BC00C69BBD10C2D4ECAA743F /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D3B49DCFC5E8DEE115579B09 /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
-		FBAE25BF82808C3E9911EE67 /* Pods-Textatize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.debug.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +101,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				715449EAE0999A155BAA3B39 /* Pods_Textatize.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,8 +186,6 @@
 				54568EA42A127D92001F5CE7 /* TextatizeTests */,
 				54568EAE2A127D92001F5CE7 /* TextatizeUITests */,
 				54568E922A127D89001F5CE7 /* Products */,
-				B33FF7990505387820BA173D /* Pods */,
-				C6522F4A9744B4F837ADCABC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -297,23 +290,6 @@
 			path = TabSections;
 			sourceTree = "<group>";
 		};
-		B33FF7990505387820BA173D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FBAE25BF82808C3E9911EE67 /* Pods-Textatize.debug.xcconfig */,
-				D3B49DCFC5E8DEE115579B09 /* Pods-Textatize.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		C6522F4A9744B4F837ADCABC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				BC00C69BBD10C2D4ECAA743F /* Pods_Textatize.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -321,11 +297,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54568EB52A127D92001F5CE7 /* Build configuration list for PBXNativeTarget "Textatize" */;
 			buildPhases = (
-				C922BF5D3FAA631445913B00 /* [CP] Check Pods Manifest.lock */,
 				54568E8D2A127D89001F5CE7 /* Sources */,
 				54568E8E2A127D89001F5CE7 /* Frameworks */,
 				54568E8F2A127D89001F5CE7 /* Resources */,
-				5060E4918917FA158BE80572 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -440,48 +414,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		5060E4918917FA158BE80572 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C922BF5D3FAA631445913B00 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Textatize-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		54568E8D2A127D89001F5CE7 /* Sources */ = {
@@ -667,7 +599,6 @@
 		};
 		54568EB62A127D92001F5CE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBAE25BF82808C3E9911EE67 /* Pods-Textatize.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -697,7 +628,6 @@
 		};
 		54568EB72A127D92001F5CE7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3B49DCFC5E8DEE115579B09 /* Pods-Textatize.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
