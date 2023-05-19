@@ -18,6 +18,8 @@
 		54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C892A13A8D300C02B14 /* ThanksScreen.swift */; };
 		54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8C2A13AA9000C02B14 /* Modifiers.swift */; };
 		54309C902A13C89800C02B14 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8F2A13C89700C02B14 /* CustomButton.swift */; };
+		5432633A2A172D4500C96A1A /* ObjectMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 543263392A172D4500C96A1A /* ObjectMapper */; };
+		5432633D2A1730F100C96A1A /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 5432633C2A1730F100C96A1A /* Alamofire */; };
 		54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAC2A1662EC00E47732 /* AddCard.swift */; };
 		54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* TemplateCard.swift */; };
 		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
@@ -101,6 +103,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5432633A2A172D4500C96A1A /* ObjectMapper in Frameworks */,
+				5432633D2A1730F100C96A1A /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +310,10 @@
 			dependencies = (
 			);
 			name = Textatize;
+			packageProductDependencies = (
+				543263392A172D4500C96A1A /* ObjectMapper */,
+				5432633C2A1730F100C96A1A /* Alamofire */,
+			);
 			productName = Textatize;
 			productReference = 54568E912A127D89001F5CE7 /* Textatize.app */;
 			productType = "com.apple.product-type.application";
@@ -378,6 +386,10 @@
 				Base,
 			);
 			mainGroup = 54568E882A127D89001F5CE7;
+			packageReferences = (
+				543263382A172D4500C96A1A /* XCRemoteSwiftPackageReference "ObjectMapper" */,
+				5432633B2A1730F100C96A1A /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
 			productRefGroup = 54568E922A127D89001F5CE7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -771,6 +783,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		543263382A172D4500C96A1A /* XCRemoteSwiftPackageReference "ObjectMapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tristanhimmelman/ObjectMapper.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		5432633B2A1730F100C96A1A /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		543263392A172D4500C96A1A /* ObjectMapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 543263382A172D4500C96A1A /* XCRemoteSwiftPackageReference "ObjectMapper" */;
+			productName = ObjectMapper;
+		};
+		5432633C2A1730F100C96A1A /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5432633B2A1730F100C96A1A /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54568E892A127D89001F5CE7 /* Project object */;
 }
