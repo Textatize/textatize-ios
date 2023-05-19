@@ -31,7 +31,6 @@ class TextatizeAPI {
             if let sessionToken = userResponse.sessionToken {
                 api.sessionToken = sessionToken
                 TextatizeLoginManager.shared.loggedInUser = user
-                print(user)
                 completionHandler(nil, userResponse)
                 
             } else {
