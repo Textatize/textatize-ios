@@ -9,8 +9,8 @@ import SwiftUI
 
 struct LoginScreen: View {
     
-    @State private var emailTxt = ""
-    @State private var passwordTxt = ""
+    @State private var emailTxt = "test@bortnet.com"
+    @State private var passwordTxt = "zzz123"
     
     @State private var loginPressed = false
     @State private var signupPressed = false
@@ -144,9 +144,7 @@ struct LoginScreen: View {
                 ForgotPasswordScreen()
             }
         }
-        
     }
-    
 }
 
 struct LoginScreen_Previews: PreviewProvider {
