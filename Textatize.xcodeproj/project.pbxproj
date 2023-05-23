@@ -18,7 +18,6 @@
 		54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C892A13A8D300C02B14 /* ThanksScreen.swift */; };
 		54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8C2A13AA9000C02B14 /* Modifiers.swift */; };
 		54309C902A13C89800C02B14 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C8F2A13C89700C02B14 /* CustomButton.swift */; };
-		5432633A2A172D4500C96A1A /* ObjectMapper in Frameworks */ = {isa = PBXBuildFile; productRef = 543263392A172D4500C96A1A /* ObjectMapper */; };
 		543263412A173D7600C96A1A /* AbstractServerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263402A173D7600C96A1A /* AbstractServerObject.swift */; };
 		543263432A173FD000C96A1A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263422A173FD000C96A1A /* User.swift */; };
 		543263452A1749F700C96A1A /* TextatizeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263442A1749F700C96A1A /* TextatizeAPI.swift */; };
@@ -128,7 +127,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5432633A2A172D4500C96A1A /* ObjectMapper in Frameworks */,
 				F3005F93F8AD8385B0BC58C7 /* Pods_Textatize.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -400,7 +398,6 @@
 			);
 			name = Textatize;
 			packageProductDependencies = (
-				543263392A172D4500C96A1A /* ObjectMapper */,
 			);
 			productName = Textatize;
 			productReference = 54568E912A127D89001F5CE7 /* Textatize.app */;
@@ -475,7 +472,6 @@
 			);
 			mainGroup = 54568E882A127D89001F5CE7;
 			packageReferences = (
-				543263382A172D4500C96A1A /* XCRemoteSwiftPackageReference "ObjectMapper" */,
 			);
 			productRefGroup = 54568E922A127D89001F5CE7 /* Products */;
 			projectDirPath = "";
@@ -925,25 +921,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		543263382A172D4500C96A1A /* XCRemoteSwiftPackageReference "ObjectMapper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/tristanhimmelman/ObjectMapper.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		543263392A172D4500C96A1A /* ObjectMapper */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 543263382A172D4500C96A1A /* XCRemoteSwiftPackageReference "ObjectMapper" */;
-			productName = ObjectMapper;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 54568E892A127D89001F5CE7 /* Project object */;
 }
