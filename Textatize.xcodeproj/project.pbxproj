@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		108374919FCBC015CFFD322A /* Pods_TextatizeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88945CA416F011B6AECC76 /* Pods_TextatizeTests.framework */; };
 		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
 		54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7B2A128A5B00C02B14 /* Colors.swift */; };
 		54309C7E2A12DDB500C02B14 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7D2A12DDB500C02B14 /* Images.swift */; };
@@ -53,7 +52,6 @@
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
 		54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA12A15181D0066302E /* TemplatesScreen.swift */; };
 		54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA32A15182E0066302E /* SettingsScreen.swift */; };
-		EBA671258452B329AE4CB4D3 /* Pods_Textatize_TextatizeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1097041FFBEBEC7B21514146 /* Pods_Textatize_TextatizeUITests.framework */; };
 		F3005F93F8AD8385B0BC58C7 /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,10 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1097041FFBEBEC7B21514146 /* Pods_Textatize_TextatizeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize_TextatizeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		113640D6AECDA973655F0D8B /* Pods-TextatizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextatizeTests.release.xcconfig"; path = "Target Support Files/Pods-TextatizeTests/Pods-TextatizeTests.release.xcconfig"; sourceTree = "<group>"; };
 		31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3953E006E9B3AEEBF667C0C2 /* Pods-TextatizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TextatizeTests.debug.xcconfig"; path = "Target Support Files/Pods-TextatizeTests/Pods-TextatizeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3E91399ED23DB8E8E947B9C9 /* Pods-Textatize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.debug.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.debug.xcconfig"; sourceTree = "<group>"; };
 		3F257F0F88BCB29995BA719A /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
 		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
@@ -127,9 +122,6 @@
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
 		54B45DA12A15181D0066302E /* TemplatesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreen.swift; sourceTree = "<group>"; };
 		54B45DA32A15182E0066302E /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
-		C6EF55AC61A1A2CEBBDF06E4 /* Pods-Textatize-TextatizeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize-TextatizeUITests.release.xcconfig"; path = "Target Support Files/Pods-Textatize-TextatizeUITests/Pods-Textatize-TextatizeUITests.release.xcconfig"; sourceTree = "<group>"; };
-		CF204DBA675E47C00ED35D86 /* Pods-Textatize-TextatizeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize-TextatizeUITests.debug.xcconfig"; path = "Target Support Files/Pods-Textatize-TextatizeUITests/Pods-Textatize-TextatizeUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		FE88945CA416F011B6AECC76 /* Pods_TextatizeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TextatizeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,7 +139,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				108374919FCBC015CFFD322A /* Pods_TextatizeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,7 +146,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBA671258452B329AE4CB4D3 /* Pods_Textatize_TextatizeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,8 +156,6 @@
 			isa = PBXGroup;
 			children = (
 				31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */,
-				1097041FFBEBEC7B21514146 /* Pods_Textatize_TextatizeUITests.framework */,
-				FE88945CA416F011B6AECC76 /* Pods_TextatizeTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -391,10 +379,6 @@
 			children = (
 				3E91399ED23DB8E8E947B9C9 /* Pods-Textatize.debug.xcconfig */,
 				3F257F0F88BCB29995BA719A /* Pods-Textatize.release.xcconfig */,
-				CF204DBA675E47C00ED35D86 /* Pods-Textatize-TextatizeUITests.debug.xcconfig */,
-				C6EF55AC61A1A2CEBBDF06E4 /* Pods-Textatize-TextatizeUITests.release.xcconfig */,
-				3953E006E9B3AEEBF667C0C2 /* Pods-TextatizeTests.debug.xcconfig */,
-				113640D6AECDA973655F0D8B /* Pods-TextatizeTests.release.xcconfig */,
 			);
 			name = Pods;
 			path = Pods;
@@ -411,6 +395,7 @@
 				54568E8D2A127D89001F5CE7 /* Sources */,
 				54568E8E2A127D89001F5CE7 /* Frameworks */,
 				54568E8F2A127D89001F5CE7 /* Resources */,
+				3B2C9811BA5D02B273EFAC93 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -429,7 +414,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54568EB82A127D92001F5CE7 /* Build configuration list for PBXNativeTarget "TextatizeTests" */;
 			buildPhases = (
-				F7CF2D0FA5DBE3B335F33F7F /* [CP] Check Pods Manifest.lock */,
 				54568E9D2A127D92001F5CE7 /* Sources */,
 				54568E9E2A127D92001F5CE7 /* Frameworks */,
 				54568E9F2A127D92001F5CE7 /* Resources */,
@@ -448,7 +432,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54568EBB2A127D92001F5CE7 /* Build configuration list for PBXNativeTarget "TextatizeUITests" */;
 			buildPhases = (
-				DF674C1947F58CE5DBC50A92 /* [CP] Check Pods Manifest.lock */,
 				54568EA72A127D92001F5CE7 /* Sources */,
 				54568EA82A127D92001F5CE7 /* Frameworks */,
 				54568EA92A127D92001F5CE7 /* Resources */,
@@ -537,6 +520,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3B2C9811BA5D02B273EFAC93 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		56BBFE68096AE48FF5E12F3D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -553,50 +553,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Textatize-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DF674C1947F58CE5DBC50A92 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Textatize-TextatizeUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F7CF2D0FA5DBE3B335F33F7F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-TextatizeTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -860,7 +816,6 @@
 		};
 		54568EB92A127D92001F5CE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3953E006E9B3AEEBF667C0C2 /* Pods-TextatizeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -881,7 +836,6 @@
 		};
 		54568EBA2A127D92001F5CE7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 113640D6AECDA973655F0D8B /* Pods-TextatizeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -902,7 +856,6 @@
 		};
 		54568EBC2A127D92001F5CE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF204DBA675E47C00ED35D86 /* Pods-Textatize-TextatizeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -921,7 +874,6 @@
 		};
 		54568EBD2A127D92001F5CE7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C6EF55AC61A1A2CEBBDF06E4 /* Pods-Textatize-TextatizeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

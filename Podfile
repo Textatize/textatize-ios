@@ -7,13 +7,6 @@ target 'Textatize' do
 
   # Pods for Textatize
 
-  target 'TextatizeTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'TextatizeUITests' do
-    # Pods for testing
-  end
+ pod 'Alamofire'
 
 end
