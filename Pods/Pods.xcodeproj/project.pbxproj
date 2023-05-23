@@ -1,0 +1,755 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		21CA1BAA3DAFE425790E6DB9E0DC8CE6 /* Pods-Textatize-TextatizeUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0E48D9A6CF661A3F01A175CA08AB26 /* Pods-Textatize-TextatizeUITests-dummy.m */; };
+		252ABAC8D0B9152FBA4E7FB8752FB8B8 /* Pods-Textatize-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8721A409F9C4D787F1D5C90BF821F79D /* Pods-Textatize-dummy.m */; };
+		5742F48FB6FE15719139A856805CA23B /* Pods-Textatize-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C7A875853C4E8E1B34F7E6CB7C10663B /* Pods-Textatize-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5FDE23F77BBE01247ED5E1DD922A4010 /* Pods-TextatizeTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 98F4F5ED4FB01BC55DFDE592DF892630 /* Pods-TextatizeTests-dummy.m */; };
+		970D04A9761D2AA991340AF14932F639 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		A377C9BED4374A0F5497C4398A85E061 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		CC32904569B775E5BAE80A6172A03B89 /* Pods-TextatizeTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 0E0B0B76456E5239F262FA4AB2F848C8 /* Pods-TextatizeTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D3024035AEDB2049627A5C7104A40C92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		EEB611E4F14FF30F0708854E387078FF /* Pods-Textatize-TextatizeUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 686760BA7B66272A95FF87AE4A9836DB /* Pods-Textatize-TextatizeUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AD6D05C6E7EF1E74CC46A0B4A242EF5A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC1127AE795CDAC19B64147D5EA1628C;
+			remoteInfo = "Pods-Textatize";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		0BAC0D6022D8F2F771606A26CC068651 /* Pods-Textatize-TextatizeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Textatize-TextatizeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		0D0E48D9A6CF661A3F01A175CA08AB26 /* Pods-Textatize-TextatizeUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Textatize-TextatizeUITests-dummy.m"; sourceTree = "<group>"; };
+		0E0B0B76456E5239F262FA4AB2F848C8 /* Pods-TextatizeTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-TextatizeTests-umbrella.h"; sourceTree = "<group>"; };
+		3075B0888F62ED1183804AD2128B27D1 /* Pods-Textatize-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Textatize-Info.plist"; sourceTree = "<group>"; };
+		3893134765CC8B09797D60303D19D2AE /* Pods-TextatizeTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TextatizeTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		3969979287260741E7DD7FE7A245D400 /* Pods-Textatize.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Textatize.modulemap"; sourceTree = "<group>"; };
+		4147A4A640276DC0421A175B575823A2 /* Pods-TextatizeTests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-TextatizeTests-Info.plist"; sourceTree = "<group>"; };
+		4FE92CC91D1848DF041C28C3320867E8 /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
+		5954FCB53C26EE899CE27A7426202AA8 /* Pods-Textatize-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Textatize-acknowledgements.plist"; sourceTree = "<group>"; };
+		5A173FFB7189F5DF052CC01CC8F623A5 /* Pods-Textatize-TextatizeUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Textatize-TextatizeUITests.modulemap"; sourceTree = "<group>"; };
+		5A93F5A0DE58AD69B6934AAC1B0D928D /* Pods-Textatize-TextatizeUITests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Textatize-TextatizeUITests-Info.plist"; sourceTree = "<group>"; };
+		686760BA7B66272A95FF87AE4A9836DB /* Pods-Textatize-TextatizeUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Textatize-TextatizeUITests-umbrella.h"; sourceTree = "<group>"; };
+		6D6C1D28F8A4D1057873827D829A1682 /* Pods-TextatizeTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-TextatizeTests.modulemap"; sourceTree = "<group>"; };
+		6ED4E2D861BB74FD483EE7C8864DA332 /* Pods-Textatize-TextatizeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Textatize-TextatizeUITests.release.xcconfig"; sourceTree = "<group>"; };
+		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		78C8B411DEE625AA936B8B19288CB5F2 /* Pods-TextatizeTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-TextatizeTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		8721A409F9C4D787F1D5C90BF821F79D /* Pods-Textatize-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Textatize-dummy.m"; sourceTree = "<group>"; };
+		8A977DD7505371A0E73436A0A8DFECDC /* Pods-TextatizeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TextatizeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8CF4D95FFA3F0756D0131B3EBF14FA5A /* Pods-TextatizeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-TextatizeTests.release.xcconfig"; sourceTree = "<group>"; };
+		933BFD4C9E0A5009D9ED5EDE83A1298F /* Pods-Textatize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Textatize.debug.xcconfig"; sourceTree = "<group>"; };
+		971D7F0A2F8F711F44CDD2EAE548F328 /* Pods-Textatize-TextatizeUITests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Textatize-TextatizeUITests"; path = Pods_Textatize_TextatizeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		98F4F5ED4FB01BC55DFDE592DF892630 /* Pods-TextatizeTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-TextatizeTests-dummy.m"; sourceTree = "<group>"; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C7A875853C4E8E1B34F7E6CB7C10663B /* Pods-Textatize-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Textatize-umbrella.h"; sourceTree = "<group>"; };
+		D006AC123EC5556768D68233C3A77A5F /* Pods-Textatize-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Textatize-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D25ABBA761C6B8AA7BA516BFBD4E0452 /* Pods-Textatize-TextatizeUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Textatize-TextatizeUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		E0BDF4E3D752C9E416F513C4A1EF08AA /* Pods-TextatizeTests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-TextatizeTests"; path = Pods_TextatizeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FECCA95809E1CBD514AF19E18CF6FBED /* Pods-Textatize */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Textatize"; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF2BA2A8FE4F5CB3D1439457F95782F1 /* Pods-Textatize-TextatizeUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Textatize-TextatizeUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6F38975ED59AADF35B6EEA4E60FD90B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				970D04A9761D2AA991340AF14932F639 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A88D7075AC453A9069078013BB717620 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3024035AEDB2049627A5C7104A40C92 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC4A5BF5468122B5D752B66BC482DC13 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A377C9BED4374A0F5497C4398A85E061 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		094B4BB61F5EE59AFD507374C98DB6C9 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				F7CF277D0D92F136D5A0C55ABD236203 /* Pods-Textatize */,
+				BF716A294ABEFE9F87EED1E69D7C3884 /* Pods-Textatize-TextatizeUITests */,
+				9D82F18097A83DE8F50BAF8216CA1DAC /* Pods-TextatizeTests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		5C716B55FA59880F1609F09A96E081D5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FECCA95809E1CBD514AF19E18CF6FBED /* Pods-Textatize */,
+				971D7F0A2F8F711F44CDD2EAE548F328 /* Pods-Textatize-TextatizeUITests */,
+				E0BDF4E3D752C9E416F513C4A1EF08AA /* Pods-TextatizeTests */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9D82F18097A83DE8F50BAF8216CA1DAC /* Pods-TextatizeTests */ = {
+			isa = PBXGroup;
+			children = (
+				6D6C1D28F8A4D1057873827D829A1682 /* Pods-TextatizeTests.modulemap */,
+				78C8B411DEE625AA936B8B19288CB5F2 /* Pods-TextatizeTests-acknowledgements.markdown */,
+				3893134765CC8B09797D60303D19D2AE /* Pods-TextatizeTests-acknowledgements.plist */,
+				98F4F5ED4FB01BC55DFDE592DF892630 /* Pods-TextatizeTests-dummy.m */,
+				4147A4A640276DC0421A175B575823A2 /* Pods-TextatizeTests-Info.plist */,
+				0E0B0B76456E5239F262FA4AB2F848C8 /* Pods-TextatizeTests-umbrella.h */,
+				8A977DD7505371A0E73436A0A8DFECDC /* Pods-TextatizeTests.debug.xcconfig */,
+				8CF4D95FFA3F0756D0131B3EBF14FA5A /* Pods-TextatizeTests.release.xcconfig */,
+			);
+			name = "Pods-TextatizeTests";
+			path = "Target Support Files/Pods-TextatizeTests";
+			sourceTree = "<group>";
+		};
+		BF716A294ABEFE9F87EED1E69D7C3884 /* Pods-Textatize-TextatizeUITests */ = {
+			isa = PBXGroup;
+			children = (
+				5A173FFB7189F5DF052CC01CC8F623A5 /* Pods-Textatize-TextatizeUITests.modulemap */,
+				FF2BA2A8FE4F5CB3D1439457F95782F1 /* Pods-Textatize-TextatizeUITests-acknowledgements.markdown */,
+				D25ABBA761C6B8AA7BA516BFBD4E0452 /* Pods-Textatize-TextatizeUITests-acknowledgements.plist */,
+				0D0E48D9A6CF661A3F01A175CA08AB26 /* Pods-Textatize-TextatizeUITests-dummy.m */,
+				5A93F5A0DE58AD69B6934AAC1B0D928D /* Pods-Textatize-TextatizeUITests-Info.plist */,
+				686760BA7B66272A95FF87AE4A9836DB /* Pods-Textatize-TextatizeUITests-umbrella.h */,
+				0BAC0D6022D8F2F771606A26CC068651 /* Pods-Textatize-TextatizeUITests.debug.xcconfig */,
+				6ED4E2D861BB74FD483EE7C8864DA332 /* Pods-Textatize-TextatizeUITests.release.xcconfig */,
+			);
+			name = "Pods-Textatize-TextatizeUITests";
+			path = "Target Support Files/Pods-Textatize-TextatizeUITests";
+			sourceTree = "<group>";
+		};
+		CF1408CF629C7361332E53B88F7BD30C = {
+			isa = PBXGroup;
+			children = (
+				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
+				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
+				5C716B55FA59880F1609F09A96E081D5 /* Products */,
+				094B4BB61F5EE59AFD507374C98DB6C9 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				578452D2E740E91742655AC8F1636D1F /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F7CF277D0D92F136D5A0C55ABD236203 /* Pods-Textatize */ = {
+			isa = PBXGroup;
+			children = (
+				3969979287260741E7DD7FE7A245D400 /* Pods-Textatize.modulemap */,
+				D006AC123EC5556768D68233C3A77A5F /* Pods-Textatize-acknowledgements.markdown */,
+				5954FCB53C26EE899CE27A7426202AA8 /* Pods-Textatize-acknowledgements.plist */,
+				8721A409F9C4D787F1D5C90BF821F79D /* Pods-Textatize-dummy.m */,
+				3075B0888F62ED1183804AD2128B27D1 /* Pods-Textatize-Info.plist */,
+				C7A875853C4E8E1B34F7E6CB7C10663B /* Pods-Textatize-umbrella.h */,
+				933BFD4C9E0A5009D9ED5EDE83A1298F /* Pods-Textatize.debug.xcconfig */,
+				4FE92CC91D1848DF041C28C3320867E8 /* Pods-Textatize.release.xcconfig */,
+			);
+			name = "Pods-Textatize";
+			path = "Target Support Files/Pods-Textatize";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		C0832A3F32BE81C4DB6E2228D8A2D2E2 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC32904569B775E5BAE80A6172A03B89 /* Pods-TextatizeTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C8A99E932DEF5D8212FD7BC1EC34AEE0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5742F48FB6FE15719139A856805CA23B /* Pods-Textatize-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0D28547A460D2D38CFA2DC117B4931B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEB611E4F14FF30F0708854E387078FF /* Pods-Textatize-TextatizeUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		53009C7BA513B32A801579A97F616059 /* Pods-TextatizeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A112B050951FD867ABA5AA32BBB93B76 /* Build configuration list for PBXNativeTarget "Pods-TextatizeTests" */;
+			buildPhases = (
+				C0832A3F32BE81C4DB6E2228D8A2D2E2 /* Headers */,
+				77DD755F09D008BA9DCA1480009A7A2B /* Sources */,
+				FC4A5BF5468122B5D752B66BC482DC13 /* Frameworks */,
+				7681348424CBC2B0A26DBDD2FC56EF76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8E642574A1D25D85940ECA79E3FB4CFF /* PBXTargetDependency */,
+			);
+			name = "Pods-TextatizeTests";
+			productName = Pods_TextatizeTests;
+			productReference = E0BDF4E3D752C9E416F513C4A1EF08AA /* Pods-TextatizeTests */;
+			productType = "com.apple.product-type.framework";
+		};
+		C59E186B2DB29E4E15273BEF9C507DFB /* Pods-Textatize-TextatizeUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3382B7F3E564BA85E42D34E438B8885A /* Build configuration list for PBXNativeTarget "Pods-Textatize-TextatizeUITests" */;
+			buildPhases = (
+				D0D28547A460D2D38CFA2DC117B4931B /* Headers */,
+				F434B7AF76537E36B4D40EB3AA45BA00 /* Sources */,
+				A88D7075AC453A9069078013BB717620 /* Frameworks */,
+				4928973458642EEA9DF87C9D7FEF24C3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Textatize-TextatizeUITests";
+			productName = Pods_Textatize_TextatizeUITests;
+			productReference = 971D7F0A2F8F711F44CDD2EAE548F328 /* Pods-Textatize-TextatizeUITests */;
+			productType = "com.apple.product-type.framework";
+		};
+		DC1127AE795CDAC19B64147D5EA1628C /* Pods-Textatize */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6FBE8FA30BB552FAC521DCEB7AF98B16 /* Build configuration list for PBXNativeTarget "Pods-Textatize" */;
+			buildPhases = (
+				C8A99E932DEF5D8212FD7BC1EC34AEE0 /* Headers */,
+				D1202D2E9084494936F97C42856D44D9 /* Sources */,
+				6F38975ED59AADF35B6EEA4E60FD90B0 /* Frameworks */,
+				5D9DDC1BEA2409AE9A1ED7C22C97C4A0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-Textatize";
+			productName = Pods_Textatize;
+			productReference = FECCA95809E1CBD514AF19E18CF6FBED /* Pods-Textatize */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1300;
+				LastUpgradeCheck = 1300;
+			};
+			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
+			productRefGroup = 5C716B55FA59880F1609F09A96E081D5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DC1127AE795CDAC19B64147D5EA1628C /* Pods-Textatize */,
+				C59E186B2DB29E4E15273BEF9C507DFB /* Pods-Textatize-TextatizeUITests */,
+				53009C7BA513B32A801579A97F616059 /* Pods-TextatizeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4928973458642EEA9DF87C9D7FEF24C3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5D9DDC1BEA2409AE9A1ED7C22C97C4A0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7681348424CBC2B0A26DBDD2FC56EF76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		77DD755F09D008BA9DCA1480009A7A2B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5FDE23F77BBE01247ED5E1DD922A4010 /* Pods-TextatizeTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D1202D2E9084494936F97C42856D44D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				252ABAC8D0B9152FBA4E7FB8752FB8B8 /* Pods-Textatize-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F434B7AF76537E36B4D40EB3AA45BA00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				21CA1BAA3DAFE425790E6DB9E0DC8CE6 /* Pods-Textatize-TextatizeUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E642574A1D25D85940ECA79E3FB4CFF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Pods-Textatize";
+			target = DC1127AE795CDAC19B64147D5EA1628C /* Pods-Textatize */;
+			targetProxy = AD6D05C6E7EF1E74CC46A0B4A242EF5A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F02CC2325B6773163FB0C29597F98A5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6ED4E2D861BB74FD483EE7C8864DA332 /* Pods-Textatize-TextatizeUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Textatize-TextatizeUITests/Pods-Textatize-TextatizeUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Textatize-TextatizeUITests/Pods-Textatize-TextatizeUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		41B16DEE8019107B4A2EBBF418E30449 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 933BFD4C9E0A5009D9ED5EDE83A1298F /* Pods-Textatize.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Textatize/Pods-Textatize-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Textatize/Pods-Textatize.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4CF4C5A6CF85F15E18F0C8DADD7BAA8E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FE92CC91D1848DF041C28C3320867E8 /* Pods-Textatize.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Textatize/Pods-Textatize-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Textatize/Pods-Textatize.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		60C4E986407D19D92332881DAF13A95D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0BAC0D6022D8F2F771606A26CC068651 /* Pods-Textatize-TextatizeUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-Textatize-TextatizeUITests/Pods-Textatize-TextatizeUITests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Textatize-TextatizeUITests/Pods-Textatize-TextatizeUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		7C3FBC45C4966EFE20583918767EFBE2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		8E2695221F11545945AFE862B8142118 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8A977DD7505371A0E73436A0A8DFECDC /* Pods-TextatizeTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-TextatizeTests/Pods-TextatizeTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-TextatizeTests/Pods-TextatizeTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		D39A36F07B97F32EF7A187E86AF59687 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8CF4D95FFA3F0756D0131B3EBF14FA5A /* Pods-TextatizeTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-TextatizeTests/Pods-TextatizeTests-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-TextatizeTests/Pods-TextatizeTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		FF0A36149038A192FFD678E1D4A40D3B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3382B7F3E564BA85E42D34E438B8885A /* Build configuration list for PBXNativeTarget "Pods-Textatize-TextatizeUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60C4E986407D19D92332881DAF13A95D /* Debug */,
+				0F02CC2325B6773163FB0C29597F98A5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C3FBC45C4966EFE20583918767EFBE2 /* Debug */,
+				FF0A36149038A192FFD678E1D4A40D3B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6FBE8FA30BB552FAC521DCEB7AF98B16 /* Build configuration list for PBXNativeTarget "Pods-Textatize" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				41B16DEE8019107B4A2EBBF418E30449 /* Debug */,
+				4CF4C5A6CF85F15E18F0C8DADD7BAA8E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A112B050951FD867ABA5AA32BBB93B76 /* Build configuration list for PBXNativeTarget "Pods-TextatizeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8E2695221F11545945AFE862B8142118 /* Debug */,
+				D39A36F07B97F32EF7A187E86AF59687 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFDFE7DC352907FC980B868725387E98 /* Project object */;
+}

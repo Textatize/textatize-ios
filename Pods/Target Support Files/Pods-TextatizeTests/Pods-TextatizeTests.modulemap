@@ -1,0 +1,6 @@
+framework module Pods_TextatizeTests {
+  umbrella header "Pods-TextatizeTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
