@@ -11,9 +11,7 @@ struct CreateAccountScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject private var vm = RegisterViewModel()
-    
-    @State private var registerPressed = false
-    
+        
     var body: some View {
         ZStack {
             

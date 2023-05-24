@@ -11,15 +11,17 @@ struct NewEventScreen: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @State private var eventName = ""
-    @State private var eventDate = ""
-    @State private var eventHostName = ""
-    @State private var orientationSelected = "Portrait"
-    @State private var cameraSelected = "Front"
+    @State private var eventName: String = ""
+    @State private var eventHostName: String = ""
+    @State private var eventDate: String = ""
+    @State private var eventLocation: String = ""
+    @State private var orientation: Orientation = .portrait
+    @State private var camera: Camera = .back
+    
     @State private var nextButtonPressed = false
     
-    var orientationOptions = ["Portrait", "Landscape", "Square"]
-    var cameraOptions = ["Front", "Rear"]
+    var orientationOptions: [Orientation] = [.landscape, .portrait, .square]
+    var cameraOptions: [Camera] = [.front, .back]
     
     var body: some View {
         ZStack {
@@ -97,7 +99,7 @@ struct NewEventScreen: View {
                             Text("Location")
                                 .font(.caption)
                             
-                            TextField("Choose the location", text: $eventDate)
+                            TextField("Choose the location", text: $eventLocation)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
@@ -116,28 +118,28 @@ struct NewEventScreen: View {
                             HStack {
                                 Button {
                                     withAnimation {
-                                        orientationSelected = orientationOptions[item]
+                                       orientation = orientationOptions[item]
                                     }
                                 } label: {
                                     Circle()
                                         .fill(AppColors.Onboarding.loginButton)
-                                        .frame(width: 25)
+                                        .frame(width: 20, height: 20)
                                         .overlay {
                                             Circle()
                                                 .fill(.white)
-                                                .frame(width: 20)
+                                                .frame(width: 30)
+ 
                                         }
                                         .overlay {
-                                            if orientationSelected == orientationOptions[item] {
+                                            if orientation == orientationOptions[item] {
                                                 Circle()
                                                     .fill(AppColors.Onboarding.loginButton)
                                                     .frame(width: 10)
                                             }
                                         }
-                                        
-
+ 
                                 }
-                                Text(orientationOptions[item])
+                                Text(orientationOptions[item].rawValue)
                                     .font(.caption2)
                             }
                             
@@ -156,28 +158,27 @@ struct NewEventScreen: View {
                             HStack {
                                 Button {
                                     withAnimation {
-                                        cameraSelected = cameraOptions[item]
+                                        camera = cameraOptions[item]
                                     }
                                 } label: {
                                     Circle()
                                         .fill(AppColors.Onboarding.loginButton)
-                                        .frame(width: 25)
+                                        .frame(width: 20, height: 20)
                                         .overlay {
                                             Circle()
                                                 .fill(.white)
-                                                .frame(width: 20)
+                                                .frame(width: 30)
+ 
                                         }
                                         .overlay {
-                                            if cameraSelected == cameraOptions[item] {
+                                            if camera == cameraOptions[item] {
                                                 Circle()
                                                     .fill(AppColors.Onboarding.loginButton)
                                                     .frame(width: 10)
                                             }
                                         }
-                                        
-
                                 }
-                                Text(orientationOptions[item])
+                                Text(cameraOptions[item].rawValue)
                                     .font(.caption2)
                             }
                             
@@ -213,7 +214,7 @@ struct NewEventScreen: View {
             .padding(.vertical, 45)
             .padding(.horizontal)
             .fullScreenCover(isPresented: $nextButtonPressed) {
-                FrameScreen()
+                FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
             }
         }
     }

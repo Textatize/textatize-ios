@@ -11,10 +11,19 @@ struct FrameScreen: View {
     @Environment(\.dismiss) var dismiss
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
+     
+    var name: String
+    var eventHostName: String
+    var date: String
+    var location: String
+    var orientation: Orientation
+    var camera: Camera
+    @State private var watermarkImage: UIImage? = UIImage(systemName: "person")
+    @State private var watermarkTransparency: Double = 0.0
+    @State private var watermarkPosition: WatermarkPosition = .bottomLeft
     
     @State private var editTemplateSelected = false
     @State private var watermarkSwitch = false
-    @State private var transparencyValue = 50.0
     @State private var nextPressed = false
     
     var body: some View {
@@ -104,13 +113,15 @@ struct FrameScreen: View {
                                     
                                     HStack {
                                         Button {
-                                            print("Position 1")
+                                            watermarkPosition = .bottomLeft
+                                            print("BottomLeft")
                                         } label: {
                                             AppImages.position1
                                         }
                                         
                                         Button {
-                                            print("Position 2")
+                                            watermarkPosition = .bottomRight
+                                            print("BottomRight")
                                         } label: {
                                             AppImages.position2
                                         }
@@ -121,8 +132,8 @@ struct FrameScreen: View {
                                 HStack {
                                     Text("Transparency")
                                     
-                                    Slider(value: $transparencyValue, in: 0...100)
-                                    Text("\(transparencyValue, specifier: "%.2f") %")
+                                    Slider(value: $watermarkTransparency, in: 0...100)
+                                    Text("\(watermarkTransparency, specifier: "%.1f") %")
                                 }
                                 
                                 HStack {
@@ -156,7 +167,7 @@ struct FrameScreen: View {
             .padding(.vertical, 45)
             .padding(.horizontal)
             .fullScreenCover(isPresented: $nextPressed) {
-                CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+                CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition)
             }
             
         }
@@ -165,6 +176,6 @@ struct FrameScreen: View {
 
 struct FrameScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FrameScreen()
+        FrameScreen(name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
     }
 }

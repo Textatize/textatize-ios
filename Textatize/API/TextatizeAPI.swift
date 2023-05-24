@@ -51,8 +51,9 @@ class TextatizeAPI {
         parameters["password"] = password.trimmingCharacters(in: .whitespacesAndNewlines)
         
         
-        AF.request(TextatizeAPI.API_URL + "auth/register", method: .post, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
-                        
+        AF.request(TextatizeAPI.API_URL + "auth/register", method: .post, parameters: parameters).validate().responseJSON { [weak self] response in
+                      
+            
             if let api = self {
                 switch response.result {
                     
@@ -101,22 +102,23 @@ class TextatizeAPI {
                 case .success:
                                                             
                     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                        let userResponse: UserResponse = UserResponse(JSONString: utf8Text)!
-                        
-                        if let error = userResponse.error {
-                            completionHandler(ServerError(WithMessage: error), nil)
-                            return
+                        if let userResponse: UserResponse = UserResponse(JSONString: utf8Text) {
+                            if let error = userResponse.error {
+                                completionHandler(ServerError(WithMessage: error), nil)
+                                return
+                            }
+                            
+                            if let username = username {
+                                TextatizeLoginManager.shared.storeUsername(username: username)
+                            }
+                            
+                            if let password = password {
+                                TextatizeLoginManager.shared.storePassword(password: password)
+                            }
+                            
+                            api.handleLogin(userResponse, api, completionHandler: completionHandler)
                         }
                         
-                        if let username = username {
-                            TextatizeLoginManager.shared.storeUsername(username: username)
-                        }
-                        
-                        if let password = password {
-                            TextatizeLoginManager.shared.storePassword(password: password)
-                        }
-                        
-                        api.handleLogin(userResponse, api, completionHandler: completionHandler)
                     }
                     
                 case .failure(let error):
@@ -129,6 +131,46 @@ class TextatizeAPI {
             }
         }
         
+    }
+    
+    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            if let nameData = name.data(using: .utf8) {
+                multipartFormData.append(nameData, withName: "name")
+            }
+            if let orientationData = orientation.rawValue.data(using: .utf8) {
+                multipartFormData.append(orientationData, withName: "orientation")
+            }
+            if let cameraData = camera.rawValue.data(using: .utf8) {
+                multipartFormData.append(cameraData, withName: "camera")
+            }
+            if let watermarkPositionData = watermarkPosition.rawValue.data(using: .utf8) {
+                multipartFormData.append(watermarkPositionData, withName: "watermarkPosition")
+            }
+            if let locationData = location.data(using: .utf8) {
+                multipartFormData.append(locationData, withName: "location")
+            }
+            
+            if let watermarkImage = watermarkImage {
+                if let imageData = watermarkImage.jpegData(compressionQuality: 0.5) {
+                    multipartFormData.append(imageData, withName: "watermarkUrl", fileName: "watermarkUrl.jpg", mimeType: "image/jpeg")
+                }
+            }
+            
+            if let watermarkTransparencyData = watermarkTransparency.data(using: .utf8) {
+                multipartFormData.append(watermarkTransparencyData, withName: "watermarkTransparency")
+            }
+        }, to: "\(TextatizeAPI.API_URL)/event",
+                  method: .post,
+                  headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
+            
+            print("Response: \(response)")
+            
+        }
+
     }
     
     func getEvent(completionHandler: @escaping (ServerError?, EventResponse?) -> Void) {

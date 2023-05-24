@@ -10,12 +10,17 @@ import SwiftUI
 struct CheckAllInfoScreen: View {
     @Environment(\.dismiss) var dismiss
     
+    @StateObject private var vm = CheckInfoViewModel()
+        
     var name: String
     var date: String
     var location: String
-    var orientation: String
-    var camera: String
+    var orientation: Orientation
+    var camera: Camera
     var hostName: String
+    var watermarkImage: UIImage
+    var watermarkTransparency: Double
+    var watermarkPosition: WatermarkPosition
     
     var body: some View {
         ZStack {
@@ -92,7 +97,7 @@ struct CheckAllInfoScreen: View {
                                     Text("Orientation: ")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
-                                    Text(orientation)
+                                    Text(orientation.rawValue)
                                         .font(.caption)
                                 }
                                 
@@ -100,7 +105,7 @@ struct CheckAllInfoScreen: View {
                                     Text("Camera: ")
                                         .font(.subheadline)
                                         .fontWeight(.semibold)
-                                    Text(camera)
+                                    Text(camera.rawValue)
                                         .font(.caption)
                                 }
                                 
@@ -160,6 +165,9 @@ struct CheckAllInfoScreen: View {
                 Spacer()
                 
                 CustomButtonView(filled: true, name: "Save")
+                    .onTapGesture(perform: {
+                        vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency))
+                    })
                     .padding()
                 
             }
@@ -173,6 +181,6 @@ struct CheckAllInfoScreen: View {
 
 struct CheckAllInfoScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+        CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: .portrait, camera: .front, hostName: "Anna", watermarkImage: UIImage(systemName: "person")!, watermarkTransparency: 0.50, watermarkPosition: .bottomRight)
     }
 }

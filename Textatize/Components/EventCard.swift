@@ -24,7 +24,6 @@ struct EventCard: View {
         if new {
             Button {
                 print("New Event Pressed")
-                
                 withAnimation {
                     eventSelected = true
                 }

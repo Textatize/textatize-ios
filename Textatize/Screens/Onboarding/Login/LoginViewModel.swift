@@ -18,6 +18,7 @@ class LoginViewModel: ObservableObject {
     @Published var alertMessage = ""
        
     let api = TextatizeAPI.shared
+    let manager = DataManager.shared
     
     func login() {
         api.login(username: email, password: password) { [weak self] error, userResponse in
@@ -29,7 +30,8 @@ class LoginViewModel: ObservableObject {
                 self.showAlert = true
             }
             
-            if let userResponse = userResponse {
+            if let userResponse = userResponse, let user = userResponse.user {
+                self.manager.user = user
                 self.loginSuccess = true
             }
         }

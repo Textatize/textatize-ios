@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EventsScreen: View {
+    @StateObject private var vm = EventViewModel()
     
     let layout = [
         GridItem(.flexible()),
@@ -39,7 +40,7 @@ struct EventsScreen: View {
                     .padding()
                 
                 VStack {
-                    Text("Hello John!")
+                    Text(vm.firstName)
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .font(.title)
                         .fontWeight(.semibold)

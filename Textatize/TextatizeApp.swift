@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct TextatizeApp: App {
+    @StateObject private var manager = DataManager.shared
     var body: some Scene {
         WindowGroup {
-            LoginScreen()
+            if manager.user == nil {
+                LoginScreen()
+            } else {
+                MainTabView()
+            }
         }
     }
 }
