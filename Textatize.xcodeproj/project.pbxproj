@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5409777E2A1D42480079862F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5409777D2A1D42480079862F /* RegisterViewModel.swift */; };
 		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
 		54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7B2A128A5B00C02B14 /* Colors.swift */; };
 		54309C7E2A12DDB500C02B14 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7D2A12DDB500C02B14 /* Images.swift */; };
@@ -74,6 +75,7 @@
 		31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E91399ED23DB8E8E947B9C9 /* Pods-Textatize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.debug.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.debug.xcconfig"; sourceTree = "<group>"; };
 		3F257F0F88BCB29995BA719A /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
+		5409777D2A1D42480079862F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
 		54309C7B2A128A5B00C02B14 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		54309C7D2A12DDB500C02B14 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
@@ -154,6 +156,15 @@
 				31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5409777C2A1D42190079862F /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				5409777D2A1D42480079862F /* RegisterViewModel.swift */,
+				54309C852A13331100C02B14 /* CreateAccountScreen.swift */,
+			);
+			path = Register;
 			sourceTree = "<group>";
 		};
 		54309C8B2A13AA6800C02B14 /* Style */ = {
@@ -322,10 +333,10 @@
 			isa = PBXGroup;
 			children = (
 				543263572A17A83900C96A1A /* Login */,
+				5409777C2A1D42190079862F /* Register */,
 				54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */,
 				54309C812A130D1F00C02B14 /* RecoveryScreen.swift */,
 				54309C832A13256F00C02B14 /* NewPasswordScreen.swift */,
-				54309C852A13331100C02B14 /* CreateAccountScreen.swift */,
 				54309C872A13A77400C02B14 /* VerificationScreen.swift */,
 				54309C892A13A8D300C02B14 /* ThanksScreen.swift */,
 			);
@@ -591,6 +602,7 @@
 				54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */,
 				5459E5AA2A16551D0008930B /* ContactInformationScreen.swift in Sources */,
 				54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */,
+				5409777E2A1D42480079862F /* RegisterViewModel.swift in Sources */,
 				54309C862A13331100C02B14 /* CreateAccountScreen.swift in Sources */,
 				54511EC02A152F75002590A7 /* EventCard.swift in Sources */,
 				543263592A17A85400C96A1A /* LoginViewModel.swift in Sources */,

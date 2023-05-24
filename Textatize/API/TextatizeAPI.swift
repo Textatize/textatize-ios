@@ -40,6 +40,47 @@ class TextatizeAPI {
         }
     }
     
+    func register(first_name: String, last_name: String, username: String, email: String, phone: String, password: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        
+        var parameters: Parameters = [:]
+        parameters["first_name"] = first_name.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["last_name"] = last_name.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["username"] = username.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["email"] = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["phone"] = phone.trimmingCharacters(in: .whitespacesAndNewlines)
+        parameters["password"] = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        
+        AF.request(TextatizeAPI.API_URL + "auth/register", method: .post, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
+                        
+            if let api = self {
+                switch response.result {
+                    
+                case .success:
+                    
+                    if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                        let userResponse: UserResponse = UserResponse(JSONString: utf8Text)!
+                                                
+                        if let error = userResponse.error {
+                            completion(ServerError(WithMessage: error), nil)
+                            return
+                        }
+                        
+                        TextatizeLoginManager.shared.storeUsername(username: username)
+                        TextatizeLoginManager.shared.storePassword(password: password)
+                        
+                        completion(nil, userResponse)
+                    }
+                   
+                case .failure(let error):
+                    completion(ServerError(WithMessage: error.localizedDescription), nil)
+                }
+            }
+        }
+        
+        
+    }
+    
     func login(username: String?, password: String?, completionHandler: @escaping (ServerError?, UserResponse?) -> Void) {
         
         var parameters: Parameters = [:]

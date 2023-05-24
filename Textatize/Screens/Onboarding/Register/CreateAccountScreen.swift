@@ -10,11 +10,7 @@ import SwiftUI
 struct CreateAccountScreen: View {
     @Environment(\.dismiss) var dismiss
     
-    @State private var nameTxt = ""
-    @State private var emailTxt = ""
-    @State private var phoneNumberTxt = ""
-    @State private var passwordTxt = ""
-    @State private var confirmPasswordTxt = ""
+    @StateObject private var vm = RegisterViewModel()
     
     @State private var registerPressed = false
     
@@ -48,7 +44,7 @@ struct CreateAccountScreen: View {
                             Text("Your name")
                                 .font(.caption)
                             
-                            TextField("Enter your name", text: $nameTxt)
+                            TextField("Enter your name", text: $vm.name)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
@@ -58,7 +54,7 @@ struct CreateAccountScreen: View {
                             Text("Your email")
                                 .font(.caption)
                             
-                            TextField("Enter your email", text: $emailTxt)
+                            TextField("Enter your email", text: $vm.email)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
@@ -69,7 +65,7 @@ struct CreateAccountScreen: View {
                             Text("Phone Number")
                                 .font(.caption)
                             
-                            TextField("Enter your phone number", text: $phoneNumberTxt)
+                            TextField("Enter your phone number", text: $vm.phone)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
@@ -81,7 +77,7 @@ struct CreateAccountScreen: View {
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $passwordTxt)
+                                SecureField("Enter your password", text: $vm.password)
                                     .padding()
                                     .frame(height: 50)
                                     .onboardingBorder()
@@ -103,10 +99,11 @@ struct CreateAccountScreen: View {
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $confirmPasswordTxt)
+                                SecureField("Enter your password", text: $vm.confirmPassword)
                                     .padding()
                                     .frame(height: 50)
                                     .onboardingBorder()
+                                    
 
                                 
                                 Button {
@@ -126,7 +123,7 @@ struct CreateAccountScreen: View {
                     
                     CustomButtonView(filled: true, name:"Register")
                         .onTapGesture {
-                            registerPressed = true
+                            vm.createAccount()
                         }
 
                 }
@@ -136,10 +133,12 @@ struct CreateAccountScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
-            .fullScreenCover(isPresented: $registerPressed) {
+            .fullScreenCover(isPresented: $vm.registerSuccess) {
                 VerificationScreen()
             }
-            
+            .alert(isPresented: $vm.showAlert) {
+                Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
+            }
         }
     }
 }
