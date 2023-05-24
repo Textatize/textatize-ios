@@ -27,7 +27,7 @@ struct VerificationScreen: View {
 //                    Text("Back")
 //                }
 //                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
+//            }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
             
