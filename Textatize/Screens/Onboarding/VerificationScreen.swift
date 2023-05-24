@@ -28,8 +28,8 @@ struct VerificationScreen: View {
 //                }
 //                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
 //            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
+            //.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+           // .padding()
             
             
             VStack {
