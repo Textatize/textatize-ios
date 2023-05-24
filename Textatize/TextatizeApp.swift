@@ -15,7 +15,7 @@ struct TextatizeApp: App {
             if manager.user == nil {
                 LoginScreen()
             } else {
-                MainTabView()
+                VerificationScreen()
             }
         }
     }

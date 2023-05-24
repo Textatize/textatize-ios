@@ -19,14 +19,14 @@ struct VerificationScreen: View {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
             
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+//            Button {
+//                dismiss()
+//            } label: {
+//                HStack {
+//                    Image(systemName: "arrow.left")
+//                    Text("Back")
+//                }
+//                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .padding()
@@ -92,7 +92,7 @@ struct VerificationScreen: View {
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
             .fullScreenCover(isPresented: $verifyPressed) {
-                ThanksScreen()
+                MainTabView()
             }
             
         }
