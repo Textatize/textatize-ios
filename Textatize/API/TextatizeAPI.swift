@@ -12,7 +12,7 @@ class TextatizeAPI {
     
     static let shared: TextatizeAPI = TextatizeAPI()
     private let API_URL: String = "https://devapi.textatizeapp.com/"
-
+    
     var sessionToken: String? {
             get {
                 return UserDefaults.standard.string(forKey: "sessionToken")
