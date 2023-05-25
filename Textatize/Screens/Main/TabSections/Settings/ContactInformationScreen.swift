@@ -19,18 +19,6 @@ struct ContactInformationScreen: View {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
             
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            
             VStack {
                 
                 Spacer()
@@ -98,7 +86,20 @@ struct ContactInformationScreen: View {
             .padding(.vertical, 45)
             .padding(.horizontal)
         }
-    }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "arrow.left")
+                        Text("Back")
+                    }
+                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()    }
 }
 
 struct ContactInformationScreen_Previews: PreviewProvider {

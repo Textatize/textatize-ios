@@ -19,19 +19,7 @@ struct ChangePasswordScreen: View {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            
+        
             VStack {
                 
                 Spacer()
@@ -136,6 +124,20 @@ struct ChangePasswordScreen: View {
             .padding(.horizontal)
             
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                Button {
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "arrow.left")
+                        Text("Back")
+                    }
+                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+                }
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
