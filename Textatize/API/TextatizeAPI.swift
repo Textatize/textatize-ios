@@ -184,9 +184,7 @@ class TextatizeAPI {
             if let page = page {
                 parameters["page"] = page
             }
-            
-            print(sessionToken)
-            
+                        
             AF.request(TextatizeAPI.API_URL + "event/my", method: .get, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
                 if let api = self {
                     print("Retrieve Events Response: \(response)")
@@ -207,6 +205,30 @@ class TextatizeAPI {
                 }
             }
             
+        }
+    }
+    
+    func retrieveUser(completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard let sessionToken = sessionToken else { return }
+        
+        AF.request(TextatizeAPI.API_URL + "user/me",
+                   method: .get,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { [weak self] response in
+            guard let self = `self` else { return }
+            print("Retrieve User Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let userResponse = UserResponse(JSONString: utf8Text)
+                    completion(nil, userResponse)
+                } else {
+                    completion(ServerError(WithMessage: "Cannot Convert Response into User Response"), nil)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
         }
     }
     

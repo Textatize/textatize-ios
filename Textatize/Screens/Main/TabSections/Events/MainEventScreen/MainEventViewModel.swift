@@ -27,11 +27,10 @@ class EventViewModel: ObservableObject {
             
             if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
                 self.events = APIEvents
-            }
-            
-            print("Event Count: \(events.count)")
+            }            
         }
     }
+    
     
     
 }
