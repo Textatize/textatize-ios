@@ -180,7 +180,7 @@ class TextatizeAPI {
             
             AF.request(TextatizeAPI.API_URL + "event/my", method: .get, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
                 if let api = self {
-                    
+                    print(response)
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {

@@ -9,14 +9,31 @@ import SwiftUI
 
 class EventViewModel: ObservableObject {
     
-    @Published var firstName = DataManager.shared.user?.firstName ?? "No Name"
+    static let shared = EventViewModel()
     
-    @Published var eventName = ""
-    @Published var eventHostName = ""
-    @Published var eventLocation = ""
-    @Published var orientation: Orientation = .portrait
-    @Published var camera: Camera = .back
-    @Published var watermarkPosition: WatermarkPosition = .bottomLeft
-    @Published var watermarkTransparency = 0.00
-    @Published var watermarkImage: UIImage? = UIImage(systemName: "person")
+    @Published var firstName = DataManager.shared.user?.firstName ?? "No Name Found"
+    @Published var events = [Event]()
+    
+    let textatizeAPI = TextatizeAPI.shared
+    
+    private init() {
+        
+        textatizeAPI.getEvent { [weak self] error, eventResponse in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print(error.getMessage() ?? "No Message Found")
+            }
+            
+            if let eventResponse = eventResponse, let APIEvents = eventResponse.events {
+                self.events = APIEvents
+            }
+            
+            print("Event Count: \(events.count)")
+            
+        }
+        
+    }
+    
+    
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EventsScreen: View {
-    @StateObject private var vm = EventViewModel()
+    @StateObject private var vm = EventViewModel.shared
     
     let layout = [
         GridItem(.flexible()),
@@ -122,7 +122,7 @@ struct EventsScreen: View {
                     Group {
                         ScrollView {
                             LazyVGrid(columns: layout, spacing: 20) {
-                                ForEach(0..<10) { item in
+                                ForEach(0..<vm.events.count + 2) { item in
                                     if item == 0 {
                                         EventCard(new: true, eventSelected: $createNewEventPressed)
                                             .frame(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.25)

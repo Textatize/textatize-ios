@@ -11,18 +11,19 @@ class DataManager: ObservableObject {
     
     @Published var user: User?
 
-    
     static let shared = DataManager()
     private let loginManager = TextatizeLoginManager()
+    private let textatizeAPI = TextatizeAPI.shared
     
     private init() {
         
-        TextatizeAPI.shared.login(username: loginManager.getUsername(), password: loginManager.getPassword()) { [weak self] _, response in
+        textatizeAPI.login(username: loginManager.getUsername(), password: loginManager.getPassword()) { [weak self] _, response in
             
             guard let self = `self` else { return }
             
             if let response = response, let user = response.user {
                 self.user = user
+                print("Successful User Login")
             }
         }
         
