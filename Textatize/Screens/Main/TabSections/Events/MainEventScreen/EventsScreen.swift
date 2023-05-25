@@ -139,10 +139,13 @@ struct EventsScreen: View {
                                             }
                                             
                                         } else {
+                                            
+                                            let event = vm.events[item - 1]
+                                            
                                             NavigationLink {
-                                                EventDetailScreen(name: "TestEvent", date: "TestDate", location: "TestLocation", orientation: "Portrait", camera: "TestCamera", hostName: "TestHost")
+                                                EventDetailScreen(name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation, camera: event.getCamera, hostName: event.getName)
                                             } label: {
-                                                EventCard(new: false, eventSelected: $eventPressed)
+                                                EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
 
                                             }
                                             

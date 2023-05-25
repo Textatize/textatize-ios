@@ -50,6 +50,39 @@ class Event: AbstractServerObject, Identifiable {
         
     }
     
+    var getName: String {
+        name ?? "No Name"
+    }
+    
+    var getDate: String {
+        "\(date?.month ?? 1)/\(date?.day ?? 1)/\(date?.year ?? 1)"
+    }
+    
+    var getLocation: String {
+        location ?? "No Location"
+    }
+    
+    var getOrientation: String {
+        orientation ?? "No Orientation"
+    }
+    
+    var getCamera: String {
+        camera ?? "No Camera"
+    }
+    
+    var getWatermarkUrl: String {
+        watermarkUrl ?? "No WatermarkUrl"
+    }
+    
+    var getWatermarkTransparency: Double {
+        watermarkTransparency ?? 1.0
+    }
+    
+    var getWatermarkPosition: String {
+        watermarkPosition ?? "No watermark position"
+    }
+
+    
 }
 
 class EventDate: AbstractServerObject {
