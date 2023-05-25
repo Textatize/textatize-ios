@@ -22,3 +22,8 @@ enum WatermarkPosition: String {
     case bottomLeft = "bottomLeft"
     case bottomRight = "bottomRight"
 }
+
+enum EventStatus: String {
+    case active = "active"
+    case completed = "completed"
+}

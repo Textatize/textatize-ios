@@ -133,7 +133,7 @@ class TextatizeAPI {
         
     }
     
-    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventsResponse?) -> Void) {
+    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         
         guard let sessionToken = sessionToken else { return }
         
@@ -173,14 +173,23 @@ class TextatizeAPI {
 
     }
     
-    func getEvent(completionHandler: @escaping (ServerError?, EventsResponse?) -> Void) {
+    func retrieveEvents(status: EventStatus?, page: String?, completionHandler: @escaping (ServerError?, EventsResponse?) -> Void) {
         if let sessionToken = sessionToken {
             
-            let parameters: Parameters = [:]
+            var parameters: Parameters = [:]
+            if let status = status {
+                parameters["status"] = status.rawValue
+            }
+            
+            if let page = page {
+                parameters["page"] = page
+            }
+            
+            print(sessionToken)
             
             AF.request(TextatizeAPI.API_URL + "event/my", method: .get, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
                 if let api = self {
-                    print(response)
+                    print("Retrieve Events Response: \(response)")
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {

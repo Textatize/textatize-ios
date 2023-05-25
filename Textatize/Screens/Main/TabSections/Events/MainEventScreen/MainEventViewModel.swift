@@ -18,21 +18,19 @@ class EventViewModel: ObservableObject {
     
     private init() {
         
-        textatizeAPI.getEvent { [weak self] error, eventResponse in
+        textatizeAPI.retrieveEvents(status: .active, page: nil) { [weak self] error, eventsResponse in
             guard let self = `self` else { return }
             
             if let error = error {
                 print(error.getMessage() ?? "No Message Found")
             }
             
-            if let eventResponse = eventResponse, let APIEvents = eventResponse.events {
+            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
                 self.events = APIEvents
             }
             
             print("Event Count: \(events.count)")
-            
         }
-        
     }
     
     
