@@ -179,8 +179,40 @@ class TextatizeAPI {
 
     }
     
+    func retrieveEvent(page: String?, eventID: String, completion: @escaping (ServerError?, MediasResponse?) -> Void) {
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        if let page  = page {
+            parameters["page"] = page
+        }
+        
+        AF.request(API_URL + "media/\(eventID)",
+                   method: .get,
+                   parameters: parameters,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { [weak self] response in
+            guard let self = `self` else { return }
+            print("Retrieve Event Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let mediasResponse = MediasResponse(JSONString: utf8Text)
+                    completion(nil, mediasResponse)
+                }
+                
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+            
+        }
+    }
+    
     func retrieveEvents(status: EventStatus?, page: String?, completionHandler: @escaping (ServerError?, EventsResponse?) -> Void) {
         if let sessionToken = sessionToken {
+            
+            print(sessionToken)
             
             var parameters: Parameters = [:]
             if let status = status {
@@ -295,5 +327,6 @@ class TextatizeAPI {
             
         }
     }
+    
     
 }
