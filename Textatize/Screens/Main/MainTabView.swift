@@ -25,6 +25,7 @@ struct MainTabView: View {
                     Label("Settings", image: "settings icon")
                 }
         }
+        .accentColor(AppColors.Onboarding.loginButton)
     }
 }
 
