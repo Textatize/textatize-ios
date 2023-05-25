@@ -129,7 +129,7 @@ struct EventsScreen: View {
                         Group {
                             ScrollView {
                                 LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
-                                    ForEach(0..<vm.events.count + 2) { item in
+                                    ForEach(0..<vm.events.count + 1, id: \.self) { item in
                                         if item == 0 {
                                             NavigationLink {
                                                 NewEventScreen()
@@ -139,7 +139,6 @@ struct EventsScreen: View {
                                             }
                                             
                                         } else {
-                                            
                                             NavigationLink {
                                                 EventDetailScreen(name: "TestEvent", date: "TestDate", location: "TestLocation", orientation: "Portrait", camera: "TestCamera", hostName: "TestHost")
                                             } label: {

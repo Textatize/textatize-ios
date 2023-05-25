@@ -7,7 +7,7 @@
 
 import ObjectMapper
 
-class Event: AbstractServerObject {
+class Event: AbstractServerObject, Identifiable {
     
     var name:                   String?     = nil
     var status:                 String?     = nil
