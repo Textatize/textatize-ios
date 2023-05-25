@@ -9,5 +9,6 @@ target 'Textatize' do
 
  	pod 'Alamofire'
 	pod 'ObjectMapper', '~> 4.2'
+	pod 'IQKeyboardManagerSwift'
 
 end
