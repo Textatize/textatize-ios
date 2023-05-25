@@ -10,9 +10,9 @@ import SwiftUI
 
 class TextatizeAPI {
     
-    static var API_URL: String = "https://devapi.textatizeapp.com/"
     static let shared: TextatizeAPI = TextatizeAPI()
-    
+    private let API_URL: String = "https://devapi.textatizeapp.com/"
+
     var sessionToken: String? {
             get {
                 return UserDefaults.standard.string(forKey: "sessionToken")
@@ -51,7 +51,10 @@ class TextatizeAPI {
         parameters["password"] = password.trimmingCharacters(in: .whitespacesAndNewlines)
         
         
-        AF.request(TextatizeAPI.API_URL + "auth/register", method: .post, parameters: parameters).validate().responseJSON { [weak self] response in
+        AF.request(API_URL + "auth/register",
+                   method: .post,
+                   parameters: parameters)
+        .validate().responseJSON { [weak self] response in
                       
             
             if let api = self {
@@ -94,7 +97,10 @@ class TextatizeAPI {
             parameters["password"] = password.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         
-        AF.request(TextatizeAPI.API_URL + "auth/login", method: .get, parameters: parameters).validate().responseJSON { [weak self] response  in
+        AF.request(API_URL + "auth/login",
+                   method: .get,
+                   parameters: parameters)
+        .validate().responseJSON { [weak self] response  in
             if let api = self {
                  
                 switch response.result {
@@ -163,7 +169,7 @@ class TextatizeAPI {
             if let watermarkTransparencyData = watermarkTransparency.data(using: .utf8) {
                 multipartFormData.append(watermarkTransparencyData, withName: "watermarkTransparency")
             }
-        }, to: "\(TextatizeAPI.API_URL)/event",
+        }, to: "\(API_URL)/event",
                   method: .post,
                   headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
             
@@ -185,7 +191,11 @@ class TextatizeAPI {
                 parameters["page"] = page
             }
                         
-            AF.request(TextatizeAPI.API_URL + "event/my", method: .get, parameters: parameters, headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { [weak self] response in
+            AF.request(API_URL + "event/my",
+                       method: .get,
+                       parameters: parameters,
+                       headers: ["authorization": "Bearer \(sessionToken)"])
+            .validate().responseJSON { [weak self] response in
                 if let api = self {
                     print("Retrieve Events Response: \(response)")
                     switch response.result {
@@ -211,7 +221,7 @@ class TextatizeAPI {
     func retrieveUser(completion: @escaping (ServerError?, UserResponse?) -> Void) {
         guard let sessionToken = sessionToken else { return }
         
-        AF.request(TextatizeAPI.API_URL + "user/me",
+        AF.request(API_URL + "user/me",
                    method: .get,
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
@@ -229,6 +239,60 @@ class TextatizeAPI {
             case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
             }
+        }
+    }
+    
+    func verifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        parameters["code"] = code
+        
+        AF.request(API_URL + "user/verify",
+                   method: .get,
+                   parameters: parameters,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { [weak self] response in
+            guard let self = `self` else { return }
+            print("Verify User Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let userResponse = UserResponse(JSONString: utf8Text)
+                    completion(nil, userResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+            
+        }
+    }
+    
+    func reverifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        parameters["code"] = code
+        
+        AF.request(API_URL + "user/resendVerify",
+                   method: .get,
+                   parameters: parameters,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { [weak self] response in
+            guard let self = `self` else { return }
+            print("Reverify User Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let userResponse = UserResponse(JSONString: utf8Text)
+                    completion(nil, userResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+            
         }
     }
     
