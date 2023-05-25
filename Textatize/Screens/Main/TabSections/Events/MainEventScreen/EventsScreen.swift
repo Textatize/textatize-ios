@@ -10,11 +10,18 @@ import SwiftUI
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
     
-    let layout = [
+    let iPadLayout = [
+        GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
+    let iPhoneLayout = [
+        GridItem(.flexible())
+    ]
+    
+    let isiPad = UIDevice.current.userInterfaceIdiom == .pad
+
     var eventItems = [1, 2, 3, 4, 5, 6, 7]
     
     @State private var createNewEventPressed: Bool = false
@@ -121,14 +128,14 @@ struct EventsScreen: View {
                         
                         Group {
                             ScrollView {
-                                LazyVGrid(columns: layout, spacing: 20) {
+                                LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
                                     ForEach(0..<vm.events.count + 2) { item in
                                         if item == 0 {
                                             NavigationLink {
                                                 NewEventScreen()
                                             } label: {
                                                 EventCard(new: true, eventSelected: $createNewEventPressed)
-                                                    .frame(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.25)
+                                                   
                                             }
                                             
                                         } else {
@@ -137,7 +144,7 @@ struct EventsScreen: View {
                                                 EventDetailScreen(name: "TestEvent", date: "TestDate", location: "TestLocation", orientation: "Portrait", camera: "TestCamera", hostName: "TestHost")
                                             } label: {
                                                 EventCard(new: false, eventSelected: $eventPressed)
-                                                    .frame(width: UIScreen.main.bounds.width * 0.40, height: UIScreen.main.bounds.width * 0.25)
+
                                             }
                                             
                                             

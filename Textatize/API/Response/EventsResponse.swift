@@ -7,7 +7,7 @@
 
 import ObjectMapper
 
-class EventResponse: ServerResponse {
+class EventsResponse: ServerResponse {
     var events: [Event]? = nil
     
     // MARK: ServerObject

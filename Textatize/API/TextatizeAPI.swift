@@ -133,7 +133,7 @@ class TextatizeAPI {
         
     }
     
-    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventsResponse?) -> Void) {
         
         guard let sessionToken = sessionToken else { return }
         
@@ -173,7 +173,7 @@ class TextatizeAPI {
 
     }
     
-    func getEvent(completionHandler: @escaping (ServerError?, EventResponse?) -> Void) {
+    func getEvent(completionHandler: @escaping (ServerError?, EventsResponse?) -> Void) {
         if let sessionToken = sessionToken {
             
             let parameters: Parameters = [:]
@@ -184,7 +184,7 @@ class TextatizeAPI {
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                            let eventResponse = EventResponse(JSONString: utf8Text)
+                            let eventResponse = EventsResponse(JSONString: utf8Text)
                             completionHandler(nil, eventResponse)
                             
                         } else {
