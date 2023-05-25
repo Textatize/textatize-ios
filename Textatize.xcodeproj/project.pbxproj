@@ -13,6 +13,7 @@
 		540977862A1E522C0079862F /* EnumHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977852A1E522C0079862F /* EnumHelpers.swift */; };
 		540977892A1E55310079862F /* CheckInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977882A1E55310079862F /* CheckInfoViewModel.swift */; };
 		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
+		542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */; };
 		54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7B2A128A5B00C02B14 /* Colors.swift */; };
 		54309C7E2A12DDB500C02B14 /* Images.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7D2A12DDB500C02B14 /* Images.swift */; };
 		54309C802A13013100C02B14 /* ForgotPasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */; };
@@ -85,6 +86,7 @@
 		540977852A1E522C0079862F /* EnumHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumHelpers.swift; sourceTree = "<group>"; };
 		540977882A1E55310079862F /* CheckInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInfoViewModel.swift; sourceTree = "<group>"; };
 		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
+		542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtom.swift; sourceTree = "<group>"; };
 		54309C7B2A128A5B00C02B14 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		54309C7D2A12DDB500C02B14 /* Images.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Images.swift; sourceTree = "<group>"; };
 		54309C7F2A13013100C02B14 /* ForgotPasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordScreen.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				54355EAB2A1662CA00E47732 /* Cards */,
 				54309C8F2A13C89700C02B14 /* CustomButton.swift */,
 				54511EBF2A152F75002590A7 /* EventCard.swift */,
+				542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				543263542A1760E700C96A1A /* EventResponse.swift in Sources */,
 				540977862A1E522C0079862F /* EnumHelpers.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
+				542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */,
 				5432634A2A17525400C96A1A /* ServerResponse.swift in Sources */,
 				540977892A1E55310079862F /* CheckInfoViewModel.swift in Sources */,
 				54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */,

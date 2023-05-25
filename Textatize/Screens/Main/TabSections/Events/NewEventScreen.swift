@@ -26,20 +26,8 @@ struct NewEventScreen: View {
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            
+                .ignoresSafeArea(edges: .top)
+
             VStack {
                 
                 Spacer()
@@ -118,7 +106,7 @@ struct NewEventScreen: View {
                             HStack {
                                 Button {
                                     withAnimation {
-                                       orientation = orientationOptions[item]
+                                        orientation = orientationOptions[item]
                                     }
                                 } label: {
                                     Circle()
@@ -128,7 +116,7 @@ struct NewEventScreen: View {
                                             Circle()
                                                 .fill(.white)
                                                 .frame(width: 30)
- 
+                                            
                                         }
                                         .overlay {
                                             if orientation == orientationOptions[item] {
@@ -137,7 +125,7 @@ struct NewEventScreen: View {
                                                     .frame(width: 10)
                                             }
                                         }
- 
+                                    
                                 }
                                 Text(orientationOptions[item].rawValue)
                                     .font(.caption2)
@@ -146,7 +134,7 @@ struct NewEventScreen: View {
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-
+                    
                     
                     Text("Camera")
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -168,7 +156,7 @@ struct NewEventScreen: View {
                                             Circle()
                                                 .fill(.white)
                                                 .frame(width: 30)
- 
+                                            
                                         }
                                         .overlay {
                                             if camera == cameraOptions[item] {
@@ -197,26 +185,27 @@ struct NewEventScreen: View {
                     
                     Spacer()
                     
-                    Button {
-                       print("Create Event Pressed")
-                        nextButtonPressed = true
+                    NavigationLink {
+                        FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                     } label: {
                         CustomButtonView(filled: true, name: "Next")
-                    }
 
-                    
+                    }
                 }
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 .padding()
-
+                
             }
             .customBackground()
-            .padding(.vertical, 45)
             .padding(.horizontal)
-            .fullScreenCover(isPresented: $nextButtonPressed) {
-                FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+            .padding()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtom(action: dismiss)
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -18,8 +18,8 @@ struct ChangePasswordScreen: View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-        
+                .ignoresSafeArea(edges: .top)
+
             VStack {
                 
                 Spacer()
@@ -126,15 +126,7 @@ struct ChangePasswordScreen: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "arrow.left")
-                        Text("Back")
-                    }
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-                }
+                CustomBackButtom(action: dismiss)
             }
         }
         .navigationBarBackButtonHidden()

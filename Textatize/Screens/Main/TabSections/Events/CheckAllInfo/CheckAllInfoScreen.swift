@@ -25,20 +25,8 @@ struct CheckAllInfoScreen: View {
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            
+                .ignoresSafeArea(edges: .top)
+
             VStack {
                 
                 Text("Check all Information")
@@ -176,6 +164,12 @@ struct CheckAllInfoScreen: View {
             .padding(.horizontal)
             
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtom(action: dismiss)
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 

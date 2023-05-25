@@ -29,19 +29,8 @@ struct FrameScreen: View {
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
+                .ignoresSafeArea(edges: .top)
+
             
             VStack {
                 
@@ -93,7 +82,7 @@ struct FrameScreen: View {
                                         TemplateCard(editSelected: $editTemplateSelected, showDuplicate: false)
                                             .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                             .padding()
-
+                                        
                                     }
                                 }
                             }
@@ -103,8 +92,8 @@ struct FrameScreen: View {
                             .fontWeight(.semibold)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                            Toggle("Add a watermark instead of a frame", isOn: $watermarkSwitch)
-                                .tint(AppColors.Onboarding.topColor)
+                        Toggle("Add a watermark instead of a frame", isOn: $watermarkSwitch)
+                            .tint(AppColors.Onboarding.topColor)
                         
                         if watermarkSwitch {
                             VStack(spacing: 20) {
@@ -139,22 +128,23 @@ struct FrameScreen: View {
                                 HStack {
                                     CustomButtonView(filled: true, name: "Upload New")
                                     CustomButtonView(filled: false, name: "Delete")
-
+                                    
                                 }
-  
+                                
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         
                         Spacer()
-
                         
-                        CustomButtonView(filled: true, name: "Next")
-                            .onTapGesture {
-                                nextPressed = true
-                            }
-                            .padding()
-
+                        NavigationLink {
+                            CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition)
+                        } label: {
+                            CustomButtonView(filled: true, name: "Next")
+                            
+                        }
+                        
+                        
                     }
                     
                     
@@ -166,11 +156,13 @@ struct FrameScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal)
-            .fullScreenCover(isPresented: $nextPressed) {
-                CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition)
-            }
-            
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtom(action: dismiss)
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 

@@ -22,98 +22,83 @@ struct EventCard: View {
     var body: some View {
         
         if new {
-            Button {
-                print("New Event Pressed")
-                withAnimation {
-                    eventSelected = true
+            VStack(spacing: 5) {
+                ZStack {
+                    Circle()
+                        .fill(.white)
+                        .frame(width: 40)
+                    AppImages.EventCard.plus
                 }
-            } label: {
-                VStack(spacing: 5) {
-                    ZStack {
-                        Circle()
-                            .fill(.white)
-                            .frame(width: 40)
-                        AppImages.EventCard.plus
-                    }
-                    Text("New Event")
-                        .font(.title3)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                    
-                }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(AppColors.Onboarding.bottomColor)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
-                }
+                Text("New Event")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
                 
             }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(AppColors.Onboarding.bottomColor)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
+            }
         } else {
-            Button {
-                print("Event Card Pressed")
-                withAnimation {
-                    eventSelected = true
-                }
-            } label: {
-                VStack(alignment: .leading) {
-                    HStack(alignment: .center, spacing: 7) {
-                        Image(systemName: "photo")
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.width * 0.10)
+            VStack(alignment: .leading) {
+                HStack(alignment: .center, spacing: 7) {
+                    Image(systemName: "photo")
+                        .resizable()
+                        .frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.width * 0.10)
+                    
+                    VStack(alignment: .center, spacing: 7) {
+                        Text(title)
+                            .fontWeight(.semibold)
                         
-                        VStack(alignment: .center, spacing: 7) {
-                            Text(title)
-                                .fontWeight(.semibold)
+                        VStack(alignment: .center) {
+                            Text(date)
                             
-                            VStack(alignment: .center) {
-                                Text(date)
+                            HStack(spacing: 5) {
+                                Text(numberOfPhotos)
+                                    .foregroundColor(AppColors.Onboarding.loginButton)
                                 
-                                HStack(spacing: 5) {
-                                    Text(numberOfPhotos)
-                                        .foregroundColor(AppColors.Onboarding.loginButton)
-                                    
-                                    Text("photos")
-                                    
-                                }
-                                .frame(maxWidth: .infinity)
+                                Text("photos")
                                 
                             }
                             .frame(maxWidth: .infinity)
-                            .font(.caption)
+                            
                         }
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        
+                        .font(.caption)
                     }
                     .frame(maxWidth: .infinity)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     
-                    HStack(spacing: 5) {
-                        Button("Complete") {
-                            print("Complete Pressed")
-                        }
-                        
-                        Button("Restart") {
-                            print("Restart Pressed")
-                        }
-                        
-                        Button("Delete") {
-                            print("Delete Pressed")
-                        }
-                        
+                }
+                .frame(maxWidth: .infinity)
+                
+                HStack(spacing: 5) {
+                    Button("Complete") {
+                        print("Complete Pressed")
                     }
-                    .font(.caption2)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(AppColors.Onboarding.bottomColor)
+                    
+                    Button("Restart") {
+                        print("Restart Pressed")
+                    }
+                    
+                    Button("Delete") {
+                        print("Delete Pressed")
+                    }
+                    
                 }
-                .padding()
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background {
-                    RoundedRectangle(cornerRadius: 15)
-                        .fill(.white)
-                        .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
-                }
+                .font(.caption2)
+                .frame(maxWidth: .infinity)
+                .foregroundColor(AppColors.Onboarding.bottomColor)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background {
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(.white)
+                    .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
             }
         }
     }

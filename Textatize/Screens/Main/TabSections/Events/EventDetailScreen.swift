@@ -32,20 +32,8 @@ struct EventDetailScreen: View {
         GeometryReader { geo in
             ZStack {
                 AppColors.Onboarding.redLinearGradientBackground
-                    .ignoresSafeArea()
-                
-                Button {
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "arrow.left")
-                        Text("Back")
-                    }
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.leading)
-                
+                    .ignoresSafeArea(edges: .top)
+
                 VStack {
                     
                     Button {
@@ -269,6 +257,8 @@ struct EventDetailScreen: View {
                     }
                     .customBackground()
                     .padding(.horizontal)
+                    .padding()
+
                 }
                 
                 if showGallaryImage {
@@ -323,13 +313,19 @@ struct EventDetailScreen: View {
                         .customBackground()
                         .frame(height: geo.size.height * 0.7)
                         .padding(.horizontal)
-                        
-                        
+                        .padding()
+
                     }
                 
                 }
                 
             }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    CustomBackButtom(action: dismiss)
+                }
+            }
+            .navigationBarBackButtonHidden()
         }
     }
 }

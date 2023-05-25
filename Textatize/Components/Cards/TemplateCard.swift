@@ -15,7 +15,7 @@ struct TemplateCard: View {
     var image: Image? = nil
     
     var body: some View {
-        VStack(alignment: .center) {
+        VStack(alignment: .center, spacing: 15) {
             
             Button {
                 print("Template Image Selected")
@@ -48,6 +48,7 @@ struct TemplateCard: View {
                     .foregroundColor(AppColors.Onboarding.loginButton)
                     .padding(.leading)
                 }
+                .padding()
                 
                 if showDuplicate {
                     Button {

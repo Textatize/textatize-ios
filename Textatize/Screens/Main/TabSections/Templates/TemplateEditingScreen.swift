@@ -13,20 +13,8 @@ struct TemplateEditingScreen: View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            
+                .ignoresSafeArea(edges: .top)
+
             VStack {
                 
                 Spacer()
@@ -101,8 +89,15 @@ struct TemplateEditingScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal)
+            .padding()
             
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtom(action: dismiss)
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 

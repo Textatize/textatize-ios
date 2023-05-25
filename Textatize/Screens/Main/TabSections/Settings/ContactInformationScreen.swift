@@ -17,8 +17,8 @@ struct ContactInformationScreen: View {
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
+                .ignoresSafeArea(edges: .top)
+
             VStack {
                 
                 Spacer()
@@ -88,18 +88,11 @@ struct ContactInformationScreen: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "arrow.left")
-                        Text("Back")
-                    }
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-                }
+                CustomBackButtom(action: dismiss)
             }
         }
-        .navigationBarBackButtonHidden()    }
+        .navigationBarBackButtonHidden()
+    }
 }
 
 struct ContactInformationScreen_Previews: PreviewProvider {
