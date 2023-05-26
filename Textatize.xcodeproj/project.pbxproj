@@ -54,6 +54,7 @@
 		5460D3492A167D7300D7265C /* TemplateEditingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */; };
 		546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */; };
 		546F17EE2A202AB400554234 /* NetworkSpeedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */; };
+		546F17F42A203CCF00554234 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17F32A203CCF00554234 /* SpinnerView.swift */; };
 		549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549E60FA2A15834700C00231 /* EventDetailScreen.swift */; };
 		54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9D2A1517EF0066302E /* MainTabView.swift */; };
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
@@ -133,6 +134,7 @@
 		5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingScreen.swift; sourceTree = "<group>"; };
 		546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAllInfoScreen.swift; sourceTree = "<group>"; };
 		546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSpeedTest.swift; sourceTree = "<group>"; };
+		546F17F32A203CCF00554234 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		549E60FA2A15834700C00231 /* EventDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreen.swift; sourceTree = "<group>"; };
 		54B45D9D2A1517EF0066302E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				54309C8F2A13C89700C02B14 /* CustomButton.swift */,
 				54511EBF2A152F75002590A7 /* EventCard.swift */,
 				542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */,
+				546F17F32A203CCF00554234 /* SpinnerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -638,6 +641,7 @@
 				5432634E2A17571900C96A1A /* Keychain.swift in Sources */,
 				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
+				546F17F42A203CCF00554234 /* SpinnerView.swift in Sources */,
 				543263502A175A0100C96A1A /* ServerError.swift in Sources */,
 				541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
