@@ -11,24 +11,12 @@ struct ForgotPasswordScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var emailTxt = ""
-    @State private var continuePressed = false
     
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
-            
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
+
             
             VStack(spacing: 10) {
                 
@@ -70,12 +58,11 @@ struct ForgotPasswordScreen: View {
                     
                     Spacer()
                     
-                    CustomButtonView(filled: true, name: "Continue")
-                        .onTapGesture {
-                            continuePressed = true
-                        }
-
-                    
+                    NavigationLink {
+                        RecoveryScreen()
+                    } label: {
+                        CustomButtonView(filled: true, name: "Continue")
+                    }
                 }
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 .padding(.vertical, 20)
@@ -85,10 +72,13 @@ struct ForgotPasswordScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
-            .fullScreenCover(isPresented: $continuePressed) {
-                RecoveryScreen()
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtom(action: dismiss)
             }
         }
+        .navigationBarBackButtonHidden()
     }
     
     private func continueAction() {

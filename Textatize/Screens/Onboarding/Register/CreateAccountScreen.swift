@@ -18,18 +18,6 @@ struct CreateAccountScreen: View {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea()
             
-            Button {
-                dismiss()
-            } label: {
-                HStack {
-                    Image(systemName: "arrow.left")
-                    Text("Back")
-                }
-                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            
             VStack {
                 
                 Text("Create \n your account")
@@ -138,6 +126,12 @@ struct CreateAccountScreen: View {
                 Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                CustomBackButtom(action: dismiss)
+            }
+        }
+        .navigationBarBackButtonHidden()
     }
 }
 
