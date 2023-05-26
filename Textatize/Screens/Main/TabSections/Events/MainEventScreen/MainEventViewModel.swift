@@ -11,7 +11,7 @@ class EventViewModel: ObservableObject {
     
     static let shared = EventViewModel()
     
-    @Published var firstName = DataManager.shared.user?.firstName ?? "No Name Found"
+    @Published var firstName = TextatizeLoginManager.shared.loggedInUser?.firstName ?? "No Name Found"
     @Published var events = [Event]()
     
     let textatizeAPI = TextatizeAPI.shared

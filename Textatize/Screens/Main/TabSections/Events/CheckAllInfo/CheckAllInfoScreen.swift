@@ -37,117 +37,119 @@ struct CheckAllInfoScreen: View {
                 
                 Spacer()
                 
-                VStack {
-                    
-                    Text("Description")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        .padding()
-                    
-                    HStack(spacing: 0) {
+                ScrollView {
+                    VStack {
                         
-                        VStack(spacing: 15) {
-                            Group {
-                                HStack {
-                                    Text("Name: ")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text(name)
-                                        .font(.caption)
-                                }
-                                
-                                HStack {
-                                    Text("Date: ")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text(date)
-                                        .font(.caption)
-                                }
-                                
-                                HStack {
-                                    Text("Location: ")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text(location)
-                                        .font(.caption)
-                                }
-                               
-                            }
-                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        Text("Description")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        }
+                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            .padding()
                         
-                        
-                        VStack(spacing: 15) {
+                        HStack(spacing: 0) {
                             
-                            Group {
-                                HStack {
-                                    Text("Orientation: ")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text(orientation.rawValue)
-                                        .font(.caption)
+                            VStack(spacing: 15) {
+                                Group {
+                                    HStack {
+                                        Text("Name: ")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                        Text(name)
+                                            .font(.caption)
+                                    }
+                                    
+                                    HStack {
+                                        Text("Date: ")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                        Text(date)
+                                            .font(.caption)
+                                    }
+                                    
+                                    HStack {
+                                        Text("Location: ")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                        Text(location)
+                                            .font(.caption)
+                                    }
+                                   
                                 }
-                                
-                                HStack {
-                                    Text("Camera: ")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text(camera.rawValue)
-                                        .font(.caption)
-                                }
-                                
-                                HStack {
-                                    Text("Host Name: ")
-                                        .font(.subheadline)
-                                        .fontWeight(.semibold)
-                                    Text(hostName)
-                                        .font(.caption)
-                                }
-                               
+                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
+                            
+                            
+                            VStack(spacing: 15) {
+                                
+                                Group {
+                                    HStack {
+                                        Text("Orientation: ")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                        Text(orientation.rawValue)
+                                            .font(.caption)
+                                    }
+                                    
+                                    HStack {
+                                        Text("Camera: ")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                        Text(camera.rawValue)
+                                            .font(.caption)
+                                    }
+                                    
+                                    HStack {
+                                        Text("Host Name: ")
+                                            .font(.subheadline)
+                                            .fontWeight(.semibold)
+                                        Text(hostName)
+                                            .font(.caption)
+                                    }
+                                   
+                                }
+                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+
+                            }
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        
+                        Text("Template")
+                            .font(.headline)
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
 
+                        HStack {
+                            ForEach(0..<3) { _ in
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .padding()
+                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+                            }
                         }
-                    }
-                    .padding()
-                    .frame(maxWidth: .infinity)
-                    
-                    Text("Template")
-                        .font(.headline)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
+                        .padding(.horizontal)
+                        
+                        Text("Gallery")
+                            .font(.headline)
+                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding()
 
-                    HStack {
-                        ForEach(0..<3) { _ in
-                            Image(systemName: "photo")
-                                .resizable()
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+                        HStack {
+                            ForEach(0..<3) { _ in
+                                Image(systemName: "photo")
+                                    .resizable()
+                                    .padding()
+                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+                            }
                         }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-                    
-                    Text("Gallery")
-                        .font(.headline)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding()
+                        .padding(.horizontal)
 
-                    HStack {
-                        ForEach(0..<3) { _ in
-                            Image(systemName: "photo")
-                                .resizable()
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-                        }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal)
-
                 }
                 
                 Spacer()
@@ -160,8 +162,9 @@ struct CheckAllInfoScreen: View {
                 
             }
             .customBackground()
-            .padding(.vertical, 45)
+            .padding(.vertical, 25)
             .padding(.horizontal)
+            .frame(height: UIScreen.main.bounds.height * 0.8)
             
         }
         .toolbar {

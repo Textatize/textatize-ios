@@ -26,6 +26,7 @@ struct MainTabView: View {
                 }
         }
         .accentColor(AppColors.Onboarding.loginButton)
+        .navigationBarBackButtonHidden(true)
     }
 }
 

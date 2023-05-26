@@ -129,9 +129,6 @@ struct LoginScreen: View {
             .customBackground()
             .padding(.vertical, 45)
             .padding(.horizontal, 20)
-            .fullScreenCover(isPresented: $vm.loginSuccess) {
-                MainTabView()
-            }
             .fullScreenCover(isPresented: $signupPressed) {
                 CreateAccountScreen()
             }

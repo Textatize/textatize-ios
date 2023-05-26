@@ -38,167 +38,171 @@ struct NewEventScreen: View {
                     .fontWeight(.semibold)
                     .padding()
                 
-                VStack(spacing: 10) {
-                    
-                    HStack {
-                        Group {
-                            VStack(spacing: 10) {
-                                Text("Editing on event")
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Text("Next Step: Template")
-                                    .font(.caption2)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                        }
+                ScrollView {
+                    VStack(spacing: 10) {
                         
-                        AppImages.diagramIcon
-                            .overlay {
-                                Text("1 of 2")
-                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            }
-                        
-                    }
-                    
-                    
-                    VStack(alignment: .leading) {
-                        
-                        VStack(alignment: .leading) {
-                            Text("Name")
-                                .font(.caption)
-                            
-                            TextField("Enter the name of event", text: $eventName)
-                                .padding()
-                                .frame(height: 50)
-                                .onboardingBorder()
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("Date")
-                                .font(.caption)
-                            
-                            TextField("Choose the date", text: $eventDate)
-                                .padding()
-                                .frame(height: 50)
-                                .onboardingBorder()
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            Text("Location")
-                                .font(.caption)
-                            
-                            TextField("Choose the location", text: $eventLocation)
-                                .padding()
-                                .frame(height: 50)
-                                .onboardingBorder()
-                        }
-                        
-                    }
-                    .padding(.bottom, 5)
-                    
-                    Text("Orientation")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.caption)
-                    
-                    HStack(spacing: 15) {
-                        ForEach(0..<orientationOptions.count) { item in
-                            
-                            HStack {
-                                Button {
-                                    withAnimation {
-                                        orientation = orientationOptions[item]
-                                    }
-                                } label: {
-                                    Circle()
-                                        .fill(AppColors.Onboarding.loginButton)
-                                        .frame(width: 20, height: 20)
-                                        .overlay {
-                                            Circle()
-                                                .fill(.white)
-                                                .frame(width: 30)
-                                            
-                                        }
-                                        .overlay {
-                                            if orientation == orientationOptions[item] {
-                                                Circle()
-                                                    .fill(AppColors.Onboarding.loginButton)
-                                                    .frame(width: 10)
-                                            }
-                                        }
+                        HStack {
+                            Group {
+                                VStack(spacing: 10) {
+                                    Text("Editing on event")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     
+                                    Text("Next Step: Template")
+                                        .font(.caption2)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
                                 }
-                                Text(orientationOptions[item].rawValue)
-                                    .font(.caption2)
+                            }
+                            
+                            AppImages.diagramIcon
+                                .overlay {
+                                    Text("1 of 2")
+                                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                }
+                            
+                        }
+                        
+                        
+                        VStack(alignment: .leading) {
+                            
+                            VStack(alignment: .leading) {
+                                Text("Name")
+                                    .font(.caption)
+                                
+                                TextField("Enter the name of event", text: $eventName)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text("Date")
+                                    .font(.caption)
+                                
+                                TextField("Choose the date", text: $eventDate)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text("Location")
+                                    .font(.caption)
+                                
+                                TextField("Choose the location", text: $eventLocation)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
                             }
                             
                         }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    
-                    Text("Camera")
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.caption)
-                    
-                    HStack(spacing: 15) {
-                        ForEach(0..<cameraOptions.count) { item in
-                            
-                            HStack {
-                                Button {
-                                    withAnimation {
-                                        camera = cameraOptions[item]
-                                    }
-                                } label: {
-                                    Circle()
-                                        .fill(AppColors.Onboarding.loginButton)
-                                        .frame(width: 20, height: 20)
-                                        .overlay {
-                                            Circle()
-                                                .fill(.white)
-                                                .frame(width: 30)
-                                            
+                        .padding(.bottom, 5)
+                        
+                        Text("Orientation")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.caption)
+                        
+                        HStack(spacing: 15) {
+                            ForEach(0..<orientationOptions.count) { item in
+                                
+                                HStack {
+                                    Button {
+                                        withAnimation {
+                                            orientation = orientationOptions[item]
                                         }
-                                        .overlay {
-                                            if camera == cameraOptions[item] {
+                                    } label: {
+                                        Circle()
+                                            .fill(AppColors.Onboarding.loginButton)
+                                            .frame(width: 20, height: 20)
+                                            .overlay {
                                                 Circle()
-                                                    .fill(AppColors.Onboarding.loginButton)
-                                                    .frame(width: 10)
+                                                    .fill(.white)
+                                                    .frame(width: 30)
+                                                
                                             }
-                                        }
+                                            .overlay {
+                                                if orientation == orientationOptions[item] {
+                                                    Circle()
+                                                        .fill(AppColors.Onboarding.loginButton)
+                                                        .frame(width: 10)
+                                                }
+                                            }
+                                        
+                                    }
+                                    Text(orientationOptions[item].rawValue)
+                                        .font(.caption2)
                                 }
-                                Text(cameraOptions[item].rawValue)
-                                    .font(.caption2)
+                                
                             }
-                            
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        
+                        Text("Camera")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.caption)
+                        
+                        HStack(spacing: 15) {
+                            ForEach(0..<cameraOptions.count) { item in
+                                
+                                HStack {
+                                    Button {
+                                        withAnimation {
+                                            camera = cameraOptions[item]
+                                        }
+                                    } label: {
+                                        Circle()
+                                            .fill(AppColors.Onboarding.loginButton)
+                                            .frame(width: 20, height: 20)
+                                            .overlay {
+                                                Circle()
+                                                    .fill(.white)
+                                                    .frame(width: 30)
+                                                
+                                            }
+                                            .overlay {
+                                                if camera == cameraOptions[item] {
+                                                    Circle()
+                                                        .fill(AppColors.Onboarding.loginButton)
+                                                        .frame(width: 10)
+                                                }
+                                            }
+                                    }
+                                    Text(cameraOptions[item].rawValue)
+                                        .font(.caption2)
+                                }
+                                
+                            }
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        Text("Event host name")
+                            .font(.caption)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        
+                        TextField("Enter the host's name", text: $eventHostName)
+                            .padding()
+                            .frame(height: 50)
+                            .onboardingBorder()
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                        } label: {
+                            CustomButtonView(filled: true, name: "Next")
+                                .padding()
+
                         }
                     }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Text("Event host name")
-                        .font(.caption)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    TextField("Enter the host's name", text: $eventHostName)
-                        .padding()
-                        .frame(height: 50)
-                        .onboardingBorder()
-                    
-                    Spacer()
-                    
-                    NavigationLink {
-                        FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
-                    } label: {
-                        CustomButtonView(filled: true, name: "Next")
-
-                    }
-                }
-                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 .padding()
+                }
                 
             }
             .customBackground()
+            .padding(.vertical, 25)
             .padding(.horizontal)
-            .padding()
+            .frame(height: UIScreen.main.bounds.height * 0.8)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

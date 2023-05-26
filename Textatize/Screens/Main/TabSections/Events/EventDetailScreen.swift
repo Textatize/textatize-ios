@@ -311,9 +311,9 @@ struct EventDetailScreen: View {
 
                         }
                         .customBackground()
-                        .frame(height: geo.size.height * 0.7)
+                        .padding(.vertical, 25)
                         .padding(.horizontal)
-                        .padding()
+                        .frame(height: UIScreen.main.bounds.height * 0.8)
 
                     }
                 

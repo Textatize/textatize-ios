@@ -14,88 +14,87 @@ struct VerificationScreen: View {
     @State private var verifyPressed = false
     
     var body: some View {
-        ZStack {
-            
-            AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
-//            Button {
-//                dismiss()
-//            } label: {
-//                HStack {
-//                    Image(systemName: "arrow.left")
-//                    Text("Back")
-//                }
-//                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-//            }
-            //.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-           // .padding()
-            
-            
-            VStack {
+        NavigationView {
+            ZStack {
                 
-                Text("Verification")
-                    .onboardingTitle()
-                    .padding(.top, 30)
+                AppColors.Onboarding.redLinearGradientBackground
+                    .ignoresSafeArea()
                 
-                VStack(spacing: 5) {
-                    Text("Enter the code")
-                        .lineLimit(nil)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        .font(.title2)
-                        .fontWeight(.semibold)
-                    
-                    Text("Please enter the code sent to \n +8 850  7758989")
-                        .font(.callout)
-                        .fontWeight(.light)
-                        .multilineTextAlignment(.center)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                .padding(.vertical, 20)
-                .padding()
+    //            Button {
+    //                dismiss()
+    //            } label: {
+    //                HStack {
+    //                    Image(systemName: "arrow.left")
+    //                    Text("Back")
+    //                }
+    //                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+    //            }
+                //.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+               // .padding()
+                
                 
                 VStack {
-                    TextField("Enter Your Verification Code", text: $verificationTxt)
-                        .padding()
-                        .frame(height: 50)
-                        .onboardingBorder()
                     
+                    Text("Verification")
+                        .onboardingTitle()
+                        .padding(.top, 30)
                     
-                    HStack(spacing: 5) {
-                        Text("You can request the code again via:")
-                            .font(.caption)
-                            .fontWeight(.light)
+                    VStack(spacing: 5) {
+                        Text("Enter the code")
+                            .lineLimit(nil)
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            .font(.title2)
+                            .fontWeight(.semibold)
+                        
+                        Text("Please enter the code sent to \n +8 850  7758989")
+                            .font(.callout)
+                            .fontWeight(.light)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .padding(.vertical, 20)
+                    .padding()
+                    
+                    VStack {
+                        TextField("Enter Your Verification Code", text: $verificationTxt)
+                            .padding()
+                            .frame(height: 50)
+                            .onboardingBorder()
                         
                         
-                        Text("01:00")
-                            .font(.caption)
-                            .foregroundColor(AppColors.Onboarding.loginButton)
+                        HStack(spacing: 5) {
+                            Text("You can request the code again via:")
+                                .font(.caption)
+                                .fontWeight(.light)
+                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                            
+                            
+                            Text("01:00")
+                                .font(.caption)
+                                .foregroundColor(AppColors.Onboarding.loginButton)
+                            
+                        }
+                        .multilineTextAlignment(.center)
+                        
+                        Spacer()
+                        
+                        NavigationLink {
+                            MainTabView()
+                        } label: {
+                            CustomButtonView(filled: true, name: "Verify")
+                        }
+
                         
                     }
-                    .multilineTextAlignment(.center)
-                    
-                    Spacer()
-                    
-                    
-                        CustomButtonView(filled: true, name: "Verify")
-                        .onTapGesture {
-                            verifyPressed = true
-                        }
+                    .padding()
                     
                 }
-                .padding()
-                
+                .customBackground()
+                .padding(.vertical, 45)
+                .padding(.horizontal, 20)                
             }
-            .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal, 20)
-            .fullScreenCover(isPresented: $verifyPressed) {
-                MainTabView()
-            }
-            
         }
     }
 }

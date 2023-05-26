@@ -42,120 +42,123 @@ struct FrameScreen: View {
                 
                 Spacer()
                 
-                VStack {
-                    
-                    HStack {
-                        Group {
-                            VStack(spacing: 10) {
-                                Text("Choose the frame")
-                                    .font(.headline)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                Text("Next Step: Check information")
-                                    .font(.caption2)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                            }
-                        }
-                        
-                        AppImages.diagramFull
-                            .overlay {
-                                Text("2 of 2")
-                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            }
-                        
-                    }
-                    
+                ScrollView {
                     VStack {
                         
-                        Text("Your Frames:")
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        HStack {
+                            Group {
+                                VStack(spacing: 10) {
+                                    Text("Choose the frame")
+                                        .font(.headline)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    Text("Next Step: Check information")
+                                        .font(.caption2)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                            }
+                            
+                            AppImages.diagramFull
+                                .overlay {
+                                    Text("2 of 2")
+                                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                }
+                            
+                        }
                         
-                        ScrollView(.horizontal) {
-                            HStack {
-                                ForEach(0..<10) { item in
-                                    if item == 0 {
-                                        AddCard(title: "Upload")
-                                            .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
-                                            .padding()
-                                    } else {
-                                        TemplateCard(editSelected: $editTemplateSelected, showDuplicate: false)
-                                            .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
-                                            .padding()
-                                        
+                        VStack {
+                            
+                            Text("Your Frames:")
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            ScrollView(.horizontal) {
+                                HStack {
+                                    ForEach(0..<10) { item in
+                                        if item == 0 {
+                                            AddCard(title: "Upload")
+                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                                .padding()
+                                        } else {
+                                            TemplateCard(editSelected: $editTemplateSelected, showDuplicate: false)
+                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                                .padding()
+                                            
+                                        }
                                     }
                                 }
                             }
-                        }
-                        
-                        Text("Watermark")
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        
-                        Toggle("Add a watermark instead of a frame", isOn: $watermarkSwitch)
-                            .tint(AppColors.Onboarding.topColor)
-                        
-                        if watermarkSwitch {
-                            VStack(spacing: 20) {
-                                HStack(spacing: 20) {
-                                    Text("Position")
+                            
+                            Text("Watermark")
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            
+                            Toggle("Add a watermark instead of a frame", isOn: $watermarkSwitch)
+                                .tint(AppColors.Onboarding.topColor)
+                            
+                            if watermarkSwitch {
+                                VStack(spacing: 20) {
+                                    HStack(spacing: 20) {
+                                        Text("Position")
+                                        
+                                        HStack {
+                                            Button {
+                                                watermarkPosition = .bottomLeft
+                                                print("BottomLeft")
+                                            } label: {
+                                                AppImages.position1
+                                            }
+                                            
+                                            Button {
+                                                watermarkPosition = .bottomRight
+                                                print("BottomRight")
+                                            } label: {
+                                                AppImages.position2
+                                            }
+                                        }
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .leading)
                                     
                                     HStack {
-                                        Button {
-                                            watermarkPosition = .bottomLeft
-                                            print("BottomLeft")
-                                        } label: {
-                                            AppImages.position1
-                                        }
+                                        Text("Transparency")
                                         
-                                        Button {
-                                            watermarkPosition = .bottomRight
-                                            print("BottomRight")
-                                        } label: {
-                                            AppImages.position2
-                                        }
+                                        Slider(value: $watermarkTransparency, in: 0...100)
+                                        Text("\(watermarkTransparency, specifier: "%.1f") %")
                                     }
+                                    
+                                    HStack {
+                                        CustomButtonView(filled: true, name: "Upload New")
+                                        CustomButtonView(filled: false, name: "Delete")
+                                        
+                                    }
+                                    
                                 }
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                HStack {
-                                    Text("Transparency")
-                                    
-                                    Slider(value: $watermarkTransparency, in: 0...100)
-                                    Text("\(watermarkTransparency, specifier: "%.1f") %")
-                                }
-                                
-                                HStack {
-                                    CustomButtonView(filled: true, name: "Upload New")
-                                    CustomButtonView(filled: false, name: "Delete")
-                                    
-                                }
+                            }
+                            
+                            Spacer()
+                            
+                            NavigationLink {
+                                CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition)
+                            } label: {
+                                CustomButtonView(filled: true, name: "Next")
                                 
                             }
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        }
-                        
-                        Spacer()
-                        
-                        NavigationLink {
-                            CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition)
-                        } label: {
-                            CustomButtonView(filled: true, name: "Next")
+                            
                             
                         }
                         
                         
                     }
-                    
-                    
-                }
-                .padding()
+                    .padding()
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                }
                 
             }
             .customBackground()
-            .padding(.vertical, 45)
+            .padding(.vertical, 25)
             .padding(.horizontal)
+            .frame(height: UIScreen.main.bounds.height * 0.8)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
