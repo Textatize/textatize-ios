@@ -127,6 +127,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                             return
                         }
                         
+                        TextatizeLoginManager.shared.is_logged_in = true
                         TextatizeLoginManager.shared.storeUsername(username: username)
                         TextatizeLoginManager.shared.storePassword(password: password)
                         
@@ -182,6 +183,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                                 TextatizeLoginManager.shared.storePassword(password: password)
                             }
                             
+                            TextatizeLoginManager.shared.is_logged_in = true
                             api.handleLogin(userResponse, api, completion: completion)
                         }
                         

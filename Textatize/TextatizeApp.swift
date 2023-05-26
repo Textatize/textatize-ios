@@ -8,9 +8,7 @@
 import SwiftUI
 
 @main
-struct TextatizeApp: App {
-    @StateObject private var manager = DataManager.shared
-    
+struct TextatizeApp: App {    
     init() {
         TextatizeAPI.shared.test.networkSpeedTestStop()
         TextatizeAPI.shared.test.networkSpeedTestStart(UrlForTestSpeed: "https://devapi.textatizeapp.com/unauth/ping")
@@ -18,11 +16,7 @@ struct TextatizeApp: App {
     
     var body: some Scene {
         WindowGroup {
-            if manager.user == nil {
-                LoginScreen()
-            } else {
-                VerificationScreen()
-            }
+            ContentView()
         }
     }
 }

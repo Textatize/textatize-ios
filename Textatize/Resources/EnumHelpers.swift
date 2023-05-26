@@ -27,3 +27,9 @@ enum EventStatus: String {
     case active = "active"
     case completed = "completed"
 }
+
+enum LoginStatus {
+    case success
+    case error
+    case notLoggedIn
+}

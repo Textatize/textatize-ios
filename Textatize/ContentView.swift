@@ -8,8 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var isLoginPresented = false
+    @StateObject private var loginManager = TextatizeLoginManager.shared
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        if loginManager.is_logged_in {
+            VerificationScreen()
+        } else {
+            SpinnerView()
+                .foregroundColor(AppColors.Onboarding.loginButton)
+                .frame(width: 200, height: 200)
+                .fullScreenCover(isPresented: $isLoginPresented) {
+                    LoginScreen()
+                }
+                .task {
+                    loginManager.checkRegistration { error, status in
+                        switch status {
+                        case .success:
+                            print("SUCCESS \(loginManager.is_logged_in)")
+
+                        case .error:
+                            print(error)
+                            self.isLoginPresented = true
+
+                        case .notLoggedIn:
+                            print("Not Logged in")
+                            self.isLoginPresented = true
+                        }
+                    }
+                }
+
+        }
+        
     }
 }
 

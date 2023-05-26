@@ -79,6 +79,7 @@ struct VerificationScreen: View {
                     
                     Spacer()
                     
+                    
                         CustomButtonView(filled: true, name: "Verify")
                         .onTapGesture {
                             verifyPressed = true
