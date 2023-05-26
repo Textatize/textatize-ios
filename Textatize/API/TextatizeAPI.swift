@@ -7,11 +7,14 @@
 
 import Alamofire
 import SwiftUI
+import Network
 
-class TextatizeAPI {
+class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     
     static let shared: TextatizeAPI = TextatizeAPI()
-    private let API_URL: String = "https://devapi.textatizeapp.com/"
+    private var API_URL: String = "https://devapi.textatizeapp.com/"
+    
+    let monitor = NWPathMonitor()
     
     var sessionToken: String? {
             get {
@@ -21,8 +24,60 @@ class TextatizeAPI {
                 UserDefaults.standard.set(newValue, forKey: "sessionToken")
             }
         }
+    
+    var hasInternet = false
+    let test = NetworkSpeedTest()
+    var speedTestTimer:Timer? = nil
+    var speed:NetworkStatus = .good
+    
+    private override init() {
+        super.init()
+        monitor.pathUpdateHandler = { path in
+           if path.status == .satisfied {
+              print("@@MONITOR Connected")
+               self.hasInternet = true
+           } else {
+              print("@@MONITOR Disconnected")
+               self.hasInternet = false
+           }
+        }
+        let queue = DispatchQueue(label: "Monitor")
+        monitor.start(queue: queue)
+        let manager = Alamofire.Session.default
+        manager.session.configuration.timeoutIntervalForRequest = 300
+        let targetName = Bundle.main.infoDictionary?["CFBundleName"] as! String
+        if targetName == "Textatize" {
+            API_URL = "https://devapi.textatizeapp.com/"
+        }
+        test.delegate = self
+        //AppUtility.getOfflineOption() // set initial option to on
+        
+       // self.test.networkSpeedTestStop()
+       // self.test.networkSpeedTestStart(UrlForTestSpeed: "https://prodapi.revospin.com/revospin-server-1.0/api/unauth/ping")
+        
+        
+/*
+        self.speedTestTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { timer in
+            print("@@TIMER")
+            self.test.networkSpeedTestStop()
+            self.test.networkSpeedTestStart(UrlForTestSpeed: "https://yahoo.com")
+        }*/
 
-    fileprivate func handleLogin(_ userResponse: UserResponse, _ api: TextatizeAPI, completionHandler: @escaping (ServerError?, UserResponse?) -> Void) {
+    }
+    
+    func callWhileSpeedChange(networkStatus: NetworkStatus) {
+        self.speed = networkStatus
+        switch networkStatus {
+        case .poor:
+            print("NetworkStatus: Poor")
+        case .good:
+            print("NetworkStatus: Good")
+        case .disConnected:
+            print("NetworkStatus: Disconnected")
+        }
+    }
+
+    fileprivate func handleLogin(_ userResponse: UserResponse, _ api: TextatizeAPI, completion: @escaping (ServerError?, UserResponse?) -> Void) {
         if let user = userResponse.user {
             //            if let user = userResponse.user {
             //                loggly(LogType.Debug, text: "Successful login: \(user.username)")
@@ -31,16 +86,18 @@ class TextatizeAPI {
             if let sessionToken = userResponse.sessionToken {
                 api.sessionToken = sessionToken
                 TextatizeLoginManager.shared.loggedInUser = user
-                completionHandler(nil, userResponse)
+                completion(nil, userResponse)
                 
             } else {
-                completionHandler(ServerError.defaultError, nil)
+                completion(ServerError.defaultError, nil)
             }
             
         }
     }
     
     func register(first_name: String, last_name: String, username: String, email: String, phone: String, password: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         var parameters: Parameters = [:]
         parameters["first_name"] = first_name.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -85,7 +142,10 @@ class TextatizeAPI {
         
     }
     
-    func login(username: String?, password: String?, completionHandler: @escaping (ServerError?, UserResponse?) -> Void) {
+    func login(username: String?, password: String?, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
         
         var parameters: Parameters = [:]
         
@@ -110,7 +170,7 @@ class TextatizeAPI {
                     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                         if let userResponse: UserResponse = UserResponse(JSONString: utf8Text) {
                             if let error = userResponse.error {
-                                completionHandler(ServerError(WithMessage: error), nil)
+                                completion(ServerError(WithMessage: error), nil)
                                 return
                             }
                             
@@ -122,14 +182,14 @@ class TextatizeAPI {
                                 TextatizeLoginManager.shared.storePassword(password: password)
                             }
                             
-                            api.handleLogin(userResponse, api, completionHandler: completionHandler)
+                            api.handleLogin(userResponse, api, completion: completion)
                         }
                         
                     }
                     
                 case .failure(let error):
                     print("Failed to login! Error is: \(error.localizedDescription). Detailed info: \((error as NSError).userInfo.description)")
-                    completionHandler(ServerError(WithMessage: error.localizedDescription), nil)
+                    completion(ServerError(WithMessage: error.localizedDescription), nil)
                     
                 }
                 
@@ -140,6 +200,9 @@ class TextatizeAPI {
     }
     
     func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
         
         guard let sessionToken = sessionToken else { return }
         
@@ -180,6 +243,9 @@ class TextatizeAPI {
     }
     
     func retrieveEvent(page: String?, eventID: String, completion: @escaping (ServerError?, MediasResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
         guard let sessionToken = sessionToken else { return }
         
         var parameters: Parameters = [:]
@@ -209,7 +275,10 @@ class TextatizeAPI {
         }
     }
     
-    func retrieveEvents(status: EventStatus?, page: String?, completionHandler: @escaping (ServerError?, EventsResponse?) -> Void) {
+    func retrieveEvents(status: EventStatus?, page: String?, completion: @escaping (ServerError?, EventsResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
         if let sessionToken = sessionToken {
             
             print(sessionToken)
@@ -234,14 +303,14 @@ class TextatizeAPI {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                             let eventResponse = EventsResponse(JSONString: utf8Text)
-                            completionHandler(nil, eventResponse)
+                            completion(nil, eventResponse)
                             
                         } else {
-                            completionHandler(ServerError.defaultError, nil)
+                            completion(ServerError.defaultError, nil)
                         }
                         
-                    case .failure(_):
-                        completionHandler(ServerError.defaultError, nil)
+                    case .failure(let error):
+                        completion(ServerError(WithMessage: error.localizedDescription), nil)
                     }
                     
                 }
@@ -251,6 +320,9 @@ class TextatizeAPI {
     }
     
     func retrieveUser(completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
         guard let sessionToken = sessionToken else { return }
         
         AF.request(API_URL + "user/me",
@@ -275,6 +347,10 @@ class TextatizeAPI {
     }
     
     func verifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
+        
         guard let sessionToken = sessionToken else { return }
         
         var parameters: Parameters = [:]
@@ -302,6 +378,10 @@ class TextatizeAPI {
     }
     
     func reverifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+
+        
         guard let sessionToken = sessionToken else { return }
         
         var parameters: Parameters = [:]
