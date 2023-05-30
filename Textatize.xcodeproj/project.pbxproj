@@ -12,6 +12,7 @@
 		540977842A1E44BD0079862F /* MainEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977832A1E44BD0079862F /* MainEventViewModel.swift */; };
 		540977862A1E522C0079862F /* EnumHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977852A1E522C0079862F /* EnumHelpers.swift */; };
 		540977892A1E55310079862F /* CheckInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977882A1E55310079862F /* CheckInfoViewModel.swift */; };
+		541997322A262A23001353BC /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541997312A262A23001353BC /* ImageDetailView.swift */; };
 		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
 		542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */; };
 		542D540D2A2010B50016BCB2 /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D540C2A2010B50016BCB2 /* EventResponse.swift */; };
@@ -90,6 +91,7 @@
 		540977832A1E44BD0079862F /* MainEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventViewModel.swift; sourceTree = "<group>"; };
 		540977852A1E522C0079862F /* EnumHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumHelpers.swift; sourceTree = "<group>"; };
 		540977882A1E55310079862F /* CheckInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInfoViewModel.swift; sourceTree = "<group>"; };
+		541997312A262A23001353BC /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
 		542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtom.swift; sourceTree = "<group>"; };
 		542D540C2A2010B50016BCB2 /* EventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
@@ -229,6 +231,7 @@
 				54511EBF2A152F75002590A7 /* EventCard.swift */,
 				542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */,
 				546F17F32A203CCF00554234 /* SpinnerView.swift */,
+				541997312A262A23001353BC /* ImageDetailView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -642,6 +645,7 @@
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
 				54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */,
 				54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */,
+				541997322A262A23001353BC /* ImageDetailView.swift in Sources */,
 				5432634E2A17571900C96A1A /* Keychain.swift in Sources */,
 				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
