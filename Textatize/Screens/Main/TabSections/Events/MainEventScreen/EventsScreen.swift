@@ -128,35 +128,70 @@ struct EventsScreen: View {
                         
                         Group {
                             ScrollView {
-                                LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
-                                    ForEach(0..<vm.events.count + 1, id: \.self) { item in
-                                        if item == 0 {
-                                            NavigationLink {
-                                                NewEventScreen()
-                                            } label: {
-                                                EventCard(new: true, eventSelected: $createNewEventPressed)
-                                                   
-                                            }
-                                            
-                                        } else {
-                                            
-                                            let event = vm.events[item - 1]
-                                            
-                                            NavigationLink {
-                                                EventDetailScreen(name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation, camera: event.getCamera, hostName: event.getName)
-                                            } label: {
-                                                EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
+                                if currentSelected {
+                                    LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
+                                        ForEach(0..<vm.events.count + 1, id: \.self) { item in
+                                            if item == 0 {
+                                                NavigationLink {
+                                                    NewEventScreen()
+                                                } label: {
+                                                    EventCard(new: true, eventSelected: $createNewEventPressed)
+                                                       
+                                                }
+                                                
+                                            } else {
+                                                
+                                                let event = vm.events[item - 1]
+                                                
+                                                NavigationLink {
+                                                    EventDetailScreen(name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation, camera: event.getCamera, hostName: event.getName)
+                                                } label: {
+                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
 
+                                                }
+                                                
+                                                
+                                                
                                             }
-                                            
-                                            
                                             
                                         }
                                         
                                     }
+                                    .padding()
+                                } else {
+                                    
+                                    LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
+                                        ForEach(0..<vm.completedEvents.count + 1, id: \.self) { item in
+                                            if item == 0 {
+                                                NavigationLink {
+                                                    NewEventScreen()
+                                                } label: {
+                                                    EventCard(new: true, eventSelected: $createNewEventPressed)
+                                                       
+                                                }
+                                                
+                                            } else {
+                                                
+                                                let event = vm.events[item - 1]
+                                                
+                                                NavigationLink {
+                                                    EventDetailScreen(name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation, camera: event.getCamera, hostName: event.getName)
+                                                } label: {
+                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
+
+                                                }
+                                                
+                                                
+                                                
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    .padding()
                                     
                                 }
-                                .padding()
+
                                 
                             }
                         }

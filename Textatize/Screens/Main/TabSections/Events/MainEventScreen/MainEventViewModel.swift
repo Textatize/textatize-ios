@@ -13,6 +13,7 @@ class EventViewModel: ObservableObject {
     
     @Published var firstName = TextatizeLoginManager.shared.loggedInUser?.firstName ?? "No Name Found"
     @Published var events = [Event]()
+    @Published var completedEvents = [Event]()
     
     let textatizeAPI = TextatizeAPI.shared
     
@@ -28,6 +29,18 @@ class EventViewModel: ObservableObject {
             if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
                 self.events = APIEvents
             }            
+        }
+        
+        textatizeAPI.retrieveEvents(status: .completed, page: nil) { [weak self] error, eventsResponse in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print(error.getMessage() ?? "No Message Found")
+            }
+            
+            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+                self.completedEvents = APIEvents
+            }
         }
     }
     
