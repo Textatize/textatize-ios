@@ -144,8 +144,6 @@ struct TemplatesScreen: View {
                 }
                 .opacity(selectEvent ? 1 : 0)
                 .toolbar(selectEvent ? .hidden : .visible, for: .tabBar)
-                
-                
             }
             
         }

@@ -38,9 +38,8 @@ struct EventDetailScreen: View {
 
                 VStack {
                     
-                    Button {
-                        print("Capture Pressed")
-                        showCameraView = true
+                    NavigationLink {
+                        CameraView()
                     } label: {
                         HStack {
                             AppImages.EventCard.camera
@@ -58,9 +57,32 @@ struct EventDetailScreen: View {
                                 .fill(.black)
                         }
                         .padding()
-                        
                     }
-                    .padding(.top, 20)
+
+                    
+//                    Button {
+//                        print("Capture Pressed")
+//                        showCameraView = true
+//                    } label: {
+//                        HStack {
+//                            AppImages.EventCard.camera
+//                                .resizable()
+//                                .frame(width: 20, height: 20)
+//
+//                            Text("Capture")
+//                                .font(.headline)
+//                                .accentColor(.white)
+//                        }
+//                        .frame(height: 50)
+//                        .frame(maxWidth: .infinity)
+//                        .background {
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .fill(.black)
+//                        }
+//                        .padding()
+//
+//                    }
+//                    .padding(.top, 20)
                     
                     VStack {
                         Text("Event Detail")
@@ -281,26 +303,7 @@ struct EventDetailScreen: View {
                 }
             }
             .navigationBarBackButtonHidden()
-//            .actionSheet(isPresented: $showSheet) {
-//                ActionSheet(title: Text("SelectPhoto"),
-//                            message: Text("Choose"),
-//                            buttons: [
-//                                .default(Text("Photo Library"), action: {
-//                                    // Open Photo Library
-//                                    self.showCameraView = true
-//                                    // self.sourcetype = .photoLibrary
-//                                }),
-//                                .default(Text("Camera"), action: {
-//                                    // Open Camera
-//                                    self.showCameraView = true
-//                                    // self.sourcetype = .camera
-//                                }),
-//                                .cancel()
-//                            ])
-//            }
-            .fullScreenCover(isPresented: $showCameraView) {
-                CameraView()
-            }
+            .toolbar(.visible, for: .tabBar)
         }
     }
 }

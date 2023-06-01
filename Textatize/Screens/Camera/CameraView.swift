@@ -121,6 +121,7 @@ struct CameraView: View {
         .onDisappear {
             cancelTimer()
         }
+        .toolbar(.hidden, for: .tabBar)
     }
     
     private func instantiateTimer() {
