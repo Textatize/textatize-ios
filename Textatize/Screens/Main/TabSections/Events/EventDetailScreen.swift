@@ -40,7 +40,7 @@ struct EventDetailScreen: View {
                     
                     Button {
                         print("Capture Pressed")
-                        showSheet = true
+                        showCameraView = true
                     } label: {
                         HStack {
                             AppImages.EventCard.camera
@@ -281,23 +281,23 @@ struct EventDetailScreen: View {
                 }
             }
             .navigationBarBackButtonHidden()
-            .actionSheet(isPresented: $showSheet) {
-                ActionSheet(title: Text("SelectPhoto"),
-                            message: Text("Choose"),
-                            buttons: [
-                                .default(Text("Photo Library"), action: {
-                                    // Open Photo Library
-                                    self.showCameraView = true
-                                    // self.sourcetype = .photoLibrary
-                                }),
-                                .default(Text("Camera"), action: {
-                                    // Open Camera
-                                    self.showCameraView = true
-                                    // self.sourcetype = .camera
-                                }),
-                                .cancel()
-                            ])
-            }
+//            .actionSheet(isPresented: $showSheet) {
+//                ActionSheet(title: Text("SelectPhoto"),
+//                            message: Text("Choose"),
+//                            buttons: [
+//                                .default(Text("Photo Library"), action: {
+//                                    // Open Photo Library
+//                                    self.showCameraView = true
+//                                    // self.sourcetype = .photoLibrary
+//                                }),
+//                                .default(Text("Camera"), action: {
+//                                    // Open Camera
+//                                    self.showCameraView = true
+//                                    // self.sourcetype = .camera
+//                                }),
+//                                .cancel()
+//                            ])
+//            }
             .fullScreenCover(isPresented: $showCameraView) {
                 CameraView()
             }

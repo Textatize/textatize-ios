@@ -39,8 +39,6 @@ struct ImageDetailView: View {
                     
                     VStack(spacing: 10) {
                         
-                       
-                        
                         if let image = image {
                             
                             VStack {
