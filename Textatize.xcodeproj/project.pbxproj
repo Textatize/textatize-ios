@@ -40,6 +40,7 @@
 		543263592A17A85400C96A1A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263582A17A85400C96A1A /* LoginViewModel.swift */; };
 		54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAC2A1662EC00E47732 /* AddCard.swift */; };
 		54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* TemplateCard.swift */; };
+		544BCB572A27F43C005E4068 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544BCB562A27F43C005E4068 /* CameraView.swift */; };
 		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
 		54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EC42A156A4D002590A7 /* NewEventScreen.swift */; };
 		54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568E942A127D89001F5CE7 /* TextatizeApp.swift */; };
@@ -119,6 +120,7 @@
 		543263582A17A85400C96A1A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		54355EAC2A1662EC00E47732 /* AddCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCard.swift; sourceTree = "<group>"; };
 		54355EAE2A1666C300E47732 /* TemplateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCard.swift; sourceTree = "<group>"; };
+		544BCB562A27F43C005E4068 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		54511EBF2A152F75002590A7 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
 		54511EC42A156A4D002590A7 /* NewEventScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventScreen.swift; sourceTree = "<group>"; };
 		54568E912A127D89001F5CE7 /* Textatize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Textatize.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -290,6 +292,14 @@
 			path = Cards;
 			sourceTree = "<group>";
 		};
+		544BCB552A27F3F9005E4068 /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				544BCB562A27F43C005E4068 /* CameraView.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
 		54511EC12A156A0A002590A7 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +423,7 @@
 		54B45D9B2A144F010066302E /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				544BCB552A27F3F9005E4068 /* Camera */,
 				54568EBF2A1283D7001F5CE7 /* Onboarding */,
 				54B45D9C2A1517D20066302E /* Main */,
 			);
@@ -637,6 +648,7 @@
 				546F17F62A203D2000554234 /* ContentView.swift in Sources */,
 				54309C7E2A12DDB500C02B14 /* Images.swift in Sources */,
 				54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */,
+				544BCB572A27F43C005E4068 /* CameraView.swift in Sources */,
 				543263432A173FD000C96A1A /* User.swift in Sources */,
 				546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */,
 				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
