@@ -73,26 +73,26 @@ struct CameraView: View {
                     .font(.largeTitle.bold())
                     .foregroundColor(.red)
                 
-                VStack {
-                    Spacer()
-                    
-                    Button {
-                        print("Camera icon pressed")
-                        camera.takePic()
-                        cancelTimer()
-                    } label: {
-                        ZStack {
-                            Circle()
-                                .fill(Color.red)
-                                .frame(width: UIScreen.main.bounds.width * 0.23, height:  UIScreen.main.bounds.width * 0.23)
-                            Image(systemName: "camera.fill")
-                                .resizable()
-                                .frame(width: 45, height: 35)
-                                .foregroundColor(.white)
-                        }
-                    }
-                    
-                }
+//                VStack {
+//                    Spacer()
+//
+//                    Button {
+//                        print("Camera icon pressed")
+//                        camera.takePic()
+//                        cancelTimer()
+//                    } label: {
+//                        ZStack {
+//                            Circle()
+//                                .fill(Color.red)
+//                                .frame(width: UIScreen.main.bounds.width * 0.23, height:  UIScreen.main.bounds.width * 0.23)
+//                            Image(systemName: "camera.fill")
+//                                .resizable()
+//                                .frame(width: 45, height: 35)
+//                                .foregroundColor(.white)
+//                        }
+//                    }
+//
+//                }
             }
             
             if continuePressed {
