@@ -64,13 +64,10 @@ struct CameraView: View {
                 }
             } else {
                 Circle()
-                    .fill(Color.red)
+                    .strokeBorder(.red, lineWidth: 5)
                     .frame(width: UIScreen.main.bounds.width * 0.27, height: UIScreen.main.bounds.width * 0.27)
-                Circle()
-                    .fill(Color.white)
-                    .frame(width: UIScreen.main.bounds.width * 0.26, height: UIScreen.main.bounds.width * 0.26)
                 Text("\(countDown)")
-                    .font(.largeTitle.bold())
+                    .font(.system(size: 50, weight: .bold))
                     .foregroundColor(.red)
                 
 //                VStack {
