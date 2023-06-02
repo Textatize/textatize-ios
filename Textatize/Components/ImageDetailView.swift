@@ -84,9 +84,76 @@ struct ImageDetailView: View {
         .frame(height: UIScreen.main.bounds.height * 0.8)
     }
 }
+struct SharePhotoView: View {
+    
+    @State private var number = ""
+    @Binding var showView: Bool
+    var image: Image
+    
+    var body: some View {
+        
+        ZStack {
+            XMarkButton(showView: $showView)
+            VStack {
+                Text("Your Photo")
+                    .font(.largeTitle.bold())
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
+                image
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                
+                Text("Submit a photo")
+                    .font(.title2)
+                    .fontWeight(.semibold)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .padding()
+                
+                Text("To share a photo via SMS, \nwrite a phone number")
+                    .font(.headline)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .multilineTextAlignment(.center)
+                
+                TextField("+1234", text: $number)
+                    .padding()
+                    .frame(width: 250, height: 50)
+                    .onboardingBorder()
+                    .padding()
+                    .keyboardType(.numberPad)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
+                CustomButtonView(filled: true, name: "Share Photo")
+                    .onTapGesture {
+                        print("Share Photo Pressed")
+                    }
+                    .padding()
+            }
+        }
+        .customBackground()
+ 
+    }
+}
+
+struct XMarkButton: View {
+    @Binding var showView: Bool
+    var body: some View {
+        
+        Button {
+            withAnimation {
+                showView = false
+            }
+        } label: {
+            Image(systemName: "xmark")
+                .accentColor(.black)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+        .padding(20)
+        
+    }
+}
 
 struct ImageDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        ImageDetailView(showView: .constant(true))
+        SharePhotoView(showView: .constant(true), image: Image(systemName: "photo"))
     }
 }

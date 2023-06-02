@@ -97,7 +97,8 @@ struct CameraView: View {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
             
-                    ImageDetailView(showView: $continuePressed, image: camera.retrieveImage())
+                    SharePhotoView(showView: $continuePressed, image: camera.retrieveImage() ?? Image(systemName: "photo"))
+                        .padding()
                 }
             
             }
