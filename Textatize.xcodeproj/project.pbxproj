@@ -58,6 +58,8 @@
 		546F17EE2A202AB400554234 /* NetworkSpeedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */; };
 		546F17F42A203CCF00554234 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17F32A203CCF00554234 /* SpinnerView.swift */; };
 		546F17F62A203D2000554234 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17F52A203D2000554234 /* ContentView.swift */; };
+		549653592A2E183C003BD043 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549653582A2E183C003BD043 /* Media.swift */; };
+		5496535B2A2E19EC003BD043 /* MediaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5496535A2A2E19EC003BD043 /* MediaResponse.swift */; };
 		549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549E60FA2A15834700C00231 /* EventDetailScreen.swift */; };
 		54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9D2A1517EF0066302E /* MainTabView.swift */; };
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
@@ -141,6 +143,8 @@
 		546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSpeedTest.swift; sourceTree = "<group>"; };
 		546F17F32A203CCF00554234 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
 		546F17F52A203D2000554234 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		549653582A2E183C003BD043 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		5496535A2A2E19EC003BD043 /* MediaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaResponse.swift; sourceTree = "<group>"; };
 		549E60FA2A15834700C00231 /* EventDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreen.swift; sourceTree = "<group>"; };
 		54B45D9D2A1517EF0066302E /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
@@ -258,6 +262,7 @@
 				543263402A173D7600C96A1A /* AbstractServerObject.swift */,
 				543263422A173FD000C96A1A /* User.swift */,
 				543263512A17603200C96A1A /* Event.swift */,
+				549653582A2E183C003BD043 /* Media.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -270,6 +275,7 @@
 				543263532A1760E700C96A1A /* EventsResponse.swift */,
 				542D540C2A2010B50016BCB2 /* EventResponse.swift */,
 				542D540E2A2020B80016BCB2 /* MediasResponse.swift */,
+				5496535A2A2E19EC003BD043 /* MediaResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -646,6 +652,7 @@
 				54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */,
 				540977842A1E44BD0079862F /* MainEventViewModel.swift in Sources */,
 				546F17F62A203D2000554234 /* ContentView.swift in Sources */,
+				549653592A2E183C003BD043 /* Media.swift in Sources */,
 				54309C7E2A12DDB500C02B14 /* Images.swift in Sources */,
 				54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */,
 				544BCB572A27F43C005E4068 /* CameraView.swift in Sources */,
@@ -653,6 +660,7 @@
 				546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */,
 				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
 				5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */,
+				5496535B2A2E19EC003BD043 /* MediaResponse.swift in Sources */,
 				543263412A173D7600C96A1A /* AbstractServerObject.swift in Sources */,
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
 				54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */,
