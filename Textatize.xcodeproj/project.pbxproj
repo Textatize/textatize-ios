@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		33D266BDF418826A345793F5 /* EntityInfo-Textatize.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = D884862685EE411F62FBBC9D /* EntityInfo-Textatize.generated.swift */; };
 		5409777E2A1D42480079862F /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5409777D2A1D42480079862F /* RegisterViewModel.swift */; };
 		540977812A1E41500079862F /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977802A1E41500079862F /* DataManager.swift */; };
 		540977842A1E44BD0079862F /* MainEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977832A1E44BD0079862F /* MainEventViewModel.swift */; };
@@ -150,6 +151,7 @@
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
 		54B45DA12A15181D0066302E /* TemplatesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreen.swift; sourceTree = "<group>"; };
 		54B45DA32A15182E0066302E /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		D884862685EE411F62FBBC9D /* EntityInfo-Textatize.generated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "EntityInfo-Textatize.generated.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E03C7E602C466850548C10C /* generated */ = {
+			isa = PBXGroup;
+			children = (
+				D884862685EE411F62FBBC9D /* EntityInfo-Textatize.generated.swift */,
+			);
+			name = generated;
+			path = generated;
+			sourceTree = "<group>";
+		};
 		535F90E976E3A2F6BA65817A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +354,7 @@
 				54568E932A127D89001F5CE7 /* Textatize */,
 				54568EA42A127D92001F5CE7 /* TextatizeTests */,
 				54568EAE2A127D92001F5CE7 /* TextatizeUITests */,
+				3E03C7E602C466850548C10C /* generated */,
 				54568E922A127D89001F5CE7 /* Products */,
 				624912981E120F406D048AB1 /* Pods */,
 				535F90E976E3A2F6BA65817A /* Frameworks */,
@@ -472,6 +484,7 @@
 			buildConfigurationList = 54568EB52A127D92001F5CE7 /* Build configuration list for PBXNativeTarget "Textatize" */;
 			buildPhases = (
 				56BBFE68096AE48FF5E12F3D /* [CP] Check Pods Manifest.lock */,
+				31ECCD5FD36D7CA9EED4D291 /* [OBX] Update Sourcery Generated Files */,
 				54568E8D2A127D89001F5CE7 /* Sources */,
 				54568E8E2A127D89001F5CE7 /* Frameworks */,
 				54568E8F2A127D89001F5CE7 /* Resources */,
@@ -482,8 +495,6 @@
 			dependencies = (
 			);
 			name = Textatize;
-			packageProductDependencies = (
-			);
 			productName = Textatize;
 			productReference = 54568E912A127D89001F5CE7 /* Textatize.app */;
 			productType = "com.apple.product-type.application";
@@ -556,8 +567,6 @@
 				Base,
 			);
 			mainGroup = 54568E882A127D89001F5CE7;
-			packageReferences = (
-			);
 			productRefGroup = 54568E922A127D89001F5CE7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -596,6 +605,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		31ECCD5FD36D7CA9EED4D291 /* [OBX] Update Sourcery Generated Files */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[OBX] Update Sourcery Generated Files";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/ObjectBox/generate_sources.sh\" -- --output \"$PROJECT_DIR/generated/EntityInfo-Textatize.generated.swift\" --model-json \"$PROJECT_DIR/model-Textatize.json\"";
+		};
 		3B2C9811BA5D02B273EFAC93 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -695,6 +722,7 @@
 				543263592A17A85400C96A1A /* LoginViewModel.swift in Sources */,
 				54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */,
 				542D540F2A2020B80016BCB2 /* MediasResponse.swift in Sources */,
+				33D266BDF418826A345793F5 /* EntityInfo-Textatize.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
