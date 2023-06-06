@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import ObjectBox
 
 struct ImageDetailView: View {
     @Binding var showView: Bool
@@ -86,9 +87,11 @@ struct ImageDetailView: View {
 }
 struct SharePhotoView: View {
     
+    var action: DismissAction
     @State private var number = ""
+    var eventID: String
     @Binding var showView: Bool
-    var image: Image
+    var imageData: Data
     
     var body: some View {
         
@@ -99,7 +102,7 @@ struct SharePhotoView: View {
                     .font(.largeTitle.bold())
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 
-                image
+                Image(uiImage: UIImage(data: imageData) ?? UIImage(systemName: "photo")!)
                     .resizable()
                     .frame(width: 200, height: 200)
                 
@@ -124,13 +127,28 @@ struct SharePhotoView: View {
                 
                 CustomButtonView(filled: true, name: "Share Photo")
                     .onTapGesture {
-                        print("Share Photo Pressed")
+                        action()
+                        savePhoto()
                     }
                     .padding()
             }
         }
         .customBackground()
  
+    }
+    
+    private func savePhoto() {
+        let localImage = LocalImage()
+        localImage.imageData = imageData
+        localImage.eventID = eventID
+        UserDefaults.standard.set(number, forKey: "shareNumber")
+    
+        do {
+            try Services.instance.imageBox.put(localImage)
+            ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
+        } catch {
+            print(error)
+        }
     }
 }
 
@@ -152,8 +170,8 @@ struct XMarkButton: View {
     }
 }
 
-struct ImageDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        SharePhotoView(showView: .constant(true), image: Image(systemName: "photo"))
-    }
-}
+//struct ImageDetailView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SharePhotoView(showView: .constant(true), image: Image(systemName: "photo"))
+//    }
+//}

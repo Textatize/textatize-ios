@@ -17,13 +17,13 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     let monitor = NWPathMonitor()
     
     var sessionToken: String? {
-            get {
-                return UserDefaults.standard.string(forKey: "sessionToken")
-            }
-            set {
-                UserDefaults.standard.set(newValue, forKey: "sessionToken")
-            }
+        get {
+            return UserDefaults.standard.string(forKey: "sessionToken")
         }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "sessionToken")
+        }
+    }
     
     var hasInternet = false
     let test = NetworkSpeedTest()
@@ -33,13 +33,13 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     private override init() {
         super.init()
         monitor.pathUpdateHandler = { path in
-           if path.status == .satisfied {
-              print("@@MONITOR Connected")
-               self.hasInternet = true
-           } else {
-              print("@@MONITOR Disconnected")
-               self.hasInternet = false
-           }
+            if path.status == .satisfied {
+                print("@@MONITOR Connected")
+                self.hasInternet = true
+            } else {
+                print("@@MONITOR Disconnected")
+                self.hasInternet = false
+            }
         }
         let queue = DispatchQueue(label: "Monitor")
         monitor.start(queue: queue)
@@ -52,17 +52,17 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         test.delegate = self
         //AppUtility.getOfflineOption() // set initial option to on
         
-       // self.test.networkSpeedTestStop()
-       // self.test.networkSpeedTestStart(UrlForTestSpeed: "https://prodapi.revospin.com/revospin-server-1.0/api/unauth/ping")
+        // self.test.networkSpeedTestStop()
+        // self.test.networkSpeedTestStart(UrlForTestSpeed: "https://prodapi.revospin.com/revospin-server-1.0/api/unauth/ping")
         
         
-/*
-        self.speedTestTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { timer in
-            print("@@TIMER")
-            self.test.networkSpeedTestStop()
-            self.test.networkSpeedTestStart(UrlForTestSpeed: "https://yahoo.com")
-        }*/
-
+        /*
+         self.speedTestTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { timer in
+         print("@@TIMER")
+         self.test.networkSpeedTestStop()
+         self.test.networkSpeedTestStart(UrlForTestSpeed: "https://yahoo.com")
+         }*/
+        
     }
     
     func callWhileSpeedChange(networkStatus: NetworkStatus) {
@@ -76,7 +76,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             print("NetworkStatus: Disconnected")
         }
     }
-
+    
     fileprivate func handleLogin(_ userResponse: UserResponse, _ api: TextatizeAPI, completion: @escaping (ServerError?, UserResponse?) -> Void) {
         if let user = userResponse.user {
             //            if let user = userResponse.user {
@@ -112,7 +112,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    method: .post,
                    parameters: parameters)
         .validate().responseJSON { [weak self] response in
-                      
+            
             
             if let api = self {
                 switch response.result {
@@ -121,7 +121,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                     
                     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                         let userResponse: UserResponse = UserResponse(JSONString: utf8Text)!
-                                                
+                        
                         if let error = userResponse.error {
                             completion(ServerError(WithMessage: error), nil)
                             return
@@ -133,7 +133,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                         
                         completion(nil, userResponse)
                     }
-                   
+                    
                 case .failure(let error):
                     completion(ServerError(WithMessage: error.localizedDescription), nil)
                 }
@@ -146,7 +146,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     func login(username: String?, password: String?, completion: @escaping (ServerError?, UserResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
+        
         
         var parameters: Parameters = [:]
         
@@ -163,11 +163,11 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    parameters: parameters)
         .validate().responseJSON { [weak self] response  in
             if let api = self {
-                 
+                
                 switch response.result {
                     
                 case .success:
-                                                            
+                    
                     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
                         if let userResponse: UserResponse = UserResponse(JSONString: utf8Text) {
                             if let error = userResponse.error {
@@ -204,7 +204,6 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
         
         guard let sessionToken = sessionToken else { return }
         
@@ -241,17 +240,74 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             print("Response: \(response)")
             
         }
-
+        
     }
     
-    func retrieveEvent(page: String?, eventID: String, completion: @escaping (ServerError?, MediasResponse?) -> Void) {
+    func addMedia(eventID: String, imageData: Data?, completion: @escaping (ServerError?, MediaResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        guard let imageData = imageData, let image = UIImage(data: imageData) else { return }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            if let compressedImage = image.jpegData(compressionQuality: 0.5) {
+                multipartFormData.append(compressedImage, withName: "imageTaken", fileName: "imageTaken.jpg", mimeType: "image/jpeg")
+            }
+            
+            
+            
+        }, to: "\(API_URL)/media/\(eventID)",
+                  method: .post,
+                  headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
+            
+            print("Add Media Response: \(response)")
+            
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let mediaResponse = MediaResponse(JSONString: utf8Text)
+                    UserDefaults.standard.setValue(mediaResponse?.media?.unique_id, forKey: "mediaID")
+                    completion(nil, mediaResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+                
+            }
+            
+            
+        }
+    }
+    
+    func shareMedia(phoneNumber: String?, mediaID: String, completion: @escaping (ServerError?, MediaResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
         guard let sessionToken = sessionToken else { return }
         
         var parameters: Parameters = [:]
-        if let page  = page {
+        if let phoneNumber = phoneNumber {
+            parameters["phone"] = phoneNumber
+        }
+        
+        AF.request(API_URL + "media/share/\(mediaID)",
+                   method: .get,
+                   parameters: parameters,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { response in
+            print("Share Media Response: \(response)")
+        }
+    }
+    
+    func retrieveMedia(page: String?, eventID: String, completion: @escaping (ServerError?, MediasResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        
+        if let page = page {
             parameters["page"] = page
         }
         
@@ -259,9 +315,8 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    method: .get,
                    parameters: parameters,
                    headers: ["authorization": "Bearer \(sessionToken)"])
-        .validate().responseJSON { [weak self] response in
-            guard let self = `self` else { return }
-            print("Retrieve Event Response: \(response)")
+        .validate().responseJSON { response in
+            print("Retrieve Media Response \(eventID): \(response)")
             
             switch response.result {
             case .success:
@@ -269,18 +324,51 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                     let mediasResponse = MediasResponse(JSONString: utf8Text)
                     completion(nil, mediasResponse)
                 }
-                
             case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
+                
             }
             
         }
     }
     
+    //    func retrieveEvent(page: String?, eventID: String, completion: @escaping (ServerError?, MediasResponse?) -> Void) {
+    //
+    //        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+    //
+    //        guard let sessionToken = sessionToken else { return }
+    //
+    //        var parameters: Parameters = [:]
+    //        if let page  = page {
+    //            parameters["page"] = page
+    //        }
+    //
+    //        AF.request(API_URL + "media/\(eventID)",
+    //                   method: .get,
+    //                   parameters: parameters,
+    //                   headers: ["authorization": "Bearer \(sessionToken)"])
+    //        .validate().responseJSON { [weak self] response in
+    //            guard let self = `self` else { return }
+    //            print("Retrieve Event Response: \(response)")
+    //
+    //            switch response.result {
+    //            case .success:
+    //                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+    //                    let mediasResponse = MediasResponse(JSONString: utf8Text)
+    //                    completion(nil, mediasResponse)
+    //                }
+    //
+    //            case .failure(let error):
+    //                completion(ServerError(WithMessage: error.localizedDescription), nil)
+    //            }
+    //
+    //        }
+    //    }
+    
     func retrieveEvents(status: EventStatus?, page: String?, completion: @escaping (ServerError?, EventsResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
+        
         if let sessionToken = sessionToken {
             
             print(sessionToken)
@@ -293,7 +381,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             if let page = page {
                 parameters["page"] = page
             }
-                        
+            
             AF.request(API_URL + "event/my",
                        method: .get,
                        parameters: parameters,
@@ -324,7 +412,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     func retrieveUser(completion: @escaping (ServerError?, UserResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
+        
         guard let sessionToken = sessionToken else { return }
         
         AF.request(API_URL + "user/me",
@@ -349,9 +437,9 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     }
     
     func verifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
-
+        
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
+        
         
         guard let sessionToken = sessionToken else { return }
         
@@ -382,7 +470,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     func reverifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-
+        
         
         guard let sessionToken = sessionToken else { return }
         
@@ -409,6 +497,5 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             
         }
     }
-    
     
 }

@@ -16,6 +16,9 @@ class EventViewModel: ObservableObject {
     @Published var completedEvents = [Event]()
     
     let textatizeAPI = TextatizeAPI.shared
+    let defaults = UserDefaults.standard
+    
+    
     
     private init() {
         
@@ -28,6 +31,7 @@ class EventViewModel: ObservableObject {
             
             if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
                 self.events = APIEvents
+                print("Active Events")
             }            
         }
         
@@ -40,10 +44,9 @@ class EventViewModel: ObservableObject {
             
             if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
                 self.completedEvents = APIEvents
+                print("Completed Events")
             }
         }
     }
-    
-    
     
 }

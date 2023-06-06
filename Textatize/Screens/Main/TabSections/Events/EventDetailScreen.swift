@@ -17,6 +17,8 @@ struct EventDetailScreen: View {
         GridItem()
     ]
     
+    var event: Event?
+    
     var name: String
     var date: String
     var location: String
@@ -39,7 +41,7 @@ struct EventDetailScreen: View {
                 VStack {
                     
                     NavigationLink {
-                        CameraView()
+                        CameraView(event: event)
                     } label: {
                         HStack {
                             AppImages.EventCard.camera
@@ -245,7 +247,7 @@ struct EventDetailScreen: View {
                                 
                                 CustomButtonView(filled: true, name: "Edit")
                                 
-                                Text("Gallary")
+                                Text("Gallery")
                                     .font(.headline)
                                     .frame(maxWidth: .infinity, alignment: .center)
                                 
@@ -253,7 +255,7 @@ struct EventDetailScreen: View {
                                         ForEach(0..<20) { item in
                                             
                                             Button {
-                                                print("GallaryItem: \(item + 1) pressed")
+                                                print("GalleryItem: \(item + 1) pressed")
                                                 withAnimation {
                                                     showGallaryImage = true
                                                 }
@@ -304,6 +306,11 @@ struct EventDetailScreen: View {
             }
             .navigationBarBackButtonHidden()
             .toolbar(.visible, for: .tabBar)
+            .onAppear {
+                TextatizeAPI.shared.retrieveMedia(page: nil, eventID: "E3qLPPPhCk") { error, response in
+                    print("Response Fetched")
+                }
+            }
         }
     }
 }

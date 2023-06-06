@@ -11,6 +11,7 @@ import Combine
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
+    var event: Event? = nil
     @StateObject private var camera = CameraModel()
     @State private var continuePressed = false
     @State private var countDown = 5
@@ -97,7 +98,7 @@ struct CameraView: View {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
             
-                    SharePhotoView(showView: $continuePressed, image: camera.retrieveImage() ?? Image(systemName: "photo"))
+                    SharePhotoView(action: dismiss, eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!)
                         .padding()
                 }
             
@@ -250,15 +251,16 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         self.picData = imageData
     }
     
-    func retrieveImage() -> Image? {
+    func retrieveImage() -> Data? {
         
         guard let pictureData = self.picData else { return nil }
         
         guard let saveImage = UIImage(data: pictureData) else { return nil }
-        let finalImage = Image(uiImage: saveImage)
+        guard let imageData = saveImage.jpegData(compressionQuality: 0.5) else { return nil }
+        //let finalImage = Image(uiImage: saveImage)
         
         print("Image Retrieve")
-        return finalImage
+        return imageData
     }
 }
 
@@ -287,8 +289,8 @@ struct CameraPreview: UIViewRepresentable {
     
 }
 
-struct CameraView_Previews: PreviewProvider {
-    static var previews: some View {
-        CameraView()
-    }
-}
+//struct CameraView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CameraView()
+//    }
+//}

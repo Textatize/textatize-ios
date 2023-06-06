@@ -1,0 +1,95 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4562880120354276096",
+      "lastPropertyId": "15:1342327412439296768",
+      "name": "LocalImage",
+      "properties": [
+        {
+          "flags": 1,
+          "id": "1:1820365422616872448",
+          "name": "id",
+          "type": 6
+        },
+        {
+          "id": "3:1967326508009963008",
+          "name": "uploaded",
+          "type": 1
+        },
+        {
+          "id": "4:1610164990942574848",
+          "name": "markForUpload",
+          "type": 6
+        },
+        {
+          "id": "5:8447675042540198144",
+          "name": "upload_error",
+          "type": 9
+        },
+        {
+          "id": "6:5730756670662440192",
+          "name": "type",
+          "type": 9
+        },
+        {
+          "id": "7:8967031463129643776",
+          "name": "url",
+          "type": 9
+        },
+        {
+          "id": "8:397225792027685632",
+          "name": "entityStatus",
+          "type": 9
+        },
+        {
+          "id": "9:5521516947477985536",
+          "name": "created_time",
+          "type": 6
+        },
+        {
+          "id": "10:8549413436284027648",
+          "name": "updated_time",
+          "type": 6
+        },
+        {
+          "id": "11:5535936087993491200",
+          "name": "created_formatted",
+          "type": 9
+        },
+        {
+          "id": "13:3941454058412486144",
+          "name": "eventID",
+          "type": 9
+        },
+        {
+          "id": "14:1065617415738381056",
+          "name": "imageData",
+          "type": 23
+        },
+        {
+          "id": "15:1342327412439296768",
+          "name": "unique_id",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:4562880120354276096",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    6257744620706156288,
+    1523750447538435328
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
