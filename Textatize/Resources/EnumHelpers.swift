@@ -33,3 +33,8 @@ enum LoginStatus {
     case error
     case notLoggedIn
 }
+
+enum FrameType: String {
+    case template = "template"
+    case custom = "custom"
+}

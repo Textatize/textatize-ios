@@ -7,11 +7,14 @@
 
 import SwiftUI
 import Combine
+import Kingfisher
+
 
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.scenePhase) var scenePhase
     var event: Event? = nil
+    var frame: Frame?
     @StateObject private var camera = CameraModel()
     @State private var continuePressed = false
     @State private var countDown = 5
@@ -24,6 +27,20 @@ struct CameraView: View {
             CameraPreview(camera: camera)
                 .ignoresSafeArea()
            
+//            ZStack {
+//                VStack {
+//                    Spacer()
+//                    Circle()
+//                        .frame(width: 50, height: 50)
+//                    Image(uiImage: camera.processPhotos(frame: frame)!)
+//                        .resizable()
+//                        .frame(width: 100, height: 100)
+//                    Spacer()
+//                }
+//                
+//
+//            }
+            
             if camera.isTaken {
                 VStack {
                     Spacer()
@@ -97,8 +114,9 @@ struct CameraView: View {
                 ZStack {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
-            
-                    SharePhotoView(action: dismiss, eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!)
+
+                    
+                    SharePhotoView(action: dismiss, eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!, image: camera.processPhotos(frame: frame))
                         .padding()
                 }
             
@@ -116,6 +134,7 @@ struct CameraView: View {
         .onAppear {
             camera.check()
             instantiateTimer()
+            camera.processPhotos(frame: frame)
         }
         .onDisappear {
             cancelTimer()
@@ -158,6 +177,10 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var preview: AVCaptureVideoPreviewLayer!
     @Published var isSaved = false
     @Published var picData: Data?
+    
+    var finished_photos_ids:[String] = [] // for remote
+    var finished_photos:[UIImage] = []
+
     
     func check() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -239,6 +262,100 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+
+    
+    func processPhotos(frame: Frame?) -> UIImage? {
+          // self.showHud()
+           finished_photos_ids.removeAll()
+           finished_photos.removeAll()
+        
+        
+        guard let frame = frame else { return nil }
+        guard let pictureData = self.picData else { return nil }
+        guard let saveImage = UIImage(data: pictureData) else { return nil }
+        if let cacheImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frame.unwrappedURL)?.cgImage {
+            let size = CGSize(width: cacheImage.width, height: cacheImage.height)
+            UIGraphicsBeginImageContext(size)
+
+            
+            if let resizeImage = saveImage.resizeImage(size: size) {
+                resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            }
+            
+            let frameImage = UIImage(cgImage: cacheImage)
+            frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            
+            
+            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+                return newImage
+            }
+            
+            return saveImage
+            
+        }
+        
+        
+        return nil
+        
+
+      
+        
+       /// let image = KFImage.url(URL(string: (frame?.unwrappedURL)))
+//        let size = CGSize(width: image.siz, height: <#T##CGFloat#>)
+//        
+//           for template in selected_templates {
+//               if let downloaded_image = template.downloaded_image {
+//                   print("TEMPLATE -->\(template.image_url)")
+//                   print("TEMPLATE IMAGE -->\(downloaded_image)")
+//                   print("TEMPLATE size -->\(downloaded_image.size)")
+//                   
+//                  // var bottomImage = UIImage(named: "bottom.png")
+//                  // var topImage = UIImage(named: "top.png")
+//                   
+//                   let size = CGSize(width: downloaded_image.size.width, height: downloaded_image.size.height)
+//                   UIGraphicsBeginImageContext(size)
+//                   
+//                                   
+//                   var index = 0
+//                   for info in template.info {
+//                       if let width = info.width, let height = info.height, let top = info.top, let left = info.left {
+//                           //print("TEMPLATE size -->\(template.downloaded_image?.size)")
+//                           
+//                           if let image = taken_photos[index].resizeImage(size: CGSize(width: width, height: height)) {
+//                               var tempimage = image
+//                               if (flip) {
+//                                   print("FLIPPED")
+//                                   tempimage = image.rotate(radians: .pi)! // Rotate 90 degrees
+//                               }
+//                               tempimage.draw(in: CGRect(x: left, y: top, width: width, height: height))
+//                           }
+//                       }
+//                       index += 1
+//                   }
+//                   
+//                   downloaded_image.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//                   
+//                   
+////                   if RevoSpinLoginManager.shared.isFreeUser() {
+////                       loggly(LogType.Debug, text: "Applying watermark")
+////                       if let image = UIImage(named: "amazeboothwatermark") {
+////                           print("OVERLAY IMAGE w=\(abs(image.size.width)) h=\(abs(image.size.height))")
+////                           let overlayImage = ImageScaler.imageWithImage(sourceImage: image, scaledToWidth: size.width/3)
+////                           print("RESIZED OVERLAY IMAGE w=\(abs(overlayImage.size.width)) h=\(abs(overlayImage.size.height))")
+////                           overlayImage.draw(in: CGRect(x: 10, y: size.height-overlayImage.size.height-5, width: overlayImage.size.width, height: overlayImage.size.height))
+////                       }
+////                   }
+//                   if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+//                       finished_photos.append(newImage)
+//                   }
+//                   UIGraphicsEndImageContext()
+//               }
+//           }
+//           //self.hideHud()
+//           
+//           //self.chooseFinalImage()
+       }
+    
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
 //        if let error = error {
 //            print("Photo Process Error: \(error.localizedDescription)")
@@ -294,3 +411,18 @@ struct CameraPreview: UIViewRepresentable {
 //        CameraView()
 //    }
 //}
+
+
+extension UIImage {
+    func resizeImage( size: CGSize) -> UIImage? {
+            let scale: CGFloat = max(size.width / self.size.width, size.height / self.size.height)
+            let width: CGFloat = self.size.width * scale
+            let height: CGFloat = self.size.height * scale
+            let imageRect = CGRect(x: (size.width - width) / 2.0, y: (size.height - height) / 2.0, width: width, height: height)
+            UIGraphicsBeginImageContextWithOptions(size, false, 0)
+            self.draw(in: imageRect)
+            let newImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return newImage
+        }
+}

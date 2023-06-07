@@ -21,6 +21,7 @@ struct CheckAllInfoScreen: View {
     var watermarkImage: UIImage
     var watermarkTransparency: Double
     var watermarkPosition: WatermarkPosition
+    var frame: Frame? = nil
     
     var body: some View {
         ZStack {
@@ -115,22 +116,28 @@ struct CheckAllInfoScreen: View {
                         .padding()
                         .frame(maxWidth: .infinity)
                         
-                        Text("Template")
+                        Text("Frame")
                             .font(.headline)
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
-
-                        HStack {
-                            ForEach(0..<3) { _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .padding()
-                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-                            }
+                        
+                        if let frame = frame {
+                            FrameCard(frame: frame)
+                                .frame(width: UIScreen.main.bounds.width * 0.30, height: UIScreen.main.bounds.width * 0.30)
+                                .padding()
                         }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
+
+//                        HStack {
+//                            ForEach(0..<3) { _ in
+//                                Image(systemName: "photo")
+//                                    .resizable()
+//                                    .padding()
+//                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+//                            }
+//                        }
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .padding(.horizontal)
                         
                         Text("Gallery")
                             .font(.headline)

@@ -20,6 +20,8 @@ struct NewEventScreen: View {
     
     @State private var nextButtonPressed = false
     
+    var frames = [Frame]()
+    
     var orientationOptions: [Orientation] = [.landscape, .portrait, .square]
     var cameraOptions: [Camera] = [.front, .back]
     
@@ -187,7 +189,7 @@ struct NewEventScreen: View {
                         Spacer()
                         
                         NavigationLink {
-                            FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                            FrameScreen(frames: frames, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()

@@ -34,4 +34,8 @@ class Media: AbstractServerObject, Identifiable {
         created_formatted   <- map["created_formatted"]
     }
     
+    var unwrappedURL: String {
+        url ?? "No URL"
+    }
+    
 }

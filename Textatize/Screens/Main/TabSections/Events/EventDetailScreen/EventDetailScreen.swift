@@ -10,11 +10,11 @@ import SwiftUI
 struct EventDetailScreen: View {
     @Environment(\.dismiss) var dismiss
     
+    @StateObject private var vm = EventDetailScreenViewModel.shared
+    
     let layout = [
         GridItem(),
         GridItem(),
-        GridItem(),
-        GridItem()
     ]
     
     var event: Event?
@@ -26,7 +26,7 @@ struct EventDetailScreen: View {
     var camera: String
     var hostName: String
     
-    @State private var showTemplate = false
+    @State private var showFrames = false
     @State private var showWatermark = false
     @State private var showGallaryImage = false
     @State private var showSheet = false
@@ -41,7 +41,7 @@ struct EventDetailScreen: View {
                 VStack {
                     
                     NavigationLink {
-                        CameraView(event: event)
+                        CameraView(event: event, frame: vm.frames.first)
                     } label: {
                         HStack {
                             AppImages.EventCard.camera
@@ -173,14 +173,14 @@ struct EventDetailScreen: View {
                                         .frame(height: 2)
                                     
                                     Button {
-                                        print("Show Template Pressed")
-                                        showTemplate.toggle()
+                                        print("Show Frames Pressed")
+                                        showFrames.toggle()
                                     } label: {
                                         HStack {
-                                            Text("Template")
+                                            Text("Frames")
                                                 .font(.headline)
                                             Spacer()
-                                            if showTemplate {
+                                            if showFrames {
                                                 Image(systemName: "chevron.up")
                                                     .resizable()
                                                     .frame(width: 20, height: 10)
@@ -194,10 +194,13 @@ struct EventDetailScreen: View {
                                         }
                                     }
                                     
-                                    if showTemplate {
+                                    if showFrames {
                                         HStack {
-                                            ForEach(0..<3) { _ in
-                                                Image(systemName: "person")
+                                            ForEach(0..<vm.frames.count, id: \.self) { item in
+                                                let frame = vm.frames[item]
+                                                FrameCard(frame: frame)
+                                                    .frame(width: 50, height: 50)
+                                                    .padding()
                                             }
                                         }
                                     }
@@ -215,7 +218,7 @@ struct EventDetailScreen: View {
                                             Text("Watermark")
                                                 .font(.headline)
                                             Spacer()
-                                            if showTemplate {
+                                            if showFrames {
                                                 Image(systemName: "chevron.up")
                                                     .resizable()
                                                     .frame(width: 20, height: 10)
@@ -252,35 +255,17 @@ struct EventDetailScreen: View {
                                     .frame(maxWidth: .infinity, alignment: .center)
                                 
                                     LazyVGrid(columns: layout) {
-                                        ForEach(0..<20) { item in
-                                            
-                                            Button {
-                                                print("GalleryItem: \(item + 1) pressed")
-                                                withAnimation {
-                                                    showGallaryImage = true
-                                                }
-                                            } label: {
-                                                VStack {
-                                                    Image(systemName: "photo")
-                                                        .resizable()
-                                                        .frame(width: 40, height: 40)
-                                                        .foregroundColor(.black)
-                                                    Text("JPEG")
-                                                }
-                                            }
+                                        ForEach(0..<vm.medias.count, id: \.self) { item in
+                                            MediaView(media: vm.medias[item])
+                                                .frame(width: 100, height: 100)
+                                                .padding()
                                     
                                         }
                                     }
-                                
-
-                                
                             }
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .padding()
                         }
-                        
-                        
-
                     }
                     .customBackground()
                     .padding(.horizontal)
@@ -306,10 +291,11 @@ struct EventDetailScreen: View {
             }
             .navigationBarBackButtonHidden()
             .toolbar(.visible, for: .tabBar)
-            .onAppear {
-                TextatizeAPI.shared.retrieveMedia(page: nil, eventID: "E3qLPPPhCk") { error, response in
-                    print("Response Fetched")
-                }
+        }
+        .onAppear {
+            if let event = event {
+                vm.getMedia(event: event)
+                vm.getFrames(orientation: event.getOrientation, page: nil)
             }
         }
     }

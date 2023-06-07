@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct TemplateEditingScreen: View {
     @Environment(\.dismiss) var dismiss
+    var frame: Frame? = nil
     var body: some View {
         ZStack {
             
@@ -25,58 +27,27 @@ struct TemplateEditingScreen: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
                 
-                Image(systemName: "photo")
-                    .resizable()
-                    .frame(width: UIScreen.main.bounds.width * 0.3, height: UIScreen.main.bounds.width * 0.4)
-                    .padding(.horizontal, 40)
-                    .padding(.vertical, 20)
-                    .background(
-                        RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .stroke(.gray, lineWidth: 4)
-                    )
+                if let frame = frame {
+                    KFImage.url(URL(string: frame.unwrappedURL))
+                        .resizable()
+                        .placeholder({
+                            ProgressView()
+                        })
+                        .loadDiskFileSynchronously()
+                        .cacheMemoryOnly()
+                        .fade(duration: 0.25)
+                        .onProgress { receivedSize, totalSize in  }
+                        .onSuccess { result in  }
+                        .onFailure { error in }
+                        .padding()
+                }
                 
                 Spacer()
                 
                 HStack {
-                    
-                    Button {
-                        print("Add Image Pressed")
-                    } label: {
-                        VStack {
-                            AppImages.imageIcon
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width * 0.1, height: UIScreen.main.bounds.width * 0.1)
-                            Text("Add Image")
-                        }
-                        .foregroundColor(AppColors.Onboarding.loginButton)
-                        .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.2)
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .stroke(AppColors.Onboarding.loginButton, lineWidth: 4)
-                    )
-                    .padding()
-                    
-                    Button {
-                        print("Add Text Pressed")
-                    } label: {
-                        VStack {
-                            AppImages.textIcon
-                                .resizable()
-                                .frame(width: UIScreen.main.bounds.width * 0.1, height: UIScreen.main.bounds.width * 0.1)
-                            Text("Add Text")
-                        }
-                        .foregroundColor(AppColors.Onboarding.loginButton)
-                        .frame(width: UIScreen.main.bounds.width * 0.4, height: UIScreen.main.bounds.width * 0.2)
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 20, style: .continuous)
-                            .stroke(AppColors.Onboarding.loginButton, lineWidth: 4)
-                    )
-                    .padding()
-
-
-                    
+                    TemplateEditButton(title: "Background", image: AppImages.imageIcon, action: addBackgroundPressed)
+                    TemplateEditButton(title: "Image", image: AppImages.imageIcon, action: addImagePressed)
+                    TemplateEditButton(title: "Text", image: AppImages.textIcon, action: addTextPressed)
                 }
                 
                 Spacer()
@@ -87,10 +58,7 @@ struct TemplateEditingScreen: View {
                 
             }
             .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal)
             .padding()
-            
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -98,6 +66,48 @@ struct TemplateEditingScreen: View {
             }
         }
         .navigationBarBackButtonHidden()
+    }
+    
+    private func addBackgroundPressed() {
+        print("Add Background Pressed")
+    }
+    
+    private func addImagePressed() {
+        print("Add Image Presssed")
+    }
+    
+    private func addTextPressed() {
+        print("Add Text Pressed")
+    }
+}
+
+struct TemplateEditButton: View {
+    
+    var title: String
+    var image: Image
+    var action: () -> Void
+    
+    var body: some View {
+        
+        Button {
+            action()
+        } label: {
+            VStack {
+                image
+                    .resizable()
+                    .frame(width: UIScreen.main.bounds.width * 0.1, height: UIScreen.main.bounds.width * 0.075)
+                Text(title)
+                    .font(.headline)
+            }
+            .foregroundColor(AppColors.Onboarding.loginButton)
+            .frame(width: UIScreen.main.bounds.width * 0.25, height: UIScreen.main.bounds.width * 0.2)
+        }
+        .padding(5)
+        .background(
+            RoundedRectangle(cornerRadius: 20, style: .continuous)
+                .stroke(AppColors.Onboarding.loginButton, lineWidth: 3)
+        )
+        
     }
 }
 

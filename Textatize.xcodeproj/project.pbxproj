@@ -40,13 +40,12 @@
 		543263542A1760E700C96A1A /* EventsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263532A1760E700C96A1A /* EventsResponse.swift */; };
 		543263592A17A85400C96A1A /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543263582A17A85400C96A1A /* LoginViewModel.swift */; };
 		54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAC2A1662EC00E47732 /* AddCard.swift */; };
-		54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* TemplateCard.swift */; };
+		54355EAF2A1666C300E47732 /* FrameCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54355EAE2A1666C300E47732 /* FrameCard.swift */; };
 		544BCB572A27F43C005E4068 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544BCB562A27F43C005E4068 /* CameraView.swift */; };
 		54511EC02A152F75002590A7 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EBF2A152F75002590A7 /* EventCard.swift */; };
 		54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54511EC42A156A4D002590A7 /* NewEventScreen.swift */; };
 		54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568E942A127D89001F5CE7 /* TextatizeApp.swift */; };
 		54568E992A127D91001F5CE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54568E982A127D91001F5CE7 /* Assets.xcassets */; };
-		54568E9C2A127D91001F5CE7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 54568E9B2A127D91001F5CE7 /* Preview Assets.xcassets */; };
 		54568EA62A127D92001F5CE7 /* TextatizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EA52A127D92001F5CE7 /* TextatizeTests.swift */; };
 		54568EB02A127D92001F5CE7 /* TextatizeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EAF2A127D92001F5CE7 /* TextatizeUITests.swift */; };
 		54568EB22A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EB12A127D92001F5CE7 /* TextatizeUITestsLaunchTests.swift */; };
@@ -56,6 +55,9 @@
 		5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */; };
 		545A82D92A2F6F2B003E677A /* PaginatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A82D82A2F6F2B003E677A /* PaginatedResponse.swift */; };
 		5460D3492A167D7300D7265C /* TemplateEditingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */; };
+		5468EF962A2FE8A4001C6FC5 /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF952A2FE8A4001C6FC5 /* Frame.swift */; };
+		5468EF982A2FF12A001C6FC5 /* FrameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF972A2FF12A001C6FC5 /* FrameResponse.swift */; };
+		5468EF9A2A2FF175001C6FC5 /* FramesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF992A2FF175001C6FC5 /* FramesResponse.swift */; };
 		546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */; };
 		546F17EE2A202AB400554234 /* NetworkSpeedTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */; };
 		546F17F42A203CCF00554234 /* SpinnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17F32A203CCF00554234 /* SpinnerView.swift */; };
@@ -70,7 +72,11 @@
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
 		54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA12A15181D0066302E /* TemplatesScreen.swift */; };
 		54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA32A15182E0066302E /* SettingsScreen.swift */; };
-		F3005F93F8AD8385B0BC58C7 /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */; };
+		54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CED2A30C4D700807EC0 /* MainViewModel.swift */; };
+		54C43CF22A30D19800807EC0 /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5164231DC6C683F367109CA /* Pods_Textatize.framework */; };
+		54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */; };
+		54C43CF82A30D52000807EC0 /* EventDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */; };
+		54C43CFC2A30D91B00807EC0 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CFB2A30D91B00807EC0 /* MediaView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,9 +97,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		3E91399ED23DB8E8E947B9C9 /* Pods-Textatize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.debug.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.debug.xcconfig"; sourceTree = "<group>"; };
-		3F257F0F88BCB29995BA719A /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
 		5409777D2A1D42480079862F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		540977802A1E41500079862F /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		540977832A1E44BD0079862F /* MainEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventViewModel.swift; sourceTree = "<group>"; };
@@ -126,7 +129,7 @@
 		543263532A1760E700C96A1A /* EventsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsResponse.swift; sourceTree = "<group>"; };
 		543263582A17A85400C96A1A /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		54355EAC2A1662EC00E47732 /* AddCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCard.swift; sourceTree = "<group>"; };
-		54355EAE2A1666C300E47732 /* TemplateCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCard.swift; sourceTree = "<group>"; };
+		54355EAE2A1666C300E47732 /* FrameCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameCard.swift; sourceTree = "<group>"; };
 		544BCB562A27F43C005E4068 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
 		54511EBF2A152F75002590A7 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
 		54511EC42A156A4D002590A7 /* NewEventScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventScreen.swift; sourceTree = "<group>"; };
@@ -145,6 +148,10 @@
 		5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordScreen.swift; sourceTree = "<group>"; };
 		545A82D82A2F6F2B003E677A /* PaginatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedResponse.swift; sourceTree = "<group>"; };
 		5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEditingScreen.swift; sourceTree = "<group>"; };
+		5468EF952A2FE8A4001C6FC5 /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		5468EF972A2FF12A001C6FC5 /* FrameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameResponse.swift; sourceTree = "<group>"; };
+		5468EF992A2FF175001C6FC5 /* FramesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FramesResponse.swift; sourceTree = "<group>"; };
+		5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewModel.swift; sourceTree = "<group>"; };
 		546E01B42A16B8CC008C7B8F /* CheckAllInfoScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckAllInfoScreen.swift; sourceTree = "<group>"; };
 		546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSpeedTest.swift; sourceTree = "<group>"; };
 		546F17F32A203CCF00554234 /* SpinnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinnerView.swift; sourceTree = "<group>"; };
@@ -159,7 +166,14 @@
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
 		54B45DA12A15181D0066302E /* TemplatesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreen.swift; sourceTree = "<group>"; };
 		54B45DA32A15182E0066302E /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		54C43CED2A30C4D700807EC0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		54C43CF02A30CC5200807EC0 /* FrameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewModel.swift; sourceTree = "<group>"; };
+		54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreenViewModel.swift; sourceTree = "<group>"; };
+		54C43CFB2A30D91B00807EC0 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		9175FEBC3E09916890F6FB7D /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
+		D5164231DC6C683F367109CA /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D884862685EE411F62FBBC9D /* EntityInfo-Textatize.generated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "EntityInfo-Textatize.generated.swift"; sourceTree = "<group>"; };
+		FD8F18B77DBF40E8887B0709 /* Pods-Textatize.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.debug.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +181,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3005F93F8AD8385B0BC58C7 /* Pods_Textatize.framework in Frameworks */,
+				54C43CF22A30D19800807EC0 /* Pods_Textatize.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,14 +208,6 @@
 				D884862685EE411F62FBBC9D /* EntityInfo-Textatize.generated.swift */,
 			);
 			path = generated;
-			sourceTree = "<group>";
-		};
-		535F90E976E3A2F6BA65817A /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				31EBEF97C65AF3C997FBC2A6 /* Pods_Textatize.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		5409777C2A1D42190079862F /* Register */ = {
@@ -256,6 +262,7 @@
 				542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */,
 				546F17F32A203CCF00554234 /* SpinnerView.swift */,
 				541997312A262A23001353BC /* ImageDetailView.swift */,
+				54C43CFB2A30D91B00807EC0 /* MediaView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -282,6 +289,7 @@
 				543263422A173FD000C96A1A /* User.swift */,
 				543263512A17603200C96A1A /* Event.swift */,
 				549653582A2E183C003BD043 /* Media.swift */,
+				5468EF952A2FE8A4001C6FC5 /* Frame.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -294,8 +302,10 @@
 				543263472A17521D00C96A1A /* UserResponse.swift */,
 				542D540C2A2010B50016BCB2 /* EventResponse.swift */,
 				5496535A2A2E19EC003BD043 /* MediaResponse.swift */,
+				5468EF972A2FF12A001C6FC5 /* FrameResponse.swift */,
 				543263532A1760E700C96A1A /* EventsResponse.swift */,
 				542D540E2A2020B80016BCB2 /* MediasResponse.swift */,
+				5468EF992A2FF175001C6FC5 /* FramesResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -313,7 +323,7 @@
 			isa = PBXGroup;
 			children = (
 				54355EAC2A1662EC00E47732 /* AddCard.swift */,
-				54355EAE2A1666C300E47732 /* TemplateCard.swift */,
+				54355EAE2A1666C300E47732 /* FrameCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -330,9 +340,9 @@
 			isa = PBXGroup;
 			children = (
 				540977822A1E44A10079862F /* MainEventScreen */,
-				549E60FA2A15834700C00231 /* EventDetailScreen.swift */,
+				54C43CF62A30D51000807EC0 /* EventDetailScreen */,
 				54511EC42A156A4D002590A7 /* NewEventScreen.swift */,
-				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
+				54C43CEF2A30CC1700807EC0 /* FrameScreen */,
 				540977872A1E55070079862F /* CheckAllInfo */,
 			);
 			path = Events;
@@ -341,6 +351,7 @@
 		54511EC22A156A0F002590A7 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */,
 				54B45DA12A15181D0066302E /* TemplatesScreen.swift */,
 				5460D3482A167D7300D7265C /* TemplateEditingScreen.swift */,
 			);
@@ -366,7 +377,7 @@
 				3E03C7E602C466850548C10C /* generated */,
 				54568E922A127D89001F5CE7 /* Products */,
 				624912981E120F406D048AB1 /* Pods */,
-				535F90E976E3A2F6BA65817A /* Frameworks */,
+				DD75431DA3E7486EBA5DE51C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -470,6 +481,7 @@
 		54B45D9C2A1517D20066302E /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				54C43CED2A30C4D700807EC0 /* MainViewModel.swift */,
 				54B45D9D2A1517EF0066302E /* MainTabView.swift */,
 				54B45DA52A1518320066302E /* TabSections */,
 			);
@@ -486,13 +498,39 @@
 			path = TabSections;
 			sourceTree = "<group>";
 		};
+		54C43CEF2A30CC1700807EC0 /* FrameScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54C43CF02A30CC5200807EC0 /* FrameViewModel.swift */,
+				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
+			);
+			path = FrameScreen;
+			sourceTree = "<group>";
+		};
+		54C43CF62A30D51000807EC0 /* EventDetailScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */,
+				549E60FA2A15834700C00231 /* EventDetailScreen.swift */,
+			);
+			path = EventDetailScreen;
+			sourceTree = "<group>";
+		};
 		624912981E120F406D048AB1 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3E91399ED23DB8E8E947B9C9 /* Pods-Textatize.debug.xcconfig */,
-				3F257F0F88BCB29995BA719A /* Pods-Textatize.release.xcconfig */,
+				FD8F18B77DBF40E8887B0709 /* Pods-Textatize.debug.xcconfig */,
+				9175FEBC3E09916890F6FB7D /* Pods-Textatize.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		DD75431DA3E7486EBA5DE51C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5164231DC6C683F367109CA /* Pods_Textatize.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -502,12 +540,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 54568EB52A127D92001F5CE7 /* Build configuration list for PBXNativeTarget "Textatize" */;
 			buildPhases = (
-				56BBFE68096AE48FF5E12F3D /* [CP] Check Pods Manifest.lock */,
+				36C5ACC68A9FF568BA26812E /* [CP] Check Pods Manifest.lock */,
 				31ECCD5FD36D7CA9EED4D291 /* [OBX] Update Sourcery Generated Files */,
 				54568E8D2A127D89001F5CE7 /* Sources */,
 				54568E8E2A127D89001F5CE7 /* Frameworks */,
 				54568E8F2A127D89001F5CE7 /* Resources */,
-				3B2C9811BA5D02B273EFAC93 /* [CP] Embed Pods Frameworks */,
+				EE29F501BC1B3D7D34FAADFF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -602,7 +640,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54568E9C2A127D91001F5CE7 /* Preview Assets.xcassets in Resources */,
 				54568E992A127D91001F5CE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -642,24 +679,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/ObjectBox/generate_sources.sh\" -- --output \"$PROJECT_DIR/generated/EntityInfo-Textatize.generated.swift\" --model-json \"$PROJECT_DIR/model-Textatize.json\"";
 		};
-		3B2C9811BA5D02B273EFAC93 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		56BBFE68096AE48FF5E12F3D /* [CP] Check Pods Manifest.lock */ = {
+		36C5ACC68A9FF568BA26812E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -679,6 +699,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EE29F501BC1B3D7D34FAADFF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Textatize/Pods-Textatize-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -704,6 +741,7 @@
 				54309C7E2A12DDB500C02B14 /* Images.swift in Sources */,
 				54309C8D2A13AA9000C02B14 /* Modifiers.swift in Sources */,
 				544BCB572A27F43C005E4068 /* CameraView.swift in Sources */,
+				5468EF982A2FF12A001C6FC5 /* FrameResponse.swift in Sources */,
 				543263432A173FD000C96A1A /* User.swift in Sources */,
 				546E01B52A16B8CC008C7B8F /* CheckAllInfoScreen.swift in Sources */,
 				549E60FB2A15834700C00231 /* EventDetailScreen.swift in Sources */,
@@ -712,7 +750,7 @@
 				543263412A173D7600C96A1A /* AbstractServerObject.swift in Sources */,
 				54309C7C2A128A5B00C02B14 /* Colors.swift in Sources */,
 				54355EAD2A1662EC00E47732 /* AddCard.swift in Sources */,
-				54355EAF2A1666C300E47732 /* TemplateCard.swift in Sources */,
+				54355EAF2A1666C300E47732 /* FrameCard.swift in Sources */,
 				541997322A262A23001353BC /* ImageDetailView.swift in Sources */,
 				5432634E2A17571900C96A1A /* Keychain.swift in Sources */,
 				54511EC52A156A4D002590A7 /* NewEventScreen.swift in Sources */,
@@ -720,9 +758,12 @@
 				546F17F42A203CCF00554234 /* SpinnerView.swift in Sources */,
 				543263502A175A0100C96A1A /* ServerError.swift in Sources */,
 				541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */,
+				54C43CFC2A30D91B00807EC0 /* MediaView.swift in Sources */,
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
+				54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */,
 				543263542A1760E700C96A1A /* EventsResponse.swift in Sources */,
 				540977862A1E522C0079862F /* EnumHelpers.swift in Sources */,
+				54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
 				542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */,
 				5432634A2A17525400C96A1A /* ServerResponse.swift in Sources */,
@@ -732,6 +773,7 @@
 				54309C822A130D1F00C02B14 /* RecoveryScreen.swift in Sources */,
 				543263452A1749F700C96A1A /* TextatizeAPI.swift in Sources */,
 				543263522A17603200C96A1A /* Event.swift in Sources */,
+				5468EF962A2FE8A4001C6FC5 /* Frame.swift in Sources */,
 				543263482A17521D00C96A1A /* UserResponse.swift in Sources */,
 				54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */,
 				546F17EE2A202AB400554234 /* NetworkSpeedTest.swift in Sources */,
@@ -739,6 +781,8 @@
 				549A6C1A2A2EB911000C1182 /* LocalImage.swift in Sources */,
 				5459E5AA2A16551D0008930B /* ContactInformationScreen.swift in Sources */,
 				54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */,
+				5468EF9A2A2FF175001C6FC5 /* FramesResponse.swift in Sources */,
+				54C43CF82A30D52000807EC0 /* EventDetailScreenViewModel.swift in Sources */,
 				5409777E2A1D42480079862F /* RegisterViewModel.swift in Sources */,
 				54309C862A13331100C02B14 /* CreateAccountScreen.swift in Sources */,
 				54511EC02A152F75002590A7 /* EventCard.swift in Sources */,
@@ -898,7 +942,7 @@
 		};
 		54568EB62A127D92001F5CE7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3E91399ED23DB8E8E947B9C9 /* Pods-Textatize.debug.xcconfig */;
+			baseConfigurationReference = FD8F18B77DBF40E8887B0709 /* Pods-Textatize.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -928,7 +972,7 @@
 		};
 		54568EB72A127D92001F5CE7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F257F0F88BCB29995BA719A /* Pods-Textatize.release.xcconfig */;
+			baseConfigurationReference = 9175FEBC3E09916890F6FB7D /* Pods-Textatize.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

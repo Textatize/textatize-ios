@@ -12,12 +12,18 @@ struct FrameScreen: View {
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
      
+    var frames = [Frame]()
+    @State var frameSelected = false
+    @State var selectedFrame: Frame? = nil
+    
     var name: String
     var eventHostName: String
     var date: String
     var location: String
     var orientation: Orientation
     var camera: Camera
+    @State private var addFrameSelected = false
+    
     @State private var watermarkImage: UIImage? = UIImage(systemName: "person")
     @State private var watermarkTransparency: Double = 0.0
     @State private var watermarkPosition: WatermarkPosition = .bottomLeft
@@ -68,23 +74,33 @@ struct FrameScreen: View {
                         
                         VStack {
                             
+                            
+                            
+                            if let selectedFrame = selectedFrame {
+                                Text("Selected Frame:")
+                                    .fontWeight(.semibold)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                                FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
+                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                    .padding()
+
+
+                            }
+                            
+                            
                             Text("Your Frames:")
                                 .fontWeight(.semibold)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(0..<10) { item in
-                                        if item == 0 {
-                                            AddCard(title: "Upload")
-                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
-                                                .padding()
-                                        } else {
-                                            TemplateCard(editSelected: $editTemplateSelected, showDuplicate: false)
-                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
-                                                .padding()
+                                    ForEach(0..<frames.count, id: \.self) { item in
+                                            let frame = frames[item]
                                             
-                                        }
+                                            FrameSelectionCard(frameSelected: $selectedFrame, frame: frame)
+                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                                .padding()
                                     }
                                 }
                             }
@@ -139,7 +155,7 @@ struct FrameScreen: View {
                             Spacer()
                             
                             NavigationLink {
-                                CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition)
+                                CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
                             } label: {
                                 CustomButtonView(filled: true, name: "Next")
                                 

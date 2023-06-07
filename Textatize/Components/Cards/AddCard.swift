@@ -9,9 +9,11 @@ import SwiftUI
 
 struct AddCard: View {
     var title: String = ""
+    @Binding var addFrame: Bool
     var body: some View {
         Button {
-            print("Add Card Pressed")
+            print("Add Frame Pressed")
+            addFrame.toggle()
         } label: {
             VStack(spacing: 5) {
                 ZStack {
@@ -40,6 +42,6 @@ struct AddCard: View {
 
 struct AddCard_Previews: PreviewProvider {
     static var previews: some View {
-        AddCard()
+        AddCard(addFrame: .constant(true))
     }
 }

@@ -92,6 +92,7 @@ struct SharePhotoView: View {
     var eventID: String
     @Binding var showView: Bool
     var imageData: Data
+    var image: UIImage? = nil
     
     var body: some View {
         
@@ -102,9 +103,16 @@ struct SharePhotoView: View {
                     .font(.largeTitle.bold())
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 
-                Image(uiImage: UIImage(data: imageData) ?? UIImage(systemName: "photo")!)
-                    .resizable()
-                    .frame(width: 200, height: 200)
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                } else {
+                    Image(uiImage: UIImage(data: imageData) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                }
+               
                 
                 Text("Submit a photo")
                     .font(.title2)

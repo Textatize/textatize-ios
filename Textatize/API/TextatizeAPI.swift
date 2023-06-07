@@ -498,4 +498,70 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
+    func retrieveFrames(orientation: Orientation?, completion: @escaping (ServerError?, FramesResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        if let orientation = orientation {
+            parameters["orientation"] = orientation.rawValue
+        }
+        
+        AF.request(API_URL + "frame/templates",
+                   method: .get,
+                   parameters: parameters,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { [weak self] response in
+            guard let self = `self` else { return }
+            print("Retrieve Frames Response: \(response)")
+            
+            switch response.result {
+            case .success(let success):
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let framesResponse = FramesResponse(JSONString: utf8Text)
+                    completion(nil, framesResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+
+            }
+            
+        }
+    }
+    
+    func retrieveMyFrames(orientation: Orientation?, page: String?, completion: @escaping (ServerError?, FramesResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        if let orientation = orientation {
+            parameters["orientation"] = orientation.rawValue
+        }
+        if let page = page {
+            parameters["page"] = page
+        }
+        
+        AF.request(API_URL + "frame/my",
+                   method: .get,
+                   parameters: parameters,
+                   headers: ["authorization": "Bearer \(sessionToken)"])
+        .validate().responseJSON { [weak self] response in
+            guard let self = `self` else { return }
+            print("Retrieve My Frames Response: \(response)")
+            
+            switch response.result {
+            case .success(let success):
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let framesResponse = FramesResponse(JSONString: utf8Text)
+                    completion(nil, framesResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+
+            }
+            
+        }
+    }
 }

@@ -10,6 +10,8 @@ import SwiftUI
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
     
+    var frames = [Frame]()
+    
     let iPadLayout = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -133,7 +135,7 @@ struct EventsScreen: View {
                                         ForEach(0..<vm.events.count + 1, id: \.self) { item in
                                             if item == 0 {
                                                 NavigationLink {
-                                                    NewEventScreen()
+                                                    NewEventScreen(frames: frames)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
                                                        
@@ -144,7 +146,7 @@ struct EventsScreen: View {
                                                 let event = vm.events[item - 1]
                                                 
                                                 NavigationLink {
-                                                    EventDetailScreen(name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation, camera: event.getCamera, hostName: event.getName)
+                                                    EventDetailScreen(event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera, hostName: event.getName)
                                                 } label: {
                                                     EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
 
@@ -175,7 +177,7 @@ struct EventsScreen: View {
                                                 let event = vm.events[item - 1]
                                                 
                                                 NavigationLink {
-                                                    EventDetailScreen(event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation, camera: event.getCamera, hostName: event.getName)
+                                                    EventDetailScreen(event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera, hostName: event.getName)
                                                 } label: {
                                                     EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
 

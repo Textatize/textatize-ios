@@ -62,8 +62,20 @@ class Event: AbstractServerObject, Identifiable {
         location ?? "No Location"
     }
     
-    var getOrientation: String {
-        orientation ?? "No Orientation"
+    var getOrientation: Orientation {
+        
+        if orientation == Orientation.landscape.rawValue {
+            return .landscape
+        } else if orientation == Orientation.portrait.rawValue {
+            return .portrait
+        } else if orientation == Orientation.square.rawValue {
+            return .square
+        } else {
+            return .portrait
+        }
+        
+        
+        
     }
     
     var getCamera: String {

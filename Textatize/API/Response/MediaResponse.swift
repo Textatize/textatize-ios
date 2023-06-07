@@ -20,6 +20,4 @@ class MediaResponse: ServerResponse {
         super.mapping(map: map)
         media <- map["media"]
     }
-    
-
 }

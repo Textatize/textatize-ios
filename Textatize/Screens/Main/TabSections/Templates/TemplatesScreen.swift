@@ -9,11 +9,14 @@ import SwiftUI
 
 struct TemplatesScreen: View {
     
+    @StateObject private var vm = FrameViewModel.shared
+    
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
+    @State private var addFrameSelected = false
     @State private var eventSelected = false
     @State private var selectEvent = false
-    @State private var editSelected = false
+    @State private var duplicateSelected = false
     
     let iPadLayout = [
         GridItem(.flexible()),
@@ -57,35 +60,45 @@ struct TemplatesScreen: View {
                             LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
                                 ForEach(0..<10) { item in
                                     if item == 0 {
-                                        AddCard(title: "Upload")
-                                            .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
-                                            .padding()
-                                    } else {
-                                        NavigationLink(destination: TemplateEditingScreen(), isActive: $editSelected) {
-                                            TemplateCard(editSelected: $editSelected)
-                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
-                                                .padding()
-                                        }
                                         
+                                        NavigationLink(
+                                            destination: TemplateEditingScreen(),
+                                            isActive: $addFrameSelected,
+                                            label: {
+                                                 AddCard(title: "Upload", addFrame: $addFrameSelected)
+                                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
+                                                    .padding()
+                                            })
+
+                                    } else {
+                                        
+                                        if vm.frames.count > 0 {
+                                            let frame = vm.frames[item - 1]
+                                            
+                                            NavigationLink(destination: TemplateEditingScreen(frame: frame), isActive: $duplicateSelected) {
+                                                FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
+                                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
+                                                    .padding()
+                                            }
+                                        }
                                     }
                                 }
                             }
                         }
                         
-                        CustomButtonView(filled: true, name: "Select Event")
-                            .onTapGesture {
-                                withAnimation {
-                                    selectEvent = true
-                                }
-                            }
-                            .padding()
+//                        CustomButtonView(filled: true, name: "Select Event")
+//                            .onTapGesture {
+//                                withAnimation {
+//                                    selectEvent = true
+//                                }
+//                            }
+//                            .padding()
                         
                     }
                     
                 }
                 .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal)
+                .padding()
                 
                 ZStack {
                     
@@ -110,7 +123,6 @@ struct TemplatesScreen: View {
                             .padding()
                         
                         VStack {
-                            
                             ScrollView {
                                 LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
                                     ForEach(0..<8) { _ in
