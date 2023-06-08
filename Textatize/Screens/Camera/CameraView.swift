@@ -42,44 +42,59 @@ struct CameraView: View {
 //            }
             
             if camera.isTaken {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Button {
-                            withAnimation {
-                                continuePressed = true
-                            }
-                        } label: {
-                            Text("Continue")
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.white)
-                                .clipShape(Capsule())
-                        }
-                        .padding(.leading)
+                
+                ZStack {
+                    
+                    Color.black.opacity(camera.photoReady ? 0.95 : 0)
+                        .ignoresSafeArea()
+                    
+                    Image(uiImage: camera.processedPhoto ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .padding()
+                        //.frame(width: 200, height: 200)
+                
+                    VStack {
                         
                         Spacer()
-                        
-                        Button {
-                            print("Retake Button Pressed")
-                            camera.reTake()
-                            restartTimer()
-                        } label: {
-                            Text("Retake")
-                                .foregroundColor(.black)
-                                .fontWeight(.semibold)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 20)
-                                .background(Color.white)
-                                .clipShape(Capsule())
+                        HStack {
+                            Button {
+                                withAnimation {
+                                    continuePressed = true
+                                }
+                            } label: {
+                                Text("Continue")
+                                    .foregroundColor(.black)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 20)
+                                    .background(Color.white)
+                                    .clipShape(Capsule())
+                            }
+                            .padding(.leading)
+                            .padding()
+                            
+                            Spacer()
+                            
+                            Button {
+                                print("Retake Button Pressed")
+                                camera.reTake()
+                                restartTimer()
+                            } label: {
+                                Text("Retake")
+                                    .foregroundColor(.black)
+                                    .fontWeight(.semibold)
+                                    .padding(.vertical, 10)
+                                    .padding(.horizontal, 20)
+                                    .background(Color.white)
+                                    .clipShape(Capsule())
+                            }
+                            .padding(.trailing)
+                            .padding()
                         }
-                        .padding(.trailing)
-                        .padding()
                     }
                 }
+                .opacity(camera.photoReady ? 1 : 0)
             } else {
                 Circle()
                     .strokeBorder(.red, lineWidth: 5)
@@ -116,7 +131,7 @@ struct CameraView: View {
                         .ignoresSafeArea()
 
                     
-                    SharePhotoView(action: dismiss, eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!, image: camera.processPhotos(frame: frame))
+                    SharePhotoView(action: dismiss, eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!, image: camera.processedPhoto)
                         .padding()
                 }
             
@@ -134,8 +149,10 @@ struct CameraView: View {
         .onAppear {
             camera.check()
             instantiateTimer()
-            camera.processPhotos(frame: frame)
         }
+        .onChange(of: camera.picData, perform: { value in
+            let _ = camera.processPhotos(frame: frame)
+        })
         .onDisappear {
             cancelTimer()
         }
@@ -177,11 +194,9 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var preview: AVCaptureVideoPreviewLayer!
     @Published var isSaved = false
     @Published var picData: Data?
-    
-    var finished_photos_ids:[String] = [] // for remote
-    var finished_photos:[UIImage] = []
-
-    
+    @Published var processedPhoto: UIImage?
+    @Published var photoReady = false
+        
     func check() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -232,6 +247,9 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     }
     
     func takePic(){
+        withAnimation {
+            self.photoReady = false
+        }
         self.picData = nil
         DispatchQueue.global(qos: .background).async {
             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
@@ -250,6 +268,9 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     }
     
     func reTake() {
+        withAnimation {
+            self.photoReady = false
+        }
         self.picData = nil
         DispatchQueue.global(qos: .background).async {
             self.session.startRunning()
@@ -264,45 +285,87 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     
 
     
-    func processPhotos(frame: Frame?) -> UIImage? {
-          // self.showHud()
-           finished_photos_ids.removeAll()
-           finished_photos.removeAll()
+    func processPhotos(frame: Frame?) {
         
-        
-        guard let frame = frame else { return nil }
-        guard let pictureData = self.picData else { return nil }
-        guard let saveImage = UIImage(data: pictureData) else { return nil }
-        if let cacheImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frame.unwrappedURL)?.cgImage {
-            let size = CGSize(width: cacheImage.width, height: cacheImage.height)
-            UIGraphicsBeginImageContext(size)
+        guard let frame = frame else { return  }
+        guard let pictureData = self.picData else { return  }
+        guard let saveImage = UIImage(data: pictureData) else { return }
+        guard let frameURL = URL(string: frame.unwrappedURL) else { return }
 
-            
-            if let resizeImage = saveImage.resizeImage(size: size) {
-                resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        
+        KingfisherManager.shared.retrieveImage(with: frameURL) { result in
+            switch result {
+            case .success(let value):
+                if let downloadedFrame = value.image.cgImage {
+                    let size = CGSize(width: downloadedFrame.width, height: downloadedFrame.height)
+                    UIGraphicsBeginImageContext(size)
+
+                    
+                    if let resizeImage = saveImage.resizeImage(size: size) {
+                        resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    }
+                    
+                    let frameImage = UIImage(cgImage: downloadedFrame)
+                    frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    
+                    
+                    if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+                        self.processedPhoto = newImage
+                        withAnimation {
+                            self.photoReady = true
+                        }
+                        //return newImage
+                    } else {
+                        self.processedPhoto = saveImage
+                        withAnimation {
+                            self.photoReady = true
+                        }
+                        //return saveImage
+                    }
+                    
+                }
+            case .failure:
+                print("Download Frame Failed")
             }
-            
-            let frameImage = UIImage(cgImage: cacheImage)
-            frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-            
-            
-            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-                return newImage
-            }
-            
-            return saveImage
-            
         }
         
+//        if let cacheImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frame.unwrappedURL)?.cgImage {
+//            let size = CGSize(width: cacheImage.width, height: cacheImage.height)
+//            UIGraphicsBeginImageContext(size)
+//
+//            
+//            if let resizeImage = saveImage.resizeImage(size: size) {
+//                resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//            }
+//            
+//            let frameImage = UIImage(cgImage: cacheImage)
+//            frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//            
+//            
+//            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+//                self.processedPhoto = newImage
+//                withAnimation {
+//                    self.photoReady = true
+//                }
+//                //return newImage
+//            } else {
+//                self.processedPhoto = saveImage
+//                withAnimation {
+//                    self.photoReady = true
+//                }
+//                //return saveImage
+//            }
+//            
+//        }
         
-        return nil
+       // return nil
         
 
       
         
        /// let image = KFImage.url(URL(string: (frame?.unwrappedURL)))
-//        let size = CGSize(width: image.siz, height: <#T##CGFloat#>)
-//        
+//        let size = CGSize(width: image.siz, height: T##CGFloat)
+//
 //           for template in selected_templates {
 //               if let downloaded_image = template.downloaded_image {
 //                   print("TEMPLATE -->\(template.image_url)")
@@ -370,10 +433,11 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     
     func retrieveImage() -> Data? {
         
-        guard let pictureData = self.picData else { return nil }
+        //guard let pictureData = self.picData else { return nil }
         
-        guard let saveImage = UIImage(data: pictureData) else { return nil }
-        guard let imageData = saveImage.jpegData(compressionQuality: 0.5) else { return nil }
+        //guard let saveImage = UIImage(data: pictureData) else { return nil }
+        guard let processedPhoto = processedPhoto else { return nil }
+        guard let imageData = processedPhoto.jpegData(compressionQuality: 0.5) else { return nil }
         //let finalImage = Image(uiImage: saveImage)
         
         print("Image Retrieve")

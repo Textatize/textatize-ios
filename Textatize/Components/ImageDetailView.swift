@@ -106,6 +106,7 @@ struct SharePhotoView: View {
                 if let image = image {
                     Image(uiImage: image)
                         .resizable()
+                        .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
                 } else {
                     Image(uiImage: UIImage(data: imageData) ?? UIImage(systemName: "photo")!)

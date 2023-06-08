@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 class MainViewModel: ObservableObject {
     static let shared = MainViewModel()
@@ -25,6 +26,7 @@ class MainViewModel: ObservableObject {
             
             if let framesResponse = framesResponse, let frames = framesResponse.frames {
                 self.frames = frames
+                //cacheFrame(cFrame: frames)
                 print("Completed Frames")
             }
         }
@@ -32,5 +34,6 @@ class MainViewModel: ObservableObject {
     }
     
     
-    
 }
+
+
