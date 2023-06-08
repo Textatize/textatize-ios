@@ -1,16 +1,12 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '16.4.0'
+platform :ios, '16.0'
+use_frameworks!
 
 target 'Textatize' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
   # Pods for Textatize
-
  	pod 'Alamofire'
 	pod 'ObjectMapper', '~> 4.2'
 	pod 'IQKeyboardManagerSwift'
 	pod 'ObjectBox'
-	pod 'Kingfisher', '~> 7.7.0'
-
+	pod 'Kingfisher', '~> 7.6.2'
 end
