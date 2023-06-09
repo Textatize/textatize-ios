@@ -19,7 +19,7 @@ class FrameSelectionViewModel: ObservableObject {
         
     }
     
-    func getTemplates(orientation: Orientation) {
+    func getFrames(orientation: Orientation) {
         textatizeAPI.retrieveFrames(orientation: orientation) { [weak self] error, framesResponse in
             guard let self = `self` else { return }
             

@@ -28,7 +28,7 @@ struct FrameScreen: View {
     @State private var watermarkTransparency: Double = 0.0
     @State private var watermarkPosition: WatermarkPosition = .bottomLeft
     
-    @State private var editTemplateSelected = false
+    @State private var editFrameSelected = false
     @State private var watermarkSwitch = false
     @State private var nextPressed = false
     
@@ -183,7 +183,7 @@ struct FrameScreen: View {
         }
         .navigationBarBackButtonHidden()
         .onAppear {
-            vm.getTemplates(orientation: orientation)
+            vm.getFrames(orientation: orientation)
         }
     }
 }

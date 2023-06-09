@@ -49,7 +49,7 @@ struct NewEventScreen: View {
                                     Text("Editing on event")
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    Text("Next Step: Template")
+                                    Text("Next Step: Frame")
                                         .font(.caption2)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                 }

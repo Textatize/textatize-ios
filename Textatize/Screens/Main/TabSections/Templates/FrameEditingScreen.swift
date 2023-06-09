@@ -1,5 +1,5 @@
 //
-//  TemplateEditingScreen.swift
+//  FrameEditingScreen.swift
 //  Textatize
 //
 //  Created by Tornelius Broadwater, Jr on 5/18/23.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Kingfisher
 
-struct TemplateEditingScreen: View {
+struct FrameEditingScreen: View {
     @Environment(\.dismiss) var dismiss
     var frame: Frame? = nil
     var body: some View {
@@ -20,7 +20,7 @@ struct TemplateEditingScreen: View {
             VStack {
                 
                 Spacer()
-                Text("Template Editing")
+                Text("Frame Editing")
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .font(.title)
                     .fontWeight(.semibold)
@@ -45,9 +45,9 @@ struct TemplateEditingScreen: View {
                 Spacer()
                 
                 HStack {
-                    TemplateEditButton(title: "Background", image: AppImages.imageIcon, action: addBackgroundPressed)
-                    TemplateEditButton(title: "Image", image: AppImages.imageIcon, action: addImagePressed)
-                    TemplateEditButton(title: "Text", image: AppImages.textIcon, action: addTextPressed)
+                    FrameEditButton(title: "Background", image: AppImages.imageIcon, action: addBackgroundPressed)
+                    FrameEditButton(title: "Image", image: AppImages.imageIcon, action: addImagePressed)
+                    FrameEditButton(title: "Text", image: AppImages.textIcon, action: addTextPressed)
                 }
                 
                 Spacer()
@@ -81,7 +81,7 @@ struct TemplateEditingScreen: View {
     }
 }
 
-struct TemplateEditButton: View {
+struct FrameEditButton: View {
     
     var title: String
     var image: Image
@@ -111,8 +111,8 @@ struct TemplateEditButton: View {
     }
 }
 
-struct TemplateEditingScreen_Previews: PreviewProvider {
+struct FrameEditingScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TemplateEditingScreen()
+        FrameEditingScreen()
     }
 }

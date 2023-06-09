@@ -16,9 +16,9 @@ struct MainTabView: View {
                     Label("Events", image: "events icon")
                 }
             
-            TemplatesScreen()
+            FramesScreen()
                 .tabItem {
-                    Label("Templates", image: "templates icon")
+                    Label("Frames", image: "Frames icon")
                 }
             
             SettingsScreen()

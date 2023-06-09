@@ -1,5 +1,5 @@
 //
-//  TemplateCard.swift
+//  FrameCard.swift
 //  Textatize
 //
 //  Created by Tornelius Broadwater, Jr on 5/18/23.
@@ -84,7 +84,7 @@ struct FrameEditingCard: View {
             
             VStack(alignment: .leading) {
                 Button {
-                    print("Duplicate Template Selected")
+                    print("Duplicate Frame Selected")
                     withAnimation {
                         duplicateSelected = true
                     }
@@ -118,7 +118,7 @@ struct FrameEditingCard: View {
     }
 }
 
-//struct TemplateCard_Previews: PreviewProvider {
+//struct FrameCard_Previews: PreviewProvider {
 //    static var previews: some View {
 //        FrameCard(duplicateSelected: .constant(false), selectedFrame: )
 //    }

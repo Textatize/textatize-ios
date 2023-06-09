@@ -1,5 +1,5 @@
 //
-//  TemplatesScreen.swift
+//  FramesScreen.swift
 //  Textatize
 //
 //  Created by Tornelius Broadwater, Jr on 5/17/23.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TemplatesScreen: View {
+struct FramesScreen: View {
     
     @StateObject private var vm = FrameViewModel.shared
     
@@ -38,7 +38,7 @@ struct TemplatesScreen: View {
                 
                 VStack {
                     
-                    Text("Templates")
+                    Text("Frames")
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .font(.title)
                         .fontWeight(.semibold)
@@ -47,7 +47,7 @@ struct TemplatesScreen: View {
                     
                     VStack {
                         
-                        Text("Choose the templates")
+                        Text("Choose the Frame")
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .fontWeight(.semibold)
                             .font(.title2)
@@ -62,7 +62,7 @@ struct TemplatesScreen: View {
                                     if item == 0 {
                                         
                                         NavigationLink(
-                                            destination: TemplateEditingScreen(),
+                                            destination: FrameEditingScreen(),
                                             isActive: $addFrameSelected,
                                             label: {
                                                  AddCard(title: "Upload", addFrame: $addFrameSelected)
@@ -75,7 +75,7 @@ struct TemplatesScreen: View {
                                         if vm.frames.count > 0 {
                                             let frame = vm.frames[item - 1]
                                             
-                                            NavigationLink(destination: TemplateEditingScreen(frame: frame), isActive: $duplicateSelected) {
+                                            NavigationLink(destination: FrameEditingScreen(frame: frame), isActive: $duplicateSelected) {
                                                 FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
                                                     .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
                                                     .padding()
@@ -162,8 +162,8 @@ struct TemplatesScreen: View {
     }
 }
 
-struct TemplatesScreen_Previews: PreviewProvider {
+struct FramesScreen_Previews: PreviewProvider {
     static var previews: some View {
-        TemplatesScreen()
+        FramesScreen()
     }
 }
