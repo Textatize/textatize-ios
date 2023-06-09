@@ -11,8 +11,8 @@ struct FrameScreen: View {
     @Environment(\.dismiss) var dismiss
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
+    @StateObject private var vm = FrameSelectionViewModel.shared
      
-    var frames = [Frame]()
     @State var frameSelected = false
     @State var selectedFrame: Frame? = nil
     
@@ -95,13 +95,13 @@ struct FrameScreen: View {
                             
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(0..<frames.count, id: \.self) { item in
-                                            let frame = frames[item]
-                                            
-                                            FrameSelectionCard(frameSelected: $selectedFrame, frame: frame)
-                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
-                                                .padding()
+                                    ForEach(0..<vm.frames.count, id: \.self) { item in
+                                        let frame = vm.frames[item]
+                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: frame)
+                                            .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                            .padding()
                                     }
+                                    
                                 }
                             }
                             
@@ -182,6 +182,9 @@ struct FrameScreen: View {
             }
         }
         .navigationBarBackButtonHidden()
+        .onAppear {
+            vm.getTemplates(orientation: orientation)
+        }
     }
 }
 

@@ -72,6 +72,7 @@
 		54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45D9F2A15180C0066302E /* EventsScreen.swift */; };
 		54B45DA22A15181D0066302E /* TemplatesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA12A15181D0066302E /* TemplatesScreen.swift */; };
 		54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA32A15182E0066302E /* SettingsScreen.swift */; };
+		54BDF9A82A33595000A5840F /* FrameSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BDF9A72A33595000A5840F /* FrameSelectionViewModel.swift */; };
 		54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CED2A30C4D700807EC0 /* MainViewModel.swift */; };
 		54C43CF22A30D19800807EC0 /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5164231DC6C683F367109CA /* Pods_Textatize.framework */; };
 		54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */; };
@@ -166,8 +167,8 @@
 		54B45D9F2A15180C0066302E /* EventsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsScreen.swift; sourceTree = "<group>"; };
 		54B45DA12A15181D0066302E /* TemplatesScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesScreen.swift; sourceTree = "<group>"; };
 		54B45DA32A15182E0066302E /* SettingsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreen.swift; sourceTree = "<group>"; };
+		54BDF9A72A33595000A5840F /* FrameSelectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameSelectionViewModel.swift; sourceTree = "<group>"; };
 		54C43CED2A30C4D700807EC0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		54C43CF02A30CC5200807EC0 /* FrameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewModel.swift; sourceTree = "<group>"; };
 		54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreenViewModel.swift; sourceTree = "<group>"; };
 		54C43CFB2A30D91B00807EC0 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
 		9175FEBC3E09916890F6FB7D /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
@@ -501,7 +502,7 @@
 		54C43CEF2A30CC1700807EC0 /* FrameScreen */ = {
 			isa = PBXGroup;
 			children = (
-				54C43CF02A30CC5200807EC0 /* FrameViewModel.swift */,
+				54BDF9A72A33595000A5840F /* FrameSelectionViewModel.swift */,
 				541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */,
 			);
 			path = FrameScreen;
@@ -732,6 +733,7 @@
 				54309C902A13C89800C02B14 /* CustomButton.swift in Sources */,
 				54309C802A13013100C02B14 /* ForgotPasswordScreen.swift in Sources */,
 				54309C882A13A77400C02B14 /* VerificationScreen.swift in Sources */,
+				54BDF9A82A33595000A5840F /* FrameSelectionViewModel.swift in Sources */,
 				54309C842A13256F00C02B14 /* NewPasswordScreen.swift in Sources */,
 				54B45DA02A15180C0066302E /* EventsScreen.swift in Sources */,
 				540977842A1E44BD0079862F /* MainEventViewModel.swift in Sources */,

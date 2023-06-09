@@ -189,7 +189,7 @@ struct NewEventScreen: View {
                         Spacer()
                         
                         NavigationLink {
-                            FrameScreen(frames: frames, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                            FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
