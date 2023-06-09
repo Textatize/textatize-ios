@@ -44,57 +44,73 @@ struct EventCard: View {
             }
         } else {
             VStack(alignment: .leading) {
-                HStack(alignment: .center, spacing: 7) {
+                HStack(alignment: .center) {
                     Image(systemName: "photo")
                         .resizable()
-                        .frame(width: UIScreen.main.bounds.width * 0.10, height: UIScreen.main.bounds.width * 0.10)
+                        .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+                        .padding()
                     
-                    VStack(alignment: .center, spacing: 7) {
+                    VStack(alignment: .leading, spacing: 7) {
                         Text(title)
-                            .fontWeight(.semibold)
+                            .font(.headline)
+                            .fontWeight(.bold)
                         
-                        VStack(alignment: .center) {
+                        VStack {
                             Text(date)
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             
                             HStack(spacing: 5) {
                                 Text(numberOfPhotos)
                                     .foregroundColor(AppColors.Onboarding.loginButton)
-                                
+                                    .font(.subheadline)
+
                                 Text("photos")
-                                
+                                    .font(.subheadline)
                             }
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                             
                         }
-                        .frame(maxWidth: .infinity)
-                        .font(.caption)
                     }
-                    .frame(maxWidth: .infinity)
+                    .padding(.leading)
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     
                 }
                 .frame(maxWidth: .infinity)
                 
                 HStack(spacing: 5) {
-                    Button("Complete") {
+                    Spacer()
+                    Button {
                         print("Complete Pressed")
+
+                    } label: {
+                        Text("Complete")
+                            .font(.subheadline)
                     }
-                    
-                    Button("Restart") {
+                    Spacer()
+
+                    Button {
                         print("Restart Pressed")
+
+                    } label: {
+                        Text("Restart")
+                            .font(.subheadline)
                     }
-                    
-                    Button("Delete") {
+                    Spacer()
+
+                    Button {
                         print("Delete Pressed")
+
+                    } label: {
+                        Text("Delete")
+                            .font(.subheadline)
                     }
-                    
+                    Spacer()
                 }
-                .font(.caption2)
+                .padding(.bottom)
                 .frame(maxWidth: .infinity)
                 .foregroundColor(AppColors.Onboarding.bottomColor)
             }
-            .padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background {
                 RoundedRectangle(cornerRadius: 15)
                     .fill(.white)
