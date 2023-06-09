@@ -54,10 +54,6 @@ struct FrameScreen: View {
                         HStack {
                             Group {
                                 VStack(spacing: 10) {
-                                    Text("Choose the frame")
-                                        .font(.headline)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    
                                     Text("Next Step: Check information")
                                         .font(.caption2)
                                         .frame(maxWidth: .infinity, alignment: .leading)
