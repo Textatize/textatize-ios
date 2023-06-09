@@ -91,7 +91,7 @@ struct SharePhotoView: View {
     @State private var number = ""
     var eventID: String
     @Binding var showView: Bool
-    var imageData: Data
+    var imageData: Data? = nil
     var image: UIImage? = nil
     
     var body: some View {
@@ -109,17 +109,10 @@ struct SharePhotoView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 200, height: 200)
                 } else {
-                    Image(uiImage: UIImage(data: imageData) ?? UIImage(systemName: "photo")!)
+                    Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
                         .resizable()
                         .frame(width: 200, height: 200)
                 }
-               
-                
-                Text("Submit a photo")
-                    .font(.title2)
-                    .fontWeight(.semibold)
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    .padding()
                 
                 Text("To share a photo via SMS, \nwrite a phone number")
                     .font(.headline)
@@ -147,16 +140,18 @@ struct SharePhotoView: View {
     }
     
     private func savePhoto() {
-        let localImage = LocalImage()
-        localImage.imageData = imageData
-        localImage.eventID = eventID
-        UserDefaults.standard.set(number, forKey: "shareNumber")
-    
-        do {
-            try Services.instance.imageBox.put(localImage)
-            ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
-        } catch {
-            print(error)
+        if let imageData = imageData {
+            let localImage = LocalImage()
+            localImage.imageData = imageData
+            localImage.eventID = eventID
+            UserDefaults.standard.set(number, forKey: "shareNumber")
+        
+            do {
+                try Services.instance.imageBox.put(localImage)
+                ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
+            } catch {
+                print(error)
+            }
         }
     }
 }

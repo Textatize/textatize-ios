@@ -28,7 +28,6 @@ struct EventDetailScreen: View {
     
     @State private var showFrames = false
     @State private var showWatermark = false
-    @State private var showGallaryImage = false
     @State private var showSheet = false
     @State private var showCameraView = false
     
@@ -257,6 +256,9 @@ struct EventDetailScreen: View {
                                     LazyVGrid(columns: layout) {
                                         ForEach(0..<vm.medias.count, id: \.self) { item in
                                             MediaView(media: vm.medias[item])
+                                                .onTapGesture(perform: {
+                                                    vm.getImageData(media: vm.medias[item])
+                                                })
                                                 .frame(width: 100, height: 100)
                                                 .padding()
                                     
@@ -273,16 +275,17 @@ struct EventDetailScreen: View {
 
                 }
                 
-                if showGallaryImage {
+                if vm.showGallaryImage {
                     ZStack {
-                        Color.black.opacity(0.75)
+                        Color.black.opacity(0.80)
                             .ignoresSafeArea()
-                
-                    ImageDetailView(showView: $showGallaryImage)
+
+                        
+                        SharePhotoView(action: dismiss, eventID: event?.unique_id ?? "NO ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage)
+                            .padding()
                     }
                 
                 }
-                
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -290,7 +293,7 @@ struct EventDetailScreen: View {
                 }
             }
             .navigationBarBackButtonHidden()
-            .toolbar(.visible, for: .tabBar)
+            .toolbar(vm.showGallaryImage ? .hidden : .visible, for: .tabBar)
         }
         .onAppear {
             if let event = event {

@@ -5,13 +5,17 @@
 //  Created by Tornelius Broadwater, Jr on 6/7/23.
 //
 
-import Foundation
+import SwiftUI
+import Kingfisher
 
 class EventDetailScreenViewModel: ObservableObject {
     static let shared = EventDetailScreenViewModel()
     
     @Published var medias = [Media]()
     @Published var frames = [Frame]()
+    @Published var selectedMediaImage: UIImage? = nil
+    @Published var selectedMediaImageData: Data? = nil
+    @Published var showGallaryImage = false
     
     let textatizeAPI = TextatizeAPI.shared
 
@@ -49,6 +53,27 @@ class EventDetailScreenViewModel: ObservableObject {
                 self.frames = APIFrames
                 print("Frames Success")
                 print(frames.count)
+            }
+        }
+    }
+    
+    func getImageData(media: Media) {
+        guard let mediaURL = URL(string: media.unwrappedURL) else { return }
+        KingfisherManager.shared.retrieveImage(with: mediaURL) { result in
+            switch result {
+            case .success(let value):
+                if let cgImage = value.image.cgImage {
+                    self.selectedMediaImage = UIImage(cgImage: cgImage)
+                    if let imageData = self.selectedMediaImage?.jpegData(compressionQuality: 0.5) {
+                        self.selectedMediaImageData = imageData
+                        print("Media Image Retrieved Successful")
+                        withAnimation {
+                            self.showGallaryImage = true
+                        }
+                    }
+                }
+            case .failure(_):
+                print("Media Image Not retrieved")
             }
         }
     }
