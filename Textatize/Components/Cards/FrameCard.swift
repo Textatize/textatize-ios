@@ -55,7 +55,6 @@ struct FrameSelectionCard: View {
 
 struct FrameEditingCard: View {
     
-    @State private var isSelected: Bool = false
     @Binding var duplicateSelected: Bool
     var frame: Frame
     
@@ -63,24 +62,36 @@ struct FrameEditingCard: View {
         
         VStack(alignment: .center, spacing: 15) {
             
-            Button {
-                print("Frame Selected")
-                withAnimation {
-                    isSelected = true
-                }
-            } label: {
-                KFImage.url(URL(string: frame.unwrappedURL))
-                    .resizable()
-                    .placeholder({
-                        ProgressView()
-                    })
-                    .loadDiskFileSynchronously()
-                    .cacheMemoryOnly()
-                    .fade(duration: 0.25)
-                    .onProgress { receivedSize, totalSize in  }
-                    .onSuccess { result in  }
-                    .onFailure { error in }
-            }
+            KFImage.url(URL(string: frame.unwrappedURL))
+                .resizable()
+                .placeholder({
+                    ProgressView()
+                })
+                .loadDiskFileSynchronously()
+                .cacheMemoryOnly()
+                .fade(duration: 0.25)
+                .onProgress { receivedSize, totalSize in  }
+                .onSuccess { result in  }
+                .onFailure { error in }
+            
+//            Button {
+//                print("Frame Selected")
+////                withAnimation {
+////                    isSelected = true
+////                }
+//            } label: {
+//                KFImage.url(URL(string: frame.unwrappedURL))
+//                    .resizable()
+//                    .placeholder({
+//                        ProgressView()
+//                    })
+//                    .loadDiskFileSynchronously()
+//                    .cacheMemoryOnly()
+//                    .fade(duration: 0.25)
+//                    .onProgress { receivedSize, totalSize in  }
+//                    .onSuccess { result in  }
+//                    .onFailure { error in }
+//            }
             
             VStack(alignment: .leading) {
                 Button {
@@ -105,16 +116,16 @@ struct FrameEditingCard: View {
         .background {
             RoundedRectangle(cornerRadius: 15)
                 .fill(.white)
-                .shadow(color: isSelected ? AppColors.Onboarding.loginButton.opacity(0.75) : .black.opacity(0.2), radius: isSelected ? 15 : 5, x: 0, y: 0)
+                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
         }
-        .overlay {
-            AppImages.checkSmall
-                .resizable()
-                .frame(width: 20, height: 20)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                .padding()
-                .opacity(isSelected ? 1 : 0)
-        }
+//        .overlay {
+//            AppImages.checkSmall
+//                .resizable()
+//                .frame(width: 20, height: 20)
+//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+//                .padding()
+//                .opacity(isSelected ? 1 : 0)
+//        }
     }
 }
 

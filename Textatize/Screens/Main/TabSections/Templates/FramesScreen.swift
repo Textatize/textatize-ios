@@ -46,16 +46,7 @@ struct FramesScreen: View {
                         .padding()
                     
                     VStack {
-                        
-                        Text("Choose the Frame")
-                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            .fontWeight(.semibold)
-                            .font(.title2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                        
-                        
-                        
+                    
                         ScrollView {
                             LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
                                 ForEach(0..<10) { item in
