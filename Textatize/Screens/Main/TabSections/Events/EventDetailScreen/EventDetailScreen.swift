@@ -96,72 +96,74 @@ struct EventDetailScreen: View {
                             VStack(alignment: .leading, spacing: 20) {
                                 
                                 Text("Description")
+                                    .fontWeight(.bold)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 HStack(spacing: 0) {
                                     
+                                    Spacer()
+                                    
                                     VStack(spacing: 15) {
                                         Group {
-                                            HStack {
-                                                Text("Name: ")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
+                                            VStack {
+                                                Text("Name ")
+                                                    .font(.subheadline.bold())
                                                 Text(name)
                                                     .font(.caption)
                                             }
                                             
-                                            HStack {
-                                                Text("Date: ")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
+                                            VStack {
+                                                Text("Date ")
+                                                    .font(.subheadline.bold())
                                                 Text(date)
                                                     .font(.caption)
                                             }
                                             
-                                            HStack {
-                                                Text("Location: ")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
+                                            VStack {
+                                                Text("Location ")
+                                                    .font(.subheadline.bold())
                                                 Text(location)
                                                     .font(.caption)
                                             }
                                            
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
                                     }
                                     
+                                    Spacer()
+                                    Spacer()
                                     
                                     VStack(spacing: 15) {
                                         
                                         Group {
-                                            HStack {
-                                                Text("Orientation: ")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
+                                            VStack {
+                                                Text("Orientation ")
+                                                    .font(.subheadline.bold())
+
                                                 Text(orientation)
                                                     .font(.caption)
                                             }
                                             
-                                            HStack {
-                                                Text("Camera: ")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
+                                            VStack {
+                                                Text("Camera ")
+                                                    .font(.subheadline.bold())
+
                                                 Text(camera)
                                                     .font(.caption)
                                             }
                                             
-                                            HStack {
-                                                Text("Host Name: ")
-                                                    .font(.subheadline)
-                                                    .fontWeight(.semibold)
+                                            VStack {
+                                                Text("Host Name ")
+                                                    .font(.subheadline.bold())
+
                                                 Text(hostName)
                                                     .font(.caption)
                                             }
                                            
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-
+                                        
                                     }
+                                    
+                                    Spacer()
                                 }
                                 .frame(maxWidth: .infinity)
                                 
