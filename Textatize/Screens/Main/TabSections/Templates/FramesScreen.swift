@@ -98,7 +98,6 @@ struct FramesScreen: View {
                     
                 }
                 .customBackground()
-                .padding()
                 
                 ZStack {
                     

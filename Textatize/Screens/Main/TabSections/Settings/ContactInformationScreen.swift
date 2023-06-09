@@ -83,8 +83,6 @@ struct ContactInformationScreen: View {
                 
             }
             .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

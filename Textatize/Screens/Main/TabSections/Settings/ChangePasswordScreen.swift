@@ -119,10 +119,7 @@ struct ChangePasswordScreen: View {
                 }
                 
             }
-            .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal)
-            
+            .customBackground()            
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

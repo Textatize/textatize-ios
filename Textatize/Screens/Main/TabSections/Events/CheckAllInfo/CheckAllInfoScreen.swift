@@ -46,75 +46,73 @@ struct CheckAllInfoScreen: View {
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .padding()
                         
+                        
                         HStack(spacing: 0) {
+                            
+                            Spacer()
                             
                             VStack(spacing: 15) {
                                 Group {
-                                    HStack {
-                                        Text("Name: ")
-                                            .font(.subheadline)
-                                            .fontWeight(.semibold)
+                                    VStack {
+                                        Text("Name ")
+                                            .font(.subheadline.bold())
                                         Text(name)
                                             .font(.caption)
                                     }
                                     
-                                    HStack {
-                                        Text("Date: ")
-                                            .font(.subheadline)
-                                            .fontWeight(.semibold)
+                                    VStack {
+                                        Text("Date ")
+                                            .font(.subheadline.bold())
                                         Text(date)
                                             .font(.caption)
                                     }
                                     
-                                    HStack {
-                                        Text("Location: ")
-                                            .font(.subheadline)
-                                            .fontWeight(.semibold)
+                                    VStack {
+                                        Text("Location ")
+                                            .font(.subheadline.bold())
                                         Text(location)
                                             .font(.caption)
                                     }
                                    
                                 }
-                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
                             
+                            Spacer()
+                            Spacer()
                             
                             VStack(spacing: 15) {
                                 
                                 Group {
-                                    HStack {
-                                        Text("Orientation: ")
-                                            .font(.subheadline)
-                                            .fontWeight(.semibold)
-                                        Text(orientation.rawValue)
+                                    VStack {
+                                        Text("Orientation ")
+                                            .font(.subheadline.bold())
+
+                                        Text("\(orientation.rawValue)")
                                             .font(.caption)
                                     }
                                     
-                                    HStack {
-                                        Text("Camera: ")
-                                            .font(.subheadline)
-                                            .fontWeight(.semibold)
-                                        Text(camera.rawValue)
+                                    VStack {
+                                        Text("Camera ")
+                                            .font(.subheadline.bold())
+
+                                        Text("\(camera.rawValue)")
                                             .font(.caption)
                                     }
                                     
-                                    HStack {
-                                        Text("Host Name: ")
-                                            .font(.subheadline)
-                                            .fontWeight(.semibold)
+                                    VStack {
+                                        Text("Host Name ")
+                                            .font(.subheadline.bold())
+
                                         Text(hostName)
                                             .font(.caption)
                                     }
                                    
                                 }
-                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-
+                                
                             }
+                            
+                            Spacer()
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
                         
                         Text("Frame")
                             .font(.headline)
@@ -169,10 +167,6 @@ struct CheckAllInfoScreen: View {
                 
             }
             .customBackground()
-            .padding(.vertical, 25)
-            .padding(.horizontal)
-            .frame(height: UIScreen.main.bounds.height * 0.8)
-            
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

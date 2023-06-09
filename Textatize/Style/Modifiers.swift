@@ -38,6 +38,8 @@ struct CustomBackground: ViewModifier {
             .mask {
                 RoundedRectangle(cornerRadius: 30, style: .continuous)
             }
+            .padding(.bottom)
+            .padding(.horizontal)
     }
 }
 

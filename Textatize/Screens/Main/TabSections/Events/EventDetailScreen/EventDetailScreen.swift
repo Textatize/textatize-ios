@@ -57,8 +57,8 @@ struct EventDetailScreen: View {
                             RoundedRectangle(cornerRadius: 10)
                                 .fill(.black)
                         }
-                        .padding()
                     }
+                    .padding()
 
                     
 //                    Button {
@@ -165,7 +165,6 @@ struct EventDetailScreen: View {
                                     
                                     Spacer()
                                 }
-                                .frame(maxWidth: .infinity)
                                 
                                 Group {
                                     Rectangle()
@@ -272,9 +271,6 @@ struct EventDetailScreen: View {
                         }
                     }
                     .customBackground()
-                    .padding(.horizontal)
-                    .padding()
-
                 }
                 
                 if vm.showGallaryImage {

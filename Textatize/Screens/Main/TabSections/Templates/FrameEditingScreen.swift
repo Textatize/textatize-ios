@@ -58,7 +58,6 @@ struct FrameEditingScreen: View {
                 
             }
             .customBackground()
-            .padding()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

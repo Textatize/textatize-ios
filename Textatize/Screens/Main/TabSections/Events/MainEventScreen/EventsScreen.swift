@@ -200,8 +200,6 @@ struct EventsScreen: View {
                     }
                 }
                 .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal)
             }
         }
         

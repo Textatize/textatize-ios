@@ -172,9 +172,6 @@ struct FrameScreen: View {
                 
             }
             .customBackground()
-            .padding(.vertical, 25)
-            .padding(.horizontal)
-            .frame(height: UIScreen.main.bounds.height * 0.8)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {

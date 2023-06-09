@@ -84,8 +84,6 @@ struct SettingsScreen: View {
                     }
                 }
                 .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal)
             }
         }
     }
