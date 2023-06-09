@@ -36,8 +36,8 @@ struct VerificationScreen: View {
                 VStack {
                     
                     Text("Verification")
+                        .padding()
                         .onboardingTitle()
-                        .padding(.top, 30)
                     
                     VStack(spacing: 5) {
                         Text("Enter the code")
@@ -54,7 +54,6 @@ struct VerificationScreen: View {
                             .fixedSize(horizontal: false, vertical: true)
                     }
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    .padding(.vertical, 20)
                     .padding()
                     
                     VStack {
@@ -89,12 +88,10 @@ struct VerificationScreen: View {
                         
                     }
                     .padding()
-                    
                 }
                 .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal, 20)                
             }
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
 }
