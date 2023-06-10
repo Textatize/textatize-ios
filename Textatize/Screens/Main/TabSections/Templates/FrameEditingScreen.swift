@@ -10,7 +10,7 @@ import Kingfisher
 
 struct FrameEditingScreen: View {
     @Environment(\.dismiss) var dismiss
-    var frame: Frame? = nil
+    var frameImage: Image? = nil
     var body: some View {
         ZStack {
             
@@ -27,18 +27,9 @@ struct FrameEditingScreen: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
                 
-                if let frame = frame {
-                    KFImage.url(URL(string: frame.unwrappedURL))
+                if let frameImage = frameImage {
+                    frameImage
                         .resizable()
-                        .placeholder({
-                            ProgressView()
-                        })
-                        .loadDiskFileSynchronously()
-                        .cacheMemoryOnly()
-                        .fade(duration: 0.25)
-                        .onProgress { receivedSize, totalSize in  }
-                        .onSuccess { result in  }
-                        .onFailure { error in }
                         .padding()
                 }
                 

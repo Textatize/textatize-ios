@@ -6,32 +6,21 @@
 //
 
 import Foundation
+import SwiftUI
+import Kingfisher
 
 class FrameViewModel: ObservableObject {
     static let shared = FrameViewModel()
     
-    @Published var frames = [Frame]()
+    private init() { }
     
-    let textatizeAPI = TextatizeAPI.shared
-    
-    private init() {
-     
-        textatizeAPI.retrieveFrames(orientation: nil) { [weak self] error, framesResponse in
-            guard let self = `self` else { return }
-            
-            if let error = error {
-                print(error.getMessage() ?? "No Message Found")
-            }
-            
-            if let framesResponse = framesResponse, let frames = framesResponse.frames {
-                self.frames = frames
-                print("Completed Frames")
-            }
+    func getFrameImage(frame: Frame) -> Image {
+        guard let frameID = frame.unique_id else {
+            return Image(systemName: "photo")
         }
-        
-    }
-    
-    public func getFrameURL(frame: Frame) -> URL? {
-        return URL(string: frame.unwrappedURL)
+        guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
+            return Image(systemName: "photo")
+        }
+        return Image(uiImage: frameImage)
     }
 }

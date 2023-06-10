@@ -16,7 +16,7 @@ struct MainTabView: View {
                     Label("Events", image: "events icon")
                 }
             
-            FramesScreen()
+            FramesScreen(frames: vm.frames)
                 .tabItem {
                     Label("Frames", image: "Frames icon")
                 }

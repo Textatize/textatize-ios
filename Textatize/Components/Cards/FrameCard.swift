@@ -56,23 +56,14 @@ struct FrameSelectionCard: View {
 struct FrameEditingCard: View {
     
     @Binding var duplicateSelected: Bool
-    var frame: Frame
+    var frameImage: Image
     
     var body: some View {
         
         VStack(alignment: .center, spacing: 15) {
             
-            KFImage.url(URL(string: frame.unwrappedURL))
+            frameImage
                 .resizable()
-                .placeholder({
-                    ProgressView()
-                })
-                .loadDiskFileSynchronously()
-                .cacheMemoryOnly()
-                .fade(duration: 0.25)
-                .onProgress { receivedSize, totalSize in  }
-                .onSuccess { result in  }
-                .onFailure { error in }
             
 //            Button {
 //                print("Frame Selected")

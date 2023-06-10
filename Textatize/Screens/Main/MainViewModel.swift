@@ -24,15 +24,30 @@ class MainViewModel: ObservableObject {
                 print(error.getMessage() ?? "No Message Found")
             }
             
-            if let framesResponse = framesResponse, let frames = framesResponse.frames {
-                self.frames = frames
-                //cacheFrame(cFrame: frames)
-                print("Completed Frames")
+            if let framesResponse = framesResponse, let apiFrames = framesResponse.frames {
+                self.frames = apiFrames
+                self.cacheFrameImages(downloadedFrames: apiFrames)
             }
         }
-        
     }
     
+    private func cacheFrameImages(downloadedFrames: [Frame]) {
+        for frame in downloadedFrames {
+            guard let frameURL = URL(string: frame.unwrappedURL) else { return }
+            guard let frameID = frame.unique_id else { return }
+            KingfisherManager.shared.retrieveImage(with: frameURL) { result in
+                switch result {
+                case .success(let value):
+                    ImageCache.default.store(value.image, forKey: frameID)
+                    print("Frame Cached: \(ImageCache.default.isCached(forKey: frameID))")
+                    
+                    
+                case .failure(let error):
+                    print("Error Downloading Image: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
     
 }
 
