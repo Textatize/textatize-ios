@@ -12,13 +12,11 @@ import Kingfisher
 
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(\.scenePhase) var scenePhase
     var event: Event? = nil
     var frame: Frame?
     @StateObject private var camera = CameraModel()
     @State private var continuePressed = false
     @State private var countDown = 5
-    @State private var isActive = false
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
     @State var connectedTimer: Cancellable? = nil
     
@@ -26,23 +24,8 @@ struct CameraView: View {
         ZStack {
             CameraPreview(camera: camera)
                 .ignoresSafeArea()
-           
-//            ZStack {
-//                VStack {
-//                    Spacer()
-//                    Circle()
-//                        .frame(width: 50, height: 50)
-//                    Image(uiImage: camera.processPhotos(frame: frame)!)
-//                        .resizable()
-//                        .frame(width: 100, height: 100)
-//                    Spacer()
-//                }
-//                
-//
-//            }
             
             if camera.isTaken {
-                
                 ZStack {
                     
                     Color.black.opacity(camera.photoReady ? 0.95 : 0)
@@ -52,8 +35,7 @@ struct CameraView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding()
-                        //.frame(width: 200, height: 200)
-                
+                    
                     VStack {
                         
                         Spacer()
@@ -102,27 +84,6 @@ struct CameraView: View {
                 Text("\(countDown)")
                     .font(.system(size: 50, weight: .bold))
                     .foregroundColor(.red)
-                
-//                VStack {
-//                    Spacer()
-//
-//                    Button {
-//                        print("Camera icon pressed")
-//                        camera.takePic()
-//                        cancelTimer()
-//                    } label: {
-//                        ZStack {
-//                            Circle()
-//                                .fill(Color.red)
-//                                .frame(width: UIScreen.main.bounds.width * 0.23, height:  UIScreen.main.bounds.width * 0.23)
-//                            Image(systemName: "camera.fill")
-//                                .resizable()
-//                                .frame(width: 45, height: 35)
-//                                .foregroundColor(.white)
-//                        }
-//                    }
-//
-//                }
             }
             
             if continuePressed {
@@ -183,222 +144,8 @@ struct CameraView: View {
     }
 }
 
-import AVFoundation
-
-class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
-    
-    @Published var isTaken = false
-    @Published var session = AVCaptureSession()
-    @Published var alert = false
-    @Published var output = AVCapturePhotoOutput()
-    @Published var preview: AVCaptureVideoPreviewLayer!
-    @Published var isSaved = false
-    @Published var picData: Data?
-    @Published var processedPhoto: UIImage?
-    @Published var photoReady = false
-        
-    func check() {
-        switch AVCaptureDevice.authorizationStatus(for: .video) {
-        case .authorized:
-            setup()
-            return
-            
-        case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { [unowned self] status in
-                if status {
-                    self.setup()
-                    return
-                }
-            }
-            
-        case .denied:
-            self.alert.toggle()
-            return
-            
-        default:
-            break
-        }
-    }
-    
-    private func setup() {
-        
-        do {
-            
-            self.session.beginConfiguration()
-            
-            guard let device = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) else { return }
-            
-            let input = try AVCaptureDeviceInput(device: device)
-            
-            if self.session.canAddInput(input) {
-                self.session.addInput(input)
-            }
-            
-            if self.session.canAddOutput(self.output) {
-                self.session.addOutput(self.output)
-            }
-            
-            self.session.commitConfiguration()
-            
-        } catch {
-            print("Setup Error: \(error.localizedDescription)")
-        }
-        
-    }
-    
-    func takePic(){
-        withAnimation {
-            self.photoReady = false
-        }
-        self.picData = nil
-        DispatchQueue.global(qos: .background).async {
-            self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-            DispatchQueue.main.async {
-                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                    self.session.stopRunning()
-                }
-            }
-            
-            DispatchQueue.main.async {
-                withAnimation{
-                    self.isTaken.toggle()
-                }
-            }
-        }
-    }
-    
-    func reTake() {
-        withAnimation {
-            self.photoReady = false
-        }
-        self.picData = nil
-        DispatchQueue.global(qos: .background).async {
-            self.session.startRunning()
-            
-            DispatchQueue.main.async {
-                withAnimation {
-                    self.isTaken.toggle()
-                }
-            }
-        }
-    }
-    
-
-    
-    func processPhotos(frame: Frame?) {
-        
-        guard let frame = frame else { return  }
-        guard let pictureData = self.picData else { return  }
-        guard let saveImage = UIImage(data: pictureData) else { return }
-        guard let frameURL = URL(string: frame.unwrappedURL) else { return }
-
-        
-        KingfisherManager.shared.retrieveImage(with: frameURL) { result in
-            switch result {
-            case .success(let value):
-                if let downloadedFrame = value.image.cgImage {
-                    let size = CGSize(width: downloadedFrame.width, height: downloadedFrame.height)
-                    UIGraphicsBeginImageContext(size)
-
-                    
-                    if let resizeImage = saveImage.resizeImage(size: size) {
-                        resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                    }
-                    
-                    let frameImage = UIImage(cgImage: downloadedFrame)
-                    frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                    
-                    
-                    if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-                        self.processedPhoto = newImage
-                        withAnimation {
-                            self.photoReady = true
-                        }
-                        //return newImage
-                    } else {
-                        self.processedPhoto = saveImage
-                        withAnimation {
-                            self.photoReady = true
-                        }
-                        //return saveImage
-                    }
-                    
-                }
-            case .failure:
-                print("Download Frame Failed")
-            }
-        }
-        
-       }
-    
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-//        if let error = error {
-//            print("Photo Process Error: \(error.localizedDescription)")
-//            return
-//        }
-        
-        print("Pic Taken...")
-        
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        self.picData = imageData
-    }
-    
-    func retrieveImage() -> Data? {
-        
-        //guard let pictureData = self.picData else { return nil }
-        
-        //guard let saveImage = UIImage(data: pictureData) else { return nil }
-        guard let processedPhoto = processedPhoto else { return nil }
-        guard let imageData = processedPhoto.jpegData(compressionQuality: 0.5) else { return nil }
-        //let finalImage = Image(uiImage: saveImage)
-        
-        print("Image Retrieve")
-        return imageData
-    }
-}
-
-struct CameraPreview: UIViewRepresentable {
-    
-    @ObservedObject var camera: CameraModel
-    
-    func makeUIView(context: Context) -> UIView {
-        let view = UIView(frame: UIScreen.main.bounds)
-        
-        camera.preview = AVCaptureVideoPreviewLayer(session: camera.session)
-        
-        camera.preview.frame = view.frame
-        
-        camera.preview.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(camera.preview)
-        
-        camera.session.startRunning()
-        
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIView, context: Context) {
-        
-    }
-    
-}
-
 //struct CameraView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CameraView()
 //    }
 //}
-
-
-extension UIImage {
-    func resizeImage( size: CGSize) -> UIImage? {
-            let scale: CGFloat = max(size.width / self.size.width, size.height / self.size.height)
-            let width: CGFloat = self.size.width * scale
-            let height: CGFloat = self.size.height * scale
-            let imageRect = CGRect(x: (size.width - width) / 2.0, y: (size.height - height) / 2.0, width: width, height: height)
-            UIGraphicsBeginImageContextWithOptions(size, false, 0)
-            self.draw(in: imageRect)
-            let newImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return newImage
-        }
-}
