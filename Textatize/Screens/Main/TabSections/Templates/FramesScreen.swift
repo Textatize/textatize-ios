@@ -18,6 +18,8 @@ struct FramesScreen: View {
     @State private var eventSelected = false
     @State private var selectEvent = false
     @State private var duplicateSelected = false
+    @State private var selectedFrame: Frame? = nil
+    @State private var editFrame = false
     
     let iPadLayout = [
         GridItem(.flexible()),
@@ -50,28 +52,31 @@ struct FramesScreen: View {
                     
                         ScrollView {
                             LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
-                                ForEach(0..<frames.count, id: \.self) { item in
+                                ForEach(0..<frames.count + 1, id: \.self) { item in
                                     if item == 0 {
-                                        
-                                        NavigationLink(
-                                            destination: FrameEditingScreen(),
-                                            isActive: $addFrameSelected,
-                                            label: {
-                                                 AddCard(title: "Upload", addFrame: $addFrameSelected)
-                                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
-                                                    .padding()
+                                        AddCard(title: "Upload")
+                                            .onTapGesture(perform: {
+                                                withAnimation {
+                                                    selectedFrame = nil
+                                                    editFrame = true
+                                                }
                                             })
+                                           .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
+                                           .padding()
 
                                     } else {
-                                        
                                         if frames.count > 0 {
                                             let frame = frames[item - 1]
-                                            
-                                            NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: frame)), isActive: $duplicateSelected) {
-                                                FrameEditingCard(duplicateSelected: $duplicateSelected, frameImage: vm.getFrameImage(frame: frame))
-                                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
-                                                    .padding()
-                                            }
+                                                
+                                            FrameEditingCard(duplicateSelected: $duplicateSelected, frameImage: vm.getFrameImage(frame: frame))
+                                                .onTapGesture(perform: {
+                                                    withAnimation {
+                                                        selectedFrame = frame
+                                                        editFrame = true
+                                                    }
+                                                })
+                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
+                                                .padding()
                                         }
                                     }
                                 }
@@ -80,6 +85,10 @@ struct FramesScreen: View {
                     }
                 }
                 .customBackground()
+            }
+            .background {
+                NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: selectedFrame)), isActive: $editFrame) { EmptyView() }
+                
             }
         }
     }

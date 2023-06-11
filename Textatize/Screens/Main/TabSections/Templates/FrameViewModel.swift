@@ -14,13 +14,16 @@ class FrameViewModel: ObservableObject {
     
     private init() { }
     
-    func getFrameImage(frame: Frame) -> Image {
-        guard let frameID = frame.unique_id else {
-            return Image(systemName: "photo")
+    func getFrameImage(frame: Frame? = nil) -> Image? {
+        if let frame = frame {
+            guard let frameID = frame.unique_id else {
+                return Image(systemName: "photo")
+            }
+            guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
+                return Image(systemName: "photo")
+            }
+            return Image(uiImage: frameImage)
         }
-        guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
-            return Image(systemName: "photo")
-        }
-        return Image(uiImage: frameImage)
+        return nil
     }
 }

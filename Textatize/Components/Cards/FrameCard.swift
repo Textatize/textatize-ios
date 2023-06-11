@@ -56,14 +56,16 @@ struct FrameSelectionCard: View {
 struct FrameEditingCard: View {
     
     @Binding var duplicateSelected: Bool
-    var frameImage: Image
+    var frameImage: Image?
     
     var body: some View {
         
         VStack(alignment: .center, spacing: 15) {
             
-            frameImage
-                .resizable()
+            if let frameImage = frameImage {
+                frameImage
+                    .resizable()
+            }
             
 //            Button {
 //                print("Frame Selected")
