@@ -25,7 +25,6 @@ class MainViewModel: ObservableObject {
             }
             
             if let framesResponse = framesResponse, let apiFrames = framesResponse.frames {
-                self.frames = apiFrames
                 self.cacheFrameImages(downloadedFrames: apiFrames)
             }
         }
@@ -40,7 +39,9 @@ class MainViewModel: ObservableObject {
                 case .success(let value):
                     ImageCache.default.store(value.image, forKey: frameID)
                     print("Frame Cached: \(ImageCache.default.isCached(forKey: frameID))")
-                    
+                    if !self.frames.contains(frame) {
+                        self.frames.append(frame)
+                    }
                     
                 case .failure(let error):
                     print("Error Downloading Image: \(error.localizedDescription)")

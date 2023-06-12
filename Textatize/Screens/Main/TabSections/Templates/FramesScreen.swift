@@ -10,7 +10,6 @@ import SwiftUI
 struct FramesScreen: View {
     
     @StateObject private var vm = FrameViewModel.shared
-    @State var frames = [Frame]()
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
@@ -52,7 +51,7 @@ struct FramesScreen: View {
                     
                         ScrollView {
                             LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
-                                ForEach(0..<frames.count + 1, id: \.self) { item in
+                                ForEach(0..<vm.frames.count + 1, id: \.self) { item in
                                     if item == 0 {
                                         AddCard(title: "Upload")
                                             .onTapGesture(perform: {
@@ -65,8 +64,8 @@ struct FramesScreen: View {
                                            .padding()
 
                                     } else {
-                                        if frames.count > 0 {
-                                            let frame = frames[item - 1]
+                                        if vm.frames.count > 0 {
+                                            let frame = vm.frames[item - 1]
                                                 
                                             FrameEditingCard(duplicateSelected: $duplicateSelected, frameImage: vm.getFrameImage(frame: frame))
                                                 .onTapGesture(perform: {
@@ -90,6 +89,9 @@ struct FramesScreen: View {
                 NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: selectedFrame)), isActive: $editFrame) { EmptyView() }
                 
             }
+        }
+        .onAppear {
+            vm.refreshFrames()
         }
     }
 }
