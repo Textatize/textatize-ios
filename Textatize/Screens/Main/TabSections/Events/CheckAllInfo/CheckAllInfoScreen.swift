@@ -121,9 +121,11 @@ struct CheckAllInfoScreen: View {
                             .padding()
                         
                         if let frame = frame {
-                            FrameCard(frame: frame)
-                                .frame(width: UIScreen.main.bounds.width * 0.30, height: UIScreen.main.bounds.width * 0.30)
-                                .padding()
+                            if let frameImage = vm.getFrameImage(frame: frame) {
+                                frameImage
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                            }
                         }
 
 //                        HStack {

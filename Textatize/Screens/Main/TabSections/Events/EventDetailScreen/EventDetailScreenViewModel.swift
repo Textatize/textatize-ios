@@ -57,6 +57,20 @@ class EventDetailScreenViewModel: ObservableObject {
         }
     }
     
+    func getFrameImage(frame: Frame? = nil) -> Image? {
+        
+        if let frame = frame {
+            guard let frameID = frame.unique_id else {
+                return Image(systemName: "photo")
+            }
+            guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
+                return Image(systemName: "photo")
+            }
+            return Image(uiImage: frameImage)
+        }
+        return nil
+    }
+    
     func getImageData(media: Media) {
         guard let mediaURL = URL(string: media.unwrappedURL) else { return }
         KingfisherManager.shared.retrieveImage(with: mediaURL) { result in

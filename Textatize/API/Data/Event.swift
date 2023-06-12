@@ -12,6 +12,7 @@ class Event: AbstractServerObject, Identifiable {
     var name:                   String?     = nil
     var status:                 String?     = nil
     var date:                   EventDate?  = nil
+    var frame:                  Frame?      = nil
     var location:               String?     = nil
     var orientation:            String?     = nil
     var camera:                 String?     = nil
@@ -37,6 +38,7 @@ class Event: AbstractServerObject, Identifiable {
         name                    <- map["name"]
         status                  <- map["status"]
         date                    <- map["date"]
+        frame                   <- map["frame"]
         location                <- map["location"]
         orientation             <- map["orientation"]
         camera                  <- map["camera"]

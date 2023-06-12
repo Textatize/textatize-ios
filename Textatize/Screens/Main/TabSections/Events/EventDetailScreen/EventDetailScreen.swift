@@ -174,34 +174,27 @@ struct EventDetailScreen: View {
                                     
                                     Button {
                                         print("Show Frames Pressed")
-                                        showFrames.toggle()
+                                        withAnimation {
+                                            showFrames.toggle()
+                                        }
                                     } label: {
                                         HStack {
                                             Text("Frames")
                                                 .font(.headline)
                                             Spacer()
-                                            if showFrames {
-                                                Image(systemName: "chevron.up")
-                                                    .resizable()
-                                                    .frame(width: 20, height: 10)
-
-                                            } else {
-                                                Image(systemName: "chevron.down")
-                                                    .resizable()
-                                                    .frame(width: 20, height: 10)
-                                            }
+                                            
+                                            Image(systemName: showFrames ? "chevron.up" : "chevron.down")
+                                                .resizable()
+                                                .frame(width: 20, height: 10)
 
                                         }
                                     }
                                     
                                     if showFrames {
-                                        HStack {
-                                            ForEach(0..<vm.frames.count, id: \.self) { item in
-                                                let frame = vm.frames[item]
-                                                FrameCard(frame: frame)
-                                                    .frame(width: 50, height: 50)
-                                                    .padding()
-                                            }
+                                        if let frameImage = vm.getFrameImage(frame: event?.frame) {
+                                            frameImage
+                                                .resizable()
+                                                .frame(width: 50, height: 50)
                                         }
                                     }
                                     

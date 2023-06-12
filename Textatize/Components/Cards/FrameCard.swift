@@ -9,19 +9,13 @@ import SwiftUI
 import Kingfisher
 
 struct FrameCard: View {
-    var frame: Frame
+    var frameImage: Image
     var body: some View {
-        KFImage.url(URL(string: frame.unwrappedURL))
-            .resizable()
-            .placeholder({
-                ProgressView()
-            })
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
+        ZStack {
+            frameImage
+                .resizable()
+
+        }
     }
 }
 
