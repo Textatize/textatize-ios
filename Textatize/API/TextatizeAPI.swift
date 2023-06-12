@@ -201,7 +201,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         
     }
     
-    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
@@ -233,6 +233,15 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             if let watermarkTransparencyData = watermarkTransparency.data(using: .utf8) {
                 multipartFormData.append(watermarkTransparencyData, withName: "watermarkTransparency")
             }
+            
+            if let frame = frame {
+                if let frameID = frame.unique_id {
+                    if let frameData = frameID.data(using: .utf8) {
+                        multipartFormData.append(frameData, withName: "frameId")
+                    }
+                }
+            }
+            
         }, to: "\(API_URL)/event",
                   method: .post,
                   headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
@@ -388,7 +397,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                        headers: ["authorization": "Bearer \(sessionToken)"])
             .validate().responseJSON { [weak self] response in
                 if let api = self {
-                    print("Retrieve Events Response: \(response)")
+                    //print("Retrieve Events Response: \(response)")
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
@@ -420,7 +429,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
             guard let self = `self` else { return }
-            print("Retrieve User Response: \(response)")
+           // print("Retrieve User Response: \(response)")
             
             switch response.result {
             case .success:
@@ -514,7 +523,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
             guard let self = `self` else { return }
-            print("Retrieve Frames Response: \(response)")
+            //print("Retrieve Frames Response: \(response)")
             
             switch response.result {
             case .success(let success):
@@ -549,7 +558,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
             guard let self = `self` else { return }
-            print("Retrieve My Frames Response: \(response)")
+            //print("Retrieve My Frames Response: \(response)")
             
             switch response.result {
             case .success(let success):

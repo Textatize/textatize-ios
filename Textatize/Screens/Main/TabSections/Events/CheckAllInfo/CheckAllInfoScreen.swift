@@ -161,7 +161,7 @@ struct CheckAllInfoScreen: View {
                 
                 CustomButtonView(filled: true, name: "Save")
                     .onTapGesture(perform: {
-                        vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency))
+                        vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
                     })
                     .padding()
                 

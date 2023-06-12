@@ -12,10 +12,10 @@ class CheckInfoViewModel: ObservableObject {
     
     let api = TextatizeAPI.shared
     
-    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String) {
+    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?) {
         
         
-        api.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency) { [weak self] error, eventResponse in
+        api.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency, frame: frame) { [weak self] error, eventResponse in
             if let error = error {
                 print("Error: \(error)")
             }

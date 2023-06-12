@@ -22,6 +22,7 @@ struct FrameScreen: View {
     var location: String
     var orientation: Orientation
     var camera: Camera
+    
     @State private var addFrameSelected = false
     
     @State private var watermarkImage: UIImage? = UIImage(systemName: "person")
