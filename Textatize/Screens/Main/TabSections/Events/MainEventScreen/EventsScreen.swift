@@ -202,7 +202,9 @@ struct EventsScreen: View {
                 .customBackground()
             }
         }
-        
+        .onAppear {
+            vm.refreshEvents()
+        }
     }
 }
 

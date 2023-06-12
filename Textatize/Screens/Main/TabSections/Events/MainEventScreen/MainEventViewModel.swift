@@ -21,7 +21,6 @@ class EventViewModel: ObservableObject {
     
     
     private init() {
-        
         textatizeAPI.retrieveEvents(status: .active, page: nil) { [weak self] error, eventsResponse in
             guard let self = `self` else { return }
             
@@ -32,7 +31,35 @@ class EventViewModel: ObservableObject {
             if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
                 self.events = APIEvents
                 print("Active Events")
-            }            
+            }
+        }
+        
+        textatizeAPI.retrieveEvents(status: .completed, page: nil) { [weak self] error, eventsResponse in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print(error.getMessage() ?? "No Message Found")
+            }
+            
+            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+                self.completedEvents = APIEvents
+                print("Completed Events")
+            }
+        }
+    }
+    
+    func refreshEvents() {
+        textatizeAPI.retrieveEvents(status: .active, page: nil) { [weak self] error, eventsResponse in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print(error.getMessage() ?? "No Message Found")
+            }
+            
+            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+                self.events = APIEvents
+                print("Active Events")
+            }
         }
         
         textatizeAPI.retrieveEvents(status: .completed, page: nil) { [weak self] error, eventsResponse in
