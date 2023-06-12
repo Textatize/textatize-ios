@@ -11,6 +11,8 @@ struct NewEventScreen: View {
     
     @Environment(\.dismiss) var dismiss
     
+    @Binding var path: [Int]
+    
     @State private var eventName: String = ""
     @State private var eventHostName: String = ""
     @State private var eventDate: String = ""
@@ -189,7 +191,7 @@ struct NewEventScreen: View {
                         Spacer()
                         
                         NavigationLink {
-                            FrameScreen(name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                            FrameScreen(path: $path, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
@@ -212,8 +214,8 @@ struct NewEventScreen: View {
     }
 }
 
-struct NewEventScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        NewEventScreen()
-    }
-}
+//struct NewEventScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewEventScreen()
+//    }
+//}

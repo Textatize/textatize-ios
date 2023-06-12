@@ -11,6 +11,8 @@ struct CheckAllInfoScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject private var vm = CheckInfoViewModel()
+    
+    @Binding var path: [Int]
         
     var name: String
     var date: String
@@ -164,6 +166,7 @@ struct CheckAllInfoScreen: View {
                 CustomButtonView(filled: true, name: "Save")
                     .onTapGesture(perform: {
                         vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
+                        path.removeAll()
                     })
                     .padding()
                 
@@ -179,8 +182,8 @@ struct CheckAllInfoScreen: View {
     }
 }
 
-struct CheckAllInfoScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: .portrait, camera: .front, hostName: "Anna", watermarkImage: UIImage(systemName: "person")!, watermarkTransparency: 0.50, watermarkPosition: .bottomRight)
-    }
-}
+//struct CheckAllInfoScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: .portrait, camera: .front, hostName: "Anna", watermarkImage: UIImage(systemName: "person")!, watermarkTransparency: 0.50, watermarkPosition: .bottomRight)
+//    }
+//}

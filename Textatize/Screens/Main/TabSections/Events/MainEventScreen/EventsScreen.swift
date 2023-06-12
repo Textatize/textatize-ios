@@ -22,6 +22,8 @@ struct EventsScreen: View {
         GridItem(.flexible())
     ]
     
+    @State private var path = [Int]()
+    
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
 
     var eventItems = [1, 2, 3, 4, 5, 6, 7]
@@ -36,7 +38,7 @@ struct EventsScreen: View {
     
     var body: some View {
         
-        NavigationView {
+        NavigationStack(path: $path) {
             ZStack {
                 AppColors.Onboarding.redLinearGradientBackground
                     .ignoresSafeArea(edges: .top)
@@ -134,12 +136,19 @@ struct EventsScreen: View {
                                     LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
                                         ForEach(0..<vm.events.count + 1, id: \.self) { item in
                                             if item == 0 {
-                                                NavigationLink {
-                                                    NewEventScreen(frames: frames)
+                                                
+                                                Button {
+                                                    path.append(1)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
-                                                       
                                                 }
+                                                
+//                                                NavigationLink {
+//                                                    NewEventScreen(frames: frames)
+//                                                } label: {
+//                                                    EventCard(new: true, eventSelected: $createNewEventPressed)
+//                                                       
+//                                                }
                                                 
                                             } else {
                                                 
@@ -165,12 +174,12 @@ struct EventsScreen: View {
                                     LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
                                         ForEach(0..<vm.completedEvents.count + 1, id: \.self) { item in
                                             if item == 0 {
-                                                NavigationLink {
-                                                    NewEventScreen()
+                                                Button {
+                                                    path.append(1)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
-                                                       
                                                 }
+                                                
                                                 
                                             } else {
                                                 
@@ -201,6 +210,12 @@ struct EventsScreen: View {
                 }
                 .customBackground()
             }
+            .navigationDestination(for: Int.self) { int in
+                if int == 1 {
+                    NewEventScreen(path: $path)
+                }
+            }
+            .navigationBarHidden(true)
         }
         .onAppear {
             vm.refreshEvents()

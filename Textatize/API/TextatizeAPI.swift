@@ -245,8 +245,18 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }, to: "\(API_URL)/event",
                   method: .post,
                   headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
-            
             print("Response: \(response)")
+            
+            switch response.result {
+            case .success(let success):
+                if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
+                    let eventResponse = EventResponse(JSONString: utf8String)
+                    completion(nil, eventResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+
+            }
             
         }
         

@@ -12,6 +12,8 @@ struct FrameScreen: View {
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     @StateObject private var vm = FrameSelectionViewModel.shared
+    
+    @Binding var path: [Int]
      
     @State var frameSelected = false
     @State var selectedFrame: Frame? = nil
@@ -152,7 +154,7 @@ struct FrameScreen: View {
                             Spacer()
                             
                             NavigationLink {
-                                CheckAllInfoScreen(name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
+                                CheckAllInfoScreen(path: $path, name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
                             } label: {
                                 CustomButtonView(filled: true, name: "Next")
                                 
@@ -184,6 +186,6 @@ struct FrameScreen: View {
 
 struct FrameScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FrameScreen(name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
+        FrameScreen(path: .constant([1]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
     }
 }
