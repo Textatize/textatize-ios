@@ -128,7 +128,7 @@ struct CheckAllInfoScreen: View {
                             if let frameImage = vm.getFrameImage(frame: frame) {
                                 frameImage
                                     .resizable()
-                                    .frame(width: 50, height: 50)
+                                    .frame(width: 75, height: 75)
                             }
                         }
 
@@ -143,22 +143,22 @@ struct CheckAllInfoScreen: View {
 //                        .frame(maxWidth: .infinity, alignment: .leading)
 //                        .padding(.horizontal)
                         
-                        Text("Gallery")
-                            .font(.headline)
-                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-
-                        HStack {
-                            ForEach(0..<3) { _ in
-                                Image(systemName: "photo")
-                                    .resizable()
-                                    .padding()
-                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-                            }
-                        }
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.horizontal)
+//                        Text("Gallery")
+//                            .font(.headline)
+//                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .padding()
+//
+//                        HStack {
+//                            ForEach(0..<3) { _ in
+//                                Image(systemName: "photo")
+//                                    .resizable()
+//                                    .padding()
+//                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+//                            }
+//                        }
+//                        .frame(maxWidth: .infinity, alignment: .leading)
+//                        .padding(.horizontal)
 
                     }
                 }

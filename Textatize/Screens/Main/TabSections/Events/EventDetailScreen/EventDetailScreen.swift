@@ -204,40 +204,40 @@ struct EventDetailScreen: View {
                                         }
                                     }
                                     
-                                    Rectangle()
-                                        .fill(.gray)
-                                        .frame(maxWidth: .infinity)
-                                        .frame(height: 2)
+//                                    Rectangle()
+//                                        .fill(.gray)
+//                                        .frame(maxWidth: .infinity)
+//                                        .frame(height: 2)
+//                                    
+//                                    Button {
+//                                        print("Show Watermark Pressed")
+//                                        showWatermark.toggle()
+//                                    } label: {
+//                                        HStack {
+//                                            Text("Watermark")
+//                                                .font(.headline)
+//                                            Spacer()
+//                                            if showFrames {
+//                                                Image(systemName: "chevron.up")
+//                                                    .resizable()
+//                                                    .frame(width: 20, height: 10)
+//
+//                                            } else {
+//                                                Image(systemName: "chevron.down")
+//                                                    .resizable()
+//                                                    .frame(width: 20, height: 10)
+//                                            }
+//
+//                                        }
+//                                    }
                                     
-                                    Button {
-                                        print("Show Watermark Pressed")
-                                        showWatermark.toggle()
-                                    } label: {
-                                        HStack {
-                                            Text("Watermark")
-                                                .font(.headline)
-                                            Spacer()
-                                            if showFrames {
-                                                Image(systemName: "chevron.up")
-                                                    .resizable()
-                                                    .frame(width: 20, height: 10)
-
-                                            } else {
-                                                Image(systemName: "chevron.down")
-                                                    .resizable()
-                                                    .frame(width: 20, height: 10)
-                                            }
-
-                                        }
-                                    }
-                                    
-                                    if showWatermark {
-                                        HStack {
-                                            ForEach(0..<3) { _ in
-                                                Image(systemName: "person.circle")
-                                            }
-                                        }
-                                    }
+//                                    if showWatermark {
+//                                        HStack {
+//                                            ForEach(0..<3) { _ in
+//                                                Image(systemName: "person.circle")
+//                                            }
+//                                        }
+//                                    }
                                     
                                     Rectangle()
                                         .fill(.gray)
