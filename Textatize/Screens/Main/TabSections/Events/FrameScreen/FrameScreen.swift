@@ -78,13 +78,13 @@ struct FrameScreen: View {
                         
                         VStack {
                             
-                            if let event = event {
+                            if event != nil {
                                 if let selectedFrame = selectedFrame {
                                     Text("Selected Frame:")
                                         .fontWeight(.semibold)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
+                                    FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame, frameImage: vm.getFrameImage(frame: selectedFrame))
                                         .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                         .padding()
                                     
@@ -96,7 +96,7 @@ struct FrameScreen: View {
                                         .fontWeight(.semibold)
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
+                                    FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame, frameImage: vm.getFrameImage(frame: selectedFrame))
                                         .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                         .padding()
                                     
@@ -111,9 +111,8 @@ struct FrameScreen: View {
                             
                             ScrollView(.horizontal) {
                                 HStack {
-                                    ForEach(0..<vm.frames.count, id: \.self) { item in
-                                        let frame = vm.frames[item]
-                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: frame)
+                                    ForEach(vm.frames) { frame in
+                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: frame, frameImage: vm.getFrameImage(frame: frame))
                                             .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                             .padding()
                                     }

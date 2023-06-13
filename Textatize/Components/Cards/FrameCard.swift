@@ -23,6 +23,7 @@ struct FrameSelectionCard: View {
     
     @Binding var frameSelected: Frame?
     var frame: Frame
+    var frameImage: Image
     
     var body: some View {
         
@@ -32,17 +33,8 @@ struct FrameSelectionCard: View {
                 frameSelected = frame
             }
         } label: {
-            KFImage.url(URL(string: frame.unwrappedURL))
+            frameImage
                 .resizable()
-                .placeholder({
-                    ProgressView()
-                })
-                .loadDiskFileSynchronously()
-                .cacheMemoryOnly()
-                .fade(duration: 0.25)
-                .onProgress { receivedSize, totalSize in  }
-                .onSuccess { result in  }
-                .onFailure { error in }
         }
     }
 }
