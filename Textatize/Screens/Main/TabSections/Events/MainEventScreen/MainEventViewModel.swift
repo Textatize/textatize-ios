@@ -48,7 +48,7 @@ class EventViewModel: ObservableObject {
         }
     }
     
-    func refreshEvents() {
+    func refreshEvents() {        
         textatizeAPI.retrieveEvents(status: .active, page: nil) { [weak self] error, eventsResponse in
             guard let self = `self` else { return }
             

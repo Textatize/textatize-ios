@@ -11,11 +11,11 @@ struct CheckAllInfoScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @StateObject private var vm = CheckInfoViewModel()
-    
-    @Binding var path: [Int]
+    @Binding var rootView: Bool
+    @Binding var checkInfoView: Bool
     
     var event: Event? = nil
-        
+    
     var name: String
     var date: String
     var location: String
@@ -31,7 +31,7 @@ struct CheckAllInfoScreen: View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
-
+            
             VStack {
                 
                 Text("Check all Information")
@@ -46,10 +46,10 @@ struct CheckAllInfoScreen: View {
                 ScrollView {
                     VStack {
                         
-//                        Text("Description")
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-//                            .padding()
+                        //                        Text("Description")
+                        //                            .frame(maxWidth: .infinity, alignment: .leading)
+                        //                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        //                            .padding()
                         
                         
                         HStack {
@@ -116,8 +116,9 @@ struct CheckAllInfoScreen: View {
                                 
                             }
                         }
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .padding(.horizontal)
-
+                        
                         
                         Text("Frame")
                             .font(.headline)
@@ -132,35 +133,35 @@ struct CheckAllInfoScreen: View {
                                     .frame(width: 75, height: 75)
                             }
                         }
-
-//                        HStack {
-//                            ForEach(0..<3) { _ in
-//                                Image(systemName: "photo")
-//                                    .resizable()
-//                                    .padding()
-//                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-//                            }
-//                        }
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .padding(.horizontal)
                         
-//                        Text("Gallery")
-//                            .font(.headline)
-//                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .padding()
-//
-//                        HStack {
-//                            ForEach(0..<3) { _ in
-//                                Image(systemName: "photo")
-//                                    .resizable()
-//                                    .padding()
-//                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-//                            }
-//                        }
-//                        .frame(maxWidth: .infinity, alignment: .leading)
-//                        .padding(.horizontal)
-
+                        //                        HStack {
+                        //                            ForEach(0..<3) { _ in
+                        //                                Image(systemName: "photo")
+                        //                                    .resizable()
+                        //                                    .padding()
+                        //                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+                        //                            }
+                        //                        }
+                        //                        .frame(maxWidth: .infinity, alignment: .leading)
+                        //                        .padding(.horizontal)
+                        
+                        //                        Text("Gallery")
+                        //                            .font(.headline)
+                        //                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        //                            .frame(maxWidth: .infinity, alignment: .leading)
+                        //                            .padding()
+                        //
+                        //                        HStack {
+                        //                            ForEach(0..<3) { _ in
+                        //                                Image(systemName: "photo")
+                        //                                    .resizable()
+                        //                                    .padding()
+                        //                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
+                        //                            }
+                        //                        }
+                        //                        .frame(maxWidth: .infinity, alignment: .leading)
+                        //                        .padding(.horizontal)
+                        
                     }
                 }
                 
@@ -172,7 +173,7 @@ struct CheckAllInfoScreen: View {
                         .onTapGesture {
                             if let eventID = event.unique_id {
                                 vm.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
-                                path.removeAll()
+                                rootView = false
                             }
                         }
                 } else {
@@ -180,32 +181,13 @@ struct CheckAllInfoScreen: View {
                         .padding()
                         .onTapGesture {
                             vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
-                            path.removeAll()
+                            rootView = false
                         }
-
-                }                
+                    
+                }
             }
             .customBackground()
-            
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .frame(width: 20, height: 15)
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            .padding(.leading)
         }
-        .navigationBarHidden(true)
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                CustomBackButtom(action: dismiss)
-//            }
-//        }
-        .navigationBarBackButtonHidden()
     }
 }
 

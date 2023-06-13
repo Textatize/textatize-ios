@@ -9,7 +9,6 @@ import SwiftUI
 
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
-    @StateObject private var dm = DataManager.shared
     
     var frames = [Frame]()
     
@@ -28,7 +27,7 @@ struct EventsScreen: View {
     @State var count = 1
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
-
+    
     var eventItems = [1, 2, 3, 4, 5, 6, 7]
     
     @State private var createNewEventPressed: Bool = false
@@ -37,11 +36,18 @@ struct EventsScreen: View {
     @State private var currentSelected: Bool = true
     @State private var search = ""
     
+    @State private var rootView = false
+    @State private var eventDetailView = false
+    @State private var editEventView = false
+    @State private var frameView = false
+    @State private var checkInfoView = false
+
+    @State private var EditScreen = false
+
     var segmentTitles = ["Current", "Completed"]
     
     var body: some View {
-        
-        NavigationStack(path: $path) {
+        NavigationView {
             ZStack {
                 AppColors.Onboarding.redLinearGradientBackground
                     .ignoresSafeArea(edges: .top)
@@ -61,184 +67,115 @@ struct EventsScreen: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding()
                         
-                        HStack {
-                            
-                            VStack {
-                                HStack {
-                                    
-                                    Spacer()
-                                    
-                                    Button {
-                                        
-                                        withAnimation {
-                                            currentSelected = true
-                                        }
-                                        
-                                    } label :{
-                                        Text("Current")
-                                            .font(.headline)
-                                            .foregroundColor(AppColors.Onboarding.loginButton)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    Button {
-                                        
-                                        withAnimation {
-                                            currentSelected = false
-                                        }
-                                        
-                                    } label :{
-                                        Text("Complete")
-                                            .font(.headline)
-                                            .foregroundColor(AppColors.Onboarding.loginButton)
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                    
-                                }
-                                .frame(maxWidth: .infinity)
-                                
-                                ZStack {
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(AppColors.Onboarding.topColor)
-                                        .frame(height: 10)
-                                        .padding(.horizontal)
-                                    
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(AppColors.Onboarding.bottomColor)
-                                        .frame(width: UIScreen.main.bounds.width * 0.4, height: 10)
-                                        .frame(maxWidth: .infinity, alignment: currentSelected ? .leading : .trailing)
-                                        .padding(.horizontal)
-                                }
-                            }
-                            
-                        }
-                        
-                        HStack {
-                            TextField("\(Image(systemName: "magnifyingglass")) Search", text: $search)
-                                .padding()
-                                .frame(width: UIScreen.main.bounds.width * 0.4, height: 40)
-                                .onboardingBorder()
-
-                            Spacer()
-
-                            Text("All Events")
-                                .font(.headline)
-                                .foregroundColor(AppColors.Onboarding.loginButton)
-                                .padding()
-
-                        }
-                        .padding()
-                        
                         
                         Group {
-                            ScrollView {
-                                if currentSelected {
-                                    LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
-                                        ForEach(0..<vm.events.count + 1, id: \.self) { item in
-                                            if item == 0 {
-                                                Button {
-                                                   // path.removeAll()
-                                                    //selectedEvent = nil
-                                                    count = 1
-                                                    path.append(1)
-                                                } label: {
-                                                    EventCard(new: true, eventSelected: $createNewEventPressed)
-                                                }
-                                                
-                                                
-                                            } else {
-                                                
-                                                let event = vm.events[item - 1]
-                                                
-                                                Button {
-                                                    path.removeAll()
-                                                    dm.event = event
-                                                    count = 2
-                                                    path.append(2)
-                                                } label: {
-                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
-                                                }
-                                                
-//                                                NavigationLink {
-//                                                    EventDetailScreen(path: $path, event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera.rawValue, hostName: event.getName)
-//                                                } label: {
-//                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
-//
-//                                                }
-                                            }
-                        
+                            HStack {
+                                
+                                VStack {
+                                    HStack {
+                                        
+                                        Spacer()
+                                        
+                                        Button {
                                             
+                                            withAnimation {
+                                                currentSelected = true
+                                            }
+                                            
+                                        } label :{
+                                            Text("Current")
+                                                .font(.headline)
+                                                .foregroundColor(AppColors.Onboarding.loginButton)
                                         }
+                                        
+                                        Spacer()
+                                        
+                                        Button {
+                                            
+                                            withAnimation {
+                                                currentSelected = false
+                                            }
+                                            
+                                        } label :{
+                                            Text("Complete")
+                                                .font(.headline)
+                                                .foregroundColor(AppColors.Onboarding.loginButton)
+                                        }
+                                        
+                                        Spacer()
+                                        
                                         
                                     }
-                                    .padding()
-                                } else {
+                                    .frame(maxWidth: .infinity)
                                     
-                                    LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
-                                        ForEach(0..<vm.completedEvents.count + 1, id: \.self) { item in
-                                            if item == 0 {
-                                                Button {
-                                                    path.removeAll()
-                                                    selectedEvent = nil
-                                                    count = 1
-                                                    path.append(1)
-                                                } label: {
-                                                    EventCard(new: true, eventSelected: $createNewEventPressed)
-                                                }
-                                                
-                                                
-                                            } else {
-                                                
-                                                let event = vm.events[item - 1]
-                                                
-                                                Button {
-                                                    path.removeAll()
-                                                    dm.event = event
-                                                    count = 2
-                                                    path.append(2)
-                                                } label: {
-                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
-                                                }
-                                                
-//                                                NavigationLink {
-//                                                    EventDetailScreen(path: $path, event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera.rawValue, hostName: event.getName)
-//                                                } label: {
-//                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
-//
-//                                                }
-                                            }
-                                            
-                                        }
+                                    ZStack {
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(AppColors.Onboarding.topColor)
+                                            .frame(height: 10)
+                                            .padding(.horizontal)
                                         
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .fill(AppColors.Onboarding.bottomColor)
+                                            .frame(width: UIScreen.main.bounds.width * 0.4, height: 10)
+                                            .frame(maxWidth: .infinity, alignment: currentSelected ? .leading : .trailing)
+                                            .padding(.horizontal)
+                                    }
+                                }
+                                
+                            }
+                            
+                            HStack {
+                                TextField("\(Image(systemName: "magnifyingglass")) Search", text: $search)
+                                    .padding()
+                                    .frame(width: UIScreen.main.bounds.width * 0.4, height: 40)
+                                    .onboardingBorder()
+                                
+                                Spacer()
+                                
+                                Text("All Events")
+                                    .font(.headline)
+                                    .foregroundColor(AppColors.Onboarding.loginButton)
+                                    .padding()
+                                
+                            }
+                            .padding()
+                        }
+                        
+                        ScrollView {
+                            VStack {
+                                ForEach(0..<vm.events.count + 1, id: \.self) { item in
+                                    NavigationLink(isActive: $rootView) {
+                                        if item == 0 {
+                                            EditEventScreen(rootView: $rootView, editEventView: $editEventView, frameView: $frameView, checkInfoView: $checkInfoView)
+                                        } else {
+                                            let event = vm.events[item - 1]
+                                            EventDetailScreen(rootView: $rootView, eventDetailView: $eventDetailView, editEventView: $editEventView, frameView: $frameView, checkInfoView: $checkInfoView, event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera.rawValue, hostName: event.getName)
+                                        }
+                                    } label: {
+                                        if item == 0 {
+                                            EventCard(new: true)
+                                        } else {
+                                            let event = vm.events[item - 1]
+                                            EventCard(new: false, title: event.getName, date: event.getDate)
+
+                                        }
                                     }
                                     .padding()
                                     
                                 }
-
-                                
                             }
                         }
                     }
                 }
                 .customBackground()
             }
-            .navigationDestination(for: Int.self) { int in
-                
-                if path == [2] {
-                    EventDetailScreen(path: $path, count: count + 10, event: dm.event!, name: dm.event!.getName, date: dm.event!.getDate, location: dm.event!.getLocation, orientation: dm.event!.getOrientation.rawValue, camera: dm.event!.getCamera.rawValue, hostName: dm.event!.getName)
-                } else {
-                    EditEventScreen(path: $path)
-
-                }
+            .onAppear {
+                rootView = false
+                eventDetailView = false
+                editEventView = false
+                frameView = false
+                vm.refreshEvents()
             }
-            .navigationBarHidden(true)
-        }
-        .onAppear {
-            selectedEvent = nil
-            vm.refreshEvents()
         }
     }
 }

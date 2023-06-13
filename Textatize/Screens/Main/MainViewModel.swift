@@ -12,6 +12,7 @@ class MainViewModel: ObservableObject {
     static let shared = MainViewModel()
     
     @Published var frames = [Frame]()
+    @Published var showRoot = false
     
     let textatizeAPI = TextatizeAPI.shared
     

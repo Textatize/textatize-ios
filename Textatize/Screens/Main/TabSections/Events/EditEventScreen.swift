@@ -11,7 +11,11 @@ struct EditEventScreen: View {
     
     @Environment(\.dismiss) var dismiss
     
-    @Binding var path: [Int]
+    @Binding  var rootView: Bool
+    @Binding  var editEventView: Bool
+    @Binding  var frameView: Bool
+    @Binding  var checkInfoView: Bool
+    
     var event: Event? = nil
     
     @State private var eventName: String = ""
@@ -32,7 +36,7 @@ struct EditEventScreen: View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
-
+            
             VStack {
                 
                 Spacer()
@@ -191,58 +195,31 @@ struct EditEventScreen: View {
                         
                         Spacer()
                         
-                        NavigationLink {
-                            FrameScreen(path: $path, event: event, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                        NavigationLink(isActive: $editEventView) {
+                            FrameScreen(rootView: $rootView, frameView: $frameView, checkInfoView: $checkInfoView, event: event, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
-
+                            
                         }
                     }
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                .padding()
+                    .padding()
                 }
                 
             }
             .customBackground()
-            
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .frame(width: 20, height: 15)
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            .padding(.leading)
-            
-        }
-        .onAppear {
-            if let event = event {
-                eventName = event.getName
-                eventDate = event.getDate
-                eventLocation = event.getLocation
-                orientation = event.getOrientation
-                camera = event.getCamera
+            .onAppear {
+                editEventView = false
+                if let event = event {
+                    eventName = event.getName
+                    eventDate = event.getDate
+                    eventLocation = event.getLocation
+                    orientation = event.getOrientation
+                    camera = event.getCamera
+                }
             }
         }
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                Button {
-//                    path.removeAll()
-//                } label: {
-//                    HStack {
-//                        Image(systemName: "arrow.left")
-//                        Text("Back")
-//                    }
-//                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-//                }
-//            }
-//        }
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden()
     }
 }
 

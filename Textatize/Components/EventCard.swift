@@ -9,10 +9,7 @@ import SwiftUI
 
 struct EventCard: View {
     
-    var new: Bool = false
-
-    @Binding var eventSelected: Bool
-    
+    var new: Bool = false    
     var image: Image? = nil
     var title: String = "Holidays"
     var date: String = "10/11/22"
@@ -123,6 +120,6 @@ struct EventCard: View {
 
 struct EventCard_Previews: PreviewProvider {
     static var previews: some View {
-        EventCard(new: false, eventSelected: .constant(true))
+        EventCard(new: false)
     }
 }

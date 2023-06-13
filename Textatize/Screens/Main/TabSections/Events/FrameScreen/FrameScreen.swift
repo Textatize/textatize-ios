@@ -9,12 +9,19 @@ import SwiftUI
 
 struct FrameScreen: View {
     @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
-    @StateObject private var vm = FrameSelectionViewModel.shared
     
-    @Binding var path: [Int]
-     
+    @Binding  var rootView: Bool
+    @Binding  var frameView: Bool
+    @Binding  var checkInfoView: Bool
+    
+    
+    @StateObject private var vm = FrameSelectionViewModel.shared
+    @StateObject private var mvm = MainViewModel.shared
+    
     @State var frameSelected = false
     @State var selectedFrame: Frame? = nil
     
@@ -40,7 +47,7 @@ struct FrameScreen: View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
-
+            
             
             VStack {
                 
@@ -83,8 +90,8 @@ struct FrameScreen: View {
                                     FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
                                         .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                         .padding()
-
-
+                                    
+                                    
                                 }
                             } else {
                                 if let selectedFrame = selectedFrame {
@@ -95,8 +102,8 @@ struct FrameScreen: View {
                                     FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
                                         .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                         .padding()
-
-
+                                    
+                                    
                                 }
                             }
                             
@@ -166,61 +173,44 @@ struct FrameScreen: View {
                             
                             Spacer()
                             
-                            NavigationLink {
-                                CheckAllInfoScreen(path: $path, event: event, name: name, date: date, location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
-                            } label: {
-                                CustomButtonView(filled: true, name: "Next")
-                                
-                            }
                             
                             
                         }
                         
                         
+                        NavigationLink(isActive: $frameView) {
+                            CheckAllInfoScreen(rootView: $rootView, checkInfoView: $checkInfoView, event: event, name: name, date: date, location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
+                        } label: {
+                            CustomButtonView(filled: true, name: "Next")
+                        }
+                        .padding()
+                        
                     }
                     .padding()
-                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                }
+                .onAppear {
+                    frameView = false
+                    vm.getFrames(orientation: orientation)
+                    if let event = event {
+                        watermarkPosition = event.getWatermarkPosition
+                        watermarkTransparency = event.getWatermarkTransparency
+                        if let frame = event.frame {
+                            selectedFrame = frame
+                            frameSelected = true
+                        }
+                    }
                 }
                 
             }
             .customBackground()
-            
-            Button {
-                dismiss()
-            } label: {
-                Image(systemName: "arrow.left")
-                    .resizable()
-                    .frame(width: 20, height: 15)
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-            .padding()
-            .padding(.leading)
-            
         }
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarLeading) {
-//                CustomBackButtom(action: dismiss)
-//            }
-//        }
-        .navigationBarHidden(true)
-        .navigationBarBackButtonHidden()
-        .onAppear {
-            vm.getFrames(orientation: orientation)
-            if let event = event {
-                watermarkPosition = event.getWatermarkPosition
-                watermarkTransparency = event.getWatermarkTransparency
-                if let frame = event.frame {
-                    selectedFrame = frame
-                    frameSelected = true
-                }
-            }
-        }
+        
     }
 }
 
-struct FrameScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        FrameScreen(path: .constant([1]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
-    }
-}
+//struct FrameScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FrameScreen(path: .constant([1]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
+//    }
+//}

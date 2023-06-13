@@ -87,7 +87,7 @@ struct ImageDetailView: View {
 }
 struct SharePhotoView: View {
     
-    var action: DismissAction
+    //var action: DismissAction
     @State private var number = ""
     var eventID: String
     @Binding var showView: Bool
@@ -129,7 +129,6 @@ struct SharePhotoView: View {
                 
                 CustomButtonView(filled: true, name: "Share Photo")
                     .onTapGesture {
-                        action()
                         savePhoto()
                     }
                     .padding()
