@@ -18,12 +18,13 @@ struct FrameScreen: View {
     @State var frameSelected = false
     @State var selectedFrame: Frame? = nil
     
-    var name: String
-    var eventHostName: String
-    var date: String
-    var location: String
-    var orientation: Orientation
-    var camera: Camera
+    var event: Event? = nil
+    @State var name: String
+    @State var eventHostName: String
+    @State var date: String
+    @State var location: String
+    @State var orientation: Orientation
+    @State var camera: Camera
     
     @State private var addFrameSelected = false
     
@@ -73,18 +74,30 @@ struct FrameScreen: View {
                         
                         VStack {
                             
-                            
-                            
-                            if let selectedFrame = selectedFrame {
-                                Text("Selected Frame:")
-                                    .fontWeight(.semibold)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                
-                                FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
-                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
-                                    .padding()
+                            if let event = event {
+                                if let selectedFrame = selectedFrame {
+                                    Text("Selected Frame:")
+                                        .fontWeight(.semibold)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
+                                        .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                        .padding()
 
 
+                                }
+                            } else {
+                                if let selectedFrame = selectedFrame {
+                                    Text("Selected Frame:")
+                                        .fontWeight(.semibold)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                    
+                                    FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
+                                        .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
+                                        .padding()
+
+
+                                }
                             }
                             
                             
@@ -154,7 +167,7 @@ struct FrameScreen: View {
                             Spacer()
                             
                             NavigationLink {
-                                CheckAllInfoScreen(path: $path, name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
+                                CheckAllInfoScreen(path: $path, event: event, name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
                             } label: {
                                 CustomButtonView(filled: true, name: "Next")
                                 
@@ -180,6 +193,14 @@ struct FrameScreen: View {
         .navigationBarBackButtonHidden()
         .onAppear {
             vm.getFrames(orientation: orientation)
+            if let event = event {
+                watermarkPosition = event.getWatermarkPosition
+                watermarkTransparency = event.getWatermarkTransparency
+                if let frame = event.frame {
+                    selectedFrame = frame
+                    frameSelected = true
+                }
+            }
         }
     }
 }

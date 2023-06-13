@@ -13,6 +13,8 @@ struct CheckAllInfoScreen: View {
     @StateObject private var vm = CheckInfoViewModel()
     
     @Binding var path: [Int]
+    
+    var event: Event? = nil
         
     var name: String
     var date: String
@@ -163,13 +165,24 @@ struct CheckAllInfoScreen: View {
                 
                 Spacer()
                 
-                CustomButtonView(filled: true, name: "Save")
-                    .onTapGesture(perform: {
-                        vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
-                        path.removeAll()
-                    })
-                    .padding()
-                
+                if let event = event {
+                    CustomButtonView(filled: true, name: "Update")
+                        .padding()
+                        .onTapGesture {
+                            if let eventID = event.unique_id {
+                                vm.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
+                                path.removeAll()
+                            }
+                        }
+                } else {
+                    CustomButtonView(filled: true, name: "Save")
+                        .padding()
+                        .onTapGesture {
+                            vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
+                            path.removeAll()
+                        }
+
+                }                
             }
             .customBackground()
         }

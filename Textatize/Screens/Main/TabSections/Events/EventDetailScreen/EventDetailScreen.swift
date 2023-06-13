@@ -17,6 +17,8 @@ struct EventDetailScreen: View {
         GridItem(),
     ]
     
+    @Binding var path: [Int]
+    
     var event: Event?
     
     var name: String
@@ -25,6 +27,8 @@ struct EventDetailScreen: View {
     var orientation: String
     var camera: String
     var hostName: String
+    
+    @State private var showEditScreen = false
     
     @State private var showFrames = false
     @State private var showWatermark = false
@@ -240,8 +244,11 @@ struct EventDetailScreen: View {
                                 }
                                 
                                
-                                
                                 CustomButtonView(filled: true, name: "Edit")
+                                    .onTapGesture {
+                                        showEditScreen = true
+                                    }
+
                                 
                                 Text("Gallery")
                                     .font(.headline)
@@ -278,9 +285,25 @@ struct EventDetailScreen: View {
                 
                 }
             }
+            .background {
+                NavigationLink(isActive: $showEditScreen) {
+                    EditEventScreen(path: $path, event: event)
+                } label: {
+                    EmptyView()
+                }
+
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    CustomBackButtom(action: dismiss)
+                    Button {
+                        path.removeAll()
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
+                        .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    }
                 }
             }
             .navigationBarBackButtonHidden()
@@ -295,8 +318,8 @@ struct EventDetailScreen: View {
     }
 }
 
-struct EventDetailScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        EventDetailScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
-    }
-}
+//struct EventDetailScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        EventDetailScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+//    }
+//}

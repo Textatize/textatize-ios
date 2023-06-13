@@ -80,8 +80,14 @@ class Event: AbstractServerObject, Identifiable {
         
     }
     
-    var getCamera: String {
-        camera ?? "No Camera"
+    var getCamera: Camera {
+        if camera == Camera.front.rawValue {
+            return .front
+        } else if camera == Camera.back.rawValue {
+            return .back
+        } else {
+            return .back
+        }
     }
     
     var getWatermarkUrl: String {
@@ -92,8 +98,15 @@ class Event: AbstractServerObject, Identifiable {
         watermarkTransparency ?? 1.0
     }
     
-    var getWatermarkPosition: String {
-        watermarkPosition ?? "No watermark position"
+    var getWatermarkPosition: WatermarkPosition {
+        if watermarkPosition == WatermarkPosition.bottomLeft.rawValue {
+            return .bottomLeft
+        } else if watermarkPosition == WatermarkPosition.bottomRight.rawValue {
+            return .bottomRight
+        } else {
+            return .bottomLeft
+        }
+        
     }
 
     

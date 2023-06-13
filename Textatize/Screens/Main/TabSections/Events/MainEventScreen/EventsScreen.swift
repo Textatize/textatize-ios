@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
+    @StateObject private var dm = DataManager.shared
     
     var frames = [Frame]()
     
@@ -23,6 +24,7 @@ struct EventsScreen: View {
     ]
     
     @State private var path = [Int]()
+    @State private var selectedEvent: Event? = nil
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
 
@@ -136,34 +138,36 @@ struct EventsScreen: View {
                                     LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout, spacing: 20) {
                                         ForEach(0..<vm.events.count + 1, id: \.self) { item in
                                             if item == 0 {
-                                                
                                                 Button {
+                                                    path.removeAll()
+                                                    selectedEvent = nil
                                                     path.append(1)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
                                                 }
                                                 
-//                                                NavigationLink {
-//                                                    NewEventScreen(frames: frames)
-//                                                } label: {
-//                                                    EventCard(new: true, eventSelected: $createNewEventPressed)
-//                                                       
-//                                                }
                                                 
                                             } else {
                                                 
                                                 let event = vm.events[item - 1]
                                                 
-                                                NavigationLink {
-                                                    EventDetailScreen(event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera, hostName: event.getName)
+                                                Button {
+                                                    path.removeAll()
+                                                    dm.event = event
+
+                                                    path.append(2)
                                                 } label: {
                                                     EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
-
                                                 }
                                                 
-                                                
-                                                
+//                                                NavigationLink {
+//                                                    EventDetailScreen(path: $path, event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera.rawValue, hostName: event.getName)
+//                                                } label: {
+//                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
+//
+//                                                }
                                             }
+                        
                                             
                                         }
                                         
@@ -175,6 +179,8 @@ struct EventsScreen: View {
                                         ForEach(0..<vm.completedEvents.count + 1, id: \.self) { item in
                                             if item == 0 {
                                                 Button {
+                                                    path.removeAll()
+                                                    selectedEvent = nil
                                                     path.append(1)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
@@ -185,15 +191,21 @@ struct EventsScreen: View {
                                                 
                                                 let event = vm.events[item - 1]
                                                 
-                                                NavigationLink {
-                                                    EventDetailScreen(event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera, hostName: event.getName)
+                                                Button {
+                                                    path.removeAll()
+                                                    dm.event = event
+
+                                                    path.append(2)
                                                 } label: {
                                                     EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
-
                                                 }
                                                 
-                                                
-                                                
+//                                                NavigationLink {
+//                                                    EventDetailScreen(path: $path, event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera.rawValue, hostName: event.getName)
+//                                                } label: {
+//                                                    EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
+//
+//                                                }
                                             }
                                             
                                         }
@@ -211,13 +223,18 @@ struct EventsScreen: View {
                 .customBackground()
             }
             .navigationDestination(for: Int.self) { int in
-                if int == 1 {
-                    NewEventScreen(path: $path)
+                
+                if path == [1] {
+                    EditEventScreen(path: $path)
+                } else {
+                    EventDetailScreen(path: $path, event: dm.event!, name: dm.event!.getName, date: dm.event!.getDate, location: dm.event!.getLocation, orientation: dm.event!.getOrientation.rawValue, camera: dm.event!.getCamera.rawValue, hostName: dm.event!.getName)
+
                 }
             }
             .navigationBarHidden(true)
         }
         .onAppear {
+            selectedEvent = nil
             vm.refreshEvents()
         }
     }

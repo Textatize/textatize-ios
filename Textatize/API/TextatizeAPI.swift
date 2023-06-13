@@ -201,6 +201,68 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         
     }
     
+    func updateEvent(eventID: String, name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            
+            if let eventIDData = eventID.data(using: .utf8) {
+                multipartFormData.append(eventIDData, withName: "eventId")
+            }
+            if let nameData = name.data(using: .utf8) {
+                multipartFormData.append(nameData, withName: "name")
+            }
+            if let orientationData = orientation.rawValue.data(using: .utf8) {
+                multipartFormData.append(orientationData, withName: "orientation")
+            }
+            if let cameraData = camera.rawValue.data(using: .utf8) {
+                multipartFormData.append(cameraData, withName: "camera")
+            }
+            if let watermarkPositionData = watermarkPosition.rawValue.data(using: .utf8) {
+                multipartFormData.append(watermarkPositionData, withName: "watermarkPosition")
+            }
+            if let locationData = location.data(using: .utf8) {
+                multipartFormData.append(locationData, withName: "location")
+            }
+            
+            if let watermarkImage = watermarkImage {
+                if let imageData = watermarkImage.jpegData(compressionQuality: 0.5) {
+                    multipartFormData.append(imageData, withName: "watermarkUrl", fileName: "watermarkUrl.jpg", mimeType: "image/jpeg")
+                }
+            }
+            
+            if let watermarkTransparencyData = watermarkTransparency.data(using: .utf8) {
+                multipartFormData.append(watermarkTransparencyData, withName: "watermarkTransparency")
+            }
+            
+            if let frame = frame {
+                if let frameID = frame.unique_id {
+                    if let frameData = frameID.data(using: .utf8) {
+                        multipartFormData.append(frameData, withName: "frameId")
+                    }
+                }
+            }
+        }, to: "\(API_URL)/event",
+                  method: .put,
+                  headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { response in
+            
+            switch response.result {
+            case .success(let success):
+                if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
+                    let eventResponse = EventResponse(JSONString: utf8String)
+                    completion(nil, eventResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+
+            }
+            
+        }
+    }
+
     func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
@@ -248,7 +310,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             print("Response: \(response)")
             
             switch response.result {
-            case .success(let success):
+            case .success:
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
                     let eventResponse = EventResponse(JSONString: utf8String)
                     completion(nil, eventResponse)
@@ -274,8 +336,6 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             if let compressedImage = image.jpegData(compressionQuality: 0.5) {
                 multipartFormData.append(compressedImage, withName: "imageTaken", fileName: "imageTaken.jpg", mimeType: "image/jpeg")
             }
-            
-            
             
         }, to: "\(API_URL)/media/\(eventID)",
                   method: .post,

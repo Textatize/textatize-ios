@@ -31,6 +31,20 @@ class CheckInfoViewModel: ObservableObject {
         
     }
     
+    func updateEvent(eventID: String, name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?) {
+        api.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency, frame: frame) { error, eventResponse in
+            if let error = error {
+                print("Error: \(error)")
+            }
+            
+            if let eventResponse = eventResponse {
+                print("EventResponse: \(eventResponse.event?.name)")
+            }
+            
+            self.eventVM.refreshEvents()
+        }
+    }
+
     func getFrameImage(frame: Frame? = nil) -> Image? {
         
         if let frame = frame {

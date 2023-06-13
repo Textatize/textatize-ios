@@ -1,5 +1,5 @@
 //
-//  NewEventScreen.swift
+//  EditEventScreen.swift
 //  Textatize
 //
 //  Created by Tornelius Broadwater, Jr on 5/17/23.
@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-struct NewEventScreen: View {
+struct EditEventScreen: View {
     
     @Environment(\.dismiss) var dismiss
     
     @Binding var path: [Int]
+    var event: Event? = nil
     
     @State private var eventName: String = ""
     @State private var eventHostName: String = ""
@@ -191,7 +192,7 @@ struct NewEventScreen: View {
                         Spacer()
                         
                         NavigationLink {
-                            FrameScreen(path: $path, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                            FrameScreen(path: $path, event: event, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
@@ -205,10 +206,26 @@ struct NewEventScreen: View {
             }
             .customBackground()
         }
+        .onAppear {
+            if let event = event {
+                eventName = event.getName
+                eventDate = event.getDate
+                eventLocation = event.getLocation
+                orientation = event.getOrientation
+                camera = event.getCamera
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
+                Button {
+                    path.removeAll()
+                } label: {
+                    HStack {
+                        Image(systemName: "arrow.left")
+                        Text("Back")
+                    }
+                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+                }            }
         }
         .navigationBarBackButtonHidden()
     }

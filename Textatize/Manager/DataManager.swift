@@ -10,6 +10,7 @@ import SwiftUI
 class DataManager: ObservableObject {
     
     @Published var user: User?
+    @Published var event: Event?
 
     static let shared = DataManager()
     private let loginManager = TextatizeLoginManager()
