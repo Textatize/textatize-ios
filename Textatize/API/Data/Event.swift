@@ -118,8 +118,6 @@ class EventDate: AbstractServerObject {
     var month: Int?  = nil
     var day:   Int?  = nil
     
-    
-    
     override init() {
         super.init()
     }
