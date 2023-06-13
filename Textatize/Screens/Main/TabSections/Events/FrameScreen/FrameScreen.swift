@@ -8,24 +8,17 @@
 import SwiftUI
 
 struct FrameScreen: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @StateObject private var vm = FrameSelectionViewModel.shared
+    @StateObject private var mvm = EventViewModel.shared
     
+    @Binding var path: [Int]
+    var event: Event? = nil
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
-    
-    @Binding  var rootView: Bool
-    @Binding  var frameView: Bool
-    @Binding  var checkInfoView: Bool
-    
-    
-    @StateObject private var vm = FrameSelectionViewModel.shared
-    @StateObject private var mvm = MainViewModel.shared
     
     @State var frameSelected = false
     @State var selectedFrame: Frame? = nil
     
-    var event: Event? = nil
     @State var name: String
     @State var eventHostName: String
     @State var date: String
@@ -177,20 +170,27 @@ struct FrameScreen: View {
                             
                         }
                         
-                        
-                        NavigationLink(isActive: $frameView) {
-                            CheckAllInfoScreen(rootView: $rootView, checkInfoView: $checkInfoView, event: event, name: name, date: date, location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
+                        Button {
+                            mvm.frameName = name
+                            mvm.frameDate = date
+                            mvm.frameLocation = location
+                            mvm.FrameCamera = camera
+                            mvm.frameOrientation = orientation
+                            mvm.frameHostName = name
+                            mvm.frameWatermarkPosition = watermarkPosition
+                            mvm.frameWatermarkTransparency = watermarkTransparency
+                            mvm.selectedFrame = selectedFrame
+                            path.append(4)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
+                                .padding()
                         }
-                        .padding()
                         
                     }
                     .padding()
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 }
                 .onAppear {
-                    frameView = false
                     vm.getFrames(orientation: orientation)
                     if let event = event {
                         watermarkPosition = event.getWatermarkPosition
@@ -201,7 +201,6 @@ struct FrameScreen: View {
                         }
                     }
                 }
-                
             }
             .customBackground()
         }

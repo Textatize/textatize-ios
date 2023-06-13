@@ -22,6 +22,8 @@ struct EventsScreen: View {
         GridItem(.flexible())
     ]
     
+    @State private var screenEvents = [Event]()
+    
     @State private var path = [Int]()
     @State private var selectedEvent: Event? = nil
     @State var count = 1
@@ -43,11 +45,15 @@ struct EventsScreen: View {
     @State private var checkInfoView = false
 
     @State private var EditScreen = false
+    
+    
+    @State private var showEditEventScreen = false
 
     var segmentTitles = ["Current", "Completed"]
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
+            
             ZStack {
                 AppColors.Onboarding.redLinearGradientBackground
                     .ignoresSafeArea(edges: .top)
@@ -142,26 +148,27 @@ struct EventsScreen: View {
                         }
                         
                         ScrollView {
-                            VStack {
-                                ForEach(0..<vm.events.count + 1, id: \.self) { item in
-                                    NavigationLink(isActive: $rootView) {
-                                        if item == 0 {
-                                            EditEventScreen(rootView: $rootView, editEventView: $editEventView, frameView: $frameView, checkInfoView: $checkInfoView)
-                                        } else {
-                                            let event = vm.events[item - 1]
-                                            EventDetailScreen(rootView: $rootView, eventDetailView: $eventDetailView, editEventView: $editEventView, frameView: $frameView, checkInfoView: $checkInfoView, event: event, name: event.getName, date: event.getDate, location: event.getLocation, orientation: event.getOrientation.rawValue, camera: event.getCamera.rawValue, hostName: event.getName)
-                                        }
-                                    } label: {
-                                        if item == 0 {
-                                            EventCard(new: true)
-                                        } else {
-                                            let event = vm.events[item - 1]
-                                            EventCard(new: false, title: event.getName, date: event.getDate)
 
-                                        }
-                                    }
-                                    .padding()
+                            VStack {
+                                
+                                Button {
+                                    selectedEvent = nil
+                                    path.append(1)
+                                } label: {
+                                    EventCard(new: true)
+                                        .padding()
+                                }
+
+                                
+                                ForEach(vm.events) { event in
                                     
+                                    Button {
+                                        selectedEvent = event
+                                        path.append(2)
+                                    } label: {
+                                        EventCard(new: false, title: event.getName, date: event.getDate)
+                                            .padding()
+                                    }
                                 }
                             }
                         }
@@ -169,11 +176,26 @@ struct EventsScreen: View {
                 }
                 .customBackground()
             }
+            .navigationBarHidden(true)
+            .navigationDestination(for: Int.self) { item in
+                if item == 1 {
+                    EditEventScreen(path: $path, event: selectedEvent)
+                }
+                if item == 2 {
+                    if let event = selectedEvent {
+                        EventDetailScreen(path: $path, event: event)
+                    }
+                }
+                if item == 3 {
+                    FrameScreen(path: $path, name: vm.editName, eventHostName: vm.editHostName, date: vm.editDate, location: vm.editLocation, orientation: vm.editOrientation, camera: vm.editCamera)
+                }
+                
+                if item == 4 {
+                    CheckAllInfoScreen(path: $path, name: vm.frameName, date: vm.frameDate, location: vm.frameLocation, orientation: vm.frameOrientation, camera: vm.FrameCamera, hostName: vm.frameName, watermarkTransparency: vm.frameWatermarkTransparency, watermarkPosition: vm.frameWatermarkPosition, frame: vm.selectedFrame)
+                }
+            }
             .onAppear {
-                rootView = false
-                eventDetailView = false
-                editEventView = false
-                frameView = false
+                path.removeAll()
                 vm.refreshEvents()
             }
         }

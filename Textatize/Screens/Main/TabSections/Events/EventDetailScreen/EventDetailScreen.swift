@@ -10,34 +10,24 @@ import SwiftUI
 struct EventDetailScreen: View {
     @StateObject private var vm = EventDetailScreenViewModel.shared
     
+    @Binding var path: [Int]
+    @State private var showFrames = false
+    
     let layout = [
         GridItem(),
         GridItem(),
     ]
     
-    @Binding  var rootView: Bool
-    @Binding  var eventDetailView: Bool
-    @Binding  var editEventView: Bool
-    @Binding  var frameView: Bool
-    @Binding  var checkInfoView: Bool
+    var event: Event? = nil
+
+    @State var name: String = ""
+    @State var date: String = ""
+    @State var location: String = ""
+    @State var orientation: String = ""
+    @State var camera: String = ""
+    @State var hostName: String = ""
     
-    var event: Event?
-    
-    var name: String
-    var date: String
-    var location: String
-    var orientation: String
-    var camera: String
-    var hostName: String
-    
-    @State private var showEditScreen = false
-    
-    @State private var showFrames = false
-    @State private var showWatermark = false
-    @State private var showSheet = false
-    @State private var showCameraView = false
-    
-    var body: some View {
+    var body: some View {        
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
@@ -182,11 +172,9 @@ struct EventDetailScreen: View {
                                     .frame(height: 2)
                             }
                             
-                            
-                            NavigationLink(isActive: $eventDetailView) {
-                                EditEventScreen(rootView: $rootView, editEventView: $editEventView, frameView: $frameView, checkInfoView: $checkInfoView, event: event)
-                            } label: {
+                            NavigationLink(value: 1) {
                                 CustomButtonView(filled: true, name: "Edit")
+                                    .padding()
                             }
                             
                             Text("Gallery")
@@ -224,12 +212,22 @@ struct EventDetailScreen: View {
                 
             }
         }
-        //.toolbar(vm.showGallaryImage ? .hidden : .visible, for: .tabBar)
+        .toolbar(vm.showGallaryImage ? .hidden : .visible, for: .tabBar)
         .onAppear {
-            eventDetailView = false
             if let event = event {
                 vm.getMedia(event: event)
                 vm.getFrames(orientation: event.getOrientation, page: nil)
+                name = event.getName
+                date = event.getDate
+                location = event.getLocation
+                orientation = event.getOrientation.rawValue
+                camera = event.getCamera.rawValue
+                hostName = event.getName
+            }
+        }
+        .navigationDestination(for: Int.self) { item in
+            if item == 1 {
+                EditEventScreen(path: $path, event: event)
             }
         }
     }

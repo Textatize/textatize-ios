@@ -8,7 +8,6 @@
 import ObjectMapper
 
 class Event: AbstractServerObject, Identifiable {
-    var id = UUID()
     var name:                   String?     = nil
     var status:                 String?     = nil
     var date:                   EventDate?  = nil

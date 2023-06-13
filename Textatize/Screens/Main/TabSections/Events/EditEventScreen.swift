@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct EditEventScreen: View {
+    @StateObject private var mvm = EventViewModel.shared
+
     
-    @Environment(\.dismiss) var dismiss
-    
-    @Binding  var rootView: Bool
-    @Binding  var editEventView: Bool
-    @Binding  var frameView: Bool
-    @Binding  var checkInfoView: Bool
+    @Binding var path: [Int]
     
     var event: Event? = nil
-    
+   
     @State private var eventName: String = ""
     @State private var eventHostName: String = ""
     @State private var eventDate: String = ""
@@ -26,9 +23,7 @@ struct EditEventScreen: View {
     @State private var camera: Camera = .back
     
     @State private var nextButtonPressed = false
-    
-    var frames = [Frame]()
-    
+
     var orientationOptions: [Orientation] = [.landscape, .portrait, .square]
     var cameraOptions: [Camera] = [.front, .back]
     
@@ -195,13 +190,29 @@ struct EditEventScreen: View {
                         
                         Spacer()
                         
-                        NavigationLink(isActive: $editEventView) {
-                            FrameScreen(rootView: $rootView, frameView: $frameView, checkInfoView: $checkInfoView, event: event, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+                        Button {
+                            mvm.editName = eventName
+                            mvm.editDate = eventDate
+                            mvm.editLocation = eventLocation
+                            mvm.editCamera = camera
+                            mvm.editOrientation = orientation
+                            mvm.editHostName = eventName
+                            path.append(3)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
-                            
                         }
+                        
+
+//                
+//                        
+//                        NavigationLink(isActive: $editEventView) {
+//                            FrameScreen(rootView: $rootView, frameView: $frameView, checkInfoView: $checkInfoView, event: event, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
+//                        } label: {
+//                            CustomButtonView(filled: true, name: "Next")
+//                                .padding()
+//                            
+//                        }
                     }
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .padding()
@@ -210,13 +221,17 @@ struct EditEventScreen: View {
             }
             .customBackground()
             .onAppear {
-                editEventView = false
                 if let event = event {
                     eventName = event.getName
                     eventDate = event.getDate
                     eventLocation = event.getLocation
                     orientation = event.getOrientation
                     camera = event.getCamera
+                }
+            }
+            .navigationDestination(for: Int.self) { item in
+                if item == 3 {
+                    FrameScreen(path: $path, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
                 }
             }
         }

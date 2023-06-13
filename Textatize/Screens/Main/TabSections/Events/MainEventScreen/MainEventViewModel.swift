@@ -15,6 +15,26 @@ class EventViewModel: ObservableObject {
     @Published var events = [Event]()
     @Published var completedEvents = [Event]()
     
+    @Published var selectedEvent: Event? = nil
+    
+    @Published var editName: String = ""
+    @Published var editDate: String = ""
+    @Published var editLocation: String = ""
+    @Published var editOrientation: Orientation = .portrait
+    @Published var editCamera: Camera = .front
+    @Published var editHostName: String = ""
+    
+    @Published var frameName: String = ""
+    @Published var frameDate: String = ""
+    @Published var frameLocation: String = ""
+    @Published var frameOrientation: Orientation = .portrait
+    @Published var FrameCamera: Camera = .front
+    @Published var frameHostName: String = ""
+    @Published var frameWatermarkPosition: WatermarkPosition = .bottomRight
+    @Published var frameWatermarkTransparency: Double = 0.0
+    @Published var selectedFrame: Frame? = nil
+
+    
     let textatizeAPI = TextatizeAPI.shared
     let defaults = UserDefaults.standard
     

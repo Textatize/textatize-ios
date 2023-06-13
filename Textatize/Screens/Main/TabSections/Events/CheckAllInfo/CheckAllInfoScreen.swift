@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct CheckAllInfoScreen: View {
-    @Environment(\.dismiss) var dismiss
-    
     @StateObject private var vm = CheckInfoViewModel()
-    @Binding var rootView: Bool
-    @Binding var checkInfoView: Bool
+
+    @Binding var path: [Int]
     
     var event: Event? = nil
     
@@ -22,7 +20,7 @@ struct CheckAllInfoScreen: View {
     var orientation: Orientation
     var camera: Camera
     var hostName: String
-    var watermarkImage: UIImage
+    var watermarkImage: UIImage? = nil
     var watermarkTransparency: Double
     var watermarkPosition: WatermarkPosition
     var frame: Frame? = nil
@@ -173,7 +171,7 @@ struct CheckAllInfoScreen: View {
                         .onTapGesture {
                             if let eventID = event.unique_id {
                                 vm.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
-                                rootView = false
+                                path.removeAll()
                             }
                         }
                 } else {
@@ -181,7 +179,7 @@ struct CheckAllInfoScreen: View {
                         .padding()
                         .onTapGesture {
                             vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
-                            rootView = false
+                            path.removeAll()
                         }
                     
                 }
