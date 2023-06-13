@@ -159,17 +159,30 @@ struct EventsScreen: View {
                                         .padding()
                                 }
 
-                                
-                                ForEach(vm.events) { event in
-                                    
-                                    Button {
-                                        selectedEvent = event
-                                        path.append(2)
-                                    } label: {
-                                        EventCard(new: false, title: event.getName, date: event.getDate)
-                                            .padding()
+                                if currentSelected {
+                                    ForEach(vm.events) { event in
+                                        
+                                        Button {
+                                            selectedEvent = event
+                                            path.append(2)
+                                        } label: {
+                                            EventCard(new: false, title: event.getName, date: event.getDate)
+                                                .padding()
+                                        }
+                                    }
+                                } else {
+                                    ForEach(vm.completedEvents) { event in
+                                        
+                                        Button {
+                                            selectedEvent = event
+                                            path.append(2)
+                                        } label: {
+                                            EventCard(new: false, title: event.getName, date: event.getDate)
+                                                .padding()
+                                        }
                                     }
                                 }
+ 
                             }
                         }
                     }
@@ -192,6 +205,11 @@ struct EventsScreen: View {
                 
                 if item == 4 {
                     CheckAllInfoScreen(path: $path, name: vm.frameName, date: vm.frameDate, location: vm.frameLocation, orientation: vm.frameOrientation, camera: vm.FrameCamera, hostName: vm.frameName, watermarkTransparency: vm.frameWatermarkTransparency, watermarkPosition: vm.frameWatermarkPosition, frame: vm.selectedFrame)
+                }
+                if item == 5 {
+                    if let event = selectedEvent, let frame = event.frame {
+                        CameraView(event: event, frame: frame)
+                    }
                 }
             }
             .onAppear {

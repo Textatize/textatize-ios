@@ -34,9 +34,8 @@ struct EventDetailScreen: View {
             
             VStack {
                 
-                NavigationLink {
-                    CameraView(event: event, frame: vm.frames.first)
-                } label: {
+                
+                NavigationLink(value: 5) {
                     HStack {
                         AppImages.EventCard.camera
                             .resizable()
@@ -55,6 +54,28 @@ struct EventDetailScreen: View {
                 }
                 .padding(.top, 20)
                 .padding()
+                
+//                NavigationLink {
+//                    CameraView(event: event, frame: vm.frames.first)
+//                } label: {
+//                    HStack {
+//                        AppImages.EventCard.camera
+//                            .resizable()
+//                            .frame(width: 20, height: 20)
+//                        
+//                        Text("Capture")
+//                            .font(.headline)
+//                            .accentColor(.white)
+//                    }
+//                    .frame(height: 50)
+//                    .frame(maxWidth: .infinity)
+//                    .background {
+//                        RoundedRectangle(cornerRadius: 10)
+//                            .fill(.black)
+//                    }
+//                }
+//                .padding(.top, 20)
+//                .padding()
                 
                 VStack {
                     Text("Event Detail")
@@ -223,11 +244,6 @@ struct EventDetailScreen: View {
                 orientation = event.getOrientation.rawValue
                 camera = event.getCamera.rawValue
                 hostName = event.getName
-            }
-        }
-        .navigationDestination(for: Int.self) { item in
-            if item == 1 {
-                EditEventScreen(path: $path, event: event)
             }
         }
     }
