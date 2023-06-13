@@ -195,12 +195,10 @@ struct EventsScreen: View {
                     EditEventScreen(path: $path, event: selectedEvent)
                 }
                 if item == 2 {
-                    if let event = selectedEvent {
-                        EventDetailScreen(path: $path, event: event)
-                    }
+                    EventDetailScreen(path: $path, event: selectedEvent)
                 }
                 if item == 3 {
-                    FrameScreen(path: $path, name: vm.editName, eventHostName: vm.editHostName, date: vm.editDate, location: vm.editLocation, orientation: vm.editOrientation, camera: vm.editCamera)
+                    FrameScreen(path: $path, event: selectedEvent, name: vm.editName, eventHostName: vm.editHostName, date: vm.editDate, location: vm.editLocation, orientation: vm.editOrientation, camera: vm.editCamera)
                 }
                 
                 if item == 4 {

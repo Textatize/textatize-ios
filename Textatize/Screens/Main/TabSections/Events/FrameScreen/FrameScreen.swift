@@ -36,6 +36,10 @@ struct FrameScreen: View {
     @State private var watermarkSwitch = false
     @State private var nextPressed = false
     
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
@@ -171,16 +175,24 @@ struct FrameScreen: View {
                         }
                         
                         Button {
-                            mvm.frameName = name
-                            mvm.frameDate = date
-                            mvm.frameLocation = location
-                            mvm.FrameCamera = camera
-                            mvm.frameOrientation = orientation
-                            mvm.frameHostName = name
-                            mvm.frameWatermarkPosition = watermarkPosition
-                            mvm.frameWatermarkTransparency = watermarkTransparency
-                            mvm.selectedFrame = selectedFrame
-                            path.append(4)
+                            if selectedFrame == nil {
+                                withAnimation {
+                                    alertTitle = "Frame Error"
+                                    alertMessage = "Select a Frame"
+                                    showAlert = true
+                                }
+                            } else {
+                                mvm.frameName = name
+                                mvm.frameDate = date
+                                mvm.frameLocation = location
+                                mvm.FrameCamera = camera
+                                mvm.frameOrientation = orientation
+                                mvm.frameHostName = name
+                                mvm.frameWatermarkPosition = watermarkPosition
+                                mvm.frameWatermarkTransparency = watermarkTransparency
+                                mvm.selectedFrame = selectedFrame
+                                path.append(4)
+                            }
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
@@ -203,6 +215,16 @@ struct FrameScreen: View {
                 }
             }
             .customBackground()
+            .alert(alertTitle, isPresented: $showAlert) {
+                Button(role: .cancel) {
+                    print("Dismiss Selected")
+                } label: {
+                    Text("Dismiss")
+                }
+            } message: {
+                Text(alertMessage)
+            }
+
         }
         
     }
