@@ -43,13 +43,6 @@ struct CheckAllInfoScreen: View {
                 
                 ScrollView {
                     VStack {
-                        
-                        //                        Text("Description")
-                        //                            .frame(maxWidth: .infinity, alignment: .leading)
-                        //                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        //                            .padding()
-                        
-                        
                         HStack {
                             
                             VStack(spacing: 10) {
@@ -131,35 +124,6 @@ struct CheckAllInfoScreen: View {
                                     .frame(width: 75, height: 75)
                             }
                         }
-                        
-                        //                        HStack {
-                        //                            ForEach(0..<3) { _ in
-                        //                                Image(systemName: "photo")
-                        //                                    .resizable()
-                        //                                    .padding()
-                        //                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-                        //                            }
-                        //                        }
-                        //                        .frame(maxWidth: .infinity, alignment: .leading)
-                        //                        .padding(.horizontal)
-                        
-                        //                        Text("Gallery")
-                        //                            .font(.headline)
-                        //                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        //                            .frame(maxWidth: .infinity, alignment: .leading)
-                        //                            .padding()
-                        //
-                        //                        HStack {
-                        //                            ForEach(0..<3) { _ in
-                        //                                Image(systemName: "photo")
-                        //                                    .resizable()
-                        //                                    .padding()
-                        //                                    .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
-                        //                            }
-                        //                        }
-                        //                        .frame(maxWidth: .infinity, alignment: .leading)
-                        //                        .padding(.horizontal)
-                        
                     }
                 }
                 
