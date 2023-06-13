@@ -460,7 +460,7 @@ struct EventDetailScreen: View {
                                 
                                
                                 NavigationLink {
-                                    EditEventScreen(path: $path)
+                                    EditEventScreen(path: $path, event: event)
                                 } label: {
                                     CustomButtonView(filled: true, name: "Edit")
                                 }
