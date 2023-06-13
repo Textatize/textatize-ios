@@ -25,6 +25,7 @@ struct EventsScreen: View {
     
     @State private var path = [Int]()
     @State private var selectedEvent: Event? = nil
+    @State var count = 1
     
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
 
@@ -139,8 +140,9 @@ struct EventsScreen: View {
                                         ForEach(0..<vm.events.count + 1, id: \.self) { item in
                                             if item == 0 {
                                                 Button {
-                                                    path.removeAll()
-                                                    selectedEvent = nil
+                                                   // path.removeAll()
+                                                    //selectedEvent = nil
+                                                    count = 1
                                                     path.append(1)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
@@ -154,7 +156,7 @@ struct EventsScreen: View {
                                                 Button {
                                                     path.removeAll()
                                                     dm.event = event
-
+                                                    count = 2
                                                     path.append(2)
                                                 } label: {
                                                     EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
@@ -181,6 +183,7 @@ struct EventsScreen: View {
                                                 Button {
                                                     path.removeAll()
                                                     selectedEvent = nil
+                                                    count = 1
                                                     path.append(1)
                                                 } label: {
                                                     EventCard(new: true, eventSelected: $createNewEventPressed)
@@ -194,7 +197,7 @@ struct EventsScreen: View {
                                                 Button {
                                                     path.removeAll()
                                                     dm.event = event
-
+                                                    count = 2
                                                     path.append(2)
                                                 } label: {
                                                     EventCard(new: false, eventSelected: $eventPressed, title: event.getName, date: event.getDate)
@@ -224,10 +227,10 @@ struct EventsScreen: View {
             }
             .navigationDestination(for: Int.self) { int in
                 
-                if path == [1] {
-                    EditEventScreen(path: $path)
+                if path == [2] {
+                    EventDetailScreen(path: $path, count: count + 10, event: dm.event!, name: dm.event!.getName, date: dm.event!.getDate, location: dm.event!.getLocation, orientation: dm.event!.getOrientation.rawValue, camera: dm.event!.getCamera.rawValue, hostName: dm.event!.getName)
                 } else {
-                    EventDetailScreen(path: $path, event: dm.event!, name: dm.event!.getName, date: dm.event!.getDate, location: dm.event!.getLocation, orientation: dm.event!.getOrientation.rawValue, camera: dm.event!.getCamera.rawValue, hostName: dm.event!.getName)
+                    EditEventScreen(path: $path)
 
                 }
             }

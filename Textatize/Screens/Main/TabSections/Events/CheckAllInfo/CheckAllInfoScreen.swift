@@ -185,12 +185,25 @@ struct CheckAllInfoScreen: View {
                 }                
             }
             .customBackground()
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
+            
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "arrow.left")
+                    .resizable()
+                    .frame(width: 20, height: 15)
+                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
+            .padding(.leading)
         }
+        .navigationBarHidden(true)
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                CustomBackButtom(action: dismiss)
+//            }
+//        }
         .navigationBarBackButtonHidden()
     }
 }

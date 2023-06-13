@@ -37,7 +37,7 @@ struct EditEventScreen: View {
                 
                 Spacer()
                 
-                Text("New Event")
+                Text("Edit Event")
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .font(.title)
                     .fontWeight(.semibold)
@@ -205,6 +205,19 @@ struct EditEventScreen: View {
                 
             }
             .customBackground()
+            
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "arrow.left")
+                    .resizable()
+                    .frame(width: 20, height: 15)
+                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
+            .padding(.leading)
+            
         }
         .onAppear {
             if let event = event {
@@ -215,18 +228,20 @@ struct EditEventScreen: View {
                 camera = event.getCamera
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    path.removeAll()
-                } label: {
-                    HStack {
-                        Image(systemName: "arrow.left")
-                        Text("Back")
-                    }
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-                }            }
-        }
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                Button {
+//                    path.removeAll()
+//                } label: {
+//                    HStack {
+//                        Image(systemName: "arrow.left")
+//                        Text("Back")
+//                    }
+//                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+//                }
+//            }
+//        }
+        .navigationBarHidden(true)
         .navigationBarBackButtonHidden()
     }
 }
