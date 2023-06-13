@@ -167,7 +167,7 @@ struct FrameScreen: View {
                             Spacer()
                             
                             NavigationLink {
-                                CheckAllInfoScreen(path: $path, event: event, name: name, date: "10/11/12", location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
+                                CheckAllInfoScreen(path: $path, event: event, name: name, date: date, location: location, orientation: orientation, camera: camera, hostName: eventHostName, watermarkImage: watermarkImage!, watermarkTransparency: watermarkTransparency, watermarkPosition: watermarkPosition, frame: selectedFrame)
                             } label: {
                                 CustomButtonView(filled: true, name: "Next")
                                 

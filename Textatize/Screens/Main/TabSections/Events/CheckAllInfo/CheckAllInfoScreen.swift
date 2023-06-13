@@ -39,84 +39,85 @@ struct CheckAllInfoScreen: View {
                     .font(.title)
                     .fontWeight(.semibold)
                     .padding()
+                    .padding(.vertical, 20)
                 
                 Spacer()
                 
                 ScrollView {
                     VStack {
                         
-                        Text("Description")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            .padding()
+//                        Text("Description")
+//                            .frame(maxWidth: .infinity, alignment: .leading)
+//                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+//                            .padding()
                         
                         
-                        HStack(spacing: 0) {
+                        HStack {
                             
-                            Spacer()
-                            
-                            VStack(spacing: 15) {
-                                Group {
-                                    VStack {
-                                        Text("Name ")
-                                            .font(.subheadline.bold())
-                                        Text(name)
-                                            .font(.caption)
-                                    }
-                                    
-                                    VStack {
-                                        Text("Date ")
-                                            .font(.subheadline.bold())
-                                        Text(date)
-                                            .font(.caption)
-                                    }
-                                    
-                                    VStack {
-                                        Text("Location ")
-                                            .font(.subheadline.bold())
-                                        Text(location)
-                                            .font(.caption)
-                                    }
-                                   
+                            VStack(spacing: 10) {
+                                VStack {
+                                    Text("Event Name")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.subheadline.bold())
+                                    Text(name)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.caption)
+                                }
+                                
+                                VStack {
+                                    Text("Event Date")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.subheadline.bold())
+                                    Text(date)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.caption)
+                                }
+                                
+                                VStack {
+                                    Text("Event Location")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.subheadline.bold())
+                                    Text(location)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.caption)
                                 }
                             }
                             
                             Spacer()
-                            Spacer()
                             
-                            VStack(spacing: 15) {
-                                
-                                Group {
-                                    VStack {
-                                        Text("Orientation ")
-                                            .font(.subheadline.bold())
-
-                                        Text("\(orientation.rawValue)")
-                                            .font(.caption)
-                                    }
-                                    
-                                    VStack {
-                                        Text("Camera ")
-                                            .font(.subheadline.bold())
-
-                                        Text("\(camera.rawValue)")
-                                            .font(.caption)
-                                    }
-                                    
-                                    VStack {
-                                        Text("Host Name ")
-                                            .font(.subheadline.bold())
-
-                                        Text(hostName)
-                                            .font(.caption)
-                                    }
-                                   
+                            VStack(spacing: 10) {
+                                VStack {
+                                    Text("Event Orientation")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.subheadline.bold())
+                                    Text(orientation.rawValue)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.caption)
                                 }
                                 
+                                VStack {
+                                    Text("Event Camera")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.subheadline.bold())
+                                    Text(camera.rawValue)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.caption)
+                                }
+                                
+                                VStack {
+                                    Text("Event Host")
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.subheadline.bold())
+                                    Text(name)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .font(.caption)
+                                }
+                                
+                                
                             }
-                            
-                            Spacer()
                         }
+                        .padding(.horizontal)
+
                         
                         Text("Frame")
                             .font(.headline)

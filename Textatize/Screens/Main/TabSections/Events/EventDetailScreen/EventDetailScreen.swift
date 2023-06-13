@@ -99,77 +99,290 @@ struct EventDetailScreen: View {
                             .padding()
                         
                         ScrollView {
-                            VStack(alignment: .leading, spacing: 20) {
+                            VStack(spacing: 20) {
                                 
                                 Text("Description")
                                     .fontWeight(.bold)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
+                                HStack {
+                                    
+                                    VStack(spacing: 10) {
+                                        VStack {
+                                            Text("Event Name")
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.subheadline.bold())
+                                            Text(name)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
+                                        
+                                        VStack {
+                                            Text("Event Date")
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.subheadline.bold())
+                                            Text(date)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
+                                        
+                                        VStack {
+                                            Text("Event Location")
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.subheadline.bold())
+                                            Text(location)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    VStack(spacing: 10) {
+                                        VStack {
+                                            Text("Event Orientation")
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.subheadline.bold())
+                                            Text(orientation)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
+                                        
+                                        VStack {
+                                            Text("Event Camera")
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.subheadline.bold())
+                                            Text(camera)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
+                                        
+                                        VStack {
+                                            Text("Event Host")
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.subheadline.bold())
+                                            Text(name)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
+                                        
+                                        
+                                    }
+                                }
+
+                                
+
+//                                HStack {
+//                                    VStack {
+//                                        Text("Event Name")
+//                                            .font(.subheadline.bold())
+//                                        Text(name)
+//                                            .font(.caption)
+//                                    }
+//                                    
+//                                    Spacer()
+//                                    
+//                                    VStack {
+//                                        Text("Orientation")
+//                                            .font(.subheadline.bold())
+//                                        Text(orientation)
+//                                            .font(.caption)
+//                                    }
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//
+//                                    
+//                                    Spacer()
+//
+//                                }
+                                
+                                
+//                                HStack {
+//                                    VStack {
+//                                        Text("Event Date")
+//                                            .font(.subheadline.bold())
+//
+//                                        Text(date)
+//                                            .font(.caption)
+//                                    }
+//                                    Spacer()
+//
+//                                    VStack {
+//                                        Text("Camera")
+//                                            .font(.subheadline.bold())
+//
+//                                        Text(camera)
+//                                            .font(.caption)
+//                                    }
+//                                    
+//                                    Spacer()
+//
+//                                }
+                                //.frame(maxWidth: .infinity, alignment: .leading)
+
+                                
+                                
+                                
+                                
+//                                Group {
+//                                    
+//                                    VStack {
+//                                        Text("Name ")
+//                                            .font(.subheadline.bold())
+//                                        Text(name)
+//                                            .font(.caption)
+//                                    }
+//                                    
+//                                }
+                                
+//                                VStack {
+//                                    VStack {
+//                                        Text("Name ")
+//                                            .font(.subheadline.bold())
+//                                        Text(name)
+//                                            .font(.caption)
+//                                    }
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                    
+//                                    Spacer()
+//                                    
+//                                    VStack {
+//                                        Text("Datee ")
+//                                            .font(.subheadline.bold())
+//
+//                                        Text(date)
+//                                            .font(.caption)
+//                                    }
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
+//                                    Spacer()
+//                                }
+                                
+//                                HStack {
+//                                    VStack {
+//                                        Text("Date ")
+//                                            .font(.subheadline.bold())
+//                                        Text(date)
+//                                            .font(.caption)
+//                                    }
+//                                    
+//                                    Spacer()
+//                                    
+//                                    VStack {
+//                                        Text("Camera ")
+//                                            .font(.subheadline.bold())
+//
+//                                        Text(camera)
+//                                            .font(.caption)
+//                                    }
+//                                    Spacer()
+//                                }
+                                
+                                
                                 HStack(spacing: 0) {
                                     
-                                    Spacer()
+//                                    HStack {
+//                                        VStack {
+//                                            Text("Name ")
+//                                                .font(.subheadline.bold())
+//                                            Text(name)
+//                                                .font(.caption)
+//                                        }
+//                                        
+//                                        Spacer()
+//                                        
+//                                        VStack {
+//                                            Text("Orientation ")
+//                                                .font(.subheadline.bold())
+//
+//                                            Text(orientation)
+//                                                .font(.caption)
+//                                        }
+//                                        Spacer()
+//                                    }
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    VStack(spacing: 15) {
-                                        Group {
-                                            VStack {
-                                                Text("Name ")
-                                                    .font(.subheadline.bold())
-                                                Text(name)
-                                                    .font(.caption)
-                                            }
-                                            
-                                            VStack {
-                                                Text("Date ")
-                                                    .font(.subheadline.bold())
-                                                Text(date)
-                                                    .font(.caption)
-                                            }
-                                            
-                                            VStack {
-                                                Text("Location ")
-                                                    .font(.subheadline.bold())
-                                                Text(location)
-                                                    .font(.caption)
-                                            }
-                                           
-                                        }
-                                    }
+//                                    HStack {
+//                                        VStack {
+//                                            Text("Date ")
+//                                                .font(.subheadline.bold())
+//                                            Text(date)
+//                                                .font(.caption)
+//                                        }
+//                                        
+//                                        Spacer()
+//                                        
+//                                        VStack {
+//                                            Text("Camera ")
+//                                                .font(.subheadline.bold())
+//                                            
+//                                            Text(camera)
+//                                                .font(.caption)
+//                                        }
+//                                        Spacer()
+//                                    }
+//                                    .frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    Spacer()
-                                    Spacer()
+//                                    VStack(spacing: 15) {
+//                                        Group {
+//                                            VStack {
+//                                                Text("Name ")
+//                                                    .font(.subheadline.bold())
+//                                                Text(name)
+//                                                    .font(.caption)
+//                                            }
+//                                            
+//                                            VStack {
+//                                                Text("Date ")
+//                                                    .font(.subheadline.bold())
+//                                                Text(date)
+//                                                    .font(.caption)
+//                                            }
+//                                            
+//                                            VStack {
+//                                                Text("Location ")
+//                                                    .font(.subheadline.bold())
+//                                                Text(location)
+//                                                    .font(.caption)
+//                                            }
+//                                           
+//                                        }
+//                                    }
+                                    //.frame(maxWidth: .infinity, alignment: .leading)
                                     
-                                    VStack(spacing: 15) {
-                                        
-                                        Group {
-                                            VStack {
-                                                Text("Orientation ")
-                                                    .font(.subheadline.bold())
-
-                                                Text(orientation)
-                                                    .font(.caption)
-                                            }
-                                            
-                                            VStack {
-                                                Text("Camera ")
-                                                    .font(.subheadline.bold())
-
-                                                Text(camera)
-                                                    .font(.caption)
-                                            }
-                                            
-                                            VStack {
-                                                Text("Host Name ")
-                                                    .font(.subheadline.bold())
-
-                                                Text(hostName)
-                                                    .font(.caption)
-                                            }
-                                           
-                                        }
-                                        
-                                    }
+//                                    Spacer()
+//                                    Spacer()
                                     
-                                    Spacer()
+//                                    VStack(spacing: 15) {
+//                                        
+//                                        Group {
+//                                            VStack {
+//                                                Text("Orientation ")
+//                                                    .font(.subheadline.bold())
+//
+//                                                Text(orientation)
+//                                                    .font(.caption)
+//                                            }
+//                                            
+//                                            VStack {
+//                                                Text("Camera ")
+//                                                    .font(.subheadline.bold())
+//
+//                                                Text(camera)
+//                                                    .font(.caption)
+//                                            }
+//                                            
+//                                            VStack {
+//                                                Text("Host Name ")
+//                                                    .font(.subheadline.bold())
+//
+//                                                Text(hostName)
+//                                                    .font(.caption)
+//                                            }
+//                                           
+//                                        }
+//                                        
+//                                    }
+                                    
+                                    //Spacer()
                                 }
                                 
                                 Group {
@@ -246,10 +459,15 @@ struct EventDetailScreen: View {
                                 }
                                 
                                
-                                CustomButtonView(filled: true, name: "Edit")
-                                    .onTapGesture {
-                                        showEditScreen = true
-                                    }
+                                NavigationLink {
+                                    EditEventScreen(path: $path)
+                                } label: {
+                                    CustomButtonView(filled: true, name: "Edit")
+                                }
+//                                CustomButtonView(filled: true, name: "Edit")
+//                                    .onTapGesture {
+//                                        showEditScreen = true
+//                                    }
 
                                 
                                 Text("Gallery")
@@ -300,14 +518,14 @@ struct EventDetailScreen: View {
                 .padding(.leading)
                 
             }
-            .background {
-                NavigationLink(isActive: $showEditScreen) {
-                    EditEventScreen(path: $path, event: event)
-                } label: {
-                    EmptyView()
-                }
-
-            }
+//            .background {
+//                NavigationLink(isActive: $showEditScreen) {
+//                    EditEventScreen(path: $path, event: event)
+//                } label: {
+//                    EmptyView()
+//                }
+//
+//            }
 //            .toolbar {
 //                ToolbarItem(placement: .navigationBarLeading) {
 //                    Button {
