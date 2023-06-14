@@ -1,26 +1,26 @@
 //
-//  CameraModel.swift
+//  CameraManager.swift
 //  Textatize
 //
-//  Created by Tornelius Broadwater, Jr on 6/11/23.
+//  Created by Tornelius Broadwater, Jr on 6/14/23.
 //
 
 import AVFoundation
 import SwiftUI
 import Kingfisher
 
-class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
+class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
+    static let shared = CameraManager()
     
-    @Published var isTaken = false
     @Published var session = AVCaptureSession()
-    @Published var alert = false
     @Published var output = AVCapturePhotoOutput()
-    @Published var preview: AVCaptureVideoPreviewLayer!
-    @Published var isSaved = false
     @Published var picData: Data?
-    @Published var processedPhoto: UIImage?
+    @Published var isTaken = false
     @Published var photoReady = false
-        
+    @Published var processedPhoto: UIImage?
+    
+    private let sessionQueue = DispatchQueue(label: "Textatize.SessionQueue")
+
     func check() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -35,19 +35,13 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                 }
             }
             
-        case .denied:
-            self.alert.toggle()
-            return
-            
         default:
             break
         }
     }
     
     private func setup() {
-        
         do {
-            
             self.session.beginConfiguration()
             
             guard let device = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) else { return }
@@ -64,29 +58,31 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             
             self.session.commitConfiguration()
             
+            sessionQueue.async {
+                self.session.startRunning()
+            }
+            
         } catch {
             print("Setup Error: \(error.localizedDescription)")
         }
         
     }
     
-    func takePic(){
+    func takePic() {
         withAnimation {
             self.photoReady = false
         }
         self.picData = nil
         DispatchQueue.global(qos: .background).async {
             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-            DispatchQueue.main.async {
-                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
-                    self.session.stopRunning()
-                }
+            DispatchQueue.main.async  {
+                self.session.stopRunning()
             }
-            
-            DispatchQueue.main.async {
-                withAnimation{
-                    self.isTaken.toggle()
-                }
+        }
+        
+        DispatchQueue.main.async {
+            withAnimation{
+                self.isTaken.toggle()
             }
         }
     }
@@ -107,8 +103,18 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+//        if let error = error {
+//            print("Photo Process Error: \(error)")
+//            return
+//        }
+        
+        print("Pic Taken...")
+        
+        guard let imageData = photo.fileDataRepresentation() else { return }
+        self.picData = imageData
+    }
 
-    
     func processPhotos(frame: Frame?) {
         
         guard let frame = frame else { return  }
@@ -152,18 +158,6 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         
        }
     
-    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-//        if let error = error {
-//            print("Photo Process Error: \(error.localizedDescription)")
-//            return
-//        }
-        
-        print("Pic Taken...")
-        
-        guard let imageData = photo.fileDataRepresentation() else { return }
-        self.picData = imageData
-    }
-    
     func retrieveImage() -> Data? {
         
         //guard let pictureData = self.picData else { return nil }
@@ -176,4 +170,5 @@ class CameraModel: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         print("Image Retrieve")
         return imageData
     }
+    
 }
