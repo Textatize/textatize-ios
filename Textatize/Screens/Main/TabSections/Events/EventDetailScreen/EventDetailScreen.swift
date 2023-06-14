@@ -249,8 +249,8 @@ struct EventDetailScreen: View {
     }
 }
 
-//struct EventDetailScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EventDetailScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
-//    }
-//}
+struct EventDetailScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        EventDetailScreen(path: .constant([1]), name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+    }
+}
