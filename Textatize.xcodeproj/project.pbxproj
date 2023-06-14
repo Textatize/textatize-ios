@@ -65,6 +65,7 @@
 		546F17F62A203D2000554234 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 546F17F52A203D2000554234 /* ContentView.swift */; };
 		549653592A2E183C003BD043 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549653582A2E183C003BD043 /* Media.swift */; };
 		5496535B2A2E19EC003BD043 /* MediaResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5496535A2A2E19EC003BD043 /* MediaResponse.swift */; };
+		5498253F2A3A36BD0065CF62 /* AddEventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5498253E2A3A36BD0065CF62 /* AddEventCard.swift */; };
 		549A6C1A2A2EB911000C1182 /* LocalImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549A6C192A2EB911000C1182 /* LocalImage.swift */; };
 		549A6C1C2A2EBB5C000C1182 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549A6C1B2A2EBB5C000C1182 /* Services.swift */; };
 		549A6C1E2A2EBD77000C1182 /* ForegroundUploadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 549A6C1D2A2EBD76000C1182 /* ForegroundUploadManager.swift */; };
@@ -162,6 +163,7 @@
 		546F17F52A203D2000554234 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		549653582A2E183C003BD043 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		5496535A2A2E19EC003BD043 /* MediaResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaResponse.swift; sourceTree = "<group>"; };
+		5498253E2A3A36BD0065CF62 /* AddEventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventCard.swift; sourceTree = "<group>"; };
 		549A6C192A2EB911000C1182 /* LocalImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalImage.swift; sourceTree = "<group>"; };
 		549A6C1B2A2EBB5C000C1182 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
 		549A6C1D2A2EBD76000C1182 /* ForegroundUploadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundUploadManager.swift; sourceTree = "<group>"; };
@@ -263,7 +265,6 @@
 			children = (
 				54355EAB2A1662CA00E47732 /* Cards */,
 				54309C8F2A13C89700C02B14 /* CustomButton.swift */,
-				54511EBF2A152F75002590A7 /* EventCard.swift */,
 				542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */,
 				546F17F32A203CCF00554234 /* SpinnerView.swift */,
 				541997312A262A23001353BC /* ImageDetailView.swift */,
@@ -329,6 +330,8 @@
 			children = (
 				54355EAC2A1662EC00E47732 /* AddCard.swift */,
 				54355EAE2A1666C300E47732 /* FrameCard.swift */,
+				54511EBF2A152F75002590A7 /* EventCard.swift */,
+				5498253E2A3A36BD0065CF62 /* AddEventCard.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -779,6 +782,7 @@
 				54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */,
 				543263542A1760E700C96A1A /* EventsResponse.swift in Sources */,
 				540977862A1E522C0079862F /* EnumHelpers.swift in Sources */,
+				5498253F2A3A36BD0065CF62 /* AddEventCard.swift in Sources */,
 				54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
 				542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */,
