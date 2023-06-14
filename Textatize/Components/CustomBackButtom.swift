@@ -22,6 +22,21 @@ struct CustomBackButtom: View {
     }
 }
 
+struct BackButton: View {
+    @Binding var path: [Int]
+    var body: some View {
+        Button {
+            path.removeLast()
+        } label: {
+            HStack {
+                Image(systemName: "arrow.left")
+                Text("Back")
+            }
+            .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+        }
+    }
+}
+
 //struct CustomBackButtom_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CustomBackButtom(action: )

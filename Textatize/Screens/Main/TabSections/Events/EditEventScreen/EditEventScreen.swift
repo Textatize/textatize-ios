@@ -220,21 +220,26 @@ struct EditEventScreen: View {
                 
             }
             .customBackground()
-            .onAppear {
-                if let event = event {
-                    eventName = event.getName
-                    eventDate = event.getDate
-                    eventLocation = event.getLocation
-                    orientation = event.getOrientation
-                    camera = event.getCamera
-                }
+            
+            BackButton(path: $path)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding()
+        }
+        .navigationBarHidden(true)
+        .onAppear {
+            if let event = event {
+                eventName = event.getName
+                eventDate = event.getDate
+                eventLocation = event.getLocation
+                orientation = event.getOrientation
+                camera = event.getCamera
             }
         }
     }
 }
 
-//struct NewEventScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewEventScreen()
-//    }
-//}
+struct EditEventScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        EditEventScreen(path: .constant([1]))
+    }
+}

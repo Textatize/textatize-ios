@@ -149,12 +149,17 @@ struct CheckAllInfoScreen: View {
                 }
             }
             .customBackground()
+            
+            BackButton(path: $path)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding()
         }
+        .navigationBarHidden(true)
     }
 }
 
-//struct CheckAllInfoScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        CheckAllInfoScreen(name: "Holidays", date: "10/11/12", location: "Rome", orientation: .portrait, camera: .front, hostName: "Anna", watermarkImage: UIImage(systemName: "person")!, watermarkTransparency: 0.50, watermarkPosition: .bottomRight)
-//    }
-//}
+struct CheckAllInfoScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        CheckAllInfoScreen(path: .constant([4]), name: "Holidays", date: "10/11/12", location: "Rome", orientation: .portrait, camera: .front, hostName: "Anna", watermarkImage: UIImage(systemName: "person")!, watermarkTransparency: 0.50, watermarkPosition: .bottomRight)
+    }
+}

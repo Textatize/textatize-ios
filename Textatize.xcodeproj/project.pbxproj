@@ -347,8 +347,8 @@
 			isa = PBXGroup;
 			children = (
 				540977822A1E44A10079862F /* MainEventScreen */,
+				54BEF5612A39E81200CECD01 /* EditEventScreen */,
 				54C43CF62A30D51000807EC0 /* EventDetailScreen */,
-				54511EC42A156A4D002590A7 /* EditEventScreen.swift */,
 				54C43CEF2A30CC1700807EC0 /* FrameScreen */,
 				540977872A1E55070079862F /* CheckAllInfo */,
 			);
@@ -503,6 +503,14 @@
 				54511EC32A156A14002590A7 /* Settings */,
 			);
 			path = TabSections;
+			sourceTree = "<group>";
+		};
+		54BEF5612A39E81200CECD01 /* EditEventScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54511EC42A156A4D002590A7 /* EditEventScreen.swift */,
+			);
+			path = EditEventScreen;
 			sourceTree = "<group>";
 		};
 		54C43CEF2A30CC1700807EC0 /* FrameScreen */ = {

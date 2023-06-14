@@ -55,28 +55,6 @@ struct EventDetailScreen: View {
                 .padding(.top, 20)
                 .padding()
                 
-//                NavigationLink {
-//                    CameraView(event: event, frame: vm.frames.first)
-//                } label: {
-//                    HStack {
-//                        AppImages.EventCard.camera
-//                            .resizable()
-//                            .frame(width: 20, height: 20)
-//                        
-//                        Text("Capture")
-//                            .font(.headline)
-//                            .accentColor(.white)
-//                    }
-//                    .frame(height: 50)
-//                    .frame(maxWidth: .infinity)
-//                    .background {
-//                        RoundedRectangle(cornerRadius: 10)
-//                            .fill(.black)
-//                    }
-//                }
-//                .padding(.top, 20)
-//                .padding()
-                
                 VStack {
                     Text("Event Detail")
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
@@ -232,7 +210,12 @@ struct EventDetailScreen: View {
                 }
                 
             }
+            BackButton(path: $path)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.leading)
+            
         }
+        .navigationBarHidden(true)
         .toolbar(vm.showGallaryImage ? .hidden : .visible, for: .tabBar)
         .onAppear {
             if let event = event {
@@ -251,6 +234,6 @@ struct EventDetailScreen: View {
 
 struct EventDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetailScreen(path: .constant([1]), name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+        EventDetailScreen(path: .constant([2]), name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
     }
 }

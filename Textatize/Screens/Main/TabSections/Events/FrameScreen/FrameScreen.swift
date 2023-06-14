@@ -201,36 +201,40 @@ struct FrameScreen: View {
                     .padding()
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 }
-                .onAppear {
-                    vm.getFrames(orientation: orientation)
-                    if let event = event {
-                        watermarkPosition = event.getWatermarkPosition
-                        watermarkTransparency = event.getWatermarkTransparency
-                        if let frame = event.frame {
-                            selectedFrame = frame
-                            frameSelected = true
-                        }
-                    }
-                }
             }
             .customBackground()
-            .alert(alertTitle, isPresented: $showAlert) {
-                Button(role: .cancel) {
-                    print("Dismiss Selected")
-                } label: {
-                    Text("Dismiss")
-                }
-            } message: {
-                Text(alertMessage)
-            }
-
+            
+            BackButton(path: $path)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding()
+            
         }
-        
+        .navigationBarHidden(true)
+        .onAppear {
+            vm.getFrames(orientation: orientation)
+            if let event = event {
+                watermarkPosition = event.getWatermarkPosition
+                watermarkTransparency = event.getWatermarkTransparency
+                if let frame = event.frame {
+                    selectedFrame = frame
+                    frameSelected = true
+                }
+            }
+        }
+        .alert(alertTitle, isPresented: $showAlert) {
+            Button(role: .cancel) {
+                print("Dismiss Selected")
+            } label: {
+                Text("Dismiss")
+            }
+        } message: {
+            Text(alertMessage)
+        }
     }
 }
 
-//struct FrameScreen_Previews: PreviewProvider {
-//    static var previews: some View {
-//        FrameScreen(path: .constant([1]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
-//    }
-//}
+struct FrameScreen_Previews: PreviewProvider {
+    static var previews: some View {
+        FrameScreen(path: .constant([3]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
+    }
+}
