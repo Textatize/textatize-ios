@@ -148,7 +148,7 @@ struct EventsScreen: View {
                         }
                         
                         ScrollView {
-
+                            
                             VStack {
                                 
                                 Button {
@@ -158,31 +158,16 @@ struct EventsScreen: View {
                                     EventCard(new: true)
                                         .padding()
                                 }
-
-                                if currentSelected {
-                                    ForEach(vm.events) { event in
-                                        
-                                        Button {
-                                            selectedEvent = event
-                                            path.append(2)
-                                        } label: {
-                                            EventCard(new: false, title: event.getName, date: event.getDate)
-                                                .padding()
-                                        }
-                                    }
-                                } else {
-                                    ForEach(vm.completedEvents) { event in
-                                        
-                                        Button {
-                                            selectedEvent = event
-                                            path.append(2)
-                                        } label: {
-                                            EventCard(new: false, title: event.getName, date: event.getDate)
-                                                .padding()
-                                        }
+                                
+                                ForEach(currentSelected ? vm.events : vm.completedEvents) { event in
+                                    Button {
+                                        selectedEvent = event
+                                        path.append(2)
+                                    } label: {
+                                        EventCard(new: false, title: event.getName, date: event.getDate)
+                                            .padding()
                                     }
                                 }
- 
                             }
                         }
                     }
