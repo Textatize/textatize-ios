@@ -59,15 +59,15 @@ struct EventCard: View {
                             .font(.subheadline)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         
-                        //                            HStack(spacing: 5) {
-                        //                                Text(numberOfPhotos)
-                        //                                    .foregroundColor(AppColors.Onboarding.loginButton)
-                        //                                    .font(.subheadline)
-                        //
-                        //                                Text("photos")
-                        //                                    .font(.subheadline)
-                        //                            }
-                        //                            .frame(maxWidth: .infinity, alignment: .leading)
+                        HStack(spacing: 5) {
+                            Text(numberOfPhotos)
+                                .foregroundColor(AppColors.Onboarding.loginButton)
+                                .font(.subheadline)
+                            
+                            Text("photos")
+                                .font(.subheadline)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
                         
                     }
                 }

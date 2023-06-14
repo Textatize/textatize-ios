@@ -14,6 +14,7 @@ class Event: AbstractServerObject, Identifiable {
     var frame:                  Frame?      = nil
     var location:               String?     = nil
     var orientation:            String?     = nil
+    var numPhotos:              Int?        = nil
     var camera:                 String?     = nil
     var watermarkUrl:           String?     = nil
     var watermarkTransparency:  Double?     = nil
@@ -41,6 +42,7 @@ class Event: AbstractServerObject, Identifiable {
         location                <- map["location"]
         orientation             <- map["orientation"]
         camera                  <- map["camera"]
+        numPhotos               <- map["numPhotos"]
         watermarkUrl            <- map["watermarkUrl"]
         watermarkTransparency   <- map["watermarkTransparency"]
         watermarkPosition       <- map["watermarkPosition"]
@@ -55,6 +57,10 @@ class Event: AbstractServerObject, Identifiable {
         name ?? "No Name"
     }
     
+    var getNumPhotos: Int {
+        numPhotos ?? 0
+    }
+    
     var getDate: String {
         "\(date?.month ?? 1)/\(date?.day ?? 1)/\(date?.year ?? 1)"
     }
@@ -64,7 +70,6 @@ class Event: AbstractServerObject, Identifiable {
     }
     
     var getOrientation: Orientation {
-        
         if orientation == Orientation.landscape.rawValue {
             return .landscape
         } else if orientation == Orientation.portrait.rawValue {
@@ -74,9 +79,6 @@ class Event: AbstractServerObject, Identifiable {
         } else {
             return .portrait
         }
-        
-        
-        
     }
     
     var getCamera: Camera {
@@ -105,10 +107,7 @@ class Event: AbstractServerObject, Identifiable {
         } else {
             return .bottomLeft
         }
-        
     }
-
-    
 }
 
 class EventDate: AbstractServerObject {

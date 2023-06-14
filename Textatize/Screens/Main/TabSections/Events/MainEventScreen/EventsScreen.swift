@@ -149,7 +149,7 @@ struct EventsScreen: View {
                                         selectedEvent = event
                                         path.append(2)
                                     } label: {
-                                        EventCard(title: event.getName, date: event.getDate, event: event, eventToDelete: $eventToDelete)
+                                        EventCard(image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete)
                                             .padding()
                                     }
                                 }
