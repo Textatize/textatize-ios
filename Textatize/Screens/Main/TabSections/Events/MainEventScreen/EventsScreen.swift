@@ -156,8 +156,15 @@ struct EventsScreen: View {
                                         selectedEvent = event
                                         path.append(2)
                                     } label: {
-                                        EventCard(image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
-                                            .padding()
+                                        if currentSelected {
+                                            EventCard(type: .current, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
+                                                .padding()
+                                        }
+                                        
+                                        if !currentSelected {
+                                            EventCard(type: .completed, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
+                                                .padding()
+                                        }
                                     }
                                 }
                             }

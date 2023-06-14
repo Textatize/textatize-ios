@@ -7,33 +7,13 @@
 
 import SwiftUI
 
-struct AddEventCard: View {
-    var body: some View {
-        VStack(spacing: 5) {
-            ZStack {
-                Circle()
-                    .fill(.white)
-                    .frame(width: 40)
-                AppImages.EventCard.plus
-            }
-            Text("New Event")
-                .font(.title3)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-            
-        }
-        .padding()
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background {
-            RoundedRectangle(cornerRadius: 15)
-                .fill(AppColors.Onboarding.bottomColor)
-                .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
-        }
-    }
+enum EventType {
+    case completed, current
 }
 
 struct EventCard: View {
     
+    var type: EventType
     var image: Image? = nil
     var title: String = "Holidays"
     var date: String = "10/11/22"
@@ -80,34 +60,45 @@ struct EventCard: View {
             .frame(maxWidth: .infinity)
             
             HStack(spacing: 5) {
-                Spacer()
-                Button {
-                    print("Complete Pressed")
-                    eventToComplete = event
-                } label: {
-                    Text("Complete")
-                        .font(.subheadline)
-                }
-                Spacer()
                 
-                Button {
-                    print("Restart Pressed")
+                if type == .current {
+                    Spacer()
+                    Button {
+                        print("Complete Pressed")
+                        eventToComplete = event
+                    } label: {
+                        Text("Complete")
+                            .font(.subheadline)
+                    }
                     
-                } label: {
-                    Text("Restart")
-                        .font(.subheadline)
+                    Spacer()
+                    Spacer()
+                    
+                    Button {
+                        print("Delete Pressed")
+                        eventToDelete = event
+                    } label: {
+                        Text("Delete")
+                            .font(.subheadline)
+                    }
+                    Spacer()
                 }
                 
-                Spacer()
-                
-                Button {
-                    print("Delete Pressed")
-                    eventToDelete = event
-                } label: {
-                    Text("Delete")
-                        .font(.subheadline)
+                if type == .completed {
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("Delete Pressed")
+                        eventToDelete = event
+                    } label: {
+                        Text("Delete")
+                            .font(.subheadline)
+                    }
+                    
+                    Spacer()
+                    
                 }
-                Spacer()
             }
             .padding(.bottom)
             .frame(maxWidth: .infinity)
@@ -122,8 +113,3 @@ struct EventCard: View {
 }
 
 
-//struct EventCard_Previews: PreviewProvider {
-//    static var previews: some View {
-//        EventCard()
-//    }
-//}
