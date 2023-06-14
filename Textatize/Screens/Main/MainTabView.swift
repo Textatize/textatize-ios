@@ -11,7 +11,7 @@ struct MainTabView: View {
     @StateObject private var vm = MainViewModel.shared
     var body: some View {
         TabView {
-            EventsScreen(frames: vm.frames)
+            EventsScreen()
                 .tabItem {
                     Label("Events", image: "events icon")
                 }

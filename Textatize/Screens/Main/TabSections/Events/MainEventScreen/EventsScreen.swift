@@ -10,7 +10,7 @@ import SwiftUI
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
     
-    var frames = [Frame]()
+    let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
     let iPadLayout = [
         GridItem(.flexible()),
@@ -21,34 +21,13 @@ struct EventsScreen: View {
     let iPhoneLayout = [
         GridItem(.flexible())
     ]
-    
-    @State private var screenEvents = [Event]()
-    
+        
     @State private var path = [Int]()
-    @State private var selectedEvent: Event? = nil
-    @State var count = 1
-    
-    let isiPad = UIDevice.current.userInterfaceIdiom == .pad
-    
-    var eventItems = [1, 2, 3, 4, 5, 6, 7]
-    
-    @State private var createNewEventPressed: Bool = false
-    @State private var eventPressed: Bool = false
-    
+    @State private var selectedEvent: Event? = nil    
+        
     @State private var currentSelected: Bool = true
     @State private var search = ""
     
-    @State private var rootView = false
-    @State private var eventDetailView = false
-    @State private var editEventView = false
-    @State private var frameView = false
-    @State private var checkInfoView = false
-
-    @State private var EditScreen = false
-    
-    
-    @State private var showEditEventScreen = false
-
     var segmentTitles = ["Current", "Completed"]
     
     var body: some View {
