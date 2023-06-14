@@ -229,11 +229,6 @@ struct EditEventScreen: View {
                     camera = event.getCamera
                 }
             }
-            .navigationDestination(for: Int.self) { item in
-                if item == 3 {
-                    FrameScreen(path: $path, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
-                }
-            }
         }
     }
 }
