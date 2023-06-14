@@ -40,6 +40,8 @@ struct EventCard: View {
     var numberOfPhotos: String = "20"
     var event: Event
     @Binding var eventToDelete: Event?
+    @Binding var eventToComplete: Event?
+
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -81,7 +83,7 @@ struct EventCard: View {
                 Spacer()
                 Button {
                     print("Complete Pressed")
-                    
+                    eventToComplete = event
                 } label: {
                     Text("Complete")
                         .font(.subheadline)

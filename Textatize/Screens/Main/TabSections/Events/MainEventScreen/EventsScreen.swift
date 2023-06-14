@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum AlertType {
+    case delete, complete
+}
+
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
     
@@ -27,13 +31,16 @@ struct EventsScreen: View {
         
     @State private var currentSelected: Bool = true
     @State private var search = ""
+    
     @State private var eventToDelete: Event? = nil
+    @State private var eventToComplete: Event? = nil
     
     var segmentTitles = ["Current", "Completed"]
     
     @State private var presentAlert = false
     @State private var alertTitle = ""
     @State private var alertMessage = ""
+    @State private var alertType: AlertType = .delete
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -149,7 +156,7 @@ struct EventsScreen: View {
                                         selectedEvent = event
                                         path.append(2)
                                     } label: {
-                                        EventCard(image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete)
+                                        EventCard(image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
                                             .padding()
                                     }
                                 }
@@ -160,16 +167,29 @@ struct EventsScreen: View {
                 .customBackground()
             }
             .alert(alertTitle, isPresented: $presentAlert, actions: {
-                Button(role: .destructive) {
-                    if let event = eventToDelete {
-                        deleteEvent(event: event)
+                if alertType == .delete {
+                    Button(role: .destructive) {
+                        if let event = eventToDelete {
+                            deleteEvent(event: event)
+                        }
+                    } label: {
+                        Text("Delete")
                     }
-                } label: {
-                    Text("Delete")
+                }
+                
+                if alertType == .complete {
+                    Button(role: .destructive) {
+                        if let event = eventToComplete {
+                            completeEvent(event: event)
+                        }
+                    } label: {
+                        Text("Complete")
+                    }
                 }
                 
                 Button(role: .cancel) {
-                    
+                    eventToDelete = nil
+                    eventToComplete = nil
                 } label: {
                     Text("Cancel")
                 }
@@ -207,7 +227,16 @@ struct EventsScreen: View {
             .onChange(of: eventToDelete) { newValue in
                 if let event = eventToDelete {
                     alertTitle = "Event Delete"
-                    alertMessage = "Are you sure you want to delete event: \(event.getName)"
+                    alertMessage = "Are you sure you want to Delete event: \(event.getName)"
+                    alertType = .delete
+                    presentAlert = true
+                }
+            }
+            .onChange(of: eventToComplete) { newValue in
+                if let event = eventToComplete {
+                    alertTitle = "Event Complete"
+                    alertMessage = "Are you sure you want to Complete event: \(event.getName)"
+                    alertType = .complete
                     presentAlert = true
                 }
             }
@@ -215,6 +244,9 @@ struct EventsScreen: View {
     }
     private func deleteEvent(event: Event) {
         vm.deleteEvent(event: event)
+    }
+    private func completeEvent(event: Event) {
+        vm.completeEvent(event: event)
     }
 }
 

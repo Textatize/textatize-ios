@@ -111,4 +111,18 @@ class EventViewModel: ObservableObject {
         }
     }
     
+    func completeEvent(event: Event) {
+        if let eventID = event.unique_id {
+            textatizeAPI.completeEvent(eventID: eventID) { error, success in
+                if let error = error {
+                    print(error.getMessage() ?? "No Message Found")
+                }
+                
+                if success {
+                    self.refreshEvents()
+                }
+            }
+        }
+    }
+    
 }
