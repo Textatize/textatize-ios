@@ -138,7 +138,7 @@ public class ForegroundUploadManager: NSObject {
                     
                     //let imagePath = docsDir.appendingPathComponent(localImage.url!)
                     
-                    TextatizeAPI.shared.addMedia(eventID: "E3qLPPPhCk", imageData: localImage.imageData) { error, response in
+                    TextatizeAPI.shared.addMedia(eventID: localImage.eventID!, imageData: localImage.imageData) { error, response in
                         if let error = error {
                             print("Foreground Error: \(error)")
                         }
