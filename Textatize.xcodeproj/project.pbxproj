@@ -101,6 +101,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DE4512F2A3A6C2F0040D3B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5409777D2A1D42480079862F /* RegisterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		540977802A1E41500079862F /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		540977832A1E44BD0079862F /* MainEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainEventViewModel.swift; sourceTree = "<group>"; };
@@ -404,6 +405,7 @@
 		54568E932A127D89001F5CE7 /* Textatize */ = {
 			isa = PBXGroup;
 			children = (
+				0DE4512F2A3A6C2F0040D3B4 /* Info.plist */,
 				54568E942A127D89001F5CE7 /* TextatizeApp.swift */,
 				546F17F52A203D2000554234 /* ContentView.swift */,
 				549A6C182A2EB8F3000C1182 /* Persistence */,
@@ -969,11 +971,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Textatize/Preview Content\"";
 				DEVELOPMENT_TEAM = AK9W2H28M2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Textatize/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Needed to take photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -999,11 +1002,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"Textatize/Preview Content\"";
 				DEVELOPMENT_TEAM = AK9W2H28M2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Textatize/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Camera Needed to take photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
