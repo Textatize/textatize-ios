@@ -79,6 +79,7 @@ struct EventCard: View {
             
             HStack(spacing: 5) {
                 Spacer()
+                
                 Button {
                     print("Complete Pressed")
                     
@@ -86,15 +87,7 @@ struct EventCard: View {
                     Text("Complete")
                         .font(.subheadline)
                 }
-                Spacer()
                 
-                Button {
-                    print("Restart Pressed")
-                    
-                } label: {
-                    Text("Restart")
-                        .font(.subheadline)
-                }
                 Spacer()
                 
                 Button {
@@ -104,6 +97,7 @@ struct EventCard: View {
                     Text("Delete")
                         .font(.subheadline)
                 }
+                
                 Spacer()
             }
             .padding(.bottom)
