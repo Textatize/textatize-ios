@@ -324,6 +324,28 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         
     }
     
+    func deleteEvent(eventID: String, completion: @escaping (ServerError?, Bool) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, false) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        AF.request(API_URL + "event/\(eventID)",
+                   method: .delete,
+                   headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { response in
+            print("Delete Event Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                    completion(nil, true)
+                
+        case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), false)
+
+            }
+        }
+    }
+    
     func addMedia(eventID: String, imageData: Data?, completion: @escaping (ServerError?, MediaResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }

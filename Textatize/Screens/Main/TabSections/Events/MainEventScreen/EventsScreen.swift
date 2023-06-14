@@ -27,8 +27,13 @@ struct EventsScreen: View {
         
     @State private var currentSelected: Bool = true
     @State private var search = ""
+    @State private var eventToDelete: Event? = nil
     
     var segmentTitles = ["Current", "Completed"]
+    
+    @State private var presentAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -132,9 +137,10 @@ struct EventsScreen: View {
                                 
                                 Button {
                                     selectedEvent = nil
+                                    eventToDelete = nil
                                     path.append(1)
                                 } label: {
-                                    EventCard(new: true)
+                                    AddEventCard()
                                         .padding()
                                 }
                                 
@@ -143,7 +149,7 @@ struct EventsScreen: View {
                                         selectedEvent = event
                                         path.append(2)
                                     } label: {
-                                        EventCard(new: false, title: event.getName, date: event.getDate)
+                                        EventCard(title: event.getName, date: event.getDate, event: event, eventToDelete: $eventToDelete)
                                             .padding()
                                     }
                                 }
@@ -153,6 +159,25 @@ struct EventsScreen: View {
                 }
                 .customBackground()
             }
+            .alert(alertTitle, isPresented: $presentAlert, actions: {
+                Button(role: .destructive) {
+                    if let event = eventToDelete {
+                        deleteEvent(event: event)
+                    }
+                } label: {
+                    Text("Delete")
+                }
+                
+                Button(role: .cancel) {
+                    
+                } label: {
+                    Text("Cancel")
+                }
+
+
+            }, message: {
+                Text(alertMessage)
+            })
             .navigationBarHidden(true)
             .navigationDestination(for: Int.self) { item in
                 if item == 1 {
@@ -179,7 +204,17 @@ struct EventsScreen: View {
                 path.removeAll()
                 vm.refreshEvents()
             }
+            .onChange(of: eventToDelete) { newValue in
+                if let event = eventToDelete {
+                    alertTitle = "Event Delete"
+                    alertMessage = "Are you sure you want to delete event: \(event.getName)"
+                    presentAlert = true
+                }
+            }
         }
+    }
+    private func deleteEvent(event: Event) {
+        vm.deleteEvent(event: event)
     }
 }
 

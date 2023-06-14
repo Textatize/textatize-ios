@@ -96,4 +96,19 @@ class EventViewModel: ObservableObject {
         }
     }
     
+    func deleteEvent(event: Event) {
+        if let eventID = event.unique_id {
+            textatizeAPI.deleteEvent(eventID: eventID) { error, success in
+                if let error = error {
+                    print(error.getMessage() ?? "No Message Found")
+                }
+                
+                if success {
+                    self.refreshEvents()
+                }
+                
+            }
+        }
+    }
+    
 }
