@@ -511,7 +511,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                        headers: ["authorization": "Bearer \(sessionToken)"])
             .validate().responseJSON { [weak self] response in
                 if let api = self {
-                    //print("Retrieve Events Response: \(response)")
+                    print("Retrieve Events Response: \(response)")
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {

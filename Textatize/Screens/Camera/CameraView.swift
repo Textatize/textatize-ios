@@ -13,7 +13,7 @@ import Kingfisher
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
     var event: Event? = nil
-    var frame: Frame?
+    var frame: Frame? = nil
     @StateObject private var camera = CameraModel()
     @State private var continuePressed = false
     @State private var countDown = 5
