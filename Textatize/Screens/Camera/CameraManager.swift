@@ -19,7 +19,12 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var photoReady = false
     @Published var processedPhoto: UIImage?
     
+    @Published var showAlert = false
+    @Published var alertTitle = ""
+    @Published var alertMessage = ""
+    
     private let sessionQueue = DispatchQueue(label: "Textatize.SessionQueue")
+    let textatizeAPI = TextatizeAPI.shared
 
     func check() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -169,6 +174,32 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         
         print("Image Retrieve")
         return imageData
+    }
+    
+    func addMedia(eventID: String, imageData: Data) {
+        textatizeAPI.addMedia(eventID: eventID, imageData: imageData) { error, mediaResponse in
+            if let error = error {
+                print("Add Media Error: \(error)")
+            }
+        }
+    }
+    
+    func shareMedia() {
+        if let mediaID = UserDefaults.standard.object(forKey: "mediaID") as? String, let number = UserDefaults.standard.string(forKey: "shareNumber") as? String {
+            TextatizeAPI.shared.shareMedia(phoneNumber: number, mediaID: mediaID) { error, success in
+                if let error = error {
+                    print(error)
+                }
+                
+                if let success = success, success {
+                    self.alertTitle = "Alert"
+                    self.alertMessage = "Media Shared: \(number)"
+                    withAnimation {
+                        self.showAlert = true
+                    }
+                }
+            }
+        }
     }
     
 }

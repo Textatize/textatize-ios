@@ -27,6 +27,8 @@ struct EventDetailScreen: View {
     @State var camera: String = ""
     @State var hostName: String = ""
     
+    @State private var shareMedia = false
+    
     var body: some View {        
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
@@ -205,7 +207,7 @@ struct EventDetailScreen: View {
                         .ignoresSafeArea()
                     
                     
-                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage)
+                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
                         .padding()
                 }
                 

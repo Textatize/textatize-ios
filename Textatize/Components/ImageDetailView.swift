@@ -93,6 +93,7 @@ struct SharePhotoView: View {
     @Binding var showView: Bool
     var imageData: Data? = nil
     var image: UIImage? = nil
+    @Binding var shareMedia: Bool
     
     var body: some View {
         
@@ -127,11 +128,12 @@ struct SharePhotoView: View {
                     .keyboardType(.numberPad)
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 
-                CustomButtonView(filled: true, name: "Share Photo")
-                    .onTapGesture {
-                        savePhoto()
-                    }
-                    .padding()
+                Button {
+                    savePhoto()
+                } label: {
+                    CustomButtonView(filled: true, name: "Share Photo")
+                        .padding()
+                }
             }
         }
         .customBackground()
@@ -144,10 +146,10 @@ struct SharePhotoView: View {
             localImage.imageData = imageData
             localImage.eventID = eventID
             UserDefaults.standard.set(number, forKey: "shareNumber")
-        
             do {
                 try Services.instance.imageBox.put(localImage)
                 ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
+                shareMedia = true
             } catch {
                 print(error)
             }
