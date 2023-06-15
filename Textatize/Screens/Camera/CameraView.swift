@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import Kingfisher
+import AVFoundation
 
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
@@ -106,8 +107,17 @@ struct CameraView: View {
             }
         })
         .onAppear {
-            camera.check()
-            instantiateTimer()
+            
+            switch event?.getCamera {
+            case .front:
+                camera.check(orientation: .front)
+                instantiateTimer()
+            case .back:
+                camera.check(orientation: .back)
+                instantiateTimer()
+            case nil:
+                dismiss()
+            }
         }
         .onChange(of: camera.picData, perform: { value in
             let _ = camera.processPhotos(frame: frame)
