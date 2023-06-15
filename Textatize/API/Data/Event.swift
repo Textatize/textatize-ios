@@ -62,7 +62,12 @@ class Event: AbstractServerObject, Identifiable {
     }
     
     var getDate: String {
-        "\(date?.month ?? 1)/\(date?.day ?? 1)/\(date?.year ?? 1)"
+        
+        var dateString = ""
+        if let day = date?.day, let month = date?.month, let year = date?.year {
+            dateString = "\(month)/\(day)/\(year)"
+        }
+        return dateString
     }
     
     var getLocation: String {

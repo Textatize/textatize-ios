@@ -14,10 +14,11 @@ class CheckInfoViewModel: ObservableObject {
     let api = TextatizeAPI.shared
     let eventVM = EventViewModel.shared
     
-    func createEvent(name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?) {
+    
+    func createEvent(name: String, date: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?) {
         
         
-        api.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency, frame: frame) { error, eventResponse in
+        api.createEvent(name: name, date: date, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency, frame: frame) { error, eventResponse in
             if let error = error {
                 print("Error: \(error)")
             }
@@ -31,8 +32,8 @@ class CheckInfoViewModel: ObservableObject {
         
     }
     
-    func updateEvent(eventID: String, name: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?) {
-        api.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency, frame: frame) { error, eventResponse in
+    func updateEvent(eventID: String, name: String, date: String, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?) {
+        api.updateEvent(eventID: eventID, name: name, date: date, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: watermarkTransparency, frame: frame) { error, eventResponse in
             if let error = error {
                 print("Error: \(error)")
             }

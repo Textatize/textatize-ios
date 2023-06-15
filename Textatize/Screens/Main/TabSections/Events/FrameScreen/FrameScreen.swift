@@ -19,12 +19,7 @@ struct FrameScreen: View {
     @State var frameSelected = false
     @State var selectedFrame: Frame? = nil
     
-    @State var name: String
-    @State var eventHostName: String
-    @State var date: String
-    @State var location: String
     @State var orientation: Orientation
-    @State var camera: Camera
     
     @State private var addFrameSelected = false
     
@@ -181,14 +176,8 @@ struct FrameScreen: View {
                                     showAlert = true
                                 }
                             } else {
-                                mvm.frameName = name
-                                mvm.frameDate = date
-                                mvm.frameLocation = location
-                                mvm.FrameCamera = camera
-                                mvm.frameOrientation = orientation
-                                mvm.frameHostName = name
-                                mvm.frameWatermarkPosition = watermarkPosition
-                                mvm.frameWatermarkTransparency = watermarkTransparency
+                                mvm.watermarkPosition = watermarkPosition
+                                mvm.watermarkTransparency = watermarkTransparency
                                 mvm.selectedFrame = selectedFrame
                                 path.append(4)
                             }
@@ -235,6 +224,6 @@ struct FrameScreen: View {
 
 struct FrameScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FrameScreen(path: .constant([3]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
+        FrameScreen(path: .constant([3]), orientation: .landscape)
     }
 }
