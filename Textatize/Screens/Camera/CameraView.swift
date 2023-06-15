@@ -107,22 +107,25 @@ struct CameraView: View {
             }
         })
         .onAppear {
-            
             switch event?.getCamera {
             case .front:
                 camera.check(orientation: .front)
-                instantiateTimer()
             case .back:
                 camera.check(orientation: .back)
-                instantiateTimer()
             case nil:
                 dismiss()
             }
         }
+        .onChange(of: camera.sessionRunning, perform: { value in
+            if camera.sessionRunning {
+                instantiateTimer()
+            }
+        })
         .onChange(of: camera.picData, perform: { value in
             let _ = camera.processPhotos(frame: frame)
         })
         .onDisappear {
+            camera.sessionRunning = false
             camera.isTaken = false
             cancelTimer()
             camera.session.stopRunning()
