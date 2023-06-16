@@ -14,6 +14,7 @@ struct CameraView: View {
     @Environment(\.dismiss) var dismiss
     var event: Event? = nil
     var frame: Frame? = nil
+    var watermarkImage: String? = nil
     @StateObject private var camera = CameraManager.shared
     @State private var continuePressed = false
     @State private var countDown = 5
@@ -122,7 +123,21 @@ struct CameraView: View {
             }
         })
         .onChange(of: camera.picData, perform: { value in
-            let _ = camera.processPhotos(frame: frame)
+            switch event?.getUseFrame {
+            case true:
+                let _ = camera.processPhotos(frame: frame)
+                
+            case false:
+                if let event = event {
+                    let _ = camera.processPhotos(watermarkString: watermarkImage, position: event.getWatermarkPosition, alpha: CGFloat(event.getWatermarkTransparency) / 100)
+                } else {
+                    print("No Event Found")
+                }
+
+            default:
+                break
+            }
+            
         })
         .onDisappear {
             camera.sessionRunning = false

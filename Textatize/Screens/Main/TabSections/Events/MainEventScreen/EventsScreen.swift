@@ -218,10 +218,10 @@ struct EventsScreen: View {
                 }
                 
                 if item == 4 {
-                    CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.frameName, date: vm.frameDate, location: vm.frameLocation, orientation: vm.frameOrientation, camera: vm.FrameCamera, hostName: vm.frameName, watermarkTransparency: vm.frameWatermarkTransparency, watermarkPosition: vm.frameWatermarkPosition, frame: vm.selectedFrame)
+                    CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.editName, date: vm.frameDate, location: vm.editLocation, orientation: vm.editOrientation, camera: vm.editCamera, hostName: vm.editHostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.frameWatermarkTransparency, watermarkPosition: vm.frameWatermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
                 }
                 if item == 5 {
-                    CameraView(event: selectedEvent, frame: selectedEvent?.frame)
+                    CameraView(event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
                 }
             }
             .onAppear {

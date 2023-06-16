@@ -227,6 +227,7 @@ struct EventDetailScreen: View {
                 orientation = event.getOrientation.rawValue
                 camera = event.getCamera.rawValue
                 hostName = event.getName
+                print("UseFrame: \(event.getUseFrame)")
             }
         }
     }

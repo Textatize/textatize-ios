@@ -24,6 +24,8 @@ struct CheckAllInfoScreen: View {
     var watermarkTransparency: Double
     var watermarkPosition: WatermarkPosition
     var frame: Frame? = nil
+    var addon: AddOn? = nil
+    @State var useFrame: String = ""
     
     var body: some View {
         ZStack {
@@ -110,18 +112,33 @@ struct CheckAllInfoScreen: View {
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .padding(.horizontal)
                         
+                        if frame != nil {
+                            Text("Frame")
+                                .font(.headline)
+                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                            
+                            if let frame = frame {
+                                if let frameImage = vm.getFrameImage(frame: frame) {
+                                    frameImage
+                                        .resizable()
+                                        .frame(width: 75, height: 75)
+                                }
+                            }
+                        }
                         
-                        Text("Frame")
-                            .font(.headline)
-                            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding()
-                        
-                        if let frame = frame {
-                            if let frameImage = vm.getFrameImage(frame: frame) {
-                                frameImage
-                                    .resizable()
-                                    .frame(width: 75, height: 75)
+                        if watermarkImage != nil {
+                            Text("Watermark")
+                                .font(.headline)
+                                .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                            
+                            if let watermarkImage = watermarkImage {
+                                    Image(uiImage: watermarkImage)
+                                        .resizable()
+                                        .frame(width: 75, height: 75)
                             }
                         }
                     }
@@ -134,7 +151,7 @@ struct CheckAllInfoScreen: View {
                         .padding()
                         .onTapGesture {
                             if let eventID = event.unique_id {
-                                vm.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
+                                vm.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
                                 path.removeAll()
                             }
                         }
@@ -142,7 +159,7 @@ struct CheckAllInfoScreen: View {
                     CustomButtonView(filled: true, name: "Save")
                         .padding()
                         .onTapGesture {
-                            vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame)
+                            vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
                             path.removeAll()
                         }
                     
@@ -153,6 +170,18 @@ struct CheckAllInfoScreen: View {
             BackButton(path: $path)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding()
+        }
+        .onAppear {
+            switch addon {
+            case .frame:
+                useFrame = "true"
+            case .watermark:
+                useFrame = "false"
+            case nil:
+                break
+            }
+
+
         }
         .navigationBarHidden(true)
     }
