@@ -149,17 +149,27 @@ struct FrameScreen: View {
                                         
                                         HStack {
                                             Button {
-                                                watermarkPosition = .bottomLeft
-                                                print("BottomLeft")
+                                                withAnimation {
+                                                    watermarkPosition = .bottomLeft
+                                                }
                                             } label: {
-                                                AppImages.position1
+                                                    AppImages.position1
+                                                        .renderingMode(.template)
+                                                        .scaleEffect(watermarkPosition == .bottomLeft ? 1.25 : 1)
+                                                        .foregroundColor(watermarkPosition == .bottomLeft ? AppColors.Onboarding.bottomColor : AppColors.Onboarding.topColor)
+                                                        .padding(5)
                                             }
                                             
                                             Button {
-                                                watermarkPosition = .bottomRight
-                                                print("BottomRight")
+                                                withAnimation {
+                                                    watermarkPosition = .bottomRight
+                                                }
                                             } label: {
                                                 AppImages.position2
+                                                    .renderingMode(.template)
+                                                    .scaleEffect(watermarkPosition == .bottomRight ? 1.25 : 1)
+                                                    .foregroundColor(watermarkPosition == .bottomRight ? AppColors.Onboarding.bottomColor : AppColors.Onboarding.topColor)
+                                                    .padding(5)
                                             }
                                         }
                                     }
