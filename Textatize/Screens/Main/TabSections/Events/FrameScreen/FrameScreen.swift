@@ -23,12 +23,7 @@ struct FrameScreen: View {
     @State var selectedWatermark: UIImage? = nil
     @State var watermarkSelected = false
     
-    @State var name: String
-    @State var eventHostName: String
-    @State var date: String
-    @State var location: String
     @State var orientation: Orientation
-    @State var camera: Camera
     
     @State private var addFrameSelected = false
     
@@ -357,6 +352,6 @@ struct FrameScreen: View {
 
 struct FrameScreen_Previews: PreviewProvider {
     static var previews: some View {
-        FrameScreen(path: .constant([3]), name: "Test Name", eventHostName: "Test Host Name", date: "Test Date", location: "Test Location", orientation: .landscape, camera: .back)
+        FrameScreen(path: .constant([3]), orientation: .landscape)
     }
 }

@@ -12,6 +12,7 @@ import AVFoundation
 
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
+    @StateObject private var camera = CameraManager.shared
     var event: Event? = nil
     var frame: Frame? = nil
     var watermarkImage: String? = nil
@@ -20,6 +21,7 @@ struct CameraView: View {
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
     @State var connectedTimer: Cancellable? = nil
+    @State private var shareMedia = false
     
     var body: some View {
         ZStack {
@@ -92,12 +94,24 @@ struct CameraView: View {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
                     
-                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!, image: camera.processedPhoto)
+                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", dismissAction: dismiss, imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
                         .padding()
                 }
                 
             }
         }
+        .alert(camera.alertTitle, isPresented: $camera.showAlert, actions: {
+            Button(role: .cancel) {
+                camera.isTaken = false
+                cancelTimer()
+                camera.session.stopRunning()
+                dismiss()
+            } label: {
+                Text("Dissmiss")
+            }
+        }, message: {
+            Text(camera.alertMessage)
+        })
         .onReceive(timer, perform: { time in
             if countDown > 0 {
                 countDown -= 1
@@ -139,6 +153,19 @@ struct CameraView: View {
             }
             
         })
+        .onChange(of: continuePressed, perform: { value in
+            if continuePressed {
+                if let eventID = event?.unique_id, let imageData = camera.retrieveImage() {
+                    camera.addMedia(eventID: eventID, imageData: imageData)
+                }
+            }
+        })
+        .onChange(of: shareMedia, perform: { value in
+            if shareMedia {
+                sharePhoto()
+                shareMedia = false
+            }
+        })
         .onDisappear {
             camera.sessionRunning = false
             camera.isTaken = false
@@ -169,6 +196,10 @@ struct CameraView: View {
         self.cancelTimer()
         self.instantiateTimer()
         return
+    }
+    
+    private func sharePhoto() {
+        camera.shareMedia()
     }
     
 }

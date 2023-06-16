@@ -127,7 +127,7 @@ public class ForegroundUploadManager: NSObject {
                 let filemgr = FileManager.default
                 let dirPaths = filemgr.urls(for: .documentDirectory, in: .userDomainMask)
                 let docsDir = dirPaths.first!
-
+                
                 if let localImage = try query.findFirst() {
                     localImage.markForUpload = 2 // prevent from starting again
                     do {
@@ -137,20 +137,6 @@ public class ForegroundUploadManager: NSObject {
                     }
                     
                     //let imagePath = docsDir.appendingPathComponent(localImage.url!)
-                    
-                    TextatizeAPI.shared.addMedia(eventID: localImage.eventID!, imageData: localImage.imageData) { error, response in
-                        if let error = error {
-                            print("Foreground Error: \(error)")
-                        }
-                                                
-                        if let mediaID = UserDefaults.standard.object(forKey: "mediaID") as? String {
-                            TextatizeAPI.shared.shareMedia(phoneNumber: UserDefaults.standard.string(forKey: "shareNumber"), mediaID: mediaID) { error, mediaResponse in
-                                if let error = error {
-                                    print(error)
-                                }
-                            }
-                        }
-                    }
                 }
             } else {
                 // done

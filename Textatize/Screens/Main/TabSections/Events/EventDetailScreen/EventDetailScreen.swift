@@ -21,11 +21,13 @@ struct EventDetailScreen: View {
     var event: Event? = nil
 
     @State var name: String = ""
-    @State var date: String = ""
+    @State var date: String?
     @State var location: String = ""
     @State var orientation: String = ""
     @State var camera: String = ""
     @State var hostName: String = ""
+    
+    @State private var shareMedia = false
     
     var body: some View {        
         ZStack {
@@ -85,9 +87,11 @@ struct EventDetailScreen: View {
                                         Text("Event Date")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(date)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let date = date {
+                                            Text(date)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                     
                                     VStack {
@@ -204,8 +208,7 @@ struct EventDetailScreen: View {
                     Color.black.opacity(0.80)
                         .ignoresSafeArea()
                     
-                    
-                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage)
+                    ShareGalleryImage(eventID: event?.unique_id ?? "No ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
                         .padding()
                 }
                 

@@ -15,7 +15,7 @@ struct CheckAllInfoScreen: View {
     var event: Event? = nil
     
     var name: String
-    var date: String
+    var date: String?
     var location: String
     var orientation: Orientation
     var camera: Camera
@@ -57,13 +57,16 @@ struct CheckAllInfoScreen: View {
                                         .font(.caption)
                                 }
                                 
+                                
                                 VStack {
                                     Text("Event Date")
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .font(.subheadline.bold())
-                                    Text(date)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .font(.caption)
+                                    if let date = date {
+                                        Text(date)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .font(.caption)
+                                    }
                                 }
                                 
                                 VStack {
@@ -151,7 +154,7 @@ struct CheckAllInfoScreen: View {
                         .padding()
                         .onTapGesture {
                             if let eventID = event.unique_id {
-                                vm.updateEvent(eventID: eventID, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
+                                vm.updateEvent(eventID: eventID, name: name, date: date, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
                                 path.removeAll()
                             }
                         }
@@ -159,7 +162,7 @@ struct CheckAllInfoScreen: View {
                     CustomButtonView(filled: true, name: "Save")
                         .padding()
                         .onTapGesture {
-                            vm.createEvent(name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
+                            vm.createEvent(name: name, date: date, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
                             path.removeAll()
                         }
                     

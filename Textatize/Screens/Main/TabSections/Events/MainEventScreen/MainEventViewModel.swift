@@ -22,21 +22,14 @@ class EventViewModel: ObservableObject {
     
     @Published var selectedEvent: Event? = nil
     
-    @Published var editName: String = ""
-    @Published var editDate: String = ""
-    @Published var editLocation: String = ""
-    @Published var editOrientation: Orientation = .portrait
-    @Published var editCamera: Camera = .front
-    @Published var editHostName: String = ""
-    
-    @Published var frameName: String = ""
-    @Published var frameDate: String = ""
-    @Published var frameLocation: String = ""
-    @Published var frameOrientation: Orientation = .portrait
-    @Published var FrameCamera: Camera = .front
-    @Published var frameHostName: String = ""
-    @Published var frameWatermarkPosition: WatermarkPosition = .bottomRight
-    @Published var frameWatermarkTransparency: Double = 0.0
+    @Published var name: String = ""
+    @Published var date: String? = nil
+    @Published var location: String = ""
+    @Published var orientation: Orientation = .portrait
+    @Published var camera: Camera = .front
+    @Published var hostName: String = ""
+    @Published var watermarkPosition: WatermarkPosition = .bottomRight
+    @Published var watermarkTransparency: Double = 0.0
     @Published var selectedFrame: Frame? = nil
     @Published var selectedWatermark: UIImage? = nil
     @Published var addon: AddOn? = nil

@@ -214,11 +214,11 @@ struct EventsScreen: View {
                     EventDetailScreen(path: $path, event: selectedEvent)
                 }
                 if item == 3 {
-                    FrameScreen(path: $path, event: selectedEvent, name: vm.editName, eventHostName: vm.editHostName, date: vm.editDate, location: vm.editLocation, orientation: vm.editOrientation, camera: vm.editCamera)
+                    FrameScreen(path: $path, event: selectedEvent, orientation: vm.orientation)
                 }
                 
                 if item == 4 {
-                    CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.editName, date: vm.frameDate, location: vm.editLocation, orientation: vm.editOrientation, camera: vm.editCamera, hostName: vm.editHostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.frameWatermarkTransparency, watermarkPosition: vm.frameWatermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
+                    CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
                 }
                 if item == 5 {
                     CameraView(event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
