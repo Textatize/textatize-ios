@@ -375,7 +375,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     }
     
     func addMedia(eventID: String, imageData: Data?, completion: @escaping (ServerError?, MediaResponse?) -> Void) {
-        
+        print("=================== ADD MEDIA")
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
@@ -411,6 +411,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
     }
     
     func shareMedia(phoneNumber: String?, mediaID: String, completion: @escaping (ServerError?, MediaResponse?) -> Void) {
+        print("=================== SHARE MEDIA")
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
@@ -433,7 +434,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
-        
+         
         var parameters: Parameters = [:]
         
         if let page = page {

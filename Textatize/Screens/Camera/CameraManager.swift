@@ -18,19 +18,20 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var isTaken = false
     @Published var photoReady = false
     @Published var processedPhoto: UIImage?
+    @Published var sessionRunning = false
     
     private let sessionQueue = DispatchQueue(label: "Textatize.SessionQueue")
 
-    func check() {
+    func check(orientation: AVCaptureDevice.Position) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            setup()
+            setup(orientation: orientation)
             return
             
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [unowned self] status in
                 if status {
-                    self.setup()
+                    self.setup(orientation: orientation)
                     return
                 }
             }
@@ -40,13 +41,17 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         }
     }
     
-    private func setup() {
+    private func setup(orientation: AVCaptureDevice.Position) {
         do {
             self.session.beginConfiguration()
             
-            guard let device = AVCaptureDevice.default(.builtInDualCamera, for: .video, position: .back) else { return }
+            guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: orientation) else { return }
             
             let input = try AVCaptureDeviceInput(device: device)
+            
+            for item in session.inputs {
+                session.removeInput(item)
+            }
             
             if self.session.canAddInput(input) {
                 self.session.addInput(input)
@@ -57,11 +62,13 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             }
             
             self.session.commitConfiguration()
-            
+                        
             sessionQueue.async {
                 self.session.startRunning()
+                DispatchQueue.main.async {
+                    self.sessionRunning = true
+                }
             }
-            
         } catch {
             print("Setup Error: \(error.localizedDescription)")
         }
@@ -83,6 +90,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         DispatchQueue.main.async {
             withAnimation{
                 self.isTaken.toggle()
+                self.sessionRunning = false
             }
         }
     }
@@ -94,6 +102,9 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         self.picData = nil
         DispatchQueue.global(qos: .background).async {
             self.session.startRunning()
+            DispatchQueue.main.async {
+                self.sessionRunning = true
+            }
             
             DispatchQueue.main.async {
                 withAnimation {
