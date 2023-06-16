@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import Kingfisher
+import AVFoundation
 
 struct CameraView: View {
     @Environment(\.dismiss) var dismiss
@@ -119,9 +120,20 @@ struct CameraView: View {
             }
         })
         .onAppear {
-            camera.check()
-            instantiateTimer()
+            switch event?.getCamera {
+            case .front:
+                camera.check(orientation: .front)
+            case .back:
+                camera.check(orientation: .back)
+            case nil:
+                dismiss()
+            }
         }
+        .onChange(of: camera.sessionRunning, perform: { value in
+            if camera.sessionRunning {
+                instantiateTimer()
+            }
+        })
         .onChange(of: camera.picData, perform: { value in
             let _ = camera.processPhotos(frame: frame)
         })
@@ -139,6 +151,7 @@ struct CameraView: View {
             }
         })
         .onDisappear {
+            camera.sessionRunning = false
             camera.isTaken = false
             cancelTimer()
             camera.session.stopRunning()
