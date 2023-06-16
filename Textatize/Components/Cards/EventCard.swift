@@ -16,7 +16,7 @@ struct EventCard: View {
     var type: EventType
     var image: Image? = nil
     var title: String = "Holidays"
-    var date: String = "10/11/22"
+    var date: String?
     var numberOfPhotos: String = "20"
     var event: Event
     @Binding var eventToDelete: Event?
@@ -31,15 +31,17 @@ struct EventCard: View {
                     .frame(width: UIScreen.main.bounds.width * 0.20, height: UIScreen.main.bounds.width * 0.20)
                     .padding()
                 
-                VStack(alignment: .leading, spacing: 7) {
+                VStack(alignment: .leading) {
                     Text(title)
                         .font(.headline)
                         .fontWeight(.bold)
                     
                     VStack {
-                        Text(date)
-                            .font(.subheadline)
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                        if let date = date {
+                            Text(date)
+                                .font(.subheadline)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                        }
                         
                         HStack(spacing: 5) {
                             Text(numberOfPhotos)

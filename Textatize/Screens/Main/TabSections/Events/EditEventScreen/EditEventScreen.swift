@@ -17,10 +17,11 @@ struct EditEventScreen: View {
    
     @State private var eventName: String = ""
     @State private var eventHostName: String = ""
-    @State private var eventDate: String = ""
     @State private var eventLocation: String = ""
     @State private var orientation: Orientation = .portrait
     @State private var camera: Camera = .back
+    
+    @State private var date: Date = Date.now
     
     @State private var nextButtonPressed = false
 
@@ -82,10 +83,7 @@ struct EditEventScreen: View {
                                 Text("Date")
                                     .font(.caption)
                                 
-                                TextField("Choose the date", text: $eventDate)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
+                                DatePicker("Choose Date", selection: $date, in: Date.now..., displayedComponents: .date)
                             }
                             
                             VStack(alignment: .leading) {
@@ -191,28 +189,23 @@ struct EditEventScreen: View {
                         Spacer()
                         
                         Button {
-                            mvm.editName = eventName
-                            mvm.editDate = eventDate
-                            mvm.editLocation = eventLocation
-                            mvm.editCamera = camera
-                            mvm.editOrientation = orientation
-                            mvm.editHostName = eventName
+                            
+                            if getDateString(date: date) != getDateString(date: yesterdayDate()) {
+                                mvm.date = getDateString(date: date)
+                            } else {
+                                mvm.date = nil
+                                print("No Date Selected")
+                            }
+                            mvm.name = eventName
+                            mvm.location = eventLocation
+                            mvm.camera = camera
+                            mvm.orientation = orientation
+                            mvm.hostName = eventName
                             path.append(3)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
                                 .padding()
                         }
-                        
-
-//                
-//                        
-//                        NavigationLink(isActive: $editEventView) {
-//                            FrameScreen(rootView: $rootView, frameView: $frameView, checkInfoView: $checkInfoView, event: event, name: eventName, eventHostName: eventHostName, date: eventDate, location: eventLocation, orientation: orientation, camera: camera)
-//                        } label: {
-//                            CustomButtonView(filled: true, name: "Next")
-//                                .padding()
-//                            
-//                        }
                     }
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .padding()
@@ -227,15 +220,29 @@ struct EditEventScreen: View {
         }
         .navigationBarHidden(true)
         .onAppear {
+            date = yesterdayDate()
             if let event = event {
                 eventName = event.getName
-                eventDate = event.getDate
                 eventLocation = event.getLocation
                 orientation = event.getOrientation
                 camera = event.getCamera
             }
         }
     }
+
+    func getDateString(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy"
+        return formatter.string(from: date)
+    }
+    
+    func yesterdayDate() -> Date {
+        var components = DateComponents()
+        components.day = -1
+        return Calendar.current.date(byAdding: components, to: Date.now)!
+    }
+    
+    
 }
 
 struct EditEventScreen_Previews: PreviewProvider {

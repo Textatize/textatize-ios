@@ -21,7 +21,7 @@ struct EventDetailScreen: View {
     var event: Event? = nil
 
     @State var name: String = ""
-    @State var date: String = ""
+    @State var date: String?
     @State var location: String = ""
     @State var orientation: String = ""
     @State var camera: String = ""
@@ -87,9 +87,11 @@ struct EventDetailScreen: View {
                                         Text("Event Date")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(date)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let date = date {
+                                            Text(date)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                     
                                     VStack {
