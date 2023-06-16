@@ -16,7 +16,6 @@ struct CameraView: View {
     var event: Event? = nil
     var frame: Frame? = nil
     var watermarkImage: String? = nil
-    @StateObject private var camera = CameraManager.shared
     @State private var continuePressed = false
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)

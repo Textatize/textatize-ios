@@ -232,8 +232,8 @@ struct FrameScreen: View {
                                 }
                                 
                                
-                                mvm.frameWatermarkPosition = watermarkPosition
-                                mvm.frameWatermarkTransparency = watermarkTransparency
+                                mvm.watermarkPosition = watermarkPosition
+                                mvm.watermarkTransparency = watermarkTransparency
                                 mvm.selectedFrame = selectedFrame
                                 path.append(4)
                             }

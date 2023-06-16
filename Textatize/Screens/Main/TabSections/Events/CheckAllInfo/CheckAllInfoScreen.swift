@@ -154,7 +154,7 @@ struct CheckAllInfoScreen: View {
                         .padding()
                         .onTapGesture {
                             if let eventID = event.unique_id {
-                                vm.updateEvent(eventID: eventID, name: name, date: date, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
+                                vm.updateEvent(eventID: eventID, date: date, name: name, orientation: orientation, camera: camera, watermarkPosition: watermarkPosition, location: location, watermarkImage: watermarkImage, watermarkTransparency: String(watermarkTransparency), frame: frame, useFrame: useFrame)
                                 path.removeAll()
                             }
                         }
