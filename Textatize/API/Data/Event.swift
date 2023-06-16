@@ -61,13 +61,14 @@ class Event: AbstractServerObject, Identifiable {
         numPhotos ?? 0
     }
     
-    var getDate: String {
+    var getDate: String? {
         
         var dateString = ""
         if let day = date?.day, let month = date?.month, let year = date?.year {
-            dateString = "\(month)/\(day)/\(year)"
+             return "\(month)/\(day)/\(year)"
+        } else {
+            return nil
         }
-        return dateString
     }
     
     var getLocation: String {

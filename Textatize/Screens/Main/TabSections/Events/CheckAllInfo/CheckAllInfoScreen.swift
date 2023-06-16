@@ -15,7 +15,7 @@ struct CheckAllInfoScreen: View {
     var event: Event? = nil
     
     var name: String
-    var date: String
+    var date: String?
     var location: String
     var orientation: Orientation
     var camera: Camera
@@ -60,9 +60,11 @@ struct CheckAllInfoScreen: View {
                                     Text("Event Date")
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                         .font(.subheadline.bold())
-                                    Text(date)
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .font(.caption)
+                                    if let date = date {
+                                        Text(date)
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .font(.caption)
+                                    }
                                 }
                                 
                                 VStack {

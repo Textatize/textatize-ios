@@ -193,7 +193,7 @@ struct EditEventScreen: View {
                             if getDateString(date: date) != getDateString(date: yesterdayDate()) {
                                 mvm.date = getDateString(date: date)
                             } else {
-                                mvm.date = ""
+                                mvm.date = nil
                                 print("No Date Selected")
                             }
                             mvm.name = eventName

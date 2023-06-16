@@ -18,7 +18,7 @@ class EventViewModel: ObservableObject {
     @Published var selectedEvent: Event? = nil
     
     @Published var name: String = ""
-    @Published var date: String = ""
+    @Published var date: String? = nil
     @Published var location: String = ""
     @Published var orientation: Orientation = .portrait
     @Published var camera: Camera = .front
