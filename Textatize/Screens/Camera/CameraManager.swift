@@ -18,6 +18,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var isTaken = false
     @Published var photoReady = false
     @Published var processedPhoto: UIImage?
+    @Published var sessionRunning = false
     
     private let sessionQueue = DispatchQueue(label: "Textatize.SessionQueue")
 
@@ -61,10 +62,13 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             }
             
             self.session.commitConfiguration()
-            
+                        
             sessionQueue.async {
                 self.session.startRunning()
-            }                        
+                DispatchQueue.main.async {
+                    self.sessionRunning = true
+                }
+            }
         } catch {
             print("Setup Error: \(error.localizedDescription)")
         }
@@ -86,6 +90,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         DispatchQueue.main.async {
             withAnimation{
                 self.isTaken.toggle()
+                self.sessionRunning = false
             }
         }
     }
@@ -97,6 +102,9 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         self.picData = nil
         DispatchQueue.global(qos: .background).async {
             self.session.startRunning()
+            DispatchQueue.main.async {
+                self.sessionRunning = true
+            }
             
             DispatchQueue.main.async {
                 withAnimation {
