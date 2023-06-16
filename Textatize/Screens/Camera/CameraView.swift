@@ -92,7 +92,7 @@ struct CameraView: View {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
                     
-                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", showView: $continuePressed, imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
+                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", dismissAction: dismiss, imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
                         .padding()
                 }
                 

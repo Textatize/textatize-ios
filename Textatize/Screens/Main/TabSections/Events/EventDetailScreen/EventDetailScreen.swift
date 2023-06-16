@@ -206,8 +206,7 @@ struct EventDetailScreen: View {
                     Color.black.opacity(0.80)
                         .ignoresSafeArea()
                     
-                    
-                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
+                    ShareGalleryImage(eventID: event?.unique_id ?? "No ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
                         .padding()
                 }
                 
