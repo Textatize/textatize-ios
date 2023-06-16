@@ -85,14 +85,15 @@ struct ImageDetailView: View {
         .frame(height: UIScreen.main.bounds.height * 0.8)
     }
 }
-struct SharePhotoView: View {
+
+struct ShareGalleryImage: View {
     
-    //var action: DismissAction
     @State private var number = ""
     var eventID: String
     @Binding var showView: Bool
     var imageData: Data? = nil
     var image: UIImage? = nil
+    @Binding var shareMedia: Bool
     
     var body: some View {
         
@@ -127,11 +128,83 @@ struct SharePhotoView: View {
                     .keyboardType(.numberPad)
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                 
-                CustomButtonView(filled: true, name: "Share Photo")
-                    .onTapGesture {
-                        savePhoto()
-                    }
+                Button {
+                    savePhoto()
+                } label: {
+                    CustomButtonView(filled: true, name: "Share Photo")
+                        .padding()
+                }
+            }
+        }
+        .customBackground()
+        
+    }
+    private func savePhoto() {
+        if let imageData = imageData {
+            let localImage = LocalImage()
+            localImage.imageData = imageData
+            localImage.eventID = eventID
+            UserDefaults.standard.set(number, forKey: "shareNumber")
+            do {
+                try Services.instance.imageBox.put(localImage)
+                ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
+                shareMedia = true
+            } catch {
+                print(error)
+            }
+        }
+    }
+}
+
+struct SharePhotoView: View {
+    
+    //var action: DismissAction
+    @State private var number = ""
+    var eventID: String
+    var dismissAction: DismissAction
+    var imageData: Data? = nil
+    var image: UIImage? = nil
+    @Binding var shareMedia: Bool
+    
+    var body: some View {
+        
+        ZStack {
+            XMarkButtonDismiss(dismissAction: dismissAction)
+            VStack {
+                Text("Your Photo")
+                    .font(.largeTitle.bold())
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                } else {
+                    Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                }
+                
+                Text("To share a photo via SMS, \nwrite a phone number")
+                    .font(.headline)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .multilineTextAlignment(.center)
+                
+                TextField("+1234", text: $number)
                     .padding()
+                    .frame(width: 250, height: 50)
+                    .onboardingBorder()
+                    .padding()
+                    .keyboardType(.numberPad)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
+                Button {
+                    savePhoto()
+                } label: {
+                    CustomButtonView(filled: true, name: "Share Photo")
+                        .padding()
+                }
             }
         }
         .customBackground()
@@ -144,10 +217,10 @@ struct SharePhotoView: View {
             localImage.imageData = imageData
             localImage.eventID = eventID
             UserDefaults.standard.set(number, forKey: "shareNumber")
-        
             do {
                 try Services.instance.imageBox.put(localImage)
                 ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
+                shareMedia = true
             } catch {
                 print(error)
             }
@@ -162,6 +235,24 @@ struct XMarkButton: View {
         Button {
             withAnimation {
                 showView = false
+            }
+        } label: {
+            Image(systemName: "xmark")
+                .accentColor(.black)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+        .padding(20)
+        
+    }
+}
+
+struct XMarkButtonDismiss: View {
+    var dismissAction: DismissAction
+    var body: some View {
+        
+        Button {
+            withAnimation {
+               dismissAction()
             }
         } label: {
             Image(systemName: "xmark")

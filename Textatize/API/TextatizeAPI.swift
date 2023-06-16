@@ -404,7 +404,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
-    func shareMedia(phoneNumber: String?, mediaID: String, completion: @escaping (ServerError?, MediaResponse?) -> Void) {
+    func shareMedia(phoneNumber: String?, mediaID: String, completion: @escaping (ServerError?, Bool?) -> Void) {
         print("=================== SHARE MEDIA")
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
@@ -421,6 +421,13 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { response in
             print("Share Media Response: \(response)")
+            switch response.result {
+            case .success:
+                completion(nil, true)
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+                
+            }
         }
     }
     
