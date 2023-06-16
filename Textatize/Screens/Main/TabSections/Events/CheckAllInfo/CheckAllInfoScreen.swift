@@ -115,7 +115,7 @@ struct CheckAllInfoScreen: View {
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .padding(.horizontal)
                         
-                        if frame != nil {
+                        if let addon = addon, addon == .frame {
                             Text("Frame")
                                 .font(.headline)
                                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
@@ -131,7 +131,7 @@ struct CheckAllInfoScreen: View {
                             }
                         }
                         
-                        if watermarkImage != nil {
+                        if let addon = addon, addon == .watermark {
                             Text("Watermark")
                                 .font(.headline)
                                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
