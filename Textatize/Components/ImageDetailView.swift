@@ -170,40 +170,42 @@ struct SharePhotoView: View {
         
         ZStack {
             XMarkButtonDismiss(dismissAction: dismissAction)
-            VStack {
-                Text("Your Photo")
-                    .font(.largeTitle.bold())
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                
-                if let image = image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 200, height: 200)
-                } else {
-                    Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
-                        .resizable()
-                        .frame(width: 200, height: 200)
-                }
-                
-                Text("To share a photo via SMS, \nwrite a phone number")
-                    .font(.headline)
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    .multilineTextAlignment(.center)
-                
-                TextField("+1234", text: $number)
-                    .padding()
-                    .frame(width: 250, height: 50)
-                    .onboardingBorder()
-                    .padding()
-                    .keyboardType(.numberPad)
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                
-                Button {
-                    savePhoto()
-                } label: {
-                    CustomButtonView(filled: true, name: "Share Photo")
+            ScrollView {
+                VStack {
+                    Text("Your Photo")
+                        .font(.largeTitle.bold())
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    
+                    if let image = image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 200, height: 200)
+                    } else {
+                        Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
+                            .resizable()
+                            .frame(width: 200, height: 200)
+                    }
+                    
+                    Text("To share a photo via SMS, \nwrite a phone number")
+                        .font(.headline)
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        .multilineTextAlignment(.center)
+                    
+                    TextField("+1234", text: $number)
                         .padding()
+                        .frame(width: 250, height: 50)
+                        .onboardingBorder()
+                        .padding()
+                        .keyboardType(.numberPad)
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    
+                    Button {
+                        savePhoto()
+                    } label: {
+                        CustomButtonView(filled: true, name: "Share Photo")
+                            .padding()
+                    }
                 }
             }
         }

@@ -221,7 +221,7 @@ struct EventsScreen: View {
                     CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame)
                 }
                 if item == 5 {
-                    CameraView(event: selectedEvent, frame: selectedEvent?.frame)
+                    CameraView(path: $path, event: selectedEvent, frame: selectedEvent?.frame)
                 }
             }
             .onAppear {
