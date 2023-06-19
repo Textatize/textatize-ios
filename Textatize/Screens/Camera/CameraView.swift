@@ -21,84 +21,18 @@ struct CameraView: View {
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
     @State var connectedTimer: Cancellable? = nil
-    @State private var shareMedia = false
     
     var body: some View {
         ZStack {
             HostedViewController(captureSesion: camera.session, deviceOrientation: event?.getOrientation == .landscape ? .landscape : .portrait)
                 .ignoresSafeArea()
             
-            if camera.isTaken {
-                ZStack {
-                    
-                    Color.black.opacity(camera.photoReady ? 0.95 : 0)
-                        .ignoresSafeArea()
-                    
-                    Image(uiImage: camera.processedPhoto ?? UIImage(systemName: "photo")!)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .padding()
-                    
-                    VStack {
-                        
-                        Spacer()
-                        HStack {
-                            Button {
-                                AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
-                                UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
-                                withAnimation {
-                                    continuePressed = true
-                                }
-                            } label: {
-                                Text("Continue")
-                                    .foregroundColor(.black)
-                                    .fontWeight(.semibold)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 10)
-                                    .background(Color.white)
-                                    .clipShape(Capsule())
-                            }
-                            .padding()
-                            
-                            Spacer()
-                            
-                            Button {
-                                print("Retake Button Pressed")
-                                camera.reTake()
-                                restartTimer()
-                            } label: {
-                                Text("Retake")
-                                    .foregroundColor(.black)
-                                    .fontWeight(.semibold)
-                                    .padding(.vertical, 10)
-                                    .padding(.horizontal, 10)
-                                    .background(Color.white)
-                                    .clipShape(Capsule())
-                            }
-                            .padding()
-                        }
-                    }
-                }
-                .opacity(camera.photoReady ? 1 : 0)
-            } else {
-                Circle()
-                    .strokeBorder(.red, lineWidth: 5)
-                    .frame(width: UIScreen.main.bounds.width * 0.27, height: UIScreen.main.bounds.width * 0.27)
-                Text("\(countDown)")
-                    .font(.system(size: 50, weight: .bold))
-                    .foregroundColor(.red)
-            }
-            
-            if continuePressed {
-                ZStack {
-                    Color.black.opacity(0.75)
-                        .ignoresSafeArea()
-                    
-                    SharePhotoView(path: $path, eventID: event?.unique_id ?? "NO ID", imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
-                        .padding()
-                }
-                
-            }
+            Circle()
+                .strokeBorder(.red, lineWidth: 5)
+                .frame(width: UIScreen.main.bounds.width * 0.27, height: UIScreen.main.bounds.width * 0.27)
+            Text("\(countDown)")
+                .font(.system(size: 50, weight: .bold))
+                .foregroundColor(.red)
             
             CameraBackButton(path: $path)
                 .foregroundColor(AppColors.Onboarding.loginButton)
@@ -109,18 +43,6 @@ struct CameraView: View {
                 .opacity(continuePressed ? 0 : 1)
             
         }
-        .alert(camera.alertTitle, isPresented: $camera.showAlert, actions: {
-            Button(role: .cancel) {
-                camera.isTaken = false
-                cancelTimer()
-                camera.session.stopRunning()
-                dismiss()
-            } label: {
-                Text("Dissmiss")
-            }
-        }, message: {
-            Text(camera.alertMessage)
-        })
         .onReceive(timer, perform: { time in
             if countDown > 0 {
                 countDown -= 1
@@ -132,6 +54,7 @@ struct CameraView: View {
         })
         .onAppear {
             camera.event = event
+            restartTimer()
             switch event?.getOrientation {
             case .portrait:
                 break
@@ -159,19 +82,11 @@ struct CameraView: View {
             }
         })
         .onChange(of: camera.picData, perform: { value in
-            let _ = camera.processPhotos(frame: frame)
+            let _ = camera.processPhotos(frame: event?.frame)
         })
-        .onChange(of: continuePressed, perform: { value in
-            if continuePressed {
-                if let eventID = event?.unique_id, let imageData = camera.retrieveImage() {
-                    camera.addMedia(eventID: eventID, imageData: imageData)
-                }
-            }
-        })
-        .onChange(of: shareMedia, perform: { value in
-            if shareMedia {
-                sharePhoto()
-                shareMedia = false
+        .onChange(of: camera.photoReady, perform: { value in
+            if camera.photoReady {
+                path.append(6)
             }
         })
         .onDisappear {
@@ -206,8 +121,102 @@ struct CameraView: View {
         return
     }
     
+}
+
+struct ImagePreviewScreen: View {
+    
+    @StateObject private var camera = CameraManager.shared
+    @State private var continuePressed = false
+    @State private var shareMedia = false
+    @Binding var path: [Int]
+    
+    var event: Event?
+    
+    var body: some View {
+        ZStack {
+            Color.black.opacity(camera.photoReady ? 0.95 : 0)
+                .ignoresSafeArea()
+            
+            Image(uiImage: camera.processedPhoto ?? UIImage(systemName: "photo")!)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .padding()
+            
+            VStack {
+                
+                Spacer()
+                HStack {
+                    Button {
+                        if let eventID = event?.unique_id, let imageData = camera.retrieveImage() {
+                            camera.addMedia(eventID: eventID, imageData: imageData)
+                            continuePressed = true
+                        }
+                    } label: {
+                        Text("Continue")
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 10)
+                            .background(Color.white)
+                            .clipShape(Capsule())
+                    }
+                    .padding()
+                    
+                    Spacer()
+                    
+                    Button {
+                        print("Retake Button Pressed")
+                        path.removeLast()
+//                        camera.reTake()
+//                        restartTimer()
+                    } label: {
+                        Text("Retake")
+                            .foregroundColor(.black)
+                            .fontWeight(.semibold)
+                            .padding(.vertical, 10)
+                            .padding(.horizontal, 10)
+                            .background(Color.white)
+                            .clipShape(Capsule())
+                    }
+                    .padding()
+                }
+            }
+            
+            if continuePressed {
+                ZStack {
+                    Color.black.opacity(0.75)
+                        .ignoresSafeArea()
+                    
+                    SharePhotoView(path: $path, eventID: event?.unique_id ?? "NO ID", imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
+                        .padding()
+                }
+                
+            }
+            
+        }
+        .alert(camera.alertTitle, isPresented: $camera.showAlert, actions: {
+            Button(role: .cancel) {
+                path.removeAll()
+            } label: {
+                Text("Dismiss")
+            }
+        }, message: {
+            Text(camera.alertMessage)
+        })
+        .onChange(of: shareMedia, perform: { value in
+            if shareMedia {
+                sharePhoto()
+                shareMedia = false
+            }
+        })
+        .toolbar(.hidden, for: .navigationBar)
+        .toolbar(.hidden, for: .tabBar)
+        .onAppear {
+            AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+        }
+    }
     private func sharePhoto() {
         camera.shareMedia()
     }
-    
 }
