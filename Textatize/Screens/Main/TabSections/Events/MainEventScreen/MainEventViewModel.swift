@@ -5,7 +5,12 @@
 //  Created by Tornelius Broadwater, Jr on 5/24/23.
 //
 
+enum AddOn {
+    case frame, watermark
+}
+
 import SwiftUI
+import Kingfisher
 
 class EventViewModel: ObservableObject {
     
@@ -26,6 +31,8 @@ class EventViewModel: ObservableObject {
     @Published var watermarkPosition: WatermarkPosition = .bottomRight
     @Published var watermarkTransparency: Double = 0.0
     @Published var selectedFrame: Frame? = nil
+    @Published var selectedWatermark: UIImage? = nil
+    @Published var addon: AddOn? = nil
     
     let textatizeAPI = TextatizeAPI.shared
     let defaults = UserDefaults.standard

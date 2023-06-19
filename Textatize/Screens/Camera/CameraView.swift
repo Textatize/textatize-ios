@@ -15,6 +15,7 @@ struct CameraView: View {
     @StateObject private var camera = CameraManager.shared
     var event: Event? = nil
     var frame: Frame? = nil
+    var watermarkImage: String? = nil
     @State private var continuePressed = false
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
@@ -135,7 +136,21 @@ struct CameraView: View {
             }
         })
         .onChange(of: camera.picData, perform: { value in
-            let _ = camera.processPhotos(frame: frame)
+            switch event?.getUseFrame {
+            case true:
+                let _ = camera.processPhotos(frame: frame)
+                
+            case false:
+                if let event = event {
+                    let _ = camera.processPhotos(watermarkString: watermarkImage, position: event.getWatermarkPosition, alpha: CGFloat(event.getWatermarkTransparency) / 100)
+                } else {
+                    print("No Event Found")
+                }
+
+            default:
+                break
+            }
+            
         })
         .onChange(of: continuePressed, perform: { value in
             if continuePressed {

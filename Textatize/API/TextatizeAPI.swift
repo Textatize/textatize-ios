@@ -194,14 +194,12 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                     completion(ServerError(WithMessage: error.localizedDescription), nil)
                     
                 }
-                
-                
             }
         }
         
     }
     
-    func updateEvent(eventID: String, name: String, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+    func updateEvent(eventID: String, name: String, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, useFrame: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
@@ -249,11 +247,14 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                     }
                 }
             }
+            if let useFrameData = useFrame.data(using: .utf8) {
+                multipartFormData.append(useFrameData, withName: "useFrame")
+            }
         }, to: "\(API_URL)/event",
                   method: .put,
                   headers: ["authorization": "Bearer \(sessionToken)"]
         ).validate().responseJSON { response in
-            
+            print("Update Event: \(response)")
             switch response.result {
             case .success(let success):
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
@@ -268,7 +269,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
 
-    func createEvent(name: String, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+    func createEvent(name: String, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, useFrame: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
@@ -313,6 +314,10 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                     }
                 }
             }
+            if let useFrameData = useFrame.data(using: .utf8) {
+                multipartFormData.append(useFrameData, withName: "useFrame")
+            }
+            
             
         }, to: "\(API_URL)/event",
                   method: .post,
@@ -338,6 +343,8 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         guard hasInternet else { return completion(ServerError.noInternet, false) }
         
         guard let sessionToken = sessionToken else { return }
+        
+        
         
         AF.request(API_URL + "event/\(eventID)",
                    method: .delete,
@@ -457,7 +464,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    parameters: parameters,
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { response in
-            print("Retrieve Media Response \(eventID): \(response)")
+            //print("Retrieve Media Response \(eventID): \(response)")
             
             switch response.result {
             case .success:
@@ -512,7 +519,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         
         if let sessionToken = sessionToken {
             
-            print(sessionToken)
+            //print(sessionToken)
             
             var parameters: Parameters = [:]
             if let status = status {
