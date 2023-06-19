@@ -159,6 +159,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         
         guard let pictureData = self.picData else { return  }
         guard let saveImage = UIImage(data: pictureData) else { return }
+        guard let event = event else { return }
         
         if let frame = frame {
             guard let frameURL = URL(string: frame.unwrappedURL) else { return }
@@ -171,8 +172,14 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                         UIGraphicsBeginImageContext(size)
 
                         
-                        if let resizeImage = saveImage.resizeImage(size: size) {
-                            resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                        switch event.getOrientation {
+                        case .portrait:
+                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                        case .landscape:
+                            let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
+                            landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                        case .square:
+                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                         }
                         
                         let frameImage = UIImage(cgImage: downloadedFrame)
@@ -210,8 +217,14 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                         UIGraphicsBeginImageContext(size)
 
                         
-                        if let resizeImage = saveImage.resizeImage(size: size) {
-                            resizeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                        switch event.getOrientation {
+                        case .portrait:
+                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                        case .landscape:
+                            let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
+                            landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                        case .square:
+                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                         }
                         
                         let watermarkImage = UIImage(cgImage: downloadedFrame)

@@ -12,18 +12,18 @@ import AVFoundation
 
 struct CameraView: View {
     
-    @Environment(\.dismiss) var dismiss
     @StateObject private var camera = CameraManager.shared
     @Binding var path: [Int]
-    var event: Event? = nil
-    var frame: Frame? = nil
-    var watermarkImage: String? = nil
+    var event: Event? 
+    var frame: Frame?
+    var watermarkImage: String?
     @State private var continuePressed = false
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
     @State var connectedTimer: Cancellable? = nil
     
     var body: some View {
+            
         ZStack {
             HostedViewController(captureSesion: camera.session, deviceOrientation: event?.getOrientation == .landscape ? .landscape : .portrait)
                 .ignoresSafeArea()
@@ -74,7 +74,7 @@ struct CameraView: View {
             case .back:
                 camera.check(orientation: .back)
             case nil:
-                dismiss()
+                path.removeLast()
             }
         }
         .onChange(of: camera.sessionRunning, perform: { value in
@@ -93,24 +93,11 @@ struct CameraView: View {
                 } else {
                     print("No Event Found")
                 }
-
+                
             default:
                 break
             }
             
-        })
-        .onChange(of: continuePressed, perform: { value in
-            if continuePressed {
-                if let eventID = event?.unique_id, let imageData = camera.retrieveImage() {
-                    camera.addMedia(eventID: eventID, imageData: imageData)
-                }
-            }
-        })
-        .onChange(of: shareMedia, perform: { value in
-            if shareMedia {
-                sharePhoto()
-                shareMedia = false
-            }
         })
         .onChange(of: camera.photoReady, perform: { value in
             if camera.photoReady {
@@ -148,8 +135,8 @@ struct CameraView: View {
         self.instantiateTimer()
         return
     }
-    
 }
+
 
 struct ImagePreviewScreen: View {
     

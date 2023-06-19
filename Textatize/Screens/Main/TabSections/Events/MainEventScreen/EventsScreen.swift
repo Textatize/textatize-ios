@@ -224,7 +224,7 @@ struct EventsScreen: View {
                     CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
                 }
                 if item == 5 {
-                    CameraView(event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
+                    CameraView(path: $path, event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
                 }
                 if item == 6 {
                     ImagePreviewScreen(path: $path, event: selectedEvent)
