@@ -159,9 +159,9 @@ struct ShareGalleryImage: View {
 struct SharePhotoView: View {
     
     //var action: DismissAction
+    @Binding var path: [Int]
     @State private var number = ""
     var eventID: String
-    var dismissAction: DismissAction
     var imageData: Data? = nil
     var image: UIImage? = nil
     @Binding var shareMedia: Bool
@@ -169,48 +169,46 @@ struct SharePhotoView: View {
     var body: some View {
         
         ZStack {
-            XMarkButtonDismiss(dismissAction: dismissAction)
-            ScrollView {
-                VStack {
-                    Text("Your Photo")
-                        .font(.largeTitle.bold())
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    
-                    if let image = image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 200, height: 200)
-                    } else {
-                        Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
-                            .resizable()
-                            .frame(width: 200, height: 200)
-                    }
-                    
-                    Text("To share a photo via SMS, \nwrite a phone number")
-                        .font(.headline)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                        .multilineTextAlignment(.center)
-                    
-                    TextField("+1234", text: $number)
+            XMarkButtonDismiss(path: $path)
+            VStack {
+                Text("Your Photo")
+                    .font(.largeTitle.bold())
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
+                if let image = image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 200, height: 200)
+                } else {
+                    Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
+                        .resizable()
+                        .frame(width: 200, height: 200)
+                }
+                
+                Text("To share a photo via SMS, \nwrite a phone number")
+                    .font(.headline)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .multilineTextAlignment(.center)
+                
+                TextField("+1234", text: $number)
+                    .padding()
+                    .frame(width: 250, height: 50)
+                    .onboardingBorder()
+                    .padding()
+                    .keyboardType(.numberPad)
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
+                Button {
+                    savePhoto()
+                } label: {
+                    CustomButtonView(filled: true, name: "Share Photo")
                         .padding()
-                        .frame(width: 250, height: 50)
-                        .onboardingBorder()
-                        .padding()
-                        .keyboardType(.numberPad)
-                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    
-                    Button {
-                        savePhoto()
-                    } label: {
-                        CustomButtonView(filled: true, name: "Share Photo")
-                            .padding()
-                    }
                 }
             }
         }
         .customBackground()
- 
+        
     }
     
     private func savePhoto() {
@@ -249,13 +247,14 @@ struct XMarkButton: View {
 }
 
 struct XMarkButtonDismiss: View {
-    var dismissAction: DismissAction
+    
+    @Binding var path: [Int]
+    
     var body: some View {
         
         Button {
-            withAnimation {
-               dismissAction()
-            }
+            print("Button Pressed")
+            path.removeAll()
         } label: {
             Image(systemName: "xmark")
                 .accentColor(.black)

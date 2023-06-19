@@ -94,7 +94,7 @@ struct CameraView: View {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
                     
-                    SharePhotoView(eventID: event?.unique_id ?? "NO ID", dismissAction: dismiss, imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
+                    SharePhotoView(path: $path, eventID: event?.unique_id ?? "NO ID", imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
                         .padding()
                 }
                 
@@ -105,6 +105,8 @@ struct CameraView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                 .padding()
                 .padding(.top)
+                .disabled(continuePressed ? true : false)
+                .opacity(continuePressed ? 0 : 1)
             
         }
         .alert(camera.alertTitle, isPresented: $camera.showAlert, actions: {
@@ -180,7 +182,6 @@ struct CameraView: View {
         }
         .toolbar(.hidden, for: .tabBar)
         .toolbar(.hidden, for: .navigationBar)
-        
     }
     private func instantiateTimer() {
         self.timer = Timer.publish(every: 1, on: .main, in: .common)
