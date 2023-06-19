@@ -34,7 +34,7 @@ class CameraPreviewViewcontroller: UIViewController {
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         screenRect = UIScreen.main.bounds
         self.previewLayer.frame = CGRect(x: 0, y: 0, width: screenRect.size.width, height: screenRect.size.height)
-        self.previewLayer.videoGravity = .resizeAspect
+        self.previewLayer.videoGravity = .resizeAspectFill
 
         switch deviceOrientation {
         case .portrait:
