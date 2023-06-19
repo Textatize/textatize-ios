@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct EventDetailScreen: View {
     @StateObject private var vm = EventDetailScreenViewModel.shared
     
     @Binding var path: [Int]
     @State private var showFrames = false
+    @State private var showWatermark = false
     
     let layout = [
         GridItem(),
@@ -26,6 +28,8 @@ struct EventDetailScreen: View {
     @State var orientation: String = ""
     @State var camera: String = ""
     @State var hostName: String = ""
+    
+    @State var watermarkURL: URL? = nil
     
     @State private var shareMedia = false
     
@@ -139,26 +143,48 @@ struct EventDetailScreen: View {
                             }
                             
                             Group {
+                                
                                 Rectangle()
                                     .fill(.gray)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 2)
                                 
+                                
                                 Button {
-                                    print("Show Frames Pressed")
                                     withAnimation {
-                                        showFrames.toggle()
+                                        if let event = event, event.getUseFrame {
+                                            showFrames.toggle()
+                                        }
+                                        if let event = event, !event.getUseFrame {
+                                            showWatermark.toggle()
+
+                                        }
                                     }
                                 } label: {
-                                    HStack {
-                                        Text("Frames")
-                                            .font(.headline)
-                                        Spacer()
-                                        
-                                        Image(systemName: showFrames ? "chevron.up" : "chevron.down")
-                                            .resizable()
-                                            .frame(width: 20, height: 10)
-                                        
+                                    if let event = event, event.getUseFrame {
+                                        HStack {
+                                            Text("Frames")
+                                                .font(.headline)
+                                            Spacer()
+                                            
+                                            Image(systemName: showFrames ? "chevron.up" : "chevron.down")
+                                                .resizable()
+                                                .frame(width: 20, height: 10)
+                                            
+                                        }
+                                    }
+                                    
+                                    if let event = event, !event.getUseFrame {
+                                        HStack {
+                                            Text("Watermarks")
+                                                .font(.headline)
+                                            Spacer()
+                                            
+                                            Image(systemName: showWatermark ? "chevron.up" : "chevron.down")
+                                                .resizable()
+                                                .frame(width: 20, height: 10)
+                                            
+                                        }
                                     }
                                 }
                                 
@@ -169,10 +195,20 @@ struct EventDetailScreen: View {
                                             .frame(width: 50, height: 50)
                                     }
                                 }
+                                
+                                if showWatermark {
+                                    if let url = watermarkURL {
+                                        KFImage(url)
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                    }
+                                }
+                                
                                 Rectangle()
                                     .fill(.gray)
                                     .frame(maxWidth: .infinity)
                                     .frame(height: 2)
+                                
                             }
                             
                             NavigationLink(value: 1) {
@@ -230,6 +266,15 @@ struct EventDetailScreen: View {
                 orientation = event.getOrientation.rawValue
                 camera = event.getCamera.rawValue
                 hostName = event.getName
+                
+                if !event.getUseFrame {
+                    guard let url = URL(string: event.getWatermarkUrl) else { return }
+                    watermarkURL = url
+                } else {
+                    watermarkURL = nil
+                }
+                
+                print("UseFrame: \(event.getUseFrame)")
             }
         }
     }

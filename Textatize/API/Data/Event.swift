@@ -23,6 +23,7 @@ class Event: AbstractServerObject, Identifiable {
     var createdTime:            Int?        = nil
     var updatedTime:            Int?        = nil
     var createdFormatted:       String?     = nil
+    var useFrame:               Bool?       = nil
     
     
     override init() {
@@ -50,6 +51,7 @@ class Event: AbstractServerObject, Identifiable {
         createdTime             <- map["created_time"]
         updatedTime             <- map["updated_time"]
         createdFormatted        <- map["created_formatted"]
+        useFrame                <- map["useFrame"]
         
     }
     
@@ -113,6 +115,10 @@ class Event: AbstractServerObject, Identifiable {
         } else {
             return .bottomLeft
         }
+    }
+    
+    var getUseFrame: Bool {
+        useFrame ?? true
     }
 }
 

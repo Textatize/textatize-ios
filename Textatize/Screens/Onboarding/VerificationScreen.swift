@@ -69,7 +69,6 @@ struct VerificationScreen: View {
                                 .fontWeight(.light)
                                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             
-                            
                             Text("01:00")
                                 .font(.caption)
                                 .foregroundColor(AppColors.Onboarding.loginButton)

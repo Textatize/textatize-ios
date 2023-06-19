@@ -17,6 +17,7 @@ struct CameraView: View {
     @Binding var path: [Int]
     var event: Event? = nil
     var frame: Frame? = nil
+    var watermarkImage: String? = nil
     @State private var continuePressed = false
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
@@ -82,7 +83,34 @@ struct CameraView: View {
             }
         })
         .onChange(of: camera.picData, perform: { value in
-            let _ = camera.processPhotos(frame: event?.frame)
+            switch event?.getUseFrame {
+            case true:
+                let _ = camera.processPhotos(frame: frame)
+                
+            case false:
+                if let event = event {
+                    let _ = camera.processPhotos(watermarkString: watermarkImage, position: event.getWatermarkPosition, alpha: CGFloat(event.getWatermarkTransparency) / 100)
+                } else {
+                    print("No Event Found")
+                }
+
+            default:
+                break
+            }
+            
+        })
+        .onChange(of: continuePressed, perform: { value in
+            if continuePressed {
+                if let eventID = event?.unique_id, let imageData = camera.retrieveImage() {
+                    camera.addMedia(eventID: eventID, imageData: imageData)
+                }
+            }
+        })
+        .onChange(of: shareMedia, perform: { value in
+            if shareMedia {
+                sharePhoto()
+                shareMedia = false
+            }
         })
         .onChange(of: camera.photoReady, perform: { value in
             if camera.photoReady {
