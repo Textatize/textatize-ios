@@ -52,8 +52,15 @@ struct FrameEditingScreen: View {
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
+                Button {
+                    dismiss()
+                } label: {
+                    HStack {
+                        Image(systemName: "arrow.left")
+                        Text("Back")
+                    }
+                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+                }            }
         }
         .navigationBarBackButtonHidden()
     }

@@ -20,6 +20,7 @@ class User: AbstractServerObject {
     var createdTime: String? = nil
     var updatedTime: String? = nil
     var createdFormatted: String? = nil
+    var isEmailVerified: Bool? = nil
     
     override init() {
         super.init()
@@ -42,6 +43,11 @@ class User: AbstractServerObject {
         createdTime <- map["created_time"]
         updatedTime <- map["updated_time"]
         createdFormatted <- map["created_formatted"]
+        isEmailVerified <- map["isEmailVerified"]
+    }
+    
+    var getIsEmailVerified: Bool  {
+        isEmailVerified ?? false
     }
     
 }

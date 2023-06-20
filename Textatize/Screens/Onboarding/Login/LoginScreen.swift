@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+enum OnboardingNav {
+    case createAccountScreen, forgotPasswordScreen, recoveryScreen
+    case newPasswordScreen
+}
+
 struct LoginScreen: View {
     @StateObject private var vm = LoginViewModel()
     
     @State private var signupPressed = false
     @State private var forgotPasswordPressed = false
-    
+    @State private var path = [OnboardingNav]()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             ZStack {
                 AppColors.Onboarding.redLinearGradientBackground
                     .ignoresSafeArea()
@@ -77,15 +82,12 @@ struct LoginScreen: View {
                         HStack {
                             Spacer()
                             
-                            NavigationLink {
-                                ForgotPasswordScreen()
-                            } label: {
+                            NavigationLink(value: OnboardingNav.forgotPasswordScreen) {
                                 Text("Forgot the password?")
                                     .underline()
                                     .font(.caption)
                                     .foregroundColor(AppColors.Onboarding.topColor)
                             }
-                            
                             
                         }
                         .padding(.top, -10)
@@ -114,14 +116,9 @@ struct LoginScreen: View {
                                 
                             }
                             
-                            
-                            NavigationLink {
-                                CreateAccountScreen()
-                            } label: {
+                            NavigationLink(value: OnboardingNav.createAccountScreen) {
                                 CustomButtonView(filled: false, name: "Sign up")
-
                             }
-
                         }
                         
                     }
@@ -131,10 +128,20 @@ struct LoginScreen: View {
                     
                 }
                 .customBackground()
-                .padding(.vertical, 45)
-                .padding(.horizontal, 20)
                 .alert(isPresented: $vm.showAlert) {
                     Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
+                }
+            }
+            .navigationDestination(for: OnboardingNav.self) { nav in
+                switch nav {
+                case .createAccountScreen:
+                    CreateAccountScreen(path: $path)
+                case .forgotPasswordScreen:
+                    ForgotPasswordScreen(path: $path)
+                case .recoveryScreen:
+                    RecoveryScreen(path: $path)
+                case .newPasswordScreen:
+                    NewPasswordScreen(path: $path)
                 }
             }
         }

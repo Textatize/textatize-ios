@@ -12,7 +12,11 @@ struct ContentView: View {
     @StateObject private var loginManager = TextatizeLoginManager.shared
     var body: some View {
         if loginManager.is_logged_in {
-            VerificationScreen()
+            if let user = loginManager.loggedInUser, user.getIsEmailVerified {
+                MainTabView()
+            } else {
+                VerificationScreen()
+            }
         } else {
             SpinnerView()
                 .foregroundColor(AppColors.Onboarding.loginButton)

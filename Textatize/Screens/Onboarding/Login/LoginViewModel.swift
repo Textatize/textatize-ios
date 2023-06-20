@@ -10,8 +10,10 @@ import SwiftUI
 class LoginViewModel: ObservableObject {
     
     @Published var loginSuccess = false
-    @Published var email = "test@bortnet.com"
-    @Published var password = "zzz123"
+    //@Published var email = "test@bortnet.com"
+    //@Published var password = "zzz123"
+    @Published var email = ""
+    @Published var password = ""
     
     @Published var showAlert = false
     @Published var alertTitle = ""

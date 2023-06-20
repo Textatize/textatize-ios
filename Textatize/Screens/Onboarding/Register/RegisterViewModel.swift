@@ -76,7 +76,7 @@ class RegisterViewModel: ObservableObject {
         return true
     }
     
-    func createAccount() {
+    func createAccount(completion: @escaping ((Bool) -> Void)) {
         guard checkFields() else { return }
         
         let firstName = name.components(separatedBy: " ")[0]
@@ -90,9 +90,11 @@ class RegisterViewModel: ObservableObject {
                 self.alertTitle = "Register Error"
                 self.alertMessage = errorMessage
                 self.showAlert = true
+                completion(false)
             }
             
             if let response = response {
+                completion(true)
                 self.registerSuccess = true
             }
         }

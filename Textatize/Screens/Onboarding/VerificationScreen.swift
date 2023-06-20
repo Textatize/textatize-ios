@@ -11,7 +11,8 @@ struct VerificationScreen: View {
     @Environment(\.dismiss) var dismiss
     
     @State private var verificationTxt = ""
-    @State private var verifyPressed = false
+    @State private var isVerified = false
+    @StateObject private var loginManager = TextatizeLoginManager.shared
     
     var body: some View {
         NavigationView {
@@ -45,13 +46,15 @@ struct VerificationScreen: View {
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .font(.title2)
                             .fontWeight(.semibold)
-                        
-                        Text("Please enter the code sent to \n +8 850  7758989")
-                            .font(.callout)
-                            .fontWeight(.light)
-                            .multilineTextAlignment(.center)
-                            .frame(maxWidth: .infinity, alignment: .center)
-                            .fixedSize(horizontal: false, vertical: true)
+                        if let user = loginManager.loggedInUser, let number = user.phone {
+                            Text("Please enter the code sent to \n \(number)")
+                                .font(.callout)
+                                .fontWeight(.light)
+                                .multilineTextAlignment(.center)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+    
                     }
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .padding()
@@ -69,29 +72,63 @@ struct VerificationScreen: View {
                                 .fontWeight(.light)
                                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             
-                            Text("01:00")
-                                .font(.caption)
-                                .foregroundColor(AppColors.Onboarding.loginButton)
+                            Button {
+                                resentCode()
+                            } label: {
+                                Text("Resend Code")
+                                    .font(.caption)
+                                    .foregroundColor(AppColors.Onboarding.loginButton)
+                            }
                             
                         }
                         .multilineTextAlignment(.center)
                         
                         Spacer()
                         
-                        NavigationLink {
-                            MainTabView()
+                        Button {
+                            verify { result in
+                                if result {
+                                    isVerified = true
+                                }
+                            }
                         } label: {
                             CustomButtonView(filled: true, name: "Verify")
-                        }
-
-                        
+                        }                        
                     }
                     .padding()
                 }
                 .customBackground()
             }
             .toolbar(.hidden, for: .navigationBar)
+            .background {
+                NavigationLink(isActive: $isVerified) {
+                    MainTabView()
+                } label: {
+                    EmptyView()
+                }
+
+            }
         }
+    }
+    private func verify(completion: @escaping ((Bool) -> Void)) {
+        TextatizeAPI.shared.verifyUser(code: verificationTxt) { error, response in
+            if let error = error {
+                print(error.getMessage() ?? "No Error Message Text")
+            }
+            
+            if let response = response, let user = response.user {
+                if user.getIsEmailVerified {
+                   completion(true)
+                } else {
+                    print("Failed")
+                }
+            }
+            
+        }
+    }
+    
+    private func resentCode() {
+        TextatizeAPI.shared.resendVerificationCode { _, _ in }
     }
 }
 

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CreateAccountScreen: View {
-    @Environment(\.dismiss) var dismiss
+    @Binding var path: [OnboardingNav]
     
     @StateObject private var vm = RegisterViewModel()
         
@@ -89,8 +89,6 @@ struct CreateAccountScreen: View {
                                     .padding()
                                     .frame(height: 50)
                                     .onboardingBorder()
-                                    
-
                                 
                                 Button {
                                     // Show Password
@@ -107,36 +105,40 @@ struct CreateAccountScreen: View {
                     
                     Spacer()
                     
-                    CustomButtonView(filled: true, name:"Register")
-                        .onTapGesture {
-                            vm.createAccount()
+                    Button {
+                        vm.createAccount { result in
+                            if result {
+                                path.removeAll()
+                            }
                         }
+                    } label: {
+                        CustomButtonView(filled: true, name:"Register")
+                    }
 
                 }
                 .padding()
                 
             }
+            .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
             .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal, 20)
             .fullScreenCover(isPresented: $vm.registerSuccess) {
                 VerificationScreen()
             }
             .alert(isPresented: $vm.showAlert) {
                 Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
             }
+            
+            CustomOnboardingBackButtom(path: $path)
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
-        }
-        .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 struct CreateAccountScreen_Previews: PreviewProvider {
     static var previews: some View {
-        CreateAccountScreen()
+        CreateAccountScreen(path: .constant([OnboardingNav.createAccountScreen]))
     }
 }

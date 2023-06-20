@@ -58,4 +58,25 @@ class TextatizeLoginManager: ObservableObject {
         }
         
     }
+    
+    func logout() {
+        
+        do {
+            try Services.instance.imageBox.removeAll()
+        } catch let error {
+            print("Could not delete persistent data. Error:\(error)")
+        }
+
+        let defaults = UserDefaults.standard
+        defaults.setValue(nil, forKey: "user_id")
+        defaults.setValue(nil, forKey: "username")
+        defaults.setValue(nil, forKey: "sessionToken")
+        defaults.synchronize()
+        Keychain.clear()
+        self.loggedInUser = nil
+        self.is_logged_in = false
+        NotificationCenter.default.post(name:Notification.Name(rawValue:"LogoutNotification"),
+                                        object: nil,
+                                        userInfo: nil)
+    }
 }

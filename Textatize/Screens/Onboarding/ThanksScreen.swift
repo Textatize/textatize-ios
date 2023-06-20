@@ -48,11 +48,11 @@ struct ThanksScreen: View {
 
             
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
-        }
+//        .toolbar {
+//            ToolbarItem(placement: .navigationBarLeading) {
+//                CustomBackButtom(action: dismiss)
+//            }
+//        }
         .navigationBarBackButtonHidden()
     }
 }

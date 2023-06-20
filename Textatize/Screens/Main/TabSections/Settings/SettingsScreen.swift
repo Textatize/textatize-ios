@@ -7,13 +7,18 @@
 
 import SwiftUI
 
+enum ScreenNav {
+    case changePassword, contactInformation
+}
+
 struct SettingsScreen: View {
     
     @State private var showContactInformationScreen = false
     @State private var showPasswordChangeScreen = false
+    @State private var path = [ScreenNav]()
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             ZStack {
                 AppColors.Onboarding.redLinearGradientBackground
                     .ignoresSafeArea(edges: .top)
@@ -29,12 +34,10 @@ struct SettingsScreen: View {
                     
                     VStack(spacing: 15) {
                         
-                        NavigationLink {
-                            ContactInformationScreen()
-                        } label: {
+                        NavigationLink(value: ScreenNav.contactInformation) {
                             SettingsButton(name: "Contact Information")
                         }
-
+                        
                         VStack(spacing: 5) {
                             
                             Text("Your balance")
@@ -73,19 +76,37 @@ struct SettingsScreen: View {
                             
                         }
                         
-                        NavigationLink {
-                            ChangePasswordScreen()
-                        } label: {
+                        NavigationLink(value: ScreenNav.changePassword) {
                             SettingsButton(name: "Password Change")
                         }
                         
                         Spacer()
                         Spacer()
+                        
+                        Button {
+                            logout()
+                        } label: {
+                            CustomButtonView(filled: true, name: "Logout")
+                                .padding()
+                        }
+
                     }
                 }
                 .customBackground()
             }
+            .navigationDestination(for: ScreenNav.self) { navView in
+                switch navView {
+                case .contactInformation:
+                    ContactInformationScreen(path: $path)
+                case .changePassword:
+                    ChangePasswordScreen(path: $path)
+                }
+            }
+            .toolbar(.hidden, for: .navigationBar)
         }
+    }
+    private func logout() {
+        TextatizeLoginManager.shared.logout()
     }
 }
 
