@@ -85,7 +85,7 @@ struct SettingsScreen: View {
                 }
                 .customBackground()
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -224,8 +224,9 @@ struct ImagePreviewScreen: View {
                 shareMedia = false
             }
         })
-        .toolbar(.hidden, for: .navigationBar)
-        .toolbar(.hidden, for: .tabBar)
+        //.toolbar(.hidden, for: .navigationBar)
+        //.toolbar(.hidden, for: .tabBar)
+        .toolbar(.hidden)
         .onAppear {
             AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")

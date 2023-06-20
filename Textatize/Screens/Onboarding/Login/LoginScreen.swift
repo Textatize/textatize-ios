@@ -137,7 +137,7 @@ struct LoginScreen: View {
                     Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
                 }
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
