@@ -91,7 +91,7 @@ struct VerificationScreen: View {
                 .customBackground()
             }
             .toolbar(.hidden, for: .navigationBar)
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

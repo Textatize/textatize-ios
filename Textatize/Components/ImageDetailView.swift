@@ -159,9 +159,9 @@ struct ShareGalleryImage: View {
 struct SharePhotoView: View {
     
     //var action: DismissAction
+    @Binding var path: [Int]
     @State private var number = ""
     var eventID: String
-    var dismissAction: DismissAction
     var imageData: Data? = nil
     var image: UIImage? = nil
     @Binding var shareMedia: Bool
@@ -169,7 +169,7 @@ struct SharePhotoView: View {
     var body: some View {
         
         ZStack {
-            XMarkButtonDismiss(dismissAction: dismissAction)
+            XMarkButtonDismiss(path: $path)
             VStack {
                 Text("Your Photo")
                     .font(.largeTitle.bold())
@@ -208,7 +208,7 @@ struct SharePhotoView: View {
             }
         }
         .customBackground()
- 
+        
     }
     
     private func savePhoto() {
@@ -247,13 +247,14 @@ struct XMarkButton: View {
 }
 
 struct XMarkButtonDismiss: View {
-    var dismissAction: DismissAction
+    
+    @Binding var path: [Int]
+    
     var body: some View {
         
         Button {
-            withAnimation {
-               dismissAction()
-            }
+            print("Button Pressed")
+            path.removeAll()
         } label: {
             Image(systemName: "xmark")
                 .accentColor(.black)

@@ -89,7 +89,7 @@ struct FramesScreen: View {
                 NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: selectedFrame)), isActive: $editFrame) { EmptyView() }
                 
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             vm.refreshFrames()
         }
