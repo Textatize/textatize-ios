@@ -14,9 +14,9 @@ struct CameraView: View {
     
     @StateObject private var camera = CameraManager.shared
     @Binding var path: [Int]
-    var event: Event? 
-    var frame: Frame?
-    var watermarkImage: String?
+    var event: Event
+    @State var frame: Frame? = nil
+    @State var watermarkImage: String? = nil
     @State private var continuePressed = false
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
@@ -25,7 +25,7 @@ struct CameraView: View {
     var body: some View {
             
         ZStack {
-            HostedViewController(captureSesion: camera.session, deviceOrientation: event?.getOrientation == .landscape ? .landscape : .portrait)
+            HostedViewController(captureSesion: camera.session, deviceOrientation: event.getOrientation == .landscape ? .landscape : .portrait)
                 .ignoresSafeArea()
             
             Circle()
@@ -56,7 +56,7 @@ struct CameraView: View {
         .onAppear {
             camera.event = event
             restartTimer()
-            switch event?.getOrientation {
+            switch event.getOrientation {
             case .portrait:
                 break
             case .landscape:
@@ -64,18 +64,28 @@ struct CameraView: View {
                 UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
             case .square:
                 break
-            case nil:
-                break
             }
             
-            switch event?.getCamera {
+            switch event.getCamera {
             case .front:
                 camera.check(orientation: .front)
             case .back:
                 camera.check(orientation: .back)
-            case nil:
-                path.removeLast()
             }
+            
+            switch event.getUseFrame {
+            case true:
+                frame = event.frame
+                
+            case false:
+                watermarkImage = event.getWatermarkUrl
+            }
+            
+            if frame == nil && watermarkImage == nil {
+                print("No Frame Or Watermark")
+                path.removeAll()
+            }
+            
         }
         .onChange(of: camera.sessionRunning, perform: { value in
             if camera.sessionRunning {
@@ -83,19 +93,12 @@ struct CameraView: View {
             }
         })
         .onChange(of: camera.picData, perform: { value in
-            switch event?.getUseFrame {
+            switch event.getUseFrame {
             case true:
                 let _ = camera.processPhotos(frame: frame)
                 
             case false:
-                if let event = event {
-                    let _ = camera.processPhotos(watermarkString: watermarkImage, position: event.getWatermarkPosition, alpha: CGFloat(event.getWatermarkTransparency) / 100)
-                } else {
-                    print("No Event Found")
-                }
-                
-            default:
-                break
+                let _ = camera.processPhotos(watermarkString: watermarkImage, position: event.getWatermarkPosition, alpha: CGFloat(event.getWatermarkTransparency) / 100)
             }
             
         })
