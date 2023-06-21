@@ -102,7 +102,8 @@ struct SettingsScreen: View {
                     ChangePasswordScreen(path: $path)
                 }
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .toolbar(.hidden)
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     private func logout() {

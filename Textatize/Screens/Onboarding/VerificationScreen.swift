@@ -99,7 +99,8 @@ struct VerificationScreen: View {
                 }
                 .customBackground()
             }
-            .toolbar(.hidden, for: .navigationBar)
+            .toolbar(.hidden)
+            .navigationViewStyle(StackNavigationViewStyle())
             .background {
                 NavigationLink(isActive: $isVerified) {
                     MainTabView()

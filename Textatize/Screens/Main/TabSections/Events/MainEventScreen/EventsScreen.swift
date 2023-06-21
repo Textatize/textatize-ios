@@ -154,7 +154,10 @@ struct EventsScreen: View {
                                 ForEach(currentSelected ? vm.events : vm.completedEvents) { event in
                                     Button {
                                         selectedEvent = event
-                                        path.append(2)
+                                            if selectedEvent != nil {
+                                                path.append(2)
+                                            }
+                                        
                                     } label: {
                                         if currentSelected {
                                             EventCard(type: .current, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
@@ -221,11 +224,13 @@ struct EventsScreen: View {
                     CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
                 }
                 if item == 5 {
-                    CameraView(event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
+                    CameraView(path: $path, event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
+                }
+                if item == 6 {
+                    ImagePreviewScreen(path: $path, event: selectedEvent)
                 }
             }
             .onAppear {
-                selectedEvent = nil
                 path.removeAll()
                 vm.refreshEvents()
             }

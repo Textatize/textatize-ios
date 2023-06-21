@@ -132,6 +132,7 @@ struct LoginScreen: View {
                     Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
                 }
             }
+            .toolbar(.hidden)
             .navigationDestination(for: OnboardingNav.self) { nav in
                 switch nav {
                 case .createAccountScreen:
@@ -144,6 +145,7 @@ struct LoginScreen: View {
                     NewPasswordScreen(path: $path)
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
 }

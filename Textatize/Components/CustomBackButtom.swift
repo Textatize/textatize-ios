@@ -51,6 +51,23 @@ struct BackButton: View {
     }
 }
 
+struct CameraBackButton: View {
+    @Binding var path: [Int]
+    var body: some View {
+        Button {
+            AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
+            UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
+            path.removeLast()
+        } label: {
+            HStack {
+                Image(systemName: "arrow.left")
+                Text("Back")
+            }
+            .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+        }
+    }
+}
+
 //struct CustomBackButtom_Previews: PreviewProvider {
 //    static var previews: some View {
 //        CustomBackButtom(action: )
