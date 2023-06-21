@@ -215,7 +215,7 @@ struct ImagePreviewScreen: View {
         .toolbar(.hidden)
         .alert(camera.alertTitle, isPresented: $camera.showAlert, actions: {
             Button(role: .cancel) {
-                path.removeAll()
+                path.append(2)
             } label: {
                 Text("Dismiss")
             }
