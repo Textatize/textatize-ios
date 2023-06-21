@@ -249,9 +249,17 @@ struct EventDetailScreen: View {
                 }
                 
             }
-            BackButton(path: $path)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.leading)
+            Button {
+                path.removeAll()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding(.leading)
             
         }
         .navigationBarHidden(true)
