@@ -29,10 +29,12 @@ struct EventDetailScreen: View {
     @State var camera: String = ""
     @State var hostName: String = ""
     
+    @State private var number = ""
+    
     @State var watermarkURL: URL? = nil
     
     @State private var shareMedia = false
-    
+        
     var body: some View {        
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
@@ -239,12 +241,12 @@ struct EventDetailScreen: View {
                 .customBackground()
             }
             
-            if vm.showGallaryImage {
+            if vm.showGalleryImage {
                 ZStack {
                     Color.black.opacity(0.80)
                         .ignoresSafeArea()
                     
-                    ShareGalleryImage(eventID: event?.unique_id ?? "No ID", showView: $vm.showGallaryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
+                    ShareGalleryImage(number: $number, eventID: event?.unique_id ?? "No ID", showView: $vm.showGalleryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
                         .padding()
                 }
                 
@@ -263,7 +265,7 @@ struct EventDetailScreen: View {
             
         }
         .navigationBarHidden(true)
-        .toolbar(vm.showGallaryImage ? .hidden : .visible, for: .tabBar)
+        .toolbar(vm.showGalleryImage ? .hidden : .visible, for: .tabBar)
         .onAppear {
             if let event = event {
                 vm.getMedia(event: event)
@@ -285,6 +287,26 @@ struct EventDetailScreen: View {
                 print("UseFrame: \(event.getUseFrame)")
             }
         }
+        .onChange(of: shareMedia) { value in
+            if shareMedia {
+                shareMedia = false
+                if let media = vm.selectedMedia {
+                    vm.shareMedia(number: number, mediaID: media.unique_id!)
+                }
+            }
+        }
+        .alert(vm.alertTitle, isPresented: $vm.showAlert, actions: {
+            Button(role: .cancel) {
+                number = ""
+                withAnimation {
+                    vm.showGalleryImage = false
+                }
+            } label: {
+                Text("Dismiss")
+            }
+        }, message: {
+            Text(vm.alertMessage)
+        })
     }
 }
 
