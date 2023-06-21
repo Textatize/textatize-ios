@@ -27,7 +27,8 @@ struct CameraView: View {
         ZStack {
             HostedViewController(captureSesion: camera.session, deviceOrientation: event?.getOrientation == .landscape ? .landscape : .portrait)
                 .ignoresSafeArea()
-            
+                .toolbar(.hidden)
+
             Circle()
                 .strokeBorder(.red, lineWidth: 5)
                 .frame(width: UIScreen.main.bounds.width * 0.27, height: UIScreen.main.bounds.width * 0.27)
@@ -44,6 +45,7 @@ struct CameraView: View {
                 .opacity(continuePressed ? 0 : 1)
             
         }
+        .toolbar(.hidden, for: .tabBar)
         .onReceive(timer, perform: { time in
             if countDown > 0 {
                 countDown -= 1
@@ -110,7 +112,6 @@ struct CameraView: View {
             cancelTimer()
             camera.session.stopRunning()
         }
-        .toolbar(.hidden)
     }
     private func instantiateTimer() {
         self.timer = Timer.publish(every: 1, on: .main, in: .common)
@@ -208,6 +209,7 @@ struct ImagePreviewScreen: View {
             }
             
         }
+        .toolbar(.hidden)
         .alert(camera.alertTitle, isPresented: $camera.showAlert, actions: {
             Button(role: .cancel) {
                 path.removeAll()
@@ -223,9 +225,7 @@ struct ImagePreviewScreen: View {
                 shareMedia = false
             }
         })
-        //.toolbar(.hidden, for: .navigationBar)
-        //.toolbar(.hidden, for: .tabBar)
-        .toolbar(.hidden)
+        .toolbar(.hidden, for: .tabBar)
         .onAppear {
             AppDelegate.orientationLock = UIInterfaceOrientationMask.portrait
             UIDevice.current.setValue(UIInterfaceOrientation.portrait.rawValue, forKey: "orientation")
