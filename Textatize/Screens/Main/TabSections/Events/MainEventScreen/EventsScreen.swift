@@ -250,6 +250,7 @@ struct EventsScreen: View {
                     presentAlert = true
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     private func deleteEvent(event: Event) {
