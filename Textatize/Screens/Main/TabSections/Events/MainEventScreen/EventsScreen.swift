@@ -213,17 +213,17 @@ struct EventsScreen: View {
             .navigationBarHidden(true)
             .navigationDestination(for: Int.self) { item in
                 if item == 1 {
-                    EditEventScreen(path: $path, event: selectedEvent)
+                    EditEventScreen(path: $path, event: vm.selectedEvent)
                 }
                 if item == 2 {
                     EventDetailScreen(path: $path, event: vm.selectedEvent!)
                 }
                 if item == 3 {
-                    FrameScreen(path: $path, event: vm.selectedEvent!, orientation: vm.orientation)
+                    FrameScreen(path: $path, event: vm.selectedEvent, orientation: vm.orientation)
                 }
                 
                 if item == 4 {
-                    CheckAllInfoScreen(path: $path, event: vm.selectedEvent!, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
+                    CheckAllInfoScreen(path: $path, event: vm.selectedEvent, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
                 }
                 if item == 5 {
                     CameraView(path: $path, event: vm.selectedEvent!)
