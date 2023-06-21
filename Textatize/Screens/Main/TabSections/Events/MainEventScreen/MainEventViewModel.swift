@@ -35,6 +35,7 @@ class EventViewModel: ObservableObject {
     @Published var addon: AddOn? = nil
     
     let textatizeAPI = TextatizeAPI.shared
+    let loginManager = TextatizeLoginManager.shared
     let defaults = UserDefaults.standard
     
     

@@ -57,7 +57,7 @@ struct EventsScreen: View {
                         .padding()
                     
                     VStack {
-                        Text(vm.firstName)
+                        Text(vm.loginManager.loggedInUser?.firstName ?? "No Name Found")
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .font(.title)
                             .fontWeight(.semibold)
@@ -250,6 +250,7 @@ struct EventsScreen: View {
                     presentAlert = true
                 }
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     private func deleteEvent(event: Event) {

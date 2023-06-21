@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContactInformationScreen: View {
-    @Environment(\.dismiss) var dismiss
+    @Binding var path: [ScreenNav]
     
     @State private var nameTxt = ""
     @State private var emailTxt = ""
@@ -83,18 +83,16 @@ struct ContactInformationScreen: View {
                 
             }
             .customBackground()
+            
+            CustomBackButtom(path: $path)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
-        }
-        .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 struct ContactInformationScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ContactInformationScreen()
+        ContactInformationScreen(path: .constant([ScreenNav.contactInformation]))
     }
 }

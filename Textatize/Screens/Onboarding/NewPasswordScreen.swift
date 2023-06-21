@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct NewPasswordScreen: View {
-    @Environment(\.dismiss) var dismiss
-    
+    @Binding var path: [OnboardingNav]
     @State private var password = ""
     @State private var confirmPassword = ""
     
@@ -83,25 +82,23 @@ struct NewPasswordScreen: View {
                     
                     Spacer()
                     
-//                    NavigationLink {
-//                        LoginScreen()
-//                    } label: {
-//                        CustomButtonView(filled: true, name: "Log in")
-//                    }
+                    Button {
+                        path.removeAll()
+                    } label: {
+                        CustomButtonView(filled: true, name: "Log in")
+                    }
 
                 }
                 .padding()
             }
             .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal, 20)
+            
+            CustomOnboardingBackButtom(path: $path)
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
-        }
-        .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .navigationBar)
     }
     
     private func continueAction() {
@@ -111,6 +108,6 @@ struct NewPasswordScreen: View {
 
 struct NewPasswordScreen_Previews: PreviewProvider {
     static var previews: some View {
-        NewPasswordScreen()
+        NewPasswordScreen(path: .constant([.newPasswordScreen]))
     }
 }

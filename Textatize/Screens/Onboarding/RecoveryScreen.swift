@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RecoveryScreen: View {
-    @Environment(\.dismiss) var dismiss
+    @Binding var path: [OnboardingNav]
     
     @State private var verificationTxt = ""
     
@@ -65,31 +65,27 @@ struct RecoveryScreen: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        NewPasswordScreen()
-                    } label: {
+                    NavigationLink(value: OnboardingNav.newPasswordScreen) {
                         CustomButtonView(filled: true, name: "Continue")
-                    }
 
+                    }
                 }
                 .padding()
                 
             }
             .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal, 20)
+            
+            CustomOnboardingBackButtom(path: $path)
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
-        }
-        .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 struct RecoveryScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RecoveryScreen()
+        RecoveryScreen(path: .constant([.recoveryScreen]))
     }
 }

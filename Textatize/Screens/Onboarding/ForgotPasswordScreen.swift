@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct ForgotPasswordScreen: View {
-    @Environment(\.dismiss) var dismiss
-    
+    @Binding var path: [OnboardingNav]
     @State private var emailTxt = ""
     
     var body: some View {
@@ -58,27 +57,23 @@ struct ForgotPasswordScreen: View {
                     
                     Spacer()
                     
-                    NavigationLink {
-                        RecoveryScreen()
-                    } label: {
+                    NavigationLink(value: OnboardingNav.recoveryScreen) {
                         CustomButtonView(filled: true, name: "Continue")
                     }
+
                 }
                 .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                .padding(.vertical, 20)
                 .padding()
                 
             }
             .customBackground()
-            .padding(.vertical, 45)
-            .padding(.horizontal, 20)
+            
+            CustomOnboardingBackButtom(path: $path)
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            
         }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                CustomBackButtom(action: dismiss)
-            }
-        }
-        .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .navigationBar)
     }
     
     private func continueAction() {
@@ -88,6 +83,6 @@ struct ForgotPasswordScreen: View {
 
 struct ForgotPasswordScreen_Previews: PreviewProvider {
     static var previews: some View {
-        ForgotPasswordScreen()
+        ForgotPasswordScreen(path: .constant([.forgotPasswordScreen]))
     }
 }

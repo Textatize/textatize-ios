@@ -162,6 +162,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    method: .get,
                    parameters: parameters)
         .validate().responseJSON { [weak self] response  in
+            print("User Response: \(response)")
             if let api = self {
                 
                 switch response.result {
@@ -184,6 +185,9 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                             }
                             
                             TextatizeLoginManager.shared.is_logged_in = true
+                            if let user = userResponse.user {
+                                TextatizeLoginManager.shared.loggedInUser = user
+                            }
                             api.handleLogin(userResponse, api, completion: completion)
                         }
                         
@@ -254,7 +258,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                   method: .put,
                   headers: ["authorization": "Bearer \(sessionToken)"]
         ).validate().responseJSON { response in
-            print("Update Event: \(response)")
+            //print("Update Event: \(response)")
             switch response.result {
             case .success(let success):
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
@@ -322,7 +326,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }, to: "\(API_URL)/event",
                   method: .post,
                   headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
-            print("Response: \(response)")
+            //print("Response: \(response)")
             
             switch response.result {
             case .success:
@@ -350,7 +354,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    method: .delete,
                    headers: ["authorization": "Bearer \(sessionToken)"]
         ).validate().responseJSON { response in
-            print("Delete Event Response: \(response)")
+            //print("Delete Event Response: \(response)")
             
             switch response.result {
             case .success:
@@ -372,7 +376,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    method: .put,
                    headers: ["authorization": "Bearer \(sessionToken)"]
         ).validate().responseJSON { response in
-            print("Complete Event Response: \(response)")
+            //print("Complete Event Response: \(response)")
             
             switch response.result {
             case .success:
@@ -402,7 +406,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                   method: .post,
                   headers: ["authorization": "Bearer \(sessionToken)"]).validate().responseJSON { response in
             
-            print("Add Media Response: \(response)")
+            //print("Add Media Response: \(response)")
             
             
             switch response.result {
@@ -437,7 +441,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    parameters: parameters,
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { response in
-            print("Share Media Response: \(response)")
+            //print("Share Media Response: \(response)")
             switch response.result {
             case .success:
                 completion(nil, true)
@@ -480,39 +484,6 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
-    //    func retrieveEvent(page: String?, eventID: String, completion: @escaping (ServerError?, MediasResponse?) -> Void) {
-    //
-    //        guard hasInternet else { return completion(ServerError.noInternet, nil) }
-    //
-    //        guard let sessionToken = sessionToken else { return }
-    //
-    //        var parameters: Parameters = [:]
-    //        if let page  = page {
-    //            parameters["page"] = page
-    //        }
-    //
-    //        AF.request(API_URL + "media/\(eventID)",
-    //                   method: .get,
-    //                   parameters: parameters,
-    //                   headers: ["authorization": "Bearer \(sessionToken)"])
-    //        .validate().responseJSON { [weak self] response in
-    //            guard let self = `self` else { return }
-    //            print("Retrieve Event Response: \(response)")
-    //
-    //            switch response.result {
-    //            case .success:
-    //                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-    //                    let mediasResponse = MediasResponse(JSONString: utf8Text)
-    //                    completion(nil, mediasResponse)
-    //                }
-    //
-    //            case .failure(let error):
-    //                completion(ServerError(WithMessage: error.localizedDescription), nil)
-    //            }
-    //
-    //        }
-    //    }
-    
     func retrieveEvents(status: EventStatus?, page: String?, completion: @escaping (ServerError?, EventsResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
@@ -536,7 +507,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                        headers: ["authorization": "Bearer \(sessionToken)"])
             .validate().responseJSON { [weak self] response in
                 if let api = self {
-                    print("Retrieve Events Response: \(response)")
+                    //print("Retrieve Events Response: \(response)")
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
@@ -568,7 +539,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
             guard let self = `self` else { return }
-           // print("Retrieve User Response: \(response)")
+            print("Retrieve User Response: \(response)")
             
             switch response.result {
             case .success:
@@ -615,19 +586,14 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
-    func reverifyUser(code: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+    func resendVerificationCode(completion: @escaping (ServerError?, UserResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
-        
-        
+
         guard let sessionToken = sessionToken else { return }
-        
-        var parameters: Parameters = [:]
-        parameters["code"] = code
         
         AF.request(API_URL + "user/resendVerify",
                    method: .get,
-                   parameters: parameters,
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
             guard let self = `self` else { return }
