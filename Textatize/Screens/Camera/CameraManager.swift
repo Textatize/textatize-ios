@@ -111,8 +111,10 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         self.picData = nil
         DispatchQueue.global(qos: .background).async {
             self.output.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
-            DispatchQueue.main.async  {
-                self.session.stopRunning()
+            DispatchQueue.main.async {
+                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+                    self.session.stopRunning()
+                }
             }
         }
         

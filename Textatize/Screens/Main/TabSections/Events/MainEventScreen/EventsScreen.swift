@@ -42,6 +42,8 @@ struct EventsScreen: View {
     @State private var alertMessage = ""
     @State private var alertType: AlertType = .delete
     
+    let sessionQue = DispatchQueue(label: "EventSelectionQueue")
+    
     var body: some View {
         NavigationStack(path: $path) {
             
@@ -153,10 +155,10 @@ struct EventsScreen: View {
                                 
                                 ForEach(currentSelected ? vm.events : vm.completedEvents) { event in
                                     Button {
-                                        selectedEvent = event
-                                            if selectedEvent != nil {
-                                                path.append(2)
-                                            }
+                                        sessionQue.sync {
+                                            vm.selectedEvent = event
+                                            path.append(2)
+                                        }
                                         
                                     } label: {
                                         if currentSelected {
@@ -214,23 +216,24 @@ struct EventsScreen: View {
                     EditEventScreen(path: $path, event: selectedEvent)
                 }
                 if item == 2 {
-                    EventDetailScreen(path: $path, event: selectedEvent)
+                    EventDetailScreen(path: $path, event: vm.selectedEvent!)
                 }
                 if item == 3 {
-                    FrameScreen(path: $path, event: selectedEvent, orientation: vm.orientation)
+                    FrameScreen(path: $path, event: vm.selectedEvent!, orientation: vm.orientation)
                 }
                 
                 if item == 4 {
-                    CheckAllInfoScreen(path: $path, event: selectedEvent, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
+                    CheckAllInfoScreen(path: $path, event: vm.selectedEvent!, name: vm.name, date: vm.date, location: vm.location, orientation: vm.orientation, camera: vm.camera, hostName: vm.hostName, watermarkImage: vm.selectedWatermark, watermarkTransparency: vm.watermarkTransparency, watermarkPosition: vm.watermarkPosition, frame: vm.selectedFrame, addon: vm.addon)
                 }
                 if item == 5 {
-                    CameraView(path: $path, event: selectedEvent, frame: selectedEvent?.frame, watermarkImage: selectedEvent?.watermarkUrl)
+                    CameraView(path: $path, event: vm.selectedEvent!)
                 }
                 if item == 6 {
-                    ImagePreviewScreen(path: $path, event: selectedEvent)
+                    ImagePreviewScreen(path: $path, event: vm.selectedEvent!)
                 }
             }
             .onAppear {
+                vm.selectedEvent = nil
                 path.removeAll()
                 vm.refreshEvents()
             }
