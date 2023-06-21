@@ -253,8 +253,7 @@ struct XMarkButtonDismiss: View {
     var body: some View {
         
         Button {
-            print("Button Pressed")
-            path.removeAll()
+            path.append(2)
         } label: {
             Image(systemName: "xmark")
                 .accentColor(.black)
