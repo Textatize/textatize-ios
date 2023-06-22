@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import Combine
 
 class EventDetailScreenViewModel: ObservableObject {
     static let shared = EventDetailScreenViewModel()
@@ -17,10 +18,79 @@ class EventDetailScreenViewModel: ObservableObject {
     @Published var selectedMediaImageData: Data? = nil
     @Published var showGallaryImage = false
     
+    @Published var eventFrame: UIImage? = nil
+    @Published var eventWatermark: UIImage? = nil
+    @Published var eventMediaImages = [UIImage]()
+    
     let textatizeAPI = TextatizeAPI.shared
-
+    let sessionQue = DispatchQueue(label: "DownloadSession")
     
     private init() { }
+    
+    func reset() {
+        medias = []
+        frames = []
+        eventFrame = nil
+        eventWatermark = nil
+        eventMediaImages = []
+    }
+    
+    func downloadFrame(event: Event) {
+        guard let frame = event.frame else { return }
+        guard let frameURL = URL(string: frame.unwrappedURL) else { return }
+        FileDownloader.shared.loadFileAsync(url: frameURL) { [weak self] path, error in
+            guard let self = `self` else { return }
+
+            if let error = error {
+                print("Frame Download Error: \(error)")
+            }
+            if let path = path {
+                if let frameImage = UIImage(named: path) {
+                    DispatchQueue.main.async {
+                        self.eventFrame = frameImage
+                    }
+                }
+            }
+        }
+    }
+    
+    func downloadWatermark(event: Event) {
+        guard let watermarkURL = URL(string: event.getWatermarkUrl) else { return }
+        FileDownloader.shared.loadFileAsync(url: watermarkURL) { [weak self] path, error in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print("Watermark Download Error: \(error)")
+            }
+            if let path = path {
+                if let watermarkImage = UIImage(named: path) {
+                    DispatchQueue.main.async {
+                        self.eventWatermark = watermarkImage
+                    }
+                }
+            }
+        }
+    }
+    
+    private func downloadMedia(medias: [Media]) {
+        for media in medias {
+            guard let mediaURL = URL(string: media.unwrappedURL) else { return }
+            FileDownloader.shared.loadFileAsync(url: mediaURL) { [weak self] path, error in
+                guard let self = `self` else { return }
+                if let error = error {
+                    print("Frame Download Error: \(error)")
+                }
+                if let path = path {
+                    if let mediaImage = UIImage(named: path) {
+                        DispatchQueue.main.async {
+                            self.eventMediaImages.append(mediaImage)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     
     func getMedia(event: Event) {
         if let eventId = event.unique_id {
@@ -32,62 +102,19 @@ class EventDetailScreenViewModel: ObservableObject {
                 }
                 
                 if let mediaResponse = mediaResponse, let APIMedias = mediaResponse.medias {
-                    self.medias = APIMedias
-                    print("Media For \(eventId)")
-                    print(medias.count)
+                    downloadMedia(medias: APIMedias)
                 }
             }
         }
         
     }
     
-    func getFrames(orientation: Orientation?, page: String?) {
-        textatizeAPI.retrieveFrames(orientation: orientation) { [weak self] error, framesResponse in
-            guard let self = `self` else { return }
-            
-            if let error = error {
-                print(error.getMessage() ?? "No Message Found")
-            }
-            
-            if let framesResponse = framesResponse, let APIFrames = framesResponse.frames {
-                self.frames = APIFrames
-                print("Frames Success")
-                print(frames.count)
-            }
-        }
-    }
-    
-    func getFrameImage(frame: Frame? = nil) -> Image? {
-        
-        if let frame = frame {
-            guard let frameID = frame.unique_id else {
-                return Image(systemName: "photo")
-            }
-            guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
-                return Image(systemName: "photo")
-            }
-            return Image(uiImage: frameImage)
-        }
-        return nil
-    }
-    
-    func getImageData(media: Media) {
-        guard let mediaURL = URL(string: media.unwrappedURL) else { return }
-        KingfisherManager.shared.retrieveImage(with: mediaURL) { result in
-            switch result {
-            case .success(let value):
-                if let cgImage = value.image.cgImage {
-                    self.selectedMediaImage = UIImage(cgImage: cgImage)
-                    if let imageData = self.selectedMediaImage?.jpegData(compressionQuality: 0.5) {
-                        self.selectedMediaImageData = imageData
-                        print("Media Image Retrieved Successful")
-                        withAnimation {
-                            self.showGallaryImage = true
-                        }
-                    }
-                }
-            case .failure(_):
-                print("Media Image Not retrieved")
+    func getImageData(mediaImage: UIImage) {
+        self.selectedMediaImage = mediaImage
+        if let imageData = mediaImage.jpegData(compressionQuality: 0.5) {
+            self.selectedMediaImageData = imageData
+            withAnimation {
+                self.showGallaryImage = true
             }
         }
     }

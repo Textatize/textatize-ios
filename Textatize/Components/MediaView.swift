@@ -9,19 +9,10 @@ import SwiftUI
 import Kingfisher
 
 struct MediaView: View {
-    var media: Media
+    var mediaImage: UIImage
     var body: some View {
-        KFImage.url(URL(string: media.unwrappedURL))
+       Image(uiImage: mediaImage)
             .resizable()
-            .placeholder({
-                ProgressView()
-            })
-            .loadDiskFileSynchronously()
-            .cacheMemoryOnly()
-            .fade(duration: 0.25)
-            .onProgress { receivedSize, totalSize in  }
-            .onSuccess { result in  }
-            .onFailure { error in }
     }
 }
 

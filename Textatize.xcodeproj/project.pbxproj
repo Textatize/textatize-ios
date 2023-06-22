@@ -82,6 +82,7 @@
 		54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */; };
 		54C43CF82A30D52000807EC0 /* EventDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */; };
 		54C43CFC2A30D91B00807EC0 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CFB2A30D91B00807EC0 /* MediaView.swift */; };
+		54DAC6522A44725900199E21 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DAC6512A44725900199E21 /* FileDownloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -180,6 +181,7 @@
 		54C43CED2A30C4D700807EC0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreenViewModel.swift; sourceTree = "<group>"; };
 		54C43CFB2A30D91B00807EC0 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		54DAC6512A44725900199E21 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloader.swift; sourceTree = "<group>"; };
 		9175FEBC3E09916890F6FB7D /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
 		D5164231DC6C683F367109CA /* Pods_Textatize.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Textatize.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D884862685EE411F62FBBC9D /* EntityInfo-Textatize.generated.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "EntityInfo-Textatize.generated.swift"; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				5432634F2A175A0100C96A1A /* ServerError.swift */,
 				546F17ED2A202AB400554234 /* NetworkSpeedTest.swift */,
 				549A6C1D2A2EBD76000C1182 /* ForegroundUploadManager.swift */,
+				54DAC6512A44725900199E21 /* FileDownloader.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -787,6 +790,7 @@
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
 				54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */,
 				543263542A1760E700C96A1A /* EventsResponse.swift in Sources */,
+				54DAC6522A44725900199E21 /* FileDownloader.swift in Sources */,
 				540977862A1E522C0079862F /* EnumHelpers.swift in Sources */,
 				5498253F2A3A36BD0065CF62 /* AddEventCard.swift in Sources */,
 				54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */,
