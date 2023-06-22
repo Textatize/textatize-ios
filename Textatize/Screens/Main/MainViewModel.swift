@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Kingfisher
+import AVFoundation
 
 class MainViewModel: ObservableObject {
     static let shared = MainViewModel()
@@ -48,6 +49,19 @@ class MainViewModel: ObservableObject {
                     print("Error Downloading Image: \(error.localizedDescription)")
                 }
             }
+        }
+    }
+    
+    func checkPermissions() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            return
+            
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { _ in }
+            
+        default:
+            break
         }
     }
     

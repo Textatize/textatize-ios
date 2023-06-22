@@ -88,7 +88,7 @@ struct ImageDetailView: View {
 
 struct ShareGalleryImage: View {
     
-    @State private var number = ""
+    @Binding var number: String
     var eventID: String
     @Binding var showView: Bool
     var imageData: Data? = nil
@@ -253,8 +253,7 @@ struct XMarkButtonDismiss: View {
     var body: some View {
         
         Button {
-            print("Button Pressed")
-            path.removeAll()
+            path = [2]
         } label: {
             Image(systemName: "xmark")
                 .accentColor(.black)

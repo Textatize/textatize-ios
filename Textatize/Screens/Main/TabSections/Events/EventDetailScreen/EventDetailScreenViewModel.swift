@@ -14,9 +14,16 @@ class EventDetailScreenViewModel: ObservableObject {
     
     @Published var medias = [Media]()
     @Published var frames = [Frame]()
+    @Published var selectedMedia: Media? = nil
     @Published var selectedMediaImage: UIImage? = nil
     @Published var selectedMediaImageData: Data? = nil
-    @Published var showGallaryImage = false
+    @Published var showGalleryImage = false
+    
+    @Published var alertTitle = ""
+    @Published var alertMessage = ""
+    @Published var showAlert = false
+    
+    @Published var mediaShared = false
     
     @Published var eventFrame: UIImage? = nil
     @Published var eventWatermark: UIImage? = nil
@@ -117,5 +124,18 @@ class EventDetailScreenViewModel: ObservableObject {
                 self.showGallaryImage = true
             }
         }
+    }
+    
+    func shareMedia(number: String, mediaID: String) {
+            TextatizeAPI.shared.shareMedia(phoneNumber: number, mediaID: mediaID) { error, success in
+                if let error = error {
+                    self.alertTitle     = "Share Media Error"
+                    self.alertMessage   = error.getMessage() ?? "Error Sharing Media"
+                    self.showAlert      = true
+                }
+                if let success = success, success {
+                    self.mediaShared = true
+                }
+            }
     }
 }
