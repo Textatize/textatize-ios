@@ -25,7 +25,10 @@ struct EventsScreen: View {
     let iPhoneLayout = [
         GridItem(.flexible())
     ]
-        
+    
+    @State private var currentEvents = [Event]()
+    @State private var completedEvents = [Event]()
+
     @State private var path = [Int]()
     @State private var selectedEvent: Event? = nil    
         
@@ -153,7 +156,7 @@ struct EventsScreen: View {
                                         .padding()
                                 }
                                 
-                                ForEach(currentSelected ? vm.events : vm.completedEvents) { event in
+                                ForEach(currentSelected ? currentEvents : completedEvents) { event in
                                     Button {
                                         sessionQue.sync {
                                             vm.selectedEvent = event
@@ -210,6 +213,38 @@ struct EventsScreen: View {
             }, message: {
                 Text(alertMessage)
             })
+            .onReceive(NotificationCenter.default.publisher(for: .updateEvent)) { notification in
+                guard let userInfo = notification.userInfo,
+                      let object = userInfo["object"] as? Event else {
+                    return
+                }
+                currentEvents.removeAll { $0.unique_id! == object.unique_id! }
+                completedEvents.removeAll { $0.unique_id! == object.unique_id! }
+
+                if object.status == "active" {
+                    currentEvents.append(object)
+                }
+                if object.status == "completed" {
+                    completedEvents.append(object)
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .completeEvent)) { notification in
+                guard let userInfo = notification.userInfo,
+                      let object = userInfo["object"] as? Event else {
+                    return
+                }
+                
+                currentEvents.removeAll { $0.unique_id! == object.unique_id! }
+                completedEvents.append(object)
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .deleteEvent)) { notification in
+                guard let userInfo = notification.userInfo,
+                      let object = userInfo["object"] as? Event else {
+                    return
+                }
+                currentEvents.removeAll { $0.unique_id! == object.unique_id! }
+                completedEvents.removeAll { $0.unique_id! == object.unique_id! }
+            }
             .navigationBarHidden(true)
             .navigationDestination(for: Int.self) { item in
                 if item == 1 {
@@ -256,6 +291,7 @@ struct EventsScreen: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
+    
     private func deleteEvent(event: Event) {
         vm.deleteEvent(event: event)
     }

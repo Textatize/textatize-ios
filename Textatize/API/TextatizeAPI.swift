@@ -262,8 +262,10 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             switch response.result {
             case .success(let success):
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
-                    let eventResponse = EventResponse(JSONString: utf8String)
-                    completion(nil, eventResponse)
+                    if let eventResponse = EventResponse(JSONString: utf8String) {
+                        eventResponse.cache()
+                        completion(nil, eventResponse)
+                    }
                 }
             case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
@@ -331,8 +333,10 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             switch response.result {
             case .success:
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
-                    let eventResponse = EventResponse(JSONString: utf8String)
-                    completion(nil, eventResponse)
+                    if let eventResponse = EventResponse(JSONString: utf8String) {
+                        eventResponse.cache()
+                        completion(nil, eventResponse)
+                    }
                 }
             case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
@@ -358,7 +362,12 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             
             switch response.result {
             case .success:
-                    completion(nil, true)
+                if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
+                    if let eventResponse = EventResponse(JSONString: utf8String) {
+                        eventResponse.delete()
+                        completion(nil, true)
+                    }
+                }
                 
         case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), false)
@@ -380,7 +389,12 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             
             switch response.result {
             case .success:
-                    completion(nil, true)
+                if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
+                    if let eventResponse = EventResponse(JSONString: utf8String) {
+                        eventResponse.complete()
+                        completion(nil, true)
+                    }
+                }
                 
         case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), false)
@@ -511,8 +525,10 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                     switch response.result {
                     case .success:
                         if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                            let eventResponse = EventsResponse(JSONString: utf8Text)
-                            completion(nil, eventResponse)
+                            if let eventResponse = EventsResponse(JSONString: utf8Text) {
+                                eventResponse.cache()
+                                completion(nil, eventResponse)
+                            }
                             
                         } else {
                             completion(ServerError.defaultError, nil)

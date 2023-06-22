@@ -17,8 +17,6 @@ class EventViewModel: ObservableObject {
     static let shared = EventViewModel()
     
     @Published var firstName = TextatizeLoginManager.shared.loggedInUser?.firstName ?? "No Name Found"
-    @Published var events = [Event]()
-    @Published var completedEvents = [Event]()
     
     @Published var selectedEvent: Event? = nil
     
@@ -47,11 +45,11 @@ class EventViewModel: ObservableObject {
             if let error = error {
                 print(error.getMessage() ?? "No Message Found")
             }
-            
-            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
-                self.events = APIEvents
-                print("Active Events")
-            }
+//            
+//            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+//                self.events = APIEvents
+//                print("Active Events")
+//            }
         }
         
         textatizeAPI.retrieveEvents(status: .completed, page: nil) { [weak self] error, eventsResponse in
@@ -60,11 +58,11 @@ class EventViewModel: ObservableObject {
             if let error = error {
                 print(error.getMessage() ?? "No Message Found")
             }
-            
-            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
-                self.completedEvents = APIEvents
-                print("Completed Events")
-            }
+//            
+//            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+//                self.completedEvents = APIEvents
+//                print("Completed Events")
+//            }
         }
     }
     
@@ -76,10 +74,10 @@ class EventViewModel: ObservableObject {
                 print(error.getMessage() ?? "No Message Found")
             }
             
-            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
-                self.events = APIEvents
-                print("Active Events")
-            }
+//            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+//                self.events = APIEvents
+//                print("Active Events")
+//            }
         }
         
         textatizeAPI.retrieveEvents(status: .completed, page: nil) { [weak self] error, eventsResponse in
@@ -89,10 +87,10 @@ class EventViewModel: ObservableObject {
                 print(error.getMessage() ?? "No Message Found")
             }
             
-            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
-                self.completedEvents = APIEvents
-                print("Completed Events")
-            }
+//            if let eventsResponse = eventsResponse, let APIEvents = eventsResponse.events {
+//                self.completedEvents = APIEvents
+//                print("Completed Events")
+//            }
         }
     }
     

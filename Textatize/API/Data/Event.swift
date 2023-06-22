@@ -120,6 +120,26 @@ class Event: AbstractServerObject, Identifiable {
     var getUseFrame: Bool {
         useFrame ?? true
     }
+    
+    func cache() {
+        CacheManager.shared.setObject(anObject: self, forKey: self.unique_id!)
+        NotificationCenter.default.post(name:.updateEvent,
+                                        object: nil,
+                                        userInfo: ["object":self])
+    }
+    
+    func delete() {
+        CacheManager.shared.removeObjectForKey(aKey: self)
+        NotificationCenter.default.post(name:.deleteEvent,
+                                        object: nil,
+                                        userInfo: ["object":self])
+    }
+    
+    func complete() {
+        NotificationCenter.default.post(name:.completeEvent,
+                                        object: nil,
+                                        userInfo: ["object":self])
+    }
 }
 
 class EventDate: AbstractServerObject {
