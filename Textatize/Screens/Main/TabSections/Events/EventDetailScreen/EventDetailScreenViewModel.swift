@@ -121,7 +121,7 @@ class EventDetailScreenViewModel: ObservableObject {
         if let imageData = mediaImage.jpegData(compressionQuality: 0.5) {
             self.selectedMediaImageData = imageData
             withAnimation {
-                self.showGallaryImage = true
+                self.showGalleryImage = true
             }
         }
     }

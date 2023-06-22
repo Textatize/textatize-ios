@@ -159,7 +159,6 @@ struct EventsScreen: View {
                                             vm.selectedEvent = event
                                             path.append(2)
                                         }
-                                        
                                     } label: {
                                         if currentSelected {
                                             EventCard(type: .current, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)

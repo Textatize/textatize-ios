@@ -21,7 +21,7 @@ struct EventDetailScreen: View {
     ]
     
     var event: Event? = nil
-
+    
     @State var name: String = ""
     @State var date: String?
     @State var location: String = ""
@@ -34,8 +34,8 @@ struct EventDetailScreen: View {
     @State var watermarkURL: URL? = nil
     
     @State private var shareMedia = false
-        
-    var body: some View {        
+    
+    var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
@@ -159,7 +159,7 @@ struct EventDetailScreen: View {
                                         }
                                         if let event = event, !event.getUseFrame {
                                             showWatermark.toggle()
-
+                                            
                                         }
                                     }
                                 } label: {
@@ -298,7 +298,6 @@ struct EventDetailScreen: View {
         }, message: {
             Text(vm.alertMessage)
         })
-    }
         .onDisappear {
             vm.reset()
         }
