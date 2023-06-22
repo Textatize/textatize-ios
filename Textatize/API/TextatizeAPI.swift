@@ -441,10 +441,23 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    parameters: parameters,
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { response in
-            //print("Share Media Response: \(response)")
+            print("Share Media Response: \(response)")
             switch response.result {
             case .success:
-                completion(nil, true)
+                
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    if let mediaResponse = MediaResponse(JSONString: utf8Text) {
+                        if let mediaError = mediaResponse.error {
+                            completion(ServerError(WithMessage: mediaError), nil)
+                        } else {
+                            completion(nil, true)
+                        }
+                    } else {
+                        completion(ServerError(WithMessage: "No Media Response"), nil)
+                    }
+                } else {
+                    completion(ServerError(WithMessage: "No Data Found"), nil)
+                }
             case .failure(let error):
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
                 

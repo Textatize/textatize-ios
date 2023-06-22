@@ -42,6 +42,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var photoReady = false
     @Published var processedPhoto: UIImage?
     @Published var sessionRunning = false
+    @Published var mediaShared = false
     
     @Published var showAlert = false
     @Published var alertTitle = ""
@@ -299,15 +300,12 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         if let mediaID = UserDefaults.standard.object(forKey: "mediaID") as? String, let number = UserDefaults.standard.string(forKey: "shareNumber") as? String {
             TextatizeAPI.shared.shareMedia(phoneNumber: number, mediaID: mediaID) { error, success in
                 if let error = error {
-                    print(error)
+                    self.alertTitle     = "Share Media Error"
+                    self.alertMessage   = error.getMessage() ?? "Error Sharing Media"
+                    self.showAlert      = true
                 }
-                
                 if let success = success, success {
-                    self.alertTitle = "Alert"
-                    self.alertMessage = "Media Shared: \(number)"
-                    withAnimation {
-                        self.showAlert = true
-                    }
+                    self.mediaShared = true
                 }
             }
         }
