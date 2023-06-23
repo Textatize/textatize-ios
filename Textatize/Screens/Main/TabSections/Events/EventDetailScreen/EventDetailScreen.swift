@@ -21,7 +21,7 @@ struct EventDetailScreen: View {
     ]
     
     var event: Event? = nil
-
+    
     @State var name: String = ""
     @State var date: String?
     @State var location: String = ""
@@ -34,8 +34,8 @@ struct EventDetailScreen: View {
     @State var watermarkURL: URL? = nil
     
     @State private var shareMedia = false
-        
-    var body: some View {        
+    
+    var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
@@ -159,7 +159,7 @@ struct EventDetailScreen: View {
                                         }
                                         if let event = event, !event.getUseFrame {
                                             showWatermark.toggle()
-
+                                            
                                         }
                                     }
                                 } label: {
@@ -191,16 +191,17 @@ struct EventDetailScreen: View {
                                 }
                                 
                                 if showFrames {
-                                    if let frameImage = vm.getFrameImage(frame: event?.frame) {
-                                        frameImage
+                                    
+                                    if let eventFrame = vm.eventFrame {
+                                        Image(uiImage: eventFrame)
                                             .resizable()
                                             .frame(width: 50, height: 50)
                                     }
                                 }
                                 
                                 if showWatermark {
-                                    if let url = watermarkURL {
-                                        KFImage(url)
+                                    if let eventWatermark = vm.eventWatermark {
+                                        Image(uiImage: eventWatermark)
                                             .resizable()
                                             .frame(width: 50, height: 50)
                                     }
@@ -223,11 +224,11 @@ struct EventDetailScreen: View {
                                 .frame(maxWidth: .infinity, alignment: .center)
                             
                             LazyVGrid(columns: layout) {
-                                ForEach(0..<vm.medias.count, id: \.self) { item in
-                                    MediaView(media: vm.medias[item])
-                                        .onTapGesture(perform: {
-                                            vm.getImageData(media: vm.medias[item])
-                                        })
+                                ForEach(vm.eventMediaImages) { mediaImage in
+                                    MediaView(mediaImage: mediaImage)
+                                        .onTapGesture {
+                                            vm.getImageData(mediaImage: mediaImage)
+                                        }
                                         .frame(width: 100, height: 100)
                                         .padding()
                                     
@@ -268,23 +269,13 @@ struct EventDetailScreen: View {
         .toolbar(vm.showGalleryImage ? .hidden : .visible, for: .tabBar)
         .onAppear {
             if let event = event {
-                vm.getMedia(event: event)
-                vm.getFrames(orientation: event.getOrientation, page: nil)
+                downloadAssets(event: event)
                 name = event.getName
                 date = event.getDate
                 location = event.getLocation
                 orientation = event.getOrientation.rawValue
                 camera = event.getCamera.rawValue
                 hostName = event.getName
-                
-                if !event.getUseFrame {
-                    guard let url = URL(string: event.getWatermarkUrl) else { return }
-                    watermarkURL = url
-                } else {
-                    watermarkURL = nil
-                }
-                
-                print("UseFrame: \(event.getUseFrame)")
             }
         }
         .onChange(of: shareMedia) { value in
@@ -307,7 +298,21 @@ struct EventDetailScreen: View {
         }, message: {
             Text(vm.alertMessage)
         })
+        .onDisappear {
+            vm.reset()
+        }
     }
+    
+    private func downloadAssets(event: Event) {
+        vm.getMedia(event: event)
+        switch event.getUseFrame {
+        case true:
+            vm.downloadFrame(event: event)
+        case false:
+            vm.downloadWatermark(event: event)
+        }
+    }
+    
 }
 
 struct EventDetailScreen_Previews: PreviewProvider {

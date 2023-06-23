@@ -82,6 +82,7 @@
 		54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */; };
 		54C43CF82A30D52000807EC0 /* EventDetailScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */; };
 		54C43CFC2A30D91B00807EC0 /* MediaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CFB2A30D91B00807EC0 /* MediaView.swift */; };
+		54D5670C2A461BB1005E52E9 /* FileDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54D5670B2A461BB1005E52E9 /* FileDownloader.swift */; };
 		54DAC6542A448CD700199E21 /* CacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DAC6532A448CD700199E21 /* CacheManager.swift */; };
 		54DAC6562A448E1900199E21 /* NotificationCenterNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54DAC6552A448E1900199E21 /* NotificationCenterNames.swift */; };
 /* End PBXBuildFile section */
@@ -182,6 +183,7 @@
 		54C43CED2A30C4D700807EC0 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		54C43CF72A30D52000807EC0 /* EventDetailScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailScreenViewModel.swift; sourceTree = "<group>"; };
 		54C43CFB2A30D91B00807EC0 /* MediaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaView.swift; sourceTree = "<group>"; };
+		54D5670B2A461BB1005E52E9 /* FileDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FileDownloader.swift; path = Data/FileDownloader.swift; sourceTree = "<group>"; };
 		54DAC6532A448CD700199E21 /* CacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManager.swift; sourceTree = "<group>"; };
 		54DAC6552A448E1900199E21 /* NotificationCenterNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterNames.swift; sourceTree = "<group>"; };
 		9175FEBC3E09916890F6FB7D /* Pods-Textatize.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Textatize.release.xcconfig"; path = "Target Support Files/Pods-Textatize/Pods-Textatize.release.xcconfig"; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 		5432633E2A1739E700C96A1A /* API */ = {
 			isa = PBXGroup;
 			children = (
+				54D5670B2A461BB1005E52E9 /* FileDownloader.swift */,
 				5432633F2A173D5F00C96A1A /* Data */,
 				543263462A17520600C96A1A /* Response */,
 				5432634D2A17571900C96A1A /* Keychain.swift */,
@@ -795,6 +798,7 @@
 				543263542A1760E700C96A1A /* EventsResponse.swift in Sources */,
 				540977862A1E522C0079862F /* EnumHelpers.swift in Sources */,
 				5498253F2A3A36BD0065CF62 /* AddEventCard.swift in Sources */,
+				54D5670C2A461BB1005E52E9 /* FileDownloader.swift in Sources */,
 				54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */,
 				54568EC42A128496001F5CE7 /* Texts.swift in Sources */,
 				542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */,

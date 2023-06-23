@@ -157,123 +157,113 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         guard let imageData = photo.fileDataRepresentation() else { return }
         self.picData = imageData
     }
+    
+    func downloadWatermark(event: Event, completion: @escaping ((UIImage) -> Void)) {
+        guard let watermarkURL = URL(string: event.getWatermarkUrl) else { return }
+        FileDownloader.shared.loadFileAsync(url: watermarkURL) { [weak self] path, error in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print("Watermark Download Error: \(error)")
+            }
+            if let path = path {
+                if let watermarkImage = UIImage(named: path) {
+                    completion(watermarkImage)
+                }
+            }
+        }
+    }
+    
+    func downloadFrame(event: Event, completion: @escaping ((UIImage) -> Void)) {
+        guard let frame = event.frame else { return }
+        guard let frameURL = URL(string: frame.unwrappedURL) else { return }
+        FileDownloader.shared.loadFileAsync(url: frameURL) { [weak self] path, error in
+            guard let self = `self` else { return }
 
-    func processPhotos(frame: Frame? = nil, watermarkString: String? = nil, position: WatermarkPosition? = nil, alpha: CGFloat? = nil) {
+            if let error = error {
+                print("Frame Download Error: \(error)")
+            }
+            if let path = path {
+                if let frameImage = UIImage(named: path) {
+                    completion(frameImage)
+                }
+            }
+        }
+    }
+
+    func processPhotos() {
         
         guard let pictureData = self.picData else { return  }
         guard let saveImage = UIImage(data: pictureData) else { return }
         guard let event = event else { return }
         
-        if let frame = frame {
-            guard let frameURL = URL(string: frame.unwrappedURL) else { return }
-            
-            KingfisherManager.shared.retrieveImage(with: frameURL) { result in
-                switch result {
-                case .success(let value):
-                    if let downloadedFrame = value.image.cgImage {
-                        let size = CGSize(width: downloadedFrame.width, height: downloadedFrame.height)
-                        UIGraphicsBeginImageContext(size)
-
-                        
-                        switch event.getOrientation {
-                        case .portrait:
-                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        case .landscape:
-                            let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
-                            landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        case .square:
-                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        }
-                        
-                        let frameImage = UIImage(cgImage: downloadedFrame)
-                        frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        
-                        
-                        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-                            self.processedPhoto = newImage
-                            withAnimation {
-                                self.photoReady = true
-                            }
-                        } else {
-                            self.processedPhoto = saveImage
-                            withAnimation {
-                                self.photoReady = true
-                            }
-                        }
-                        
-                    }
-                case .failure:
-                    print("Download Frame Failed")
+        switch event.getUseFrame {
+        case true:
+            downloadFrame(event: event) { frameImage in
+                
+                let size = CGSize(width: frameImage.size.width, height: frameImage.size.height)
+                UIGraphicsBeginImageContext(size)
+                
+                switch event.getOrientation {
+                case .portrait:
+                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                case .landscape:
+                    let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
+                    landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                case .square:
+                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                }
+                
+                frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                
+                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                self.processedPhoto = newImage ?? saveImage
+                
+                withAnimation {
+                    self.photoReady = true
                 }
             }
-        }
-        
-        if let watermarkString = watermarkString  {
-            guard let watermarkURL = URL(string: watermarkString) else { return }
-            guard let alpha = alpha else { return }
-            
-            KingfisherManager.shared.retrieveImage(with: watermarkURL) { result in
-                switch result {
-                case .success(let value):
-                    if let downloadedFrame = value.image.cgImage {
-                        let size = CGSize(width: downloadedFrame.width, height: downloadedFrame.height)
-                        UIGraphicsBeginImageContext(size)
-
-                        
-                        switch event.getOrientation {
-                        case .portrait:
-                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        case .landscape:
-                            let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
-                            landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        case .square:
-                            saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-                        }
-                        
-                        let watermarkImage = UIImage(cgImage: downloadedFrame)
+        case false:
+            downloadWatermark(event: event) { watermarkImage in
+                
+                let alpha = event.getWatermarkTransparency
+                let size = CGSize(width: watermarkImage.size.width, height: watermarkImage.size.height)
+                UIGraphicsBeginImageContext(size)
+                
+                switch event.getOrientation {
+                case .portrait:
+                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                case .landscape:
+                    let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
+                    landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                case .square:
+                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                }
+                
+                let watermarkImageHeight = size.height / 4
+                let watermarkImageWidth = size.width / 4
+                let watermarkImageYPosition = size.height - watermarkImageHeight - (watermarkImageHeight * 0.10)
+                let watermarkImageHorizontalPadding = watermarkImageWidth * 0.10
+                let watermarkImageLeftX = watermarkImageHorizontalPadding
+                let watermarkImageRightX = size.width - watermarkImageWidth - (watermarkImageHorizontalPadding)
+                
+                switch event.getWatermarkPosition {
+                case .bottomLeft:
+                    watermarkImage.draw(in: CGRect(x: watermarkImageLeftX, y: watermarkImageYPosition, width: watermarkImageWidth, height: watermarkImageHeight), blendMode: .normal, alpha: alpha)
                     
-                        let watermarkImageHeight = size.height / 4
-                        let watermarkImageWidth = size.width / 4
-                        let watermarkImageYPosition = size.height - watermarkImageHeight - (watermarkImageHeight * 0.10)
-                        let watermarkImageHorizontalPadding = watermarkImageWidth * 0.10
-                        let watermarkImageLeftX = watermarkImageHorizontalPadding
-                        let watermarkImageRightX = size.width - watermarkImageWidth - (watermarkImageHorizontalPadding)
-                        
-                        switch position {
-                        case .bottomLeft:
-                            watermarkImage.draw(in: CGRect(x: watermarkImageLeftX, y: watermarkImageYPosition, width: watermarkImageWidth, height: watermarkImageHeight), blendMode: .normal, alpha: alpha)
-
-                        case .bottomRight:
-                            watermarkImage.draw(in: CGRect(x: watermarkImageRightX, y: watermarkImageYPosition, width: watermarkImageWidth, height: watermarkImageHeight), blendMode: .normal, alpha: alpha)
-
-                        case nil:
-                            watermarkImage.draw(in: CGRect(x: watermarkImageLeftX, y: watermarkImageYPosition, width: watermarkImageWidth, height: watermarkImageHeight), blendMode: .normal, alpha: alpha)
-
-                        }
-                        
-                                                
-                        
-                        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-                            self.processedPhoto = newImage
-                            withAnimation {
-                                self.photoReady = true
-                            }
-                        } else {
-                            self.processedPhoto = saveImage
-                            withAnimation {
-                                self.photoReady = true
-                            }
-                        }
-                        
-                    }
-                case .failure:
-                    print("Download Frame Failed")
+                case .bottomRight:
+                    watermarkImage.draw(in: CGRect(x: watermarkImageRightX, y: watermarkImageYPosition, width: watermarkImageWidth, height: watermarkImageHeight), blendMode: .normal, alpha: alpha)
+                }
+                
+                let newImage = UIGraphicsGetImageFromCurrentImageContext()
+                self.processedPhoto = newImage ?? saveImage
+                
+                withAnimation {
+                    self.photoReady = true
                 }
             }
         }
-
-        
-       }
+    }
     
     func retrieveImage() -> Data? {
         

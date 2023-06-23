@@ -15,8 +15,6 @@ struct CameraView: View {
     @StateObject private var camera = CameraManager.shared
     @Binding var path: [Int]
     var event: Event
-    @State var frame: Frame? = nil
-    @State var watermarkImage: String? = nil
     @State private var continuePressed = false
     @State private var countDown = 5
     @State var timer: Timer.TimerPublisher = Timer.publish(every: 1, on: .main, in: .common)
@@ -75,35 +73,15 @@ struct CameraView: View {
                 camera.check(orientation: .back)
             }
             
-            switch event.getUseFrame {
-            case true:
-                frame = event.frame
-                
-            case false:
-                watermarkImage = event.getWatermarkUrl
-            }
-            
-            if frame == nil && watermarkImage == nil {
-                print("No Frame Or Watermark")
-                path.removeAll()
-            }
-            
         }
         .onChange(of: camera.sessionRunning, perform: { value in
             if camera.sessionRunning {
                 instantiateTimer()
             }
         })
-        .onChange(of: camera.picData, perform: { value in
-            switch event.getUseFrame {
-            case true:
-                let _ = camera.processPhotos(frame: frame)
-                
-            case false:
-                let _ = camera.processPhotos(watermarkString: watermarkImage, position: event.getWatermarkPosition, alpha: CGFloat(event.getWatermarkTransparency) / 100)
-            }
-            
-        })
+        .onChange(of: camera.picData) { value in
+            camera.processPhotos()
+        }
         .onChange(of: camera.photoReady, perform: { value in
             if camera.photoReady {
                 path.append(6)

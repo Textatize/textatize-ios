@@ -8,6 +8,8 @@
 import Foundation
 import SwiftUI
 
+extension UIImage: Identifiable {}
+
 enum AppImages {
     
     static let editIcon = Image("edit icon")
