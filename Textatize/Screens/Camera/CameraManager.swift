@@ -204,14 +204,17 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                 let size = CGSize(width: frameImage.size.width, height: frameImage.size.height)
                 UIGraphicsBeginImageContext(size)
                 
+                let resizedImage = saveImage.scalePreservingAspectRatio(width: frameImage.size.width, height: frameImage.size.height)
+                //guard let resizedImage = scaledImage.resizeImage(size: CGSize(width: frameImage.size.width, height: frameImage.size.height)) else { return }
+                
                 switch event.getOrientation {
                 case .portrait:
-                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    resizedImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 case .landscape:
-                    let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
+                    let landscapeImage = resizedImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
                     landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 case .square:
-                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    resizedImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 }
                 
                 frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
@@ -227,8 +230,10 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             downloadWatermark(event: event) { watermarkImage in
                 
                 let alpha = event.getWatermarkTransparency
-                let size = CGSize(width: watermarkImage.size.width, height: watermarkImage.size.height)
+                let size = CGSize(width: event.getOrientation == .portrait ? saveImage.size.width : 1500, height: event.getOrientation == .portrait ? saveImage.size.height : 1000)
                 UIGraphicsBeginImageContext(size)
+
+
                 
                 switch event.getOrientation {
                 case .portrait:
