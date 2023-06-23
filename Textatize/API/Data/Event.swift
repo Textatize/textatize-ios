@@ -120,6 +120,13 @@ class Event: AbstractServerObject, Identifiable {
     var getUseFrame: Bool {
         useFrame ?? true
     }
+    
+    func cache() {
+        CacheManager.shared.setObject(anObject: self, forKey: self.unique_id!)
+        NotificationCenter.default.post(name:.updateEvent,
+                                        object: nil,
+                                        userInfo: ["object":self])
+    }
 }
 
 class EventDate: AbstractServerObject {

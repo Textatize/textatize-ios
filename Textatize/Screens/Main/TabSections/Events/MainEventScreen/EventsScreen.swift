@@ -14,6 +14,8 @@ enum AlertType {
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
     
+    @State var timer = Timer.publish(every: 60 * 60, on: .main, in: .common).autoconnect()
+
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
     let iPadLayout = [
@@ -25,7 +27,10 @@ struct EventsScreen: View {
     let iPhoneLayout = [
         GridItem(.flexible())
     ]
-        
+    
+    @State private var currentEvents = [Event]()
+    @State private var completedEvents = [Event]()
+
     @State private var path = [Int]()
     @State private var selectedEvent: Event? = nil    
         
@@ -41,7 +46,7 @@ struct EventsScreen: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var alertType: AlertType = .delete
-    
+        
     let sessionQue = DispatchQueue(label: "EventSelectionQueue")
     
     var body: some View {
@@ -139,7 +144,7 @@ struct EventsScreen: View {
                             }
                             .padding()
                         }
-                        
+                                                
                         ScrollView {
                             
                             VStack {
@@ -153,29 +158,29 @@ struct EventsScreen: View {
                                         .padding()
                                 }
                                 
-                                ForEach(currentSelected ? vm.events : vm.completedEvents) { event in
+                                ForEach(currentSelected ? 0..<vm.activeEvents.count : 0..<vm.completedEvents.count, id: \.self) {  eventIndex in
                                     Button {
                                         sessionQue.sync {
-                                            vm.selectedEvent = event
+                                            vm.selectedEvent = currentSelected ? vm.activeEvents[eventIndex] : vm.completedEvents[eventIndex]
                                             path.append(2)
                                         }
                                     } label: {
-                                        if currentSelected {
-                                            EventCard(type: .current, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
-                                                .padding()
-                                        }
-                                        
-                                        if !currentSelected {
-                                            EventCard(type: .completed, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
-                                                .padding()
-                                        }
+                                        EventCard(event: currentSelected ? $vm.activeEvents[eventIndex] : $vm.completedEvents[eventIndex], eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
+                                            .padding()
                                     }
                                 }
                             }
                         }
+                        .refreshable {
+                            self.timer = Timer.publish(every: 60 * 60, on: .main, in: .common).autoconnect()
+                            vm.refreshEvents()
+                        }
                     }
                 }
                 .customBackground()
+            }
+            .onReceive(timer) { value in
+                vm.refreshEvents()
             }
             .alert(alertTitle, isPresented: $presentAlert, actions: {
                 if alertType == .delete {
@@ -234,7 +239,6 @@ struct EventsScreen: View {
             .onAppear {
                 vm.selectedEvent = nil
                 path.removeAll()
-                vm.refreshEvents()
             }
             .onChange(of: eventToDelete) { newValue in
                 if let event = eventToDelete {
@@ -255,6 +259,7 @@ struct EventsScreen: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
+    
     private func deleteEvent(event: Event) {
         vm.deleteEvent(event: event)
     }
