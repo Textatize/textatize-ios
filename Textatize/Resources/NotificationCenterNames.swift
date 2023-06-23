@@ -9,7 +9,4 @@ import Foundation
 
 extension Notification.Name {
     static var updateEvent = Notification.Name("UpdateEvent")
-    static var deleteEvent = Notification.Name("DeleteEvent")
-    static var completeEvent = Notification.Name("CompleteEvent")
-
 }

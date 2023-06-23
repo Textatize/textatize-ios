@@ -44,7 +44,7 @@ struct EventsScreen: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @State private var alertType: AlertType = .delete
-    
+        
     let sessionQue = DispatchQueue(label: "EventSelectionQueue")
     
     var body: some View {
@@ -156,26 +156,21 @@ struct EventsScreen: View {
                                         .padding()
                                 }
                                 
-                                ForEach(currentSelected ? currentEvents : completedEvents) { event in
+                                ForEach(currentSelected ? 0..<vm.activeEvents.count : 0..<vm.completedEvents.count, id: \.self) {  eventIndex in
                                     Button {
                                         sessionQue.sync {
-                                            vm.selectedEvent = event
+                                            vm.selectedEvent = currentSelected ? vm.activeEvents[eventIndex] : vm.completedEvents[eventIndex]
                                             path.append(2)
                                         }
-                                        
                                     } label: {
-                                        if currentSelected {
-                                            EventCard(type: .current, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
-                                                .padding()
-                                        }
-                                        
-                                        if !currentSelected {
-                                            EventCard(type: .completed, image: nil, title: event.getName, date: event.getDate, numberOfPhotos: "\(event.getNumPhotos)", event: event, eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
-                                                .padding()
-                                        }
+                                        EventCard(event: currentSelected ? $vm.activeEvents[eventIndex] : $vm.completedEvents[eventIndex], eventToDelete: $eventToDelete, eventToComplete: $eventToComplete)
+                                            .padding()
                                     }
                                 }
                             }
+                        }
+                        .refreshable {
+                            vm.refreshEvents()
                         }
                     }
                 }
@@ -213,38 +208,6 @@ struct EventsScreen: View {
             }, message: {
                 Text(alertMessage)
             })
-            .onReceive(NotificationCenter.default.publisher(for: .updateEvent)) { notification in
-                guard let userInfo = notification.userInfo,
-                      let object = userInfo["object"] as? Event else {
-                    return
-                }
-                currentEvents.removeAll { $0.unique_id! == object.unique_id! }
-                completedEvents.removeAll { $0.unique_id! == object.unique_id! }
-
-                if object.status == "active" {
-                    currentEvents.append(object)
-                }
-                if object.status == "completed" {
-                    completedEvents.append(object)
-                }
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .completeEvent)) { notification in
-                guard let userInfo = notification.userInfo,
-                      let object = userInfo["object"] as? Event else {
-                    return
-                }
-                
-                currentEvents.removeAll { $0.unique_id! == object.unique_id! }
-                completedEvents.append(object)
-            }
-            .onReceive(NotificationCenter.default.publisher(for: .deleteEvent)) { notification in
-                guard let userInfo = notification.userInfo,
-                      let object = userInfo["object"] as? Event else {
-                    return
-                }
-                currentEvents.removeAll { $0.unique_id! == object.unique_id! }
-                completedEvents.removeAll { $0.unique_id! == object.unique_id! }
-            }
             .navigationBarHidden(true)
             .navigationDestination(for: Int.self) { item in
                 if item == 1 {
@@ -270,7 +233,6 @@ struct EventsScreen: View {
             .onAppear {
                 vm.selectedEvent = nil
                 path.removeAll()
-                vm.refreshEvents()
             }
             .onChange(of: eventToDelete) { newValue in
                 if let event = eventToDelete {

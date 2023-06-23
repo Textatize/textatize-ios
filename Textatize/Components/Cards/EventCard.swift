@@ -13,16 +13,10 @@ enum EventType {
 
 struct EventCard: View {
     
-    var type: EventType
-    var image: Image? = nil
-    var title: String = "Holidays"
-    var date: String?
-    var numberOfPhotos: String = "20"
-    var event: Event
+    @Binding var event: Event
     @Binding var eventToDelete: Event?
     @Binding var eventToComplete: Event?
 
-    
     var body: some View {
         VStack(alignment: .leading) {
             HStack(alignment: .center) {
@@ -32,19 +26,19 @@ struct EventCard: View {
                     .padding()
                 
                 VStack(alignment: .leading) {
-                    Text(title)
+                    Text(event.getName)
                         .font(.headline)
                         .fontWeight(.bold)
                     
                     VStack {
-                        if let date = date {
+                        if let date = event.getDate {
                             Text(date)
                                 .font(.subheadline)
                                 .frame(maxWidth: .infinity, alignment: .leading)
                         }
                         
                         HStack(spacing: 5) {
-                            Text(numberOfPhotos)
+                            Text("\(event.getNumPhotos)")
                                 .foregroundColor(AppColors.Onboarding.loginButton)
                                 .font(.subheadline)
                             
@@ -63,7 +57,7 @@ struct EventCard: View {
             
             HStack(spacing: 5) {
                 
-                if type == .current {
+                if event.status == "active" {
                     Spacer()
                     Button {
                         print("Complete Pressed")
@@ -86,8 +80,7 @@ struct EventCard: View {
                     Spacer()
                 }
                 
-                if type == .completed {
-                    
+                if event.status == "completed" {
                     Spacer()
                     
                     Button {
@@ -99,12 +92,24 @@ struct EventCard: View {
                     }
                     
                     Spacer()
-                    
                 }
+                
             }
             .padding(.bottom)
             .frame(maxWidth: .infinity)
             .foregroundColor(AppColors.Onboarding.bottomColor)
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .updateEvent)) { notification in
+            guard let userInfo = notification.userInfo,
+                  let object = userInfo["object"] as? Event else {
+                return
+            }
+            
+            if object.unique_id! == event.unique_id! {
+                guard let cachedEvent = CacheManager.shared.objectForKey(aKey: event.unique_id!) as? Event else { return }
+                print("cachedEvent Orientation: \(cachedEvent.getOrientation)")
+                self.event = cachedEvent
+            }
         }
         .background {
             RoundedRectangle(cornerRadius: 15)

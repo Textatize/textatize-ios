@@ -127,19 +127,6 @@ class Event: AbstractServerObject, Identifiable {
                                         object: nil,
                                         userInfo: ["object":self])
     }
-    
-    func delete() {
-        CacheManager.shared.removeObjectForKey(aKey: self)
-        NotificationCenter.default.post(name:.deleteEvent,
-                                        object: nil,
-                                        userInfo: ["object":self])
-    }
-    
-    func complete() {
-        NotificationCenter.default.post(name:.completeEvent,
-                                        object: nil,
-                                        userInfo: ["object":self])
-    }
 }
 
 class EventDate: AbstractServerObject {

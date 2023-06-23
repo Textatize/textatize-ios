@@ -25,7 +25,6 @@ class CheckInfoViewModel: ObservableObject {
             if let eventResponse = eventResponse {
                 print("EventResponse: \(eventResponse.event?.name)")
             }
-            
             self.eventVM.refreshEvents()
         }
         
@@ -40,8 +39,6 @@ class CheckInfoViewModel: ObservableObject {
             if let eventResponse = eventResponse {
                 print("EventResponse: \(eventResponse.event?.name)")
             }
-            
-            self.eventVM.refreshEvents()
         }
     }
 

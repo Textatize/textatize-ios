@@ -26,17 +26,5 @@ class EventResponse: ServerResponse {
             event.cache()
         }
     }
-    
-    func delete() {
-        if let event = event {
-            event.delete()
-        }
-    }
-    
-    func complete() {
-        if let event = event {
-            event.complete()
-        }
-    }
 
 }

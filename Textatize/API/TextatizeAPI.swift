@@ -364,7 +364,6 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             case .success:
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
                     if let eventResponse = EventResponse(JSONString: utf8String) {
-                        eventResponse.delete()
                         completion(nil, true)
                     }
                 }
@@ -391,7 +390,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             case .success:
                 if let data = response.data, let utf8String = String(data: data, encoding: .utf8) {
                     if let eventResponse = EventResponse(JSONString: utf8String) {
-                        eventResponse.complete()
+                        eventResponse.cache()
                         completion(nil, true)
                     }
                 }
