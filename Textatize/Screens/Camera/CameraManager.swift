@@ -204,8 +204,8 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                 let size = CGSize(width: frameImage.size.width, height: frameImage.size.height)
                 UIGraphicsBeginImageContext(size)
                 
-                //let resizedImage = saveImage.resizeImage(size: size)!
-                let resizedImage = saveImage.scalePreservingAspectRatio(width: size.width, height: size.height)
+                let resizedImage = saveImage.scalePreservingAspectRatio(width: frameImage.size.width, height: frameImage.size.height)
+                //guard let resizedImage = scaledImage.resizeImage(size: CGSize(width: frameImage.size.width, height: frameImage.size.height)) else { return }
                 
                 switch event.getOrientation {
                 case .portrait:
