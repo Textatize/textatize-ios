@@ -14,6 +14,8 @@ enum AlertType {
 struct EventsScreen: View {
     @StateObject private var vm = EventViewModel.shared
     
+    @State var timer = Timer.publish(every: 60 * 60, on: .main, in: .common).autoconnect()
+
     let isiPad = UIDevice.current.userInterfaceIdiom == .pad
     
     let iPadLayout = [
@@ -142,7 +144,7 @@ struct EventsScreen: View {
                             }
                             .padding()
                         }
-                        
+                                                
                         ScrollView {
                             
                             VStack {
@@ -170,11 +172,15 @@ struct EventsScreen: View {
                             }
                         }
                         .refreshable {
+                            self.timer = Timer.publish(every: 60 * 60, on: .main, in: .common).autoconnect()
                             vm.refreshEvents()
                         }
                     }
                 }
                 .customBackground()
+            }
+            .onReceive(timer) { value in
+                vm.refreshEvents()
             }
             .alert(alertTitle, isPresented: $presentAlert, actions: {
                 if alertType == .delete {
