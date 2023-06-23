@@ -283,6 +283,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             if let error = error {
                 print("Add Media Error: \(error)")
             }
+            EventViewModel.shared.refreshEvents()
         }
     }
     
