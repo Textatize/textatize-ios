@@ -21,5 +21,10 @@ class EventResponse: ServerResponse {
         event <- map["event"]
     }
     
+    func cache() {
+        if let event = event {
+            event.cache()
+        }
+    }
 
 }
