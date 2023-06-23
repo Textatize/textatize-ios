@@ -230,8 +230,9 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             downloadWatermark(event: event) { watermarkImage in
                 
                 let alpha = event.getWatermarkTransparency
-                let size = CGSize(width: saveImage.size.width, height: saveImage.size.height)
+                let size = CGSize(width: event.getOrientation == .portrait ? saveImage.size.width : 1500, height: event.getOrientation == .portrait ? saveImage.size.height : 1000)
                 UIGraphicsBeginImageContext(size)
+
 
                 
                 switch event.getOrientation {
