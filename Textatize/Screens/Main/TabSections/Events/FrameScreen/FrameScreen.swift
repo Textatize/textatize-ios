@@ -86,7 +86,7 @@ struct FrameScreen: View {
                                             .fontWeight(.semibold)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         
-                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame, frameImage: vm.getFrameImage(frame: selectedFrame))
+                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
                                             .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                             .padding()
                                         
@@ -98,7 +98,7 @@ struct FrameScreen: View {
                                             .fontWeight(.semibold)
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         
-                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame, frameImage: vm.getFrameImage(frame: selectedFrame))
+                                        FrameSelectionCard(frameSelected: $selectedFrame, frame: selectedFrame)
                                             .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                             .padding()
                                         
@@ -114,7 +114,7 @@ struct FrameScreen: View {
                                 ScrollView(.horizontal) {
                                     HStack {
                                         ForEach(vm.frames) { frame in
-                                            FrameSelectionCard(frameSelected: $selectedFrame, frame: frame, frameImage: vm.getFrameImage(frame: frame))
+                                            FrameSelectionCard(frameSelected: $selectedFrame, frame: frame)
                                                 .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30, height: isiPad ?  UIScreen.main.bounds.width * 0.20 : UIScreen.main.bounds.width * 0.30)
                                                 .padding()
                                         }

@@ -31,7 +31,6 @@ struct FramesScreen: View {
         GridItem(.flexible())
     ]
     
-    
     var body: some View {
         NavigationView {
             ZStack {
@@ -48,7 +47,7 @@ struct FramesScreen: View {
                         .padding()
                     
                     VStack {
-                    
+                                            
                         ScrollView {
                             LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
                                 ForEach(0..<vm.frames.count + 1, id: \.self) { item in
@@ -67,7 +66,7 @@ struct FramesScreen: View {
                                         if vm.frames.count > 0 {
                                             let frame = vm.frames[item - 1]
                                                 
-                                            FrameEditingCard(duplicateSelected: $duplicateSelected, frameImage: vm.getFrameImage(frame: frame))
+                                            FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
                                                 .onTapGesture(perform: {
                                                     withAnimation {
                                                         selectedFrame = frame

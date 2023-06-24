@@ -23,7 +23,6 @@ struct FrameSelectionCard: View {
     
     @Binding var frameSelected: Frame?
     var frame: Frame
-    var frameImage: Image
     
     var body: some View {
         
@@ -33,8 +32,10 @@ struct FrameSelectionCard: View {
                 frameSelected = frame
             }
         } label: {
-            frameImage
-                .resizable()
+            if let frameURL = URL(string: frame.unwrappedURL) {
+                KFImage.url(frameURL)
+                    .resizable()
+            }
         }
     }
 }
@@ -42,15 +43,16 @@ struct FrameSelectionCard: View {
 struct FrameEditingCard: View {
     
     @Binding var duplicateSelected: Bool
-    var frameImage: Image?
+    var frame: Frame
     
     var body: some View {
         
         VStack(alignment: .center, spacing: 15) {
             
-            if let frameImage = frameImage {
-                frameImage
+            if let frameURL = URL(string: frame.unwrappedURL) {
+                KFImage.url(frameURL)
                     .resizable()
+
             }
             
 //            Button {
