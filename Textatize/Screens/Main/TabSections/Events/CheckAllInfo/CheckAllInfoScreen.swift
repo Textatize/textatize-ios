@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct CheckAllInfoScreen: View {
     @StateObject private var vm = CheckInfoViewModel()
@@ -123,8 +124,8 @@ struct CheckAllInfoScreen: View {
                                 .padding()
                             
                             if let frame = frame {
-                                if let frameImage = vm.getFrameImage(frame: frame) {
-                                    frameImage
+                                if let frameURL = URL(string: frame.unwrappedURL) {
+                                    KFImage.url(frameURL)
                                         .resizable()
                                         .frame(width: 75, height: 75)
                                 }
