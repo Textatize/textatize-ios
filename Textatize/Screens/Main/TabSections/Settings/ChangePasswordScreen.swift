@@ -8,10 +8,16 @@
 import SwiftUI
 
 struct ChangePasswordScreen: View {
+    @Environment(\.dismiss) var dismiss
     
     @State private var oldPassword = ""
     @State private var newPassword = ""
     @State private var confirmPassword = ""
+    
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    @State private var changeSuccess = false
     
     var body: some View {
         ZStack {
@@ -112,8 +118,12 @@ struct ChangePasswordScreen: View {
                     
                     Spacer()
                     
-                    CustomButtonView(filled: true, name: "Save")
-                        .padding()
+                    Button {
+                        changePassword()
+                    } label: {
+                        CustomButtonView(filled: true, name: "Save")
+                            .padding()
+                    }
                     
                 }
                 .foregroundColor(.black)
@@ -121,6 +131,53 @@ struct ChangePasswordScreen: View {
             }
             .customBackground()
         }
+        .alert(alertTitle, isPresented: $showAlert, actions: {
+            if changeSuccess {
+                Button(role: .cancel) {
+                    dismiss()
+                } label: {
+                    Text("Dismiss")
+                }
+            } else {
+                Button(role: .cancel) {
+                    screenReset()
+                } label: {
+                    Text("Retry")
+                }
+            }
+        }, message: {
+            Text(alertMessage)
+        })
+    }
+    private func changePassword() {
+        if newPassword == confirmPassword {
+            TextatizeAPI.shared.changePassword(oldPassword: oldPassword, newPassword: newPassword) { error, userResponse in
+                if let error = error {
+                    alertTitle = "Password Error"
+                    alertMessage = error.getMessage() ?? "No Error"
+                    changeSuccess = false
+                    showAlert = true
+                }
+                
+                if userResponse != nil {
+                    alertTitle = "Success"
+                    alertMessage = "Password Changed!"
+                    changeSuccess = true
+                    showAlert = true
+                }
+                
+            }
+        } else {
+            alertTitle = "Password Error"
+            alertMessage = "Password's do not match"
+            changeSuccess = false
+            showAlert = true
+        }
+    }
+    private func screenReset() {
+        oldPassword = ""
+        newPassword = ""
+        confirmPassword = ""
     }
 }
 

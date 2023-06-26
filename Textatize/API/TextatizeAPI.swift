@@ -706,4 +706,40 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             
         }
     }
+    
+    func changePassword(oldPassword: String, newPassword: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        
+        parameters["oldpassword"] = oldPassword
+        parameters["newpassword"] = newPassword
+        
+        AF.request(
+            API_URL + "user/changePassword",
+            method: .post,
+            parameters: parameters,
+            headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { [weak self] response in
+            print("Change Password Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    if let userResponse = UserResponse(JSONString: utf8Text) {
+                        if let error = userResponse.error {
+                            completion(ServerError(WithMessage: error), nil)
+                        } else {
+                            completion(nil, userResponse)
+                        }
+                    }
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+            
+        }
+    }
 }
