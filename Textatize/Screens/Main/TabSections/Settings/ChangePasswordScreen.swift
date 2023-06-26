@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChangePasswordScreen: View {
-    @Binding var path: [ScreenNav]
     
     @State private var oldPassword = ""
     @State private var newPassword = ""
@@ -117,19 +116,16 @@ struct ChangePasswordScreen: View {
                         .padding()
                     
                 }
+                .foregroundColor(.black)
                 
             }
             .customBackground()
-            CustomBackButtom(path: $path)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-
         }
-        .toolbar(.hidden, for: .navigationBar)
     }
 }
 
 struct ChangePassword_Previews: PreviewProvider {
     static var previews: some View {
-        ChangePasswordScreen(path: .constant([ScreenNav.changePassword]))
+        ChangePasswordScreen()
     }
 }
