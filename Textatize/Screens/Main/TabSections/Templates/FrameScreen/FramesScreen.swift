@@ -65,16 +65,25 @@ struct FramesScreen: View {
                                     } else {
                                         if vm.frames.count > 0 {
                                             let frame = vm.frames[item - 1]
+                                            
+                                            NavigationLink {
+                                                FrameEditingScreen(frameImage: vm.getFrameImage(frame: frame), frameOrientation: frame.orientation!)
+                                            } label: {
+                                                FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
+                                                    .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
+                                                    .padding()
+                                            }
+                                        
                                                 
-                                            FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
-                                                .onTapGesture(perform: {
-                                                    withAnimation {
-                                                        selectedFrame = frame
-                                                        editFrame = true
-                                                    }
-                                                })
-                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
-                                                .padding()
+//                                            FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
+//                                                .onTapGesture(perform: {
+//                                                    withAnimation {
+//                                                        selectedFrame = frame
+//                                                        editFrame = true
+//                                                    }
+//                                                })
+//                                                .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
+//                                                .padding()
                                         }
                                     }
                                 }
@@ -84,10 +93,10 @@ struct FramesScreen: View {
                 }
                 .customBackground()
             }
-            .background {
-                NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: selectedFrame)), isActive: $editFrame) { EmptyView() }
-                
-            }
+//            .background {
+//                NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: selectedFrame), frameOrientation: <#T##Orientation#>), isActive: $editFrame) { EmptyView() }
+//                
+//            }
         }.navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             vm.refreshFrames()
