@@ -78,6 +78,7 @@
 		54B45DA22A15181D0066302E /* FramesScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA12A15181D0066302E /* FramesScreen.swift */; };
 		54B45DA42A15182E0066302E /* SettingsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B45DA32A15182E0066302E /* SettingsScreen.swift */; };
 		54BDF9A82A33595000A5840F /* FrameSelectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54BDF9A72A33595000A5840F /* FrameSelectionViewModel.swift */; };
+		54C19DFD2A4A2B3400623619 /* PointPurchase.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 542341722A49C68600DB8FD8 /* PointPurchase.storekit */; };
 		54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54C43CED2A30C4D700807EC0 /* MainViewModel.swift */; };
 		54C43CF22A30D19800807EC0 /* Pods_Textatize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5164231DC6C683F367109CA /* Pods_Textatize.framework */; };
 		54C43CF52A30D22600807EC0 /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5468EF9B2A300181001C6FC5 /* FrameViewModel.swift */; };
@@ -685,6 +686,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54C19DFD2A4A2B3400623619 /* PointPurchase.storekit in Resources */,
 				54568E992A127D91001F5CE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
