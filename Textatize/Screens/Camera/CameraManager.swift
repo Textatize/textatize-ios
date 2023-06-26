@@ -24,10 +24,10 @@ extension UIImage {
                             width: size.width, height: size.height))
             let rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-
+            
             return rotatedImage ?? self
         }
-
+        
         return self
     }
 }
@@ -51,7 +51,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     
     private let sessionQueue = DispatchQueue(label: "Textatize.SessionQueue")
     let textatizeAPI = TextatizeAPI.shared
-
+    
     func check(orientation: AVCaptureDevice.Position) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
@@ -92,7 +92,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             }
             
             self.session.commitConfiguration()
-                        
+            
             sessionQueue.async {
                 self.session.startRunning()
                 DispatchQueue.main.async {
@@ -147,10 +147,10 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-//        if let error = error {
-//            print("Photo Process Error: \(error)")
-//            return
-//        }
+        //        if let error = error {
+        //            print("Photo Process Error: \(error)")
+        //            return
+        //        }
         
         print("Pic Taken...")
         
@@ -179,7 +179,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         guard let frameURL = URL(string: frame.unwrappedURL) else { return }
         FileDownloader.shared.loadFileAsync(url: frameURL) { [weak self] path, error in
             guard let self = `self` else { return }
-
+            
             if let error = error {
                 print("Frame Download Error: \(error)")
             }
@@ -190,7 +190,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             }
         }
     }
-
+    
     func processPhotos() {
         
         guard let pictureData = self.picData else { return  }
@@ -205,7 +205,6 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                 UIGraphicsBeginImageContext(size)
                 
                 let resizedImage = saveImage.scalePreservingAspectRatio(width: frameImage.size.width, height: frameImage.size.height)
-                //guard let resizedImage = scaledImage.resizeImage(size: CGSize(width: frameImage.size.width, height: frameImage.size.height)) else { return }
                 
                 switch event.getOrientation {
                 case .portrait:
@@ -214,7 +213,8 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
                     let landscapeImage = resizedImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
                     landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 case .square:
-                    resizedImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    let cropImage = resizedImage.crop(CGRect(origin: CGPoint(x: resizedImage.size.width / 2 - 225, y: resizedImage.size.height / 2 - 225), size: CGSize(width: 450, height: 450)))
+                    cropImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 }
                 
                 frameImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
@@ -230,19 +230,32 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             downloadWatermark(event: event) { watermarkImage in
                 
                 let alpha = event.getWatermarkTransparency
-                let size = CGSize(width: event.getOrientation == .portrait ? saveImage.size.width : 1500, height: event.getOrientation == .portrait ? saveImage.size.height : 1000)
-                UIGraphicsBeginImageContext(size)
-
-
+                
+                var size = CGSize()
                 
                 switch event.getOrientation {
                 case .portrait:
-                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    size = CGSize(width: 1200, height: 1800)
                 case .landscape:
-                    let landscapeImage = saveImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
+                    size = CGSize(width: 1800, height: 1200)
+                case .square:
+                    size = CGSize(width: 1200, height: 1200)
+                }
+                
+                UIGraphicsBeginImageContext(size)
+                
+                let resizedImage = saveImage.scalePreservingAspectRatio(width: size.width, height: size.height)
+                
+                
+                switch event.getOrientation {
+                case .portrait:
+                    resizedImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                case .landscape:
+                    let landscapeImage = resizedImage.rotate(radians: event.getCamera == .front ? .pi / 2 : .pi / -2)
                     landscapeImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 case .square:
-                    saveImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                    let cropImage = resizedImage.crop(CGRect(origin: CGPoint(x: resizedImage.size.width / 2 - 225, y: resizedImage.size.height / 2 - 225), size: CGSize(width: 450, height: 450)))
+                    cropImage.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
                 }
                 
                 let watermarkImageHeight = size.height / 4
@@ -306,5 +319,19 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             }
         }
     }
-    
+}
+
+extension UIImage {
+    func crop(_ rect: CGRect) -> UIImage {
+        var rect = rect
+        rect.origin.x *= self.scale
+        rect.origin.y *= self.scale
+        rect.size.width *= self.scale
+        rect.size.height *= self.scale
+        
+        let imageRef = self.cgImage?.cropping(to: rect)
+        let image = UIImage(cgImage: imageRef!, scale: self.scale, orientation: self.imageOrientation)
+        
+        return image
+    }
 }
