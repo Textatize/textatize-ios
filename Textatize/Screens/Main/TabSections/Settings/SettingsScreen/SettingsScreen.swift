@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsScreen: View {
     
+    @StateObject private var viewModel = SettingsScreenViewModel.shared
+    
     @State private var showContactInformationScreen = false
     @State private var showPasswordChangeScreen = false
     
@@ -57,9 +59,21 @@ struct SettingsScreen: View {
                                 .padding()
                                 
                                 Spacer()
-                                CustomButtonView(filled: true, name: "Buy points")
-                                    .frame(width: UIScreen.main.bounds.width * 0.25)
-                                    .padding(.trailing)
+                                
+                                Button {
+                                    Task {
+                                        guard let product = viewModel.products.first else { return }
+                                        await viewModel.purchase(product: product)
+
+                                    }
+                                } label: {
+                                    CustomButtonView(filled: true, name: "Buy points")
+                                        .opacity(!viewModel.products.isEmpty ? 1 : 0)
+                                        .scaleEffect(!viewModel.products.isEmpty ? 1 : 0.5)
+                                        .frame(width: UIScreen.main.bounds.width * 0.25)
+                                        .padding(.trailing)
+                                }
+                                
                                 
                             }
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
@@ -82,10 +96,15 @@ struct SettingsScreen: View {
                             CustomButtonView(filled: true, name: "Logout")
                                 .padding()
                         }
-
+                        
                     }
                 }
                 .customBackground()
+            }
+            .onAppear {
+                Task {
+                    await viewModel.fetchProducts()
+                }
             }
             .toolbar(.hidden)
             .navigationViewStyle(StackNavigationViewStyle())
@@ -94,28 +113,7 @@ struct SettingsScreen: View {
     private func logout() {
         TextatizeLoginManager.shared.logout()
     }
-}
-
-struct SettingsButton: View {
-    var name: String = ""
-    var body: some View {
-        HStack {
-            Text(name)
-                .padding()
-            Spacer()
-            AppImages.EventCard.arrowSmall
-                .padding()
-            
-        }
-        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-        .frame(maxWidth: .infinity, alignment: .center)
-        .frame(height: 50)
-        .background(
-            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                .stroke(AppColors.Onboarding.loginButton, lineWidth: 2)
-        )
-        .padding()
-    }
+    
 }
 
 struct SettingsScreen_Previews: PreviewProvider {

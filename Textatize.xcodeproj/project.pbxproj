@@ -15,6 +15,8 @@
 		540977892A1E55310079862F /* CheckInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 540977882A1E55310079862F /* CheckInfoViewModel.swift */; };
 		541997322A262A23001353BC /* ImageDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541997312A262A23001353BC /* ImageDetailView.swift */; };
 		541AAF802A16AA9600C4BCA4 /* FrameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */; };
+		5423416D2A49C3DC00DB8FD8 /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423416C2A49C3DC00DB8FD8 /* SettingsButton.swift */; };
+		542341702A49C43000DB8FD8 /* SettingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5423416F2A49C43000DB8FD8 /* SettingsScreenViewModel.swift */; };
 		542D540B2A20030D0016BCB2 /* CustomBackButtom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */; };
 		542D540D2A2010B50016BCB2 /* EventResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D540C2A2010B50016BCB2 /* EventResponse.swift */; };
 		542D540F2A2020B80016BCB2 /* MediasResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 542D540E2A2020B80016BCB2 /* MediasResponse.swift */; };
@@ -112,6 +114,9 @@
 		540977882A1E55310079862F /* CheckInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckInfoViewModel.swift; sourceTree = "<group>"; };
 		541997312A262A23001353BC /* ImageDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailView.swift; sourceTree = "<group>"; };
 		541AAF7F2A16AA9600C4BCA4 /* FrameScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameScreen.swift; sourceTree = "<group>"; };
+		5423416C2A49C3DC00DB8FD8 /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
+		5423416F2A49C43000DB8FD8 /* SettingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewModel.swift; sourceTree = "<group>"; };
+		542341722A49C68600DB8FD8 /* PointPurchase.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointPurchase.storekit; sourceTree = "<group>"; };
 		542D540A2A20030D0016BCB2 /* CustomBackButtom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackButtom.swift; sourceTree = "<group>"; };
 		542D540C2A2010B50016BCB2 /* EventResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventResponse.swift; sourceTree = "<group>"; };
 		542D540E2A2020B80016BCB2 /* MediasResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediasResponse.swift; sourceTree = "<group>"; };
@@ -259,6 +264,15 @@
 			path = CheckAllInfo;
 			sourceTree = "<group>";
 		};
+		5423416E2A49C41300DB8FD8 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				5423416F2A49C43000DB8FD8 /* SettingsScreenViewModel.swift */,
+				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+			);
+			path = SettingsScreen;
+			sourceTree = "<group>";
+		};
 		54309C8B2A13AA6800C02B14 /* Style */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,6 +290,7 @@
 				546F17F32A203CCF00554234 /* SpinnerView.swift */,
 				541997312A262A23001353BC /* ImageDetailView.swift */,
 				54C43CFB2A30D91B00807EC0 /* MediaView.swift */,
+				5423416C2A49C3DC00DB8FD8 /* SettingsButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -381,7 +396,7 @@
 		54511EC32A156A14002590A7 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+				5423416E2A49C41300DB8FD8 /* SettingsScreen */,
 				5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */,
 			);
 			path = Settings;
@@ -390,6 +405,7 @@
 		54568E882A127D89001F5CE7 = {
 			isa = PBXGroup;
 			children = (
+				542341722A49C68600DB8FD8 /* PointPurchase.storekit */,
 				54568E932A127D89001F5CE7 /* Textatize */,
 				54568EA42A127D92001F5CE7 /* TextatizeTests */,
 				54568EAE2A127D92001F5CE7 /* TextatizeUITests */,
@@ -793,6 +809,7 @@
 				54568E952A127D89001F5CE7 /* TextatizeApp.swift in Sources */,
 				54C43CEE2A30C4D700807EC0 /* MainViewModel.swift in Sources */,
 				543263542A1760E700C96A1A /* EventsResponse.swift in Sources */,
+				542341702A49C43000DB8FD8 /* SettingsScreenViewModel.swift in Sources */,
 				540977862A1E522C0079862F /* EnumHelpers.swift in Sources */,
 				5498253F2A3A36BD0065CF62 /* AddEventCard.swift in Sources */,
 				54D5670C2A461BB1005E52E9 /* FileDownloader.swift in Sources */,
@@ -813,6 +830,7 @@
 				54B45D9E2A1517EF0066302E /* MainTabView.swift in Sources */,
 				546F17EE2A202AB400554234 /* NetworkSpeedTest.swift in Sources */,
 				54ACC11A2A3A25DE0051C4C6 /* CameraManager.swift in Sources */,
+				5423416D2A49C3DC00DB8FD8 /* SettingsButton.swift in Sources */,
 				549A6C1C2A2EBB5C000C1182 /* Services.swift in Sources */,
 				549A6C1A2A2EB911000C1182 /* LocalImage.swift in Sources */,
 				54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */,

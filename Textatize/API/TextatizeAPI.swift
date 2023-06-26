@@ -706,4 +706,25 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             
         }
     }
+    
+    func purchase(appleReceipt: String, points: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        
+        parameters["appleReceipt"] = appleReceipt
+        parameters["points"] = points
+        
+        AF.request(
+            API_URL + "purchase",
+            method: .post,
+            parameters: parameters,
+            headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { [weak self] response in
+            print("Purchase Response: \(response)")
+        }
+        
+    }
 }
