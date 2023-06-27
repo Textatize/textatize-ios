@@ -8,47 +8,82 @@
 import SwiftUI
 import StoreKit
 
-class SettingsScreenViewModel: ObservableObject {
+enum PurchaseProduct: String, CaseIterable {
+    case getPoints = "com.textatize.test.points100"
+}
+
+class SettingsScreenViewModel: NSObject, ObservableObject, SKProductsRequestDelegate, SKPaymentTransactionObserver {
+    
     static let shared = SettingsScreenViewModel()
     
-    @Published var products = [Product]()
+    @Published var products = [SKProduct]()
     
     private let api = TextatizeAPI.shared
-    private let productID = ["com.textatize.test.points100"]
     
-        
-    private init() { }
-    
-    func fetchProducts() async {
-            do {
-                let results = try await Product.products(for: productID)
-                DispatchQueue.main.async { [unowned self] in
-                    withAnimation {
-                        self.products = results
-                    }
-                }
-                print(results)
-            } catch {
-                print("Product Error: \(error)")
-            }
+    private override init() {
+        super.init()
+        SKPaymentQueue.default().add(self)
     }
     
-    func purchase(product: Product) async {
-        do {
-            let result = try await product.purchase()
-            switch result {
-            case .success(.verified(let transaction)):
-                await transaction.finish()
-                
-            default:
+    func fetchProducts() {
+        let request = SKProductsRequest(
+            productIdentifiers: Set(PurchaseProduct.allCases.compactMap { $0.rawValue  })
+        )
+        request.delegate = self
+        request.start()
+    }
+    
+    func purchase(product: SKProduct) {
+        let payment = SKPayment(product: product)
+        SKPaymentQueue.default().add(payment)
+        
+    }
+    
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        transactions.forEach {
+            switch $0.transactionState {
+            case .purchased:
+                complete(transaction: $0)
+            case .failed:
+                failed(transaction: $0)
+            case .restored:
+                restore(transaction: $0)
+            case .deferred:
+                break
+            case .purchasing:
+                break
+            @unknown default:
                 break
             }
-        } catch {
-            print(error)
         }
     }
     
-    func apiPurchase(appleReceipt: String, points: String) {
+    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
+        DispatchQueue.main.async {
+            self.products = response.products
+        }
+    }
+    
+    private func complete(transaction: SKPaymentTransaction) {
+        print("Purchase Complete")
+        SKPaymentQueue.default().finishTransaction(transaction)
+        if let reciptData = NSData(contentsOf: Bundle.main.appStoreReceiptURL!) {
+            let base64Encoded = reciptData.base64EncodedString()
+            apiPurchase(appleReceipt: base64Encoded, points: "100")
+        }
+    }
+    
+    private func failed(transaction: SKPaymentTransaction) {
+        print("Purchase Failed")
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+    
+    private func restore(transaction: SKPaymentTransaction) {
+        print("Purchase Restore")
+        SKPaymentQueue.default().finishTransaction(transaction)
+    }
+    
+    private func apiPurchase(appleReceipt: String, points: String) {
         api.purchase(appleReceipt: appleReceipt, points: points) { error, userResponse in
             if let error = error {
                 print(error.getMessage() ?? "No Error Message")

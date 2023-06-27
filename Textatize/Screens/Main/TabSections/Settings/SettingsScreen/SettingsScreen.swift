@@ -61,11 +61,8 @@ struct SettingsScreen: View {
                                 Spacer()
                                 
                                 Button {
-                                    Task {
-                                        guard let product = viewModel.products.first else { return }
-                                        await viewModel.purchase(product: product)
-
-                                    }
+                                    guard let product = viewModel.products.first else { return }
+                                    viewModel.purchase(product: product)
                                 } label: {
                                     CustomButtonView(filled: true, name: "Buy points")
                                         .opacity(!viewModel.products.isEmpty ? 1 : 0)
@@ -102,9 +99,7 @@ struct SettingsScreen: View {
                 .customBackground()
             }
             .onAppear {
-                Task {
-                    await viewModel.fetchProducts()
-                }
+                viewModel.fetchProducts()
             }
             .toolbar(.hidden)
             .navigationViewStyle(StackNavigationViewStyle())
