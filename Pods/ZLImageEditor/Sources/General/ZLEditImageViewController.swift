@@ -94,7 +94,7 @@ open class ZLEditImageViewController: UIViewController {
     
     open lazy var mainScrollView: UIScrollView = {
         let view = UIScrollView()
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
         view.minimumZoomScale = 1
         view.maximumZoomScale = 3
         view.delegate = self
@@ -112,7 +112,7 @@ open class ZLEditImageViewController: UIViewController {
         let view = UIImageView(image: originalImage)
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.backgroundColor = .black
+        view.backgroundColor = .white
         return view
     }()
     
@@ -120,7 +120,7 @@ open class ZLEditImageViewController: UIViewController {
     
     open lazy var topShadowLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [ZLEditImageViewController.shadowColorFrom, ZLEditImageViewController.shadowColorTo]
+        //layer.colors = [ZLEditImageViewController.shadowColorFrom, ZLEditImageViewController.shadowColorTo]
         layer.locations = [0, 1]
         return layer
     }()
@@ -129,7 +129,7 @@ open class ZLEditImageViewController: UIViewController {
     
     open lazy var bottomShadowLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
-        layer.colors = [ZLEditImageViewController.shadowColorTo, ZLEditImageViewController.shadowColorFrom]
+        //layer.colors = [ZLEditImageViewController.shadowColorTo, ZLEditImageViewController.shadowColorFrom]
         layer.locations = [0, 1]
         return layer
     }()
@@ -564,7 +564,7 @@ open class ZLEditImageViewController: UIViewController {
     }
     
     func setupUI() {
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
         
         view.addSubview(mainScrollView)
         mainScrollView.addSubview(containerView)
@@ -572,9 +572,9 @@ open class ZLEditImageViewController: UIViewController {
         containerView.addSubview(drawingImageView)
         containerView.addSubview(stickersContainer)
         
-        view.addSubview(topShadowView)
-        topShadowView.layer.addSublayer(topShadowLayer)
-        topShadowView.addSubview(cancelBtn)
+        //view.addSubview(topShadowView)
+        //topShadowView.layer.addSublayer(topShadowLayer)
+        //topShadowView.addSubview(cancelBtn)
         
         view.addSubview(bottomShadowView)
         bottomShadowView.layer.addSublayer(bottomShadowLayer)

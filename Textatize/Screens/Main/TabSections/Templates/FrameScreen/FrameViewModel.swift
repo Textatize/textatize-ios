@@ -58,15 +58,15 @@ class FrameViewModel: ObservableObject {
         }
     }
     
-    func getFrameImage(frame: Frame? = nil) -> Image? {
+    func getFrameImage(frame: Frame? = nil) -> UIImage? {
         if let frame = frame {
             guard let frameID = frame.unique_id else {
-                return Image(systemName: "photo")
+                return UIImage(systemName: "photo")!
             }
             guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
-                return Image(systemName: "photo")
+                return UIImage(systemName: "photo")!
             }
-            return Image(uiImage: frameImage)
+            return frameImage
         }
         return nil
     }

@@ -10,45 +10,53 @@ import Kingfisher
 
 struct FrameEditingScreen: View {
     @Environment(\.dismiss) var dismiss
-    var frameImage: Image? = nil
+    var frameImage: UIImage?
+    @State private var image = UIImage(systemName: "photo")!
     var body: some View {
         ZStack {
             
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
-
-            VStack {
-                
-                Spacer()
-                Text("Frame Editing")
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    .font(.title)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, alignment: .center)
+            
+            if let frameImage = frameImage {
+                HostedFrameEditViewController(frameImage: frameImage)
                     .padding()
-                
-                if let frameImage = frameImage {
-                    frameImage
-                        .resizable()
-                        .padding()
-                }
-                
-                Spacer()
-                
-                HStack {
-                    FrameEditButton(title: "Background", image: AppImages.imageIcon, action: addBackgroundPressed)
-                    FrameEditButton(title: "Image", image: AppImages.imageIcon, action: addImagePressed)
-                    FrameEditButton(title: "Text", image: AppImages.textIcon, action: addTextPressed)
-                }
-                
-                Spacer()
-                
-                CustomButtonView(filled: true, name: "Save")
-                    .padding()
-                
-                
+                    .ignoresSafeArea(edges: .top)
             }
-            .customBackground()
+
+
+//            VStack {
+//                
+//                Spacer()
+//                Text("Frame Editing")
+//                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+//                    .font(.title)
+//                    .fontWeight(.semibold)
+//                    .frame(maxWidth: .infinity, alignment: .center)
+//                    .padding()
+//                
+//                if let frameImage = frameImage {
+//                    frameImage
+//                        .resizable()
+//                        .padding()
+//                }
+//                
+//                Spacer()
+//                
+//                HStack {
+//                    FrameEditButton(title: "Background", image: AppImages.imageIcon, action: addBackgroundPressed)
+//                    FrameEditButton(title: "Image", image: AppImages.imageIcon, action: addImagePressed)
+//                    FrameEditButton(title: "Text", image: AppImages.textIcon, action: addTextPressed)
+//                }
+//                
+//                Spacer()
+//                
+//                CustomButtonView(filled: true, name: "Save")
+//                    .padding()
+//                
+//                
+//            }
+//            .customBackground()
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
