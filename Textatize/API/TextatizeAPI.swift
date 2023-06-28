@@ -691,7 +691,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                    headers: ["authorization": "Bearer \(sessionToken)"])
         .validate().responseJSON { [weak self] response in
             guard let self = `self` else { return }
-            //print("Retrieve My Frames Response: \(response)")
+            print("Retrieve My Frames Response: \(response)")
             
             switch response.result {
             case .success(let success):
@@ -741,6 +741,71 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
             }
             
+        }
+    }
+    
+    func createFrame(newFrame: UIImage, orientation: String, completion: @escaping (ServerError?, FrameResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            if let imageData = newFrame.jpegData(compressionQuality: 0.5) {
+                multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/jpeg")
+            }
+            if let orientationData = orientation.data(using: .utf8) {
+                multipartFormData.append(orientationData, withName: "orientation")
+            }
+        }, to: API_URL + "frame",
+                  method: .post,
+                  headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { response in
+            print("Create Response: \(response)")
+            
+            switch response.result {
+            case .success(let success):
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let frameResponse = FrameResponse(JSONString: utf8Text)
+                    completion(nil, frameResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+
+            }
+        }
+    }
+    
+    func updateFrame(frameID: String, newFrame: UIImage, completion: @escaping (ServerError?, FrameResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        AF.upload(multipartFormData: { multipartFormData in
+            
+            if let frameIDData = frameID.data(using: .utf8) {
+                multipartFormData.append(frameIDData, withName: "frameId")
+            }
+            
+            if let imageData = newFrame.jpegData(compressionQuality: 0.5) {
+                multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/jpeg")
+            }
+            
+        }, to: API_URL + "frame",
+                  method: .put,
+                  headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { response in
+            print("Update Frame Response: \(response)")
+            
+            switch response.result {
+            case .success(let success):
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let frameResponse = FrameResponse(JSONString: utf8Text)
+                    completion(nil, frameResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+
+            }
         }
     }
 }

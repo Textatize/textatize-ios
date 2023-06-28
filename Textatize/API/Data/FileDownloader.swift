@@ -19,7 +19,6 @@ class FileDownloader {
         let destinationUrl = documentsUrl.appendingPathComponent(filename)
         loadFileAsync(url: url, destinationUrl: destinationUrl, completion: completion)
     }
-    
     private func loadFileAsync(url: URL, destinationUrl: URL, completion: @escaping (String?, Error?) -> Void) {
         
         if FileManager().fileExists(atPath: destinationUrl.path) {
@@ -64,15 +63,16 @@ class FileDownloader {
             task.resume()
         }
     }
+    
 }
 
 extension String {
     public func replaceFirst(of pattern:String,
                              with replacement:String) -> String {
-      if let range = self.range(of: pattern){
-        return self.replacingCharacters(in: range, with: replacement)
-      }else{
-        return self
-      }
+        if let range = self.range(of: pattern){
+            return self.replacingCharacters(in: range, with: replacement)
+        }else{
+            return self
+        }
     }
 }
