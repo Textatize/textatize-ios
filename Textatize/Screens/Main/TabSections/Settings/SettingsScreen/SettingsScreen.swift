@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsScreen: View {
     
+    @StateObject private var viewModel = SettingsScreenViewModel.shared
+    
     @State private var showContactInformationScreen = false
     @State private var showPasswordChangeScreen = false
     
@@ -50,17 +52,27 @@ struct SettingsScreen: View {
                                     AppImages.settings.logo3
                                         .resizable()
                                         .frame(width: 40, height: 40)
-                                    Text("10 Points")
+                                    Text("\(viewModel.userPoints)")
                                         .foregroundColor(AppColors.Onboarding.loginButton)
                                         .font(.headline)
                                 }
                                 .padding()
                                 
                                 Spacer()
-                                CustomButtonView(filled: true, name: "Buy points")
-                                    .frame(width: UIScreen.main.bounds.width * 0.25)
-                                    .padding(.trailing)
                                 
+                                Button {
+                                    Task {
+                                        guard let product = viewModel.products.first else { return }
+                                        viewModel.purchase(product: product)
+
+                                    }
+                                } label: {
+                                    CustomButtonView(filled: true, name: "Buy points")
+                                        .opacity(!viewModel.products.isEmpty ? 1 : 0)
+                                        .scaleEffect(!viewModel.products.isEmpty ? 1 : 0.5)
+                                        .frame(width: UIScreen.main.bounds.width * 0.25)
+                                        .padding(.trailing)
+                                }
                             }
                             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                             .frame(maxWidth: .infinity, alignment: .center)
@@ -86,6 +98,9 @@ struct SettingsScreen: View {
                     }
                 }
                 .customBackground()
+            }
+            .onAppear {
+                viewModel.fetchProducts()
             }
             .toolbar(.hidden)
             .navigationViewStyle(StackNavigationViewStyle())

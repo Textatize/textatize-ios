@@ -52,6 +52,8 @@
 		54568EC12A1283F5001F5CE7 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EC02A1283F5001F5CE7 /* LoginScreen.swift */; };
 		54568EC42A128496001F5CE7 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54568EC32A128496001F5CE7 /* Texts.swift */; };
 		5459E5AC2A1656580008930B /* ChangePasswordScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */; };
+		545A53C22A4C718900A64F82 /* SettingsScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A53C12A4C718900A64F82 /* SettingsScreenViewModel.swift */; };
+		545A53C72A4C73F600A64F82 /* PointPurchase.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 545A53C62A4C730200A64F82 /* PointPurchase.storekit */; };
 		545A82D92A2F6F2B003E677A /* PaginatedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 545A82D82A2F6F2B003E677A /* PaginatedResponse.swift */; };
 		54603F242A3B9A340018741B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54603F232A3B9A340018741B /* ImagePicker.swift */; };
 		5460D3492A167D7300D7265C /* FrameEditingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5460D3482A167D7300D7265C /* FrameEditingScreen.swift */; };
@@ -154,6 +156,8 @@
 		54568EC02A1283F5001F5CE7 /* LoginScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		54568EC32A128496001F5CE7 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
 		5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordScreen.swift; sourceTree = "<group>"; };
+		545A53C12A4C718900A64F82 /* SettingsScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsScreenViewModel.swift; sourceTree = "<group>"; };
+		545A53C62A4C730200A64F82 /* PointPurchase.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = PointPurchase.storekit; sourceTree = "<group>"; };
 		545A82D82A2F6F2B003E677A /* PaginatedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedResponse.swift; sourceTree = "<group>"; };
 		54603F232A3B9A340018741B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		5460D3482A167D7300D7265C /* FrameEditingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameEditingScreen.swift; sourceTree = "<group>"; };
@@ -382,7 +386,7 @@
 		54511EC32A156A14002590A7 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
-				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+				545A53C32A4C718C00A64F82 /* SettingsScreen */,
 				5459E5AB2A1656580008930B /* ChangePasswordScreen.swift */,
 			);
 			path = Settings;
@@ -391,6 +395,7 @@
 		54568E882A127D89001F5CE7 = {
 			isa = PBXGroup;
 			children = (
+				545A53C62A4C730200A64F82 /* PointPurchase.storekit */,
 				54568E932A127D89001F5CE7 /* Textatize */,
 				54568EA42A127D92001F5CE7 /* TextatizeTests */,
 				54568EAE2A127D92001F5CE7 /* TextatizeUITests */,
@@ -479,6 +484,15 @@
 				54DAC6552A448E1900199E21 /* NotificationCenterNames.swift */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		545A53C32A4C718C00A64F82 /* SettingsScreen */ = {
+			isa = PBXGroup;
+			children = (
+				545A53C12A4C718900A64F82 /* SettingsScreenViewModel.swift */,
+				54B45DA32A15182E0066302E /* SettingsScreen.swift */,
+			);
+			path = SettingsScreen;
 			sourceTree = "<group>";
 		};
 		549A6C182A2EB8F3000C1182 /* Persistence */ = {
@@ -688,6 +702,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				545A53C72A4C73F600A64F82 /* PointPurchase.storekit in Resources */,
 				54568E992A127D91001F5CE7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -803,6 +818,7 @@
 				54355EAF2A1666C300E47732 /* FrameCard.swift in Sources */,
 				541997322A262A23001353BC /* ImageDetailView.swift in Sources */,
 				5432634E2A17571900C96A1A /* Keychain.swift in Sources */,
+				545A53C22A4C718900A64F82 /* SettingsScreenViewModel.swift in Sources */,
 				54511EC52A156A4D002590A7 /* EditEventScreen.swift in Sources */,
 				54309C8A2A13A8D300C02B14 /* ThanksScreen.swift in Sources */,
 				546F17F42A203CCF00554234 /* SpinnerView.swift in Sources */,
