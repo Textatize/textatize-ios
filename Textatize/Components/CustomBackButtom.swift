@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct CustomBackButtom: View {
-    @Binding var path: [ScreenNav]
+    var dismissAction: DismissAction
     var body: some View {
         Button {
-            path.removeLast()
+            dismissAction
         } label: {
             HStack {
                 Image(systemName: "arrow.left")
