@@ -160,6 +160,7 @@ struct ChangePasswordScreen: View {
                 }
                 
                 if userResponse != nil {
+                    TextatizeLoginManager.shared.resetPassword(newPassword: newPassword)
                     alertTitle = "Success"
                     alertMessage = "Password Changed!"
                     changeSuccess = true
