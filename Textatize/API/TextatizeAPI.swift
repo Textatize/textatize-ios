@@ -707,6 +707,37 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
+    func purchase(appleReceipt: String, points: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        
+        parameters["appleReceipt"] = appleReceipt
+        parameters["points"] = points
+        
+        AF.request(
+            API_URL + "purchase",
+            method: .post,
+            parameters: parameters,
+            headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { [weak self] response in
+            print("Purchase Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    let userResponse = UserResponse(JSONString: utf8Text)
+                    completion(nil, userResponse)
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+        }
+        
+    }
+    
     func changePassword(oldPassword: String, newPassword: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
