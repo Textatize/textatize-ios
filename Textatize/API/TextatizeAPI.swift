@@ -724,6 +724,43 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             headers: ["authorization": "Bearer \(sessionToken)"]
         ).validate().responseJSON { [weak self] response in
             print("Purchase Response: \(response)")
+            
+        
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    if let userResponse = UserResponse(JSONString: utf8Text) {
+                        if let error = userResponse.error {
+                            completion(ServerError(WithMessage: error), nil)
+                        } else {
+                            TextatizeLoginManager.shared.loggedInUser = userResponse.user
+                            completion(nil, userResponse)
+                        }
+                    }
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+            
+        }
+    }
+    
+    func purchase(appleReceipt: String, points: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        
+        parameters["appleReceipt"] = appleReceipt
+        parameters["points"] = points
+        
+        AF.request(
+            API_URL + "purchase",
+            method: .post,
+            parameters: parameters,
+            headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { [weak self] response in
+            print("Purchase Response: \(response)")
         }
         
     }
