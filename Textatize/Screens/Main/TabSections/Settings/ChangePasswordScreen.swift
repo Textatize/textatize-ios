@@ -169,7 +169,7 @@ struct ChangePasswordScreen: View {
             }
         } else {
             alertTitle = "Password Error"
-            alertMessage = "Password's do not match"
+            alertMessage = "Passwords do not match"
             changeSuccess = false
             showAlert = true
         }
