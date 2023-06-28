@@ -30,6 +30,11 @@ class TextatizeLoginManager: ObservableObject {
         return Keychain.loadPassword()
     }
     
+    func resetPassword(newPassword: String) {
+        Keychain.clear()
+        storePassword(password: newPassword)
+    }
+    
     func checkRegistration(completion: @escaping (String?, LoginStatus) -> Void) {
         if TextatizeLoginManager.shared.loggedInUser != nil {
             completion(nil, .success)
