@@ -21,77 +21,107 @@ struct CameraView: View {
     @State var connectedTimer: Cancellable? = nil
     
     var body: some View {
-            
-        ZStack {
-            HostedViewController(captureSesion: camera.session, deviceOrientation: event.getOrientation == .landscape ? .landscape : .portrait)
+        
+        GeometryReader { geo in
+            ZStack {
+                HostedViewController(captureSesion: camera.session, deviceOrientation: event.getOrientation == .landscape ? .landscape : .portrait)
+                    .ignoresSafeArea()
+                    .toolbar(.hidden)
+                
+                ZStack {
+                    GrayBorder()
+                        .frame(height: abs((geo.size.height / 2) - 150) + geo.safeAreaInsets.top)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    
+                    GrayBorder()
+                        .frame(width: abs((geo.size.width / 2) - 150))
+                        .frame(height: 300 - (geo.safeAreaInsets.top - geo.safeAreaInsets.bottom))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+                    
+                    GrayBorder()
+                        .frame(width: abs((geo.size.width / 2) - 150))
+                        .frame(height: 300 - (geo.safeAreaInsets.top - geo.safeAreaInsets.bottom))
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .trailing)
+                    
+                    GrayBorder()
+                        .frame(height: abs((geo.size.height / 2) - 150) + geo.safeAreaInsets.top)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                }
                 .ignoresSafeArea()
-                .toolbar(.hidden)
-
-            Circle()
-                .strokeBorder(.red, lineWidth: 5)
-                .frame(width: UIScreen.main.bounds.width * 0.27, height: UIScreen.main.bounds.width * 0.27)
-            Text("\(countDown)")
-                .font(.system(size: 50, weight: .bold))
-                .foregroundColor(.red)
-            
-            CameraBackButton(path: $path)
-                .foregroundColor(AppColors.Onboarding.loginButton)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
-                .padding(.top)
-                .disabled(continuePressed ? true : false)
-                .opacity(continuePressed ? 0 : 1)
-            
-        }
-        .toolbar(.hidden, for: .tabBar)
-        .onReceive(timer, perform: { time in
-            if countDown > 0 {
-                countDown -= 1
-            } else {
-                print("Countdown hit zero, pic taken")
-                camera.takePic()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .opacity(event.getOrientation == .square ? 1 : 0)
+                
+                Circle()
+                    .strokeBorder(.red, lineWidth: 5)
+                    .frame(width: UIScreen.main.bounds.width * 0.27, height: UIScreen.main.bounds.width * 0.27)
+                Text("\(countDown)")
+                    .font(.system(size: 50, weight: .bold))
+                    .foregroundColor(.red)
+                
+                CameraBackButton(path: $path)
+                    .foregroundColor(AppColors.Onboarding.loginButton)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding()
+                    .padding(.top)
+                    .disabled(continuePressed ? true : false)
+                    .opacity(continuePressed ? 0 : 1)
+                
+            }
+            .onAppear {
+                print("Width: \(geo.size.width)")
+                print("Height: \((geo.size.height / 2) - 150)")
+                
+            }
+            .toolbar(.hidden, for: .tabBar)
+            .onReceive(timer, perform: { time in
+                if countDown > 0 {
+                    countDown -= 1
+                } else {
+                    print("Countdown hit zero, pic taken")
+                    camera.takePic()
+                    cancelTimer()
+                }
+            })
+            .onAppear {
+                camera.event = event
+                restartTimer()
+                switch event.getOrientation {
+                case .portrait:
+                    break
+                case .landscape:
+                    AppDelegate.orientationLock = UIInterfaceOrientationMask.landscapeRight
+                    UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
+                case .square:
+                    break
+                }
+                
+                switch event.getCamera {
+                case .front:
+                    camera.check(orientation: .front)
+                case .back:
+                    camera.check(orientation: .back)
+                }
+                
+            }
+            .onChange(of: camera.sessionRunning, perform: { value in
+                if camera.sessionRunning {
+                    instantiateTimer()
+                }
+            })
+            .onChange(of: camera.picData) { value in
+                camera.processPhotos()
+            }
+            .onChange(of: camera.photoReady, perform: { value in
+                if camera.photoReady {
+                    path.append(6)
+                }
+            })
+            .onDisappear {
+                camera.sessionRunning = false
+                camera.isTaken = false
                 cancelTimer()
+                camera.session.stopRunning()
             }
-        })
-        .onAppear {
-            camera.event = event
-            restartTimer()
-            switch event.getOrientation {
-            case .portrait:
-                break
-            case .landscape:
-                AppDelegate.orientationLock = UIInterfaceOrientationMask.landscapeRight
-                UIDevice.current.setValue(UIInterfaceOrientation.landscapeRight.rawValue, forKey: "orientation")
-            case .square:
-                break
-            }
-            
-            switch event.getCamera {
-            case .front:
-                camera.check(orientation: .front)
-            case .back:
-                camera.check(orientation: .back)
-            }
-            
-        }
-        .onChange(of: camera.sessionRunning, perform: { value in
-            if camera.sessionRunning {
-                instantiateTimer()
-            }
-        })
-        .onChange(of: camera.picData) { value in
-            camera.processPhotos()
-        }
-        .onChange(of: camera.photoReady, perform: { value in
-            if camera.photoReady {
-                path.append(6)
-            }
-        })
-        .onDisappear {
-            camera.sessionRunning = false
-            camera.isTaken = false
-            cancelTimer()
-            camera.session.stopRunning()
         }
     }
     private func instantiateTimer() {
@@ -135,7 +165,7 @@ struct ImagePreviewScreen: View {
             
             Image(uiImage: camera.processedPhoto ?? UIImage(systemName: "photo")!)
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .scaledToFit()
                 .padding()
             
             VStack {
@@ -163,8 +193,8 @@ struct ImagePreviewScreen: View {
                     Button {
                         print("Retake Button Pressed")
                         path.removeLast()
-//                        camera.reTake()
-//                        restartTimer()
+                        //                        camera.reTake()
+                        //                        restartTimer()
                     } label: {
                         Text("Retake")
                             .foregroundColor(.black)
@@ -220,5 +250,12 @@ struct ImagePreviewScreen: View {
     }
     private func sharePhoto() {
         camera.shareMedia()
+    }
+}
+
+struct GrayBorder: View {
+    var body: some View {
+        Color.black.opacity(0.75)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
