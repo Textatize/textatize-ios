@@ -26,6 +26,10 @@
 
 import UIKit
 
+extension Notification.Name {
+    static var editedFrame = Notification.Name("EditedFrame")
+}
+
 public class ZLEditImageModel: NSObject {
     public let drawPaths: [ZLDrawPath]
     
@@ -952,6 +956,10 @@ open class ZLEditImageViewController: UIViewController {
                 imageStickers: imageStickers
             )
         }
+        
+        NotificationCenter.default.post(name:.editedFrame,
+                                        object: nil,
+                                        userInfo: ["object": resImage])
         
         dismiss(animated: animateDismiss) {
             self.editFinishBlock?(resImage, editModel)

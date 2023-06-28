@@ -23,7 +23,6 @@ struct FrameSelectionCard: View {
     
     @Binding var frameSelected: Frame?
     var frame: Frame
-    
     var body: some View {
         
         Button {
@@ -41,9 +40,12 @@ struct FrameSelectionCard: View {
 }
 
 struct FrameEditingCard: View {
-    
-    @Binding var duplicateSelected: Bool
+    @StateObject private var vm = FrameViewModel.shared
+
+    @Binding var selectedFrame: Frame?
     var frame: Frame
+    @Binding var editType: FrameEditAction
+    @Binding var editFrame: Bool
     
     var body: some View {
         
@@ -78,7 +80,9 @@ struct FrameEditingCard: View {
                 Button {
                     print("Duplicate Frame Selected")
                     withAnimation {
-                        duplicateSelected = true
+                        editType = .duplicate
+                        selectedFrame = frame
+                        editFrame = true
                     }
                 } label: {
                     HStack {

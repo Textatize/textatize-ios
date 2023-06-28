@@ -40,7 +40,6 @@ class MainViewModel: ObservableObject {
                 switch result {
                 case .success(let value):
                     ImageCache.default.store(value.image, forKey: frameID)
-                    print("Frame Cached: \(ImageCache.default.isCached(forKey: frameID))")
                     if !self.frames.contains(frame) {
                         self.frames.append(frame)
                     }

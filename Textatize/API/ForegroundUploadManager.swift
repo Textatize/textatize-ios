@@ -180,6 +180,3 @@ public class ForegroundUploadManager: NSObject {
     
 }
 
-extension NSNotification.Name {
-    static let videosChanged = Notification.Name("videosChanged")
-}

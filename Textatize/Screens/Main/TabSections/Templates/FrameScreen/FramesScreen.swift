@@ -18,7 +18,17 @@ struct FramesScreen: View {
     @State private var selectEvent = false
     @State private var duplicateSelected = false
     @State private var selectedFrame: Frame? = nil
+    @State private var framesSelected: Bool = true
+    
     @State private var editFrame = false
+    
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
+    @State private var editType: FrameEditAction = .edit
+    
+    var segmentTitles = ["Frames", "Custom"]
     
     let iPadLayout = [
         GridItem(.flexible()),
@@ -45,16 +55,73 @@ struct FramesScreen: View {
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .center)
                         .padding()
+                   
+                    Group {
+                        HStack {
+                            
+                            VStack {
+                                HStack {
+                                    
+                                    Spacer()
+                                    
+                                    Button {
+                                        
+                                        withAnimation {
+                                            framesSelected = true
+                                        }
+                                        
+                                    } label :{
+                                        Text("Frames")
+                                            .font(.headline)
+                                            .foregroundColor(AppColors.Onboarding.loginButton)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Button {
+                                        
+                                        withAnimation {
+                                            framesSelected = false
+                                        }
+                                        
+                                    } label :{
+                                        Text("Custom")
+                                            .font(.headline)
+                                            .foregroundColor(AppColors.Onboarding.loginButton)
+                                    }
+                                    
+                                    Spacer()
+                                }
+                                .frame(maxWidth: .infinity)
+                                
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(AppColors.Onboarding.topColor)
+                                        .frame(height: 10)
+                                        .padding(.horizontal)
+                                    
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .fill(AppColors.Onboarding.bottomColor)
+                                        .frame(width: UIScreen.main.bounds.width * 0.4, height: 10)
+                                        .frame(maxWidth: .infinity, alignment: framesSelected ? .leading : .trailing)
+                                        .padding(.horizontal)
+                                }
+                            }
+                            
+                        }
+                    }
                     
                     VStack {
                                             
                         ScrollView {
                             LazyVGrid(columns: isiPad ? iPadLayout : iPhoneLayout) {
-                                ForEach(0..<vm.frames.count + 1, id: \.self) { item in
+                                
+                                ForEach(framesSelected ? 0..<vm.frames.count + 1 : 0..<vm.customFrames.count + 1, id: \.self) { item in
                                     if item == 0 {
                                         AddCard(title: "Upload")
                                             .onTapGesture(perform: {
                                                 withAnimation {
+                                                    editType = .upload
                                                     selectedFrame = nil
                                                     editFrame = true
                                                 }
@@ -63,19 +130,25 @@ struct FramesScreen: View {
                                            .padding()
 
                                     } else {
-                                        if vm.frames.count > 0 {
-                                            let frame = vm.frames[item - 1]
+                                        let frame = framesSelected ? vm.frames[item - 1] : vm.customFrames[item - 1]
                                                 
-                                            FrameEditingCard(duplicateSelected: $duplicateSelected, frame: frame)
+                                        FrameEditingCard(selectedFrame: $selectedFrame, frame: frame, editType: $editType, editFrame: $editFrame)
                                                 .onTapGesture(perform: {
                                                     withAnimation {
-                                                        selectedFrame = frame
-                                                        editFrame = true
+                                                        if let isEditable = frame.isEditable, isEditable {
+                                                            editType = .edit
+                                                            selectedFrame = nil
+                                                            selectedFrame = frame
+                                                            editFrame = true
+                                                        } else {
+                                                            alertTitle = "Error"
+                                                            alertMessage = "Frame is immutable"
+                                                            showAlert = true
+                                                        }
                                                     }
                                                 })
                                                 .frame(width: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40, height: isiPad ?  UIScreen.main.bounds.width * 0.30 : UIScreen.main.bounds.width * 0.40)
                                                 .padding()
-                                        }
                                     }
                                 }
                             }
@@ -84,14 +157,27 @@ struct FramesScreen: View {
                 }
                 .customBackground()
             }
+            .onReceive(NotificationCenter.default.publisher(for: .refreshFrame), perform: { _ in
+                vm.refreshFrames()
+            })
+            .alert(alertTitle, isPresented: $showAlert, actions: {
+                Button(role: .cancel) {
+                    
+                } label: {
+                    Text("Dismiss")
+                }
+
+            }, message: {
+                Text(alertMessage)
+            })
             .background {
-                NavigationLink(destination: FrameEditingScreen(frameImage: vm.getFrameImage(frame: selectedFrame)), isActive: $editFrame) { EmptyView() }
-                
+                NavigationLink(destination: FrameEditingScreen(frame: selectedFrame, editType: editType), isActive: $editFrame) { EmptyView() }
             }
         }.navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
             vm.refreshFrames()
         }
+
     }
 }
 

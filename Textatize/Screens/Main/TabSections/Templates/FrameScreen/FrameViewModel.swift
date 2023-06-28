@@ -9,22 +9,43 @@ import Foundation
 import SwiftUI
 import Kingfisher
 
+enum FramesType {
+    case frame, custom
+}
+
 class FrameViewModel: ObservableObject {
     static let shared = FrameViewModel()
     
     private let textatizeAPI = TextatizeAPI.shared
     
     @Published var frames = [Frame]()
+    @Published var customFrames = [Frame]()
     
     private init() {
-        fetchFrames()
+        refreshFrames()
     }
     
     func refreshFrames() {
-        fetchFrames()
+        retrieveFrames()
+        retrieveMyFrames()
     }
     
-    private func fetchFrames() {
+    private func retrieveMyFrames() {
+        textatizeAPI.retrieveMyFrames(orientation: nil, page: "0") { error, framesResponse in
+            
+            if let error = error {
+                print(error.getMessage() ?? "No Message Found")
+            }
+            
+            if let framesResponse = framesResponse, let apiFrames = framesResponse.frames {
+                self.customFrames = apiFrames
+
+                //self.cacheFrameImages(downloadedFrames: apiFrames, type: .custom)
+            }
+        }
+    }
+    
+    private func retrieveFrames() {
         textatizeAPI.retrieveFrames(orientation: nil) { [weak self] error, framesResponse in
             guard let self = `self` else { return }
             
@@ -33,41 +54,9 @@ class FrameViewModel: ObservableObject {
             }
             
             if let framesResponse = framesResponse, let apiFrames = framesResponse.frames {
-                self.cacheFrameImages(downloadedFrames: apiFrames)
+                self.frames = apiFrames
             }
         }
     }
-    
-    private func cacheFrameImages(downloadedFrames: [Frame]) {
-        for frame in downloadedFrames {
-            guard let frameURL = URL(string: frame.unwrappedURL) else { return }
-            guard let frameID = frame.unique_id else { return }
-            KingfisherManager.shared.retrieveImage(with: frameURL) { result in
-                switch result {
-                case .success(let value):
-                    ImageCache.default.store(value.image, forKey: frameID)
-                    print("Frame Cached: \(ImageCache.default.isCached(forKey: frameID))")
-                    if !self.frames.contains(frame) {
-                        self.frames.append(frame)
-                    }
-                    
-                case .failure(let error):
-                    print("Error Downloading Image: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
-    
-    func getFrameImage(frame: Frame? = nil) -> UIImage? {
-        if let frame = frame {
-            guard let frameID = frame.unique_id else {
-                return UIImage(systemName: "photo")!
-            }
-            guard let frameImage = ImageCache.default.retrieveImageInMemoryCache(forKey: frameID) else {
-                return UIImage(systemName: "photo")!
-            }
-            return frameImage
-        }
-        return nil
-    }
+
 }

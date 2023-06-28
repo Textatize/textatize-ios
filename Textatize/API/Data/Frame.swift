@@ -16,6 +16,7 @@ class Frame: AbstractServerObject, Identifiable {
     var created_time:       Int?            = nil
     var updated_time:       Int?            = nil
     var created_formatted:  String?         = nil
+    var isEditable:         Bool?           = nil
     
     override init() {
         super.init()
@@ -34,6 +35,7 @@ class Frame: AbstractServerObject, Identifiable {
         created_time        <- map["created_time"]
         updated_time        <- map["updated_time"]
         created_formatted   <- map["created_formatted"]
+        isEditable          <- map["isEditable"]
 
     }
     

@@ -8,55 +8,140 @@
 import SwiftUI
 import Kingfisher
 
+enum FrameEditAction: String {
+    case upload, edit, duplicate
+}
+
 struct FrameEditingScreen: View {
+    
     @Environment(\.dismiss) var dismiss
-    var frameImage: UIImage?
-    @State private var image = UIImage(systemName: "photo")!
+    var frame: Frame?
+    @State var frameImage: UIImage?
+    @State private var finalImage: UIImage? = nil
+    @State private var showImagePicker = false
+    
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
+    @State private var frameOrientation: Orientation? = nil
+    
+    var editType: FrameEditAction
+    
     var body: some View {
         ZStack {
-            
             AppColors.Onboarding.redLinearGradientBackground
                 .ignoresSafeArea(edges: .top)
             
+            VStack {
+                Text("Frame Editing")
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            }
+            
+                        
             if let frameImage = frameImage {
                 HostedFrameEditViewController(frameImage: frameImage)
                     .padding()
+                    .padding(.top, 40)
                     .ignoresSafeArea(edges: .top)
+            } else {
+                ProgressView {
+                    Text("Loading Image")
+                }
+            }
+            
+            if frame == nil {
+                Button {
+                    showImagePicker = true
+                } label: {
+                    CustomButtonView(filled: true, name: "Add Photo")
+                }
+                .opacity(frameImage == nil ? 1 : 0)
+                .padding()
+            }
+        }
+        .onAppear {
+            
+            loadImage()
+            
+            switch editType {
+            case .upload:
+                break
+            case .edit:
+                if let frameImage = frameImage {
+                    if frameImage.size.width > frameImage.size.height {
+                        frameOrientation = .landscape
+                    }
+                    if frameImage.size.width < frameImage.size.height {
+                        frameOrientation = .portrait
+                    }
+                    if frameImage.size.width == frameImage.size.height {
+                        frameOrientation = .square
+                    }
+                }
+            case .duplicate:
+                if let frameImage = frameImage {
+                    if frameImage.size.width > frameImage.size.height {
+                        frameOrientation = .landscape
+                    }
+                    if frameImage.size.width < frameImage.size.height {
+                        frameOrientation = .portrait
+                    }
+                    if frameImage.size.width == frameImage.size.height {
+                        frameOrientation = .square
+                    }
+                }
+            }
+        }
+        .alert(alertTitle, isPresented: $showAlert, actions: {
+            Button(role: .cancel) {
+                switch editType {
+                case .upload:
+                    addFrame()
+                case .edit:
+                    editFrame()
+                case .duplicate:
+                    addFrame()
+                }
+                
+                dismiss()
+            } label: {
+                Text("Dismiss")
             }
 
-
-//            VStack {
-//                
-//                Spacer()
-//                Text("Frame Editing")
-//                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-//                    .font(.title)
-//                    .fontWeight(.semibold)
-//                    .frame(maxWidth: .infinity, alignment: .center)
-//                    .padding()
-//                
-//                if let frameImage = frameImage {
-//                    frameImage
-//                        .resizable()
-//                        .padding()
-//                }
-//                
-//                Spacer()
-//                
-//                HStack {
-//                    FrameEditButton(title: "Background", image: AppImages.imageIcon, action: addBackgroundPressed)
-//                    FrameEditButton(title: "Image", image: AppImages.imageIcon, action: addImagePressed)
-//                    FrameEditButton(title: "Text", image: AppImages.textIcon, action: addTextPressed)
-//                }
-//                
-//                Spacer()
-//                
-//                CustomButtonView(filled: true, name: "Save")
-//                    .padding()
-//                
-//                
-//            }
-//            .customBackground()
+        }, message: {
+            Text(alertMessage)
+        })
+        .onReceive(NotificationCenter.default.publisher(for: .editedFrame)) { notification in
+            guard let userInfo = notification.userInfo,
+                  let object = userInfo["object"] as? UIImage else {
+                return
+            }
+            
+            if object.size.width > object.size.height {
+                frameOrientation = .landscape
+            }
+            if object.size.width < object.size.height {
+                frameOrientation = .portrait
+            }
+            if object.size.width == object.size.height {
+                frameOrientation = .square
+            }
+            
+            self.finalImage = object
+        }
+        .onChange(of: finalImage) { value in
+            if finalImage != nil {
+                alertTitle = "Success"
+                alertMessage = "Frame Edit complete"
+                showAlert = true
+            }
+        }
+        .sheet(isPresented: $showImagePicker) {
+            ImagePicker(image: $frameImage)
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
@@ -73,16 +158,34 @@ struct FrameEditingScreen: View {
         .navigationBarBackButtonHidden()
     }
     
-    private func addBackgroundPressed() {
-        print("Add Background Pressed")
+    private func addFrame() {
+        if let frameOrientation = frameOrientation, let finalImage = finalImage {
+            TextatizeAPI.shared.createFrame(newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
+                NotificationCenter.default.post(name: .refreshFrame, object: nil)
+            }
+        }
     }
     
-    private func addImagePressed() {
-        print("Add Image Presssed")
+    private func editFrame() {
+        if let frame = frame, let frameID = frame.unique_id, let finalImage = finalImage {
+            TextatizeAPI.shared.updateFrame(frameID: frameID, newFrame: finalImage) { _, _ in
+                NotificationCenter.default.post(name: .refreshFrame, object: nil)
+            }
+        }
     }
     
-    private func addTextPressed() {
-        print("Add Text Pressed")
+    private func loadImage() {
+        if let frame = frame, let frameURL = URL(string: frame.unwrappedURL) {
+            DispatchQueue.global(qos: .background).async {
+                if let data = try? Data(contentsOf: frameURL) {
+                    DispatchQueue.main.async {
+                        withAnimation {
+                            self.frameImage = UIImage(data: data)
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -116,8 +219,8 @@ struct FrameEditButton: View {
     }
 }
 
-struct FrameEditingScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        FrameEditingScreen()
-    }
-}
+//struct FrameEditingScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FrameEditingScreen()
+//    }
+//}
