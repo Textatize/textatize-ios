@@ -22,6 +22,7 @@ class User: AbstractServerObject {
     var createdFormatted: String? = nil
     var isEmailVerified: Bool? = nil
     var points: Int? = nil
+    var apiKey: String? = nil
     
     override init() {
         super.init()
@@ -46,6 +47,7 @@ class User: AbstractServerObject {
         createdFormatted <- map["created_formatted"]
         isEmailVerified <- map["isEmailVerified"]
         points <- map["points"]
+        apiKey <- map["apiKey"]
     }
     
     var getIsEmailVerified: Bool  {

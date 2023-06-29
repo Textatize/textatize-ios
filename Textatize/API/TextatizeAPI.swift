@@ -839,4 +839,38 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             }
         }
     }
+    
+    func setAPI(apiKey: String, completion: @escaping (ServerError?, UserResponse?) -> Void) {
+        guard hasInternet else { return completion(ServerError.noInternet, nil) }
+        
+        guard let sessionToken = sessionToken else { return }
+        
+        var parameters: Parameters = [:]
+        parameters["apikey"] = apiKey
+        
+        AF.request(
+            API_URL + "user/apiKey",
+            method: .put,
+            parameters: parameters,
+            headers: ["authorization": "Bearer \(sessionToken)"]
+        ).validate().responseJSON { response in
+            print("Set API Response: \(response)")
+            
+            switch response.result {
+            case .success:
+                if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+                    if let userResponse = UserResponse(JSONString: utf8Text) {
+                        if let error = userResponse.error {
+                            completion(ServerError(WithMessage: error), nil)
+                        } else {
+                            TextatizeLoginManager.shared.loggedInUser = userResponse.user
+                            completion(nil, userResponse)
+                        }
+                    }
+                }
+            case .failure(let error):
+                completion(ServerError(WithMessage: error.localizedDescription), nil)
+            }
+        }
+    }
 }

@@ -19,6 +19,7 @@ class SettingsScreenViewModel: NSObject, ObservableObject, SKProductsRequestDele
     
     @Published var products = [SKProduct]()
     @Published var userPoints = TextatizeLoginManager.shared.loggedInUser?.points ?? 0
+    @Published var userAPIKey: String?
     
     private let api = TextatizeAPI.shared
     
@@ -96,6 +97,10 @@ class SettingsScreenViewModel: NSObject, ObservableObject, SKProductsRequestDele
                 print("Success: \(user)")
             }
         }
+    }
+    
+    func getAPIKey() {
+        self.userAPIKey = TextatizeLoginManager.shared.loggedInUser?.apiKey
     }
     
 }

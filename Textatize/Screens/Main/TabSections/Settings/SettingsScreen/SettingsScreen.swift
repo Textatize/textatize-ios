@@ -14,6 +14,12 @@ struct SettingsScreen: View {
     @State private var showContactInformationScreen = false
     @State private var showPasswordChangeScreen = false
     
+    @State private var apiText = ""
+    
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -27,9 +33,9 @@ struct SettingsScreen: View {
                         .font(.title)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .center)
-                        .padding()
+                        .padding(.top)
                     
-                    VStack(spacing: 15) {
+                    VStack(spacing: 10) {
                         
                         NavigationLink {
                             ChangePasswordScreen()
@@ -85,22 +91,64 @@ struct SettingsScreen: View {
                             
                         }
                         
-                        Spacer()
-                        Spacer()
+                        VStack(alignment: .leading) {
+                            
+                            if let apiKey = viewModel.userAPIKey {
+                                Text("API Key: \(apiKey)")
+                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                    .fontWeight(.semibold)
+                                    .font(.headline)
+                            }
+                            
+                            VStack(alignment: .leading) {
+                                Text("Enter API Key")
+                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                                    .font(.caption)
+                                
+                                TextField("Enter API Key", text: $apiText)
+                                    .foregroundColor(.black)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+                            }
+                            .padding(.top)
+                            
+                        }
+                        .padding()
+                        
+                        Button {
+                            setAPI()
+                        } label: {
+                            CustomButtonView(filled: false, name: "Set API")
+                                .padding()
+                        }
                         
                         Button {
                             logout()
                         } label: {
                             CustomButtonView(filled: true, name: "Logout")
-                                .padding()
+                                .padding(.horizontal)
+                                .padding(.bottom)
                         }
 
                     }
                 }
                 .customBackground()
             }
+            .alert(alertTitle, isPresented: $showAlert, actions: {
+                Button(role: .cancel) {
+                    apiText = ""
+                    viewModel.getAPIKey()
+                } label: {
+                    Text("Dismiss")
+                }
+
+            }, message: {
+                Text(alertMessage)
+            })
             .onAppear {
                 viewModel.fetchProducts()
+                viewModel.getAPIKey()
             }
             .toolbar(.hidden)
             .navigationViewStyle(StackNavigationViewStyle())
@@ -108,6 +156,19 @@ struct SettingsScreen: View {
     }
     private func logout() {
         TextatizeLoginManager.shared.logout()
+    }
+    private func setAPI() {
+        TextatizeAPI.shared.setAPI(apiKey: apiText) { error, response in
+            if let error = error {
+                print("Error: \(error)")
+            }
+            
+            if response != nil {
+                alertTitle = "Success"
+                alertMessage = "API Key Updated"
+                showAlert = true
+            }
+        }
     }
 }
 
