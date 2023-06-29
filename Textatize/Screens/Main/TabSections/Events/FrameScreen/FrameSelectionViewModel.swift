@@ -21,6 +21,9 @@ class FrameSelectionViewModel: ObservableObject {
     }
     
     func getFrames(orientation: Orientation) {
+        
+        frames.removeAll()
+        
         textatizeAPI.retrieveFrames(orientation: orientation) { [weak self] error, framesResponse in
             guard let self = `self` else { return }
             
@@ -29,7 +32,19 @@ class FrameSelectionViewModel: ObservableObject {
             }
             
             if let framesResponse = framesResponse, let apiFrames = framesResponse.frames {
-                self.frames = apiFrames
+                self.frames.append(contentsOf: apiFrames)
+            }
+        }
+        
+        textatizeAPI.retrieveMyFrames(orientation: orientation, page: "0") { [weak self] error, framesResponse in
+            guard let self = `self` else { return }
+            
+            if let error = error {
+                print(error.getMessage() ?? "No Message Found")
+            }
+            
+            if let framesResponse = framesResponse, let apiFrames = framesResponse.frames {
+                self.frames.append(contentsOf: apiFrames)
             }
         }
     }
