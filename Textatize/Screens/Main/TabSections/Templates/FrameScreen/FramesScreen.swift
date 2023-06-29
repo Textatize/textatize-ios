@@ -153,6 +153,9 @@ struct FramesScreen: View {
                                 }
                             }
                         }
+                        .refreshable {
+                            vm.refreshFrames()
+                        }
                     }
                 }
                 .customBackground()
