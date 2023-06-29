@@ -58,7 +58,7 @@ struct SettingsScreen: View {
                                     AppImages.settings.logo3
                                         .resizable()
                                         .frame(width: 40, height: 40)
-                                    Text("\(viewModel.userPoints)")
+                                    Text("\(viewModel.userPoints) Points")
                                         .foregroundColor(AppColors.Onboarding.loginButton)
                                         .font(.headline)
                                 }
@@ -93,19 +93,12 @@ struct SettingsScreen: View {
                         
                         VStack(alignment: .leading) {
                             
-                            if let apiKey = viewModel.userAPIKey {
-                                Text("API Key: \(apiKey)")
-                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                                    .fontWeight(.semibold)
-                                    .font(.headline)
-                            }
-                            
                             VStack(alignment: .leading) {
-                                Text("Enter API Key")
+                                Text("API Key")
                                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                                     .font(.caption)
                                 
-                                TextField("Enter API Key", text: $apiText)
+                                TextField("Enter API Key", text: $viewModel.userAPIKey)
                                     .foregroundColor(.black)
                                     .padding()
                                     .frame(height: 50)
@@ -137,7 +130,6 @@ struct SettingsScreen: View {
             }
             .alert(alertTitle, isPresented: $showAlert, actions: {
                 Button(role: .cancel) {
-                    apiText = ""
                     viewModel.getAPIKey()
                 } label: {
                     Text("Dismiss")
@@ -158,15 +150,21 @@ struct SettingsScreen: View {
         TextatizeLoginManager.shared.logout()
     }
     private func setAPI() {
-        TextatizeAPI.shared.setAPI(apiKey: apiText) { error, response in
-            if let error = error {
-                print("Error: \(error)")
-            }
-            
-            if response != nil {
-                alertTitle = "Success"
-                alertMessage = "API Key Updated"
-                showAlert = true
+        if viewModel.userAPIKey == "" {
+            alertTitle = "Error"
+            alertMessage = "Field is empty"
+            showAlert = true
+        } else {
+            TextatizeAPI.shared.setAPI(apiKey: viewModel.userAPIKey) { error, response in
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                if response != nil {
+                    alertTitle = "Success"
+                    alertMessage = "API Key Updated"
+                    showAlert = true
+                }
             }
         }
     }
