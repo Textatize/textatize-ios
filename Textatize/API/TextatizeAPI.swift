@@ -845,13 +845,14 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         
         guard let sessionToken = sessionToken else { return }
         
-        AF.upload(multipartFormData: { multipartFormData in
-            if let apiKeyData = apiKey.data(using: .utf8) {
-                multipartFormData.append(apiKeyData, withName: "apiKey")
-            }
-        }, to: API_URL + "user/apikey",
-                  method: .put,
-                  headers: ["authorization": "Bearer \(sessionToken)"]
+        var parameters: Parameters = [:]
+        parameters["apikey"] = apiKey
+        
+        AF.request(
+            API_URL + "user/apiKey",
+            method: .put,
+            parameters: parameters,
+            headers: ["authorization": "Bearer \(sessionToken)"]
         ).validate().responseJSON { response in
             print("Set API Response: \(response)")
             
@@ -870,6 +871,5 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                 completion(ServerError(WithMessage: error.localizedDescription), nil)
             }
         }
-        
     }
 }
