@@ -42,6 +42,7 @@ struct FrameEditingScreen: View {
                 HostedFrameEditViewController(frameImage: frameImage)
                     .padding()
                     .padding(.top, 40)
+                    .frame(width: UIScreen.main.bounds.size.width-50, height: UIScreen.main.bounds.size.height - 100)
                     .ignoresSafeArea(edges: .top)
             } else {
                 ProgressView {
