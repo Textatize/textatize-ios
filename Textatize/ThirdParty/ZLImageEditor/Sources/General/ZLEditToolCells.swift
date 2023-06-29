@@ -91,7 +91,7 @@ class ZLDrawColorCell: UICollectionViewCell {
         super.init(frame: frame)
         
         bgWhiteView = UIView()
-        bgWhiteView.backgroundColor = .white
+        bgWhiteView.backgroundColor = .clear
         bgWhiteView.layer.cornerRadius = 10
         bgWhiteView.layer.masksToBounds = true
         bgWhiteView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
@@ -99,6 +99,7 @@ class ZLDrawColorCell: UICollectionViewCell {
         contentView.addSubview(bgWhiteView)
         
         colorView = UIView()
+        colorView.backgroundColor = .clear
         colorView.layer.cornerRadius = 8
         colorView.layer.masksToBounds = true
         colorView.frame = CGRect(x: 0, y: 0, width: 16, height: 16)

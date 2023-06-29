@@ -26,10 +26,6 @@
 
 import UIKit
 
-extension Notification.Name {
-    static var editedFrame = Notification.Name("EditedFrame")
-}
-
 public class ZLEditImageModel: NSObject {
     public let drawPaths: [ZLDrawPath]
     
@@ -108,6 +104,7 @@ open class ZLEditImageViewController: UIViewController {
     open lazy var containerView: UIView = {
         let view = UIView()
         view.clipsToBounds = true
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -116,7 +113,7 @@ open class ZLEditImageViewController: UIViewController {
         let view = UIImageView(image: originalImage)
         view.contentMode = .scaleAspectFit
         view.clipsToBounds = true
-        view.backgroundColor = .white
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -232,6 +229,7 @@ open class ZLEditImageViewController: UIViewController {
     // Show draw lines.
     lazy var drawingImageView: UIImageView = {
         let view = UIImageView()
+        view.backgroundColor = .clear
         view.contentMode = .scaleAspectFit
         view.isUserInteractionEnabled = true
         return view
@@ -353,6 +351,7 @@ open class ZLEditImageViewController: UIViewController {
     
     @objc public init(image: UIImage, editModel: ZLEditImageModel? = nil) {
         originalImage = image.zl.fixOrientation()
+//        originalImage = image
         editImage = originalImage
         editImageWithoutAdjust = originalImage
         editRect = editModel?.editRect ?? CGRect(origin: .zero, size: image.size)
@@ -932,11 +931,12 @@ open class ZLEditImageViewController: UIViewController {
             autoreleasepool {
                 let hud = ZLProgressHUD(style: ZLImageEditorUIConfiguration.default().hudStyle)
                 hud.show()
-                
+                print("@@@EDIT originalImage hasAlpha=\(originalImage.hasAlpha)")
                 resImage = buildImage()
                 resImage = resImage.zl.clipImage(angle: angle, editRect: editRect, isCircle: selectRatio?.isCircle ?? false) ?? resImage
-                if let oriDataSize = originalImage.jpegData(compressionQuality: 1)?.count {
+                if let oriDataSize = originalImage.pngData()?.count {
                     resImage = resImage.zl.compress(to: oriDataSize)
+                    print("@@@EDIT resImage hasAlpha=\(resImage.hasAlpha)")
                 }
                 
                 hud.hide()
@@ -1781,5 +1781,13 @@ public class ZLMosaicPath: NSObject {
     func addLine(to point: CGPoint) {
         path.addLine(to: point)
         linePoints.append(CGPoint(x: point.x / ratio, y: point.y / ratio))
+    }
+}
+extension UIImage {
+    var hasAlpha: Bool {
+        guard let alphaInfo = self.cgImage?.alphaInfo else {return false}
+        return alphaInfo != CGImageAlphaInfo.none &&
+            alphaInfo != CGImageAlphaInfo.noneSkipFirst &&
+            alphaInfo != CGImageAlphaInfo.noneSkipLast
     }
 }

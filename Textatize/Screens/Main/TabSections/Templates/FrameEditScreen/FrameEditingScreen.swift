@@ -132,6 +132,7 @@ struct FrameEditingScreen: View {
             }
             
             self.finalImage = object
+            print("@@@EDIT self.finalImage hasAlpha=\(self.finalImage!.hasAlpha2)")
         }
         .onChange(of: finalImage) { value in
             if finalImage != nil {
@@ -224,3 +225,11 @@ struct FrameEditButton: View {
 //        FrameEditingScreen()
 //    }
 //}
+extension UIImage {
+    var hasAlpha2: Bool {
+        guard let alphaInfo = self.cgImage?.alphaInfo else {return false}
+        return alphaInfo != CGImageAlphaInfo.none &&
+            alphaInfo != CGImageAlphaInfo.noneSkipFirst &&
+            alphaInfo != CGImageAlphaInfo.noneSkipLast
+    }
+}

@@ -235,8 +235,8 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             }
             
             if let watermarkImage = watermarkImage {
-                if let imageData = watermarkImage.jpegData(compressionQuality: 0.5) {
-                    multipartFormData.append(imageData, withName: "watermarkUrl", fileName: "watermarkUrl.jpg", mimeType: "image/jpeg")
+                if let imageData = watermarkImage.pngData() {
+                    multipartFormData.append(imageData, withName: "watermarkUrl", fileName: "watermarkUrl.jpg", mimeType: "image/png")
                 }
             }
             
@@ -304,8 +304,8 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             }
             
             if let watermarkImage = watermarkImage {
-                if let imageData = watermarkImage.jpegData(compressionQuality: 0.5) {
-                    multipartFormData.append(imageData, withName: "watermarkUrl", fileName: "watermarkUrl.jpg", mimeType: "image/jpeg")
+                if let imageData = watermarkImage.pngData() {
+                    multipartFormData.append(imageData, withName: "watermarkUrl", fileName: "watermarkUrl.jpg", mimeType: "image/png")
                 }
             }
             
@@ -781,8 +781,8 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         guard let sessionToken = sessionToken else { return }
         
         AF.upload(multipartFormData: { multipartFormData in
-            if let imageData = newFrame.jpegData(compressionQuality: 0.5) {
-                multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/jpeg")
+            if let imageData = newFrame.pngData() {
+                multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/png")
             }
             if let orientationData = orientation.data(using: .utf8) {
                 multipartFormData.append(orientationData, withName: "orientation")
@@ -817,8 +817,8 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                 multipartFormData.append(frameIDData, withName: "frameId")
             }
             
-            if let imageData = newFrame.jpegData(compressionQuality: 0.5) {
-                multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/jpeg")
+            if let imageData = newFrame.pngData() {
+                multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/png")
             }
             
         }, to: API_URL + "frame",

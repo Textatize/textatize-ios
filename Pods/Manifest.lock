@@ -4,9 +4,6 @@ PODS:
   - Kingfisher (7.6.2)
   - ObjectBox (1.8.1)
   - ObjectMapper (4.2.0)
-  - ZLImageEditor (1.1.7):
-    - ZLImageEditor/Core (= 1.1.7)
-  - ZLImageEditor/Core (1.1.7)
 
 DEPENDENCIES:
   - Alamofire
@@ -14,7 +11,6 @@ DEPENDENCIES:
   - Kingfisher (~> 7.6.2)
   - ObjectBox
   - ObjectMapper (~> 4.2)
-  - ZLImageEditor
 
 SPEC REPOS:
   trunk:
@@ -23,7 +19,6 @@ SPEC REPOS:
     - Kingfisher
     - ObjectBox
     - ObjectMapper
-    - ZLImageEditor
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
@@ -31,8 +26,7 @@ SPEC CHECKSUMS:
   Kingfisher: 6c5449c6450c5239166510ba04afe374a98afc4f
   ObjectBox: a7900d5335218cd437cbc080b7ccc38a5211f7b4
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  ZLImageEditor: ee86f044fb7c5dec6b5de49eb7bb6fd42286f2ae
 
-PODFILE CHECKSUM: 7cb340a38b90114a1cd84ace27cb514431dda145
+PODFILE CHECKSUM: c94a2df200210a19c17721fc8cbbe01834afaf29
 
 COCOAPODS: 1.12.1

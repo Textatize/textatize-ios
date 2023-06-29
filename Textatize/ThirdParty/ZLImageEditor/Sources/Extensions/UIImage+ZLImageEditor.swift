@@ -315,7 +315,7 @@ extension ZLImageEditorWrapper where Base: UIImage {
     /// Compress an image to the max size
     /// - Warning: If the image has a transparent background color, this method will change it as jpeg doesn't support it.
     func compress(to maxSize: Int) -> UIImage {
-        if let size = base.jpegData(compressionQuality: 1)?.count, size <= maxSize {
+        if let size = base.pngData()?.count, size <= maxSize {
             return base
         }
         var min: CGFloat = 0
@@ -323,7 +323,7 @@ extension ZLImageEditorWrapper where Base: UIImage {
         var data: Data?
         for _ in 0..<6 {
             let mid = (min + max) / 2
-            data = base.jpegData(compressionQuality: mid)
+            data = base.pngData()
             let compressSize = data?.count ?? 0
             if compressSize > maxSize {
                 max = mid

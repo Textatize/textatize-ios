@@ -283,6 +283,7 @@ class ZLClipImageViewController: UIViewController {
         scrollView.addSubview(containerView)
         
         imageView = UIImageView(image: editImage)
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         containerView.addSubview(imageView)

@@ -9,5 +9,4 @@ target 'Textatize' do
 	pod 'IQKeyboardManagerSwift'
 	pod 'ObjectBox'
 	pod 'Kingfisher', '~> 7.6.2'
-	pod 'ZLImageEditor'
 end
