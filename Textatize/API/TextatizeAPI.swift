@@ -863,6 +863,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
                         if let error = userResponse.error {
                             completion(ServerError(WithMessage: error), nil)
                         } else {
+                            TextatizeLoginManager.shared.loggedInUser = userResponse.user
                             completion(nil, userResponse)
                         }
                     }
