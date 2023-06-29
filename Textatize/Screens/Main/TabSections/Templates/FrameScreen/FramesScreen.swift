@@ -142,7 +142,7 @@ struct FramesScreen: View {
                                                             editFrame = true
                                                         } else {
                                                             alertTitle = "Error"
-                                                            alertMessage = "Frame is immutable"
+                                                            alertMessage = "Please duplicate frame to edit"
                                                             showAlert = true
                                                         }
                                                     }
