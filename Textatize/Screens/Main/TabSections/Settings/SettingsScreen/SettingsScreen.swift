@@ -14,6 +14,8 @@ struct SettingsScreen: View {
     @State private var showContactInformationScreen = false
     @State private var showPasswordChangeScreen = false
     
+    @State private var apiText = ""
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -85,8 +87,26 @@ struct SettingsScreen: View {
                             
                         }
                         
+                        VStack(alignment: .leading) {
+                            Text("API Key")
+                                .font(.caption)
+                            
+                            TextField("Enter your API Key", text: $apiText)
+                                .padding()
+                                .frame(height: 50)
+                                .onboardingBorder()
+                        }
+                        .padding()
+                        
                         Spacer()
                         Spacer()
+                        
+                        Button {
+                            setAPI()
+                        } label: {
+                            CustomButtonView(filled: false, name: "Set API")
+                                .padding()
+                        }
                         
                         Button {
                             logout()
@@ -108,6 +128,11 @@ struct SettingsScreen: View {
     }
     private func logout() {
         TextatizeLoginManager.shared.logout()
+    }
+    private func setAPI() {
+        TextatizeAPI.shared.setAPI(apiKey: apiText) { error, response in
+            
+        }
     }
 }
 
