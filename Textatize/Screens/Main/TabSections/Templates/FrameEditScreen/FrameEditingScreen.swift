@@ -20,10 +20,6 @@ struct FrameEditingScreen: View {
     @State private var finalImage: UIImage? = nil
     @State private var showImagePicker = false
     
-    @State private var showAlert = false
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
-    
     @State private var frameOrientation: Orientation? = nil
     
     var editType: FrameEditAction
@@ -96,25 +92,6 @@ struct FrameEditingScreen: View {
                 }
             }
         }
-        .alert(alertTitle, isPresented: $showAlert, actions: {
-            Button(role: .cancel) {
-                switch editType {
-                case .upload:
-                    addFrame()
-                case .edit:
-                    editFrame()
-                case .duplicate:
-                    addFrame()
-                }
-                
-                dismiss()
-            } label: {
-                Text("Dismiss")
-            }
-
-        }, message: {
-            Text(alertMessage)
-        })
         .onReceive(NotificationCenter.default.publisher(for: .editedFrame)) { notification in
             guard let userInfo = notification.userInfo,
                   let object = userInfo["object"] as? UIImage else {
@@ -135,9 +112,14 @@ struct FrameEditingScreen: View {
         }
         .onChange(of: finalImage) { value in
             if finalImage != nil {
-                alertTitle = "Success"
-                alertMessage = "Frame Edit complete"
-                showAlert = true
+                switch editType {
+                case .upload:
+                    addFrame()
+                case .edit:
+                    editFrame()
+                case .duplicate:
+                    addFrame()
+                }
             }
         }
         .sheet(isPresented: $showImagePicker) {
@@ -162,6 +144,7 @@ struct FrameEditingScreen: View {
         if let frameOrientation = frameOrientation, let finalImage = finalImage {
             TextatizeAPI.shared.createFrame(newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
+                dismiss()
             }
         }
     }
@@ -170,6 +153,7 @@ struct FrameEditingScreen: View {
         if let frame = frame, let frameID = frame.unique_id, let finalImage = finalImage {
             TextatizeAPI.shared.updateFrame(frameID: frameID, newFrame: finalImage) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
+                dismiss()
             }
         }
     }
