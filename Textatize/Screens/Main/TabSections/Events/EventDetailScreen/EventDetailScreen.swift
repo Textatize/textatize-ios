@@ -21,14 +21,7 @@ struct EventDetailScreen: View {
     ]
     
     var event: Event? = nil
-    
-    @State var name: String = ""
-    @State var date: String?
-    @State var location: String = ""
-    @State var orientation: String = ""
-    @State var camera: String = ""
-    @State var hostName: String = ""
-    
+
     @State private var number = ""
     
     @State var watermarkURL: URL? = nil
@@ -84,16 +77,18 @@ struct EventDetailScreen: View {
                                         Text("Event Name")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(name)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let name = event?.name {
+                                            Text(name)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                     
                                     VStack {
                                         Text("Event Date")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        if let date = date {
+                                        if let date = event?.getDate {
                                             Text(date)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .font(.caption)
@@ -104,9 +99,11 @@ struct EventDetailScreen: View {
                                         Text("Event Location")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(location)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let location = event?.location {
+                                            Text(location)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                 }
                                 
@@ -117,27 +114,33 @@ struct EventDetailScreen: View {
                                         Text("Event Orientation")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(orientation)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let orientation = event?.orientation {
+                                            Text(orientation)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                     
                                     VStack {
                                         Text("Event Camera")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(camera)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let camera = event?.camera {
+                                            Text(camera)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                     
                                     VStack {
                                         Text("Event Host")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        Text(name)
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .font(.caption)
+                                        if let hostName = event?.hostName {
+                                            Text(hostName)
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .font(.caption)
+                                        }
                                     }
                                     
                                     
@@ -270,12 +273,6 @@ struct EventDetailScreen: View {
         .onAppear {
             if let event = event {
                 downloadAssets(event: event)
-                name = event.getName
-                date = event.getDate
-                location = event.getLocation
-                orientation = event.getOrientation.rawValue
-                camera = event.getCamera.rawValue
-                hostName = event.getName
             }
         }
         .onChange(of: shareMedia) { value in
@@ -317,6 +314,6 @@ struct EventDetailScreen: View {
 
 struct EventDetailScreen_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetailScreen(path: .constant([2]), name: "Holidays", date: "10/11/12", location: "Rome", orientation: "Portrait", camera: "Front", hostName: "Anna")
+        EventDetailScreen(path: .constant([2]))
     }
 }

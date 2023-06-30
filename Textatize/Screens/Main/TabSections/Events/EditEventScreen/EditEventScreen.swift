@@ -200,7 +200,7 @@ struct EditEventScreen: View {
                             mvm.location = eventLocation
                             mvm.camera = camera
                             mvm.orientation = orientation
-                            mvm.hostName = eventName
+                            mvm.hostName = eventHostName
                             path.append(3)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
@@ -226,6 +226,7 @@ struct EditEventScreen: View {
                 eventLocation = event.getLocation
                 orientation = event.getOrientation
                 camera = event.getCamera
+                eventHostName = event.hostName ?? ""
             }
         }
     }

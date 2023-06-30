@@ -203,7 +203,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         
     }
     
-    func updateEvent(eventID: String, name: String, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, useFrame: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+    func updateEvent(eventID: String, name: String, hostName: String?, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, useFrame: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
@@ -215,6 +215,9 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             }
             if let nameData = name.data(using: .utf8) {
                 multipartFormData.append(nameData, withName: "name")
+            }
+            if let hostNameData = hostName?.data(using: .utf8) {
+                multipartFormData.append(hostNameData, withName: "hostName")
             }
             if let date = date {
                 if let dateData = date.data(using: .utf8) {
@@ -275,7 +278,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
 
-    func createEvent(name: String, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, useFrame: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
+    func createEvent(name: String, hostName: String?, date: String?, orientation: Orientation, camera: Camera, watermarkPosition: WatermarkPosition, location: String, watermarkImage: UIImage?, watermarkTransparency: String, frame: Frame?, useFrame: String, completion: @escaping (ServerError?, EventResponse?) -> Void) {
         
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
@@ -284,6 +287,9 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         AF.upload(multipartFormData: { multipartFormData in
             if let nameData = name.data(using: .utf8) {
                 multipartFormData.append(nameData, withName: "name")
+            }
+            if let hostNameData = hostName?.data(using: .utf8) {
+                multipartFormData.append(hostNameData, withName: "hostName")
             }
             if let date = date {
                 if let dateData = date.data(using: .utf8) {

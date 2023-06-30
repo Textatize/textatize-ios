@@ -24,6 +24,7 @@ class Event: AbstractServerObject, Identifiable {
     var updatedTime:            Int?        = nil
     var createdFormatted:       String?     = nil
     var useFrame:               Bool?       = nil
+    var hostName:               String?     = nil
     
     
     override init() {
@@ -52,7 +53,7 @@ class Event: AbstractServerObject, Identifiable {
         updatedTime             <- map["updated_time"]
         createdFormatted        <- map["created_formatted"]
         useFrame                <- map["useFrame"]
-        
+        hostName                <- map["hostName"]
     }
     
     var getName: String {
