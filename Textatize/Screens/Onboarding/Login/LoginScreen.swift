@@ -18,6 +18,7 @@ struct LoginScreen: View {
     @State private var signupPressed = false
     @State private var forgotPasswordPressed = false
     @State private var path = [OnboardingNav]()
+    @State private var showPassword = false
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -61,13 +62,20 @@ struct LoginScreen: View {
                                 .font(.caption)
                             
                             ZStack {
-                                SecureField("Enter your password", text: $vm.password)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
+                                if showPassword {
+                                    TextField("Enter your password", text: $vm.password)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                } else {
+                                    SecureField("Enter your password", text: $vm.password)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                }
                                 
                                 Button {
-                                    // Show Password
+                                    showPassword.toggle()
                                 } label: {
                                     AppImages.Onboarding.eyeIcon
                                         .resizable()
@@ -113,7 +121,6 @@ struct LoginScreen: View {
                                 Rectangle()
                                     .fill(Color.gray)
                                     .frame(height: 1)
-                                
                             }
                             
                             NavigationLink(value: OnboardingNav.createAccountScreen) {
@@ -131,6 +138,9 @@ struct LoginScreen: View {
                 .alert(isPresented: $vm.showAlert) {
                     Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: .default(Text("Dismiss")))
                 }
+            }
+            .onAppear {
+                showPassword = false
             }
             .toolbar(.hidden)
             .navigationDestination(for: OnboardingNav.self) { nav in
