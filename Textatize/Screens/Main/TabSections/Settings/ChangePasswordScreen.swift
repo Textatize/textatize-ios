@@ -19,6 +19,11 @@ struct ChangePasswordScreen: View {
     @State private var alertMessage = ""
     @State private var changeSuccess = false
     
+    @State private var showOldPassword = false
+    @State private var showNewPassword = false
+    @State private var showConfirmPassword = false
+    
+    
     var body: some View {
         ZStack {
             
@@ -52,13 +57,20 @@ struct ChangePasswordScreen: View {
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $oldPassword)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
+                                if showOldPassword {
+                                    TextField("Enter your password", text: $oldPassword)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                } else {
+                                    SecureField("Enter your password", text: $oldPassword)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                }
                                 
                                 Button {
-                                    // Show Password
+                                    showOldPassword.toggle()
                                 } label: {
                                     AppImages.Onboarding.eyeIcon
                                         .resizable()
@@ -74,13 +86,19 @@ struct ChangePasswordScreen: View {
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $newPassword)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
-                                
+                                if showNewPassword {
+                                    TextField("Enter your password", text: $newPassword)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                } else {
+                                    SecureField("Enter your password", text: $newPassword)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                }
                                 Button {
-                                    // Show Password
+                                    showNewPassword.toggle()
                                 } label: {
                                     AppImages.Onboarding.eyeIcon
                                         .resizable()
@@ -96,13 +114,20 @@ struct ChangePasswordScreen: View {
                                 .font(.caption)
 
                             ZStack {
-                                SecureField("Enter your password", text: $confirmPassword)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
+                                if showConfirmPassword {
+                                    TextField("Enter your password", text: $confirmPassword)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                } else {
+                                    SecureField("Enter your password", text: $confirmPassword)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                }
                                 
                                 Button {
-                                    // Show Password
+                                    showConfirmPassword.toggle()
                                 } label: {
                                     AppImages.Onboarding.eyeIcon
                                         .resizable()
@@ -130,6 +155,11 @@ struct ChangePasswordScreen: View {
                 
             }
             .customBackground()
+        }
+        .onAppear {
+            showNewPassword = false
+            showOldPassword = false
+            showConfirmPassword = false
         }
         .alert(alertTitle, isPresented: $showAlert, actions: {
             if changeSuccess {

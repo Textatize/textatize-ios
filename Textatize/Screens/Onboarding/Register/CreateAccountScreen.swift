@@ -11,6 +11,8 @@ struct CreateAccountScreen: View {
     @Binding var path: [OnboardingNav]
     
     @StateObject private var vm = RegisterViewModel()
+    @State private var showPassword = false
+    @State private var showConfirmPassword = false
         
     var body: some View {
         ZStack {
@@ -73,13 +75,20 @@ struct CreateAccountScreen: View {
                                 .font(.caption)
                             
                             ZStack {
-                                SecureField("Enter your password", text: $vm.password)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
+                                if showPassword {
+                                    TextField("Enter your password", text: $vm.password)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                } else {
+                                    SecureField("Enter your password", text: $vm.password)
+                                        .padding()
+                                        .frame(height: 50)
+                                        .onboardingBorder()
+                                }
                                 
                                 Button {
-                                    // Show Password
+                                    showPassword.toggle()
                                 } label: {
                                     AppImages.Onboarding.eyeIcon
                                         .resizable()
@@ -95,13 +104,20 @@ struct CreateAccountScreen: View {
                                 .font(.caption)
                             
                             ZStack {
+                            if showConfirmPassword {
+                                TextField("Enter your password", text: $vm.confirmPassword)
+                                    .padding()
+                                    .frame(height: 50)
+                                    .onboardingBorder()
+                            } else {
                                 SecureField("Enter your password", text: $vm.confirmPassword)
                                     .padding()
                                     .frame(height: 50)
                                     .onboardingBorder()
+                            }
                                 
                                 Button {
-                                    // Show Password
+                                    showConfirmPassword.toggle()
                                 } label: {
                                     AppImages.Onboarding.eyeIcon
                                         .resizable()
@@ -141,6 +157,10 @@ struct CreateAccountScreen: View {
                 .padding()
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             
+        }
+        .onAppear {
+            showPassword = false
+            showConfirmPassword = false
         }
         .toolbar(.hidden, for: .navigationBar)
     }
