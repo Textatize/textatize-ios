@@ -110,14 +110,14 @@ struct SettingsScreen: View {
                         .padding()
                         
                         Button {
-                            setAPI()
+                            viewModel.setAPI()
                         } label: {
                             CustomButtonView(filled: false, name: "Set API")
                                 .padding()
                         }
                         
                         Button {
-                            logout()
+                            viewModel.logout()
                         } label: {
                             CustomButtonView(filled: true, name: "Logout")
                                 .padding(.horizontal)
@@ -128,16 +128,6 @@ struct SettingsScreen: View {
                 }
                 .customBackground()
             }
-            .alert(alertTitle, isPresented: $showAlert, actions: {
-                Button(role: .cancel) {
-                    viewModel.getAPIKey()
-                } label: {
-                    Text("Dismiss")
-                }
-
-            }, message: {
-                Text(alertMessage)
-            })
             .onAppear {
                 viewModel.fetchProducts()
                 viewModel.getAPIKey()

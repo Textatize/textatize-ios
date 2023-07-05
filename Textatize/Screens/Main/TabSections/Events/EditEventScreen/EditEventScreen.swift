@@ -226,6 +226,7 @@ struct EditEventScreen: View {
                 eventLocation = event.getLocation
                 orientation = event.getOrientation
                 camera = event.getCamera
+                eventHostName = event.hostName ?? ""
             }
         }
     }

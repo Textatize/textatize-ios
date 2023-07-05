@@ -229,7 +229,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
         case false:
             downloadWatermark(event: event) { watermarkImage in
                 
-                let alpha = event.getWatermarkTransparency
+                let alpha = event.getWatermarkTransparency / 100
                 
                 var size = CGSize()
                 
