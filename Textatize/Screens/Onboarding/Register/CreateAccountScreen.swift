@@ -25,28 +25,38 @@ struct CreateAccountScreen: View {
                 Text("Create \n your account")
                     .onboardingTitle()
                     .padding(.top, 30)
-                                
-                VStack(spacing: 20) {
-                    ScrollView {
+                
+                ScrollView {
+                    VStack(spacing: 20) {
                         VStack(alignment: .leading) {
-                            Text("Your name")
+                            Text("First name")
                                 .font(.caption)
                             
-                            TextField("Enter your name", text: $vm.name)
+                            TextField("Enter your first name", text: $vm.firstName)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
                         }
                         
                         VStack(alignment: .leading) {
-                            Text("Your email")
+                            Text("Last name")
+                                .font(.caption)
+                            
+                            TextField("Enter your last name", text: $vm.lastName)
+                                .padding()
+                                .frame(height: 50)
+                                .onboardingBorder()
+                        }
+                        
+                        VStack(alignment: .leading) {
+                            Text("Email")
                                 .font(.caption)
                             
                             TextField("Enter your email", text: $vm.email)
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
-
+                            
                         }
                         
                         VStack(alignment: .leading) {
@@ -57,13 +67,13 @@ struct CreateAccountScreen: View {
                                 .padding()
                                 .frame(height: 50)
                                 .onboardingBorder()
-
+                            
                         }
                         
                         VStack(alignment: .leading) {
                             Text("Password")
                                 .font(.caption)
-
+                            
                             ZStack {
                                 if showPassword {
                                     TextField("Enter your password", text: $vm.password)
@@ -92,7 +102,7 @@ struct CreateAccountScreen: View {
                         VStack(alignment: .leading) {
                             Text("Confirm the password")
                                 .font(.caption)
-
+                            
                             ZStack {
                             if showConfirmPassword {
                                 TextField("Enter your password", text: $vm.confirmPassword)
@@ -118,22 +128,21 @@ struct CreateAccountScreen: View {
                             }
                         }
                     }
-                    
-                    Spacer()
-                    
-                    Button {
-                        vm.createAccount { result in
-                            if result {
-                                path.removeAll()
-                            }
-                        }
-                    } label: {
-                        CustomButtonView(filled: true, name:"Register")
-                    }
-
                 }
                 .padding()
                 
+                Spacer()
+                
+                Button {
+                    vm.createAccount { result in
+                        if result {
+                            path.removeAll()
+                        }
+                    }
+                } label: {
+                    CustomButtonView(filled: true, name:"Register")
+                }
+                .padding()
             }
             .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
             .customBackground()

@@ -196,11 +196,11 @@ struct EditEventScreen: View {
                                 mvm.date = nil
                                 print("No Date Selected")
                             }
-                            mvm.name = eventName
-                            mvm.location = eventLocation
+                            mvm.name = eventName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            mvm.location = eventLocation.trimmingCharacters(in: .whitespacesAndNewlines)
                             mvm.camera = camera
                             mvm.orientation = orientation
-                            mvm.hostName = eventHostName
+                            mvm.hostName = eventName.trimmingCharacters(in: .whitespacesAndNewlines)
                             path.append(3)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
@@ -242,8 +242,6 @@ struct EditEventScreen: View {
         components.day = -1
         return Calendar.current.date(byAdding: components, to: Date.now)!
     }
-    
-    
 }
 
 struct EditEventScreen_Previews: PreviewProvider {
