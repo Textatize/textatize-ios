@@ -136,6 +136,29 @@ struct SettingsScreen: View {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
+    private func logout() {
+        TextatizeLoginManager.shared.logout()
+    }
+    private func setAPI() {
+        if viewModel.userAPIKey == "" {
+            alertTitle = "Error"
+            alertMessage = "Field is empty"
+            showAlert = true
+        } else {
+            let trimAPIKey = viewModel.userAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+            TextatizeAPI.shared.setAPI(apiKey: trimAPIKey) { error, response in
+                if let error = error {
+                    print("Error: \(error)")
+                }
+                
+                if response != nil {
+                    alertTitle = "Success"
+                    alertMessage = "API Key Updated"
+                    showAlert = true
+                }
+            }
+        }
+    }
 }
 
 struct SettingsButton: View {

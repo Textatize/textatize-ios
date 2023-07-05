@@ -151,7 +151,11 @@ struct ChangePasswordScreen: View {
     }
     private func changePassword() {
         if newPassword == confirmPassword {
-            TextatizeAPI.shared.changePassword(oldPassword: oldPassword, newPassword: newPassword) { error, userResponse in
+            
+            let trimOldPassword = oldPassword.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimNewPassword = newPassword.trimmingCharacters(in: .whitespacesAndNewlines)
+            
+            TextatizeAPI.shared.changePassword(oldPassword: trimOldPassword, newPassword: trimNewPassword) { error, userResponse in
                 if let error = error {
                     alertTitle = "Password Error"
                     alertMessage = error.getMessage() ?? "No Error"

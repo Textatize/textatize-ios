@@ -23,7 +23,11 @@ class LoginViewModel: ObservableObject {
     let manager = DataManager.shared
     
     func login() {
-        api.login(username: email, password: password) { [weak self] error, userResponse in
+        
+        let trimUsername = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        api.login(username: trimUsername, password: trimPassword) { [weak self] error, userResponse in
             guard let self = `self` else { return }
             
             if let error = error, let errorMessage = error.getMessage() {

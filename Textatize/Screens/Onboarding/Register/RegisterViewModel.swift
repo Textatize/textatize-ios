@@ -9,7 +9,8 @@ import SwiftUI
 
 class RegisterViewModel: ObservableObject {
     
-    @Published var name = ""
+    @Published var firstName = ""
+    @Published var lastName = ""
     @Published var email = ""
     @Published var phone = ""
     @Published var password = ""
@@ -25,16 +26,16 @@ class RegisterViewModel: ObservableObject {
 
     
     private func checkFields() -> Bool {
-        guard !name.isEmpty else {
+        guard !firstName.isEmpty else {
             alertTitle = "Name Error"
-            alertMessage = "Name field is empty"
+            alertMessage = "First Name field is empty"
             showAlert = true
             return false
         }
         
-        guard name.components(separatedBy: " ").count == 2 else {
+        guard !lastName.isEmpty else {
             alertTitle = "Name Error"
-            alertMessage = "Please enter your first and last name"
+            alertMessage = "Last Name field is empty"
             showAlert = true
             return false
         }
@@ -61,15 +62,15 @@ class RegisterViewModel: ObservableObject {
         }
         
         guard !confirmPassword.isEmpty else {
-            alertTitle = "confirmPassword Error"
-            alertMessage = "confirmPassword field is empty"
+            alertTitle = "Password Error"
+            alertMessage = "Confirm Password field is empty"
             showAlert = true
             return false
         }
         
         guard password == confirmPassword else {
-            alertTitle = "Password Error Error"
-            alertMessage = "Password and ConfirmPassword do not match"
+            alertTitle = "Password Error"
+            alertMessage = "Password and Confirm Password do not match"
             showAlert = true
             return false
         }
@@ -78,11 +79,15 @@ class RegisterViewModel: ObservableObject {
     
     func createAccount(completion: @escaping ((Bool) -> Void)) {
         guard checkFields() else { return }
+                  
+        let trimFirstName = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimLastName = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimUsername = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimPhone = phone.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
         
-        let firstName = name.components(separatedBy: " ")[0]
-        let lastName = name.components(separatedBy: " ")[1]
-                        
-        api.register(first_name: firstName, last_name: lastName, username: email, email: email, phone: phone, password: password) { [weak self] error, response in
+        api.register(first_name: trimFirstName, last_name: trimLastName, username: trimUsername, email: trimEmail, phone: trimPhone, password: trimPassword) { [weak self] error, response in
             
             guard let `self` = self else { return }
             
