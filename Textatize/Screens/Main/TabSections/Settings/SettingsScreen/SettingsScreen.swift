@@ -110,14 +110,14 @@ struct SettingsScreen: View {
                         .padding()
                         
                         Button {
-                            setAPI()
+                            viewModel.setAPI()
                         } label: {
                             CustomButtonView(filled: false, name: "Set API")
                                 .padding()
                         }
                         
                         Button {
-                            logout()
+                            viewModel.logout()
                         } label: {
                             CustomButtonView(filled: true, name: "Logout")
                                 .padding(.horizontal)
@@ -128,44 +128,12 @@ struct SettingsScreen: View {
                 }
                 .customBackground()
             }
-            .alert(alertTitle, isPresented: $showAlert, actions: {
-                Button(role: .cancel) {
-                    viewModel.getAPIKey()
-                } label: {
-                    Text("Dismiss")
-                }
-
-            }, message: {
-                Text(alertMessage)
-            })
             .onAppear {
                 viewModel.fetchProducts()
                 viewModel.getAPIKey()
             }
             .toolbar(.hidden)
             .navigationViewStyle(StackNavigationViewStyle())
-        }
-    }
-    private func logout() {
-        TextatizeLoginManager.shared.logout()
-    }
-    private func setAPI() {
-        if viewModel.userAPIKey == "" {
-            alertTitle = "Error"
-            alertMessage = "Field is empty"
-            showAlert = true
-        } else {
-            TextatizeAPI.shared.setAPI(apiKey: viewModel.userAPIKey) { error, response in
-                if let error = error {
-                    print("Error: \(error)")
-                }
-                
-                if response != nil {
-                    alertTitle = "Success"
-                    alertMessage = "API Key Updated"
-                    showAlert = true
-                }
-            }
         }
     }
 }

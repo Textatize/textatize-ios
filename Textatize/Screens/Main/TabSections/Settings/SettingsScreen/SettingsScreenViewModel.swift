@@ -62,7 +62,8 @@ class SettingsScreenViewModel: NSObject, ObservableObject, SKProductsRequestDele
     }
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = `self` else { return }
             self.products = response.products
         }
     }
@@ -87,7 +88,8 @@ class SettingsScreenViewModel: NSObject, ObservableObject, SKProductsRequestDele
     }
     
     private func apiPurchase(appleReceipt: String, points: String) {
-        api.purchase(appleReceipt: appleReceipt, points: points) { error, userResponse in
+        api.purchase(appleReceipt: appleReceipt, points: points) { [weak self] error, userResponse in
+            guard let self = `self` else { return }
             if let error = error {
                 print(error.getMessage() ?? "No Error Message")
             }
@@ -103,6 +105,23 @@ class SettingsScreenViewModel: NSObject, ObservableObject, SKProductsRequestDele
         if let apiKey = TextatizeLoginManager.shared.loggedInUser?.apiKey {
             userAPIKey = apiKey
         }
+    }
+    
+    func setAPI() {
+        guard !userAPIKey.isEmpty else { return }
+        api.setAPI(apiKey: userAPIKey) { [weak self] error, response in
+            guard let self = `self` else { return }
+            if let error = error {
+                print("Error: \(error)")
+            }
+            if response != nil {
+                self.getAPIKey()
+            }
+        }
+    }
+    
+    func logout() {
+        TextatizeLoginManager.shared.logout()
     }
     
 }
