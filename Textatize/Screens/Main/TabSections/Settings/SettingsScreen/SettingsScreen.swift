@@ -155,7 +155,8 @@ struct SettingsScreen: View {
             alertMessage = "Field is empty"
             showAlert = true
         } else {
-            TextatizeAPI.shared.setAPI(apiKey: viewModel.userAPIKey) { error, response in
+            let trimAPIKey = viewModel.userAPIKey.trimmingCharacters(in: .whitespacesAndNewlines)
+            TextatizeAPI.shared.setAPI(apiKey: trimAPIKey) { error, response in
                 if let error = error {
                     print("Error: \(error)")
                 }

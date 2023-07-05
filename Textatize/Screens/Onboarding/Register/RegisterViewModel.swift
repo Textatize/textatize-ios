@@ -79,8 +79,15 @@ class RegisterViewModel: ObservableObject {
     
     func createAccount(completion: @escaping ((Bool) -> Void)) {
         guard checkFields() else { return }
-                        
-        api.register(first_name: firstName, last_name: lastName, username: email, email: email, phone: phone, password: password) { [weak self] error, response in
+                  
+        let trimFirstName = firstName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimLastName = lastName.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimUsername = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimEmail = email.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimPhone = phone.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimPassword = password.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        api.register(first_name: trimFirstName, last_name: trimLastName, username: trimUsername, email: trimEmail, phone: trimPhone, password: trimPassword) { [weak self] error, response in
             
             guard let `self` = self else { return }
             
