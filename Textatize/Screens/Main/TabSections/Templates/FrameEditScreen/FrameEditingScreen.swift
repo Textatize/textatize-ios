@@ -19,6 +19,7 @@ struct FrameEditingScreen: View {
     @State var frameImage: UIImage?
     @State private var finalImage: UIImage? = nil
     @State private var showImagePicker = false
+    @State private var frameName = ""
     
     @State private var frameOrientation: Orientation? = nil
     
@@ -27,23 +28,29 @@ struct FrameEditingScreen: View {
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea(edges: .top)
+                .ignoresSafeArea()
             
             VStack {
                 Text("Frame Editing")
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .font(.title)
                     .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                
+                TextField("Enter Frame Name", text: $frameName)
+                    .frame(height: 50)
+                    .background(Color.white)
+                    .mask(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .padding()
+                
             }
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                         
             if let frameImage = frameImage {
                 HostedFrameEditViewController(frameImage: frameImage)
                     .padding()
                     .padding(.top, 40)
                     .frame(width: UIScreen.main.bounds.size.width-50, height: UIScreen.main.bounds.size.height - 100)
-                    .ignoresSafeArea(edges: .top)
+                    //.ignoresSafeArea(edges: .top)
             } else {
                 ProgressView {
                     Text("Loading Image")
@@ -140,6 +147,7 @@ struct FrameEditingScreen: View {
                 }            }
         }
         .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
     }
     
     private func addFrame() {
