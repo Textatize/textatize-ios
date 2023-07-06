@@ -150,8 +150,7 @@ struct EventsScreen: View {
                             VStack {
                                 
                                 Button {
-                                    selectedEvent = nil
-                                    eventToDelete = nil
+                                    vm.selectedEvent = nil
                                     path.append(1)
                                 } label: {
                                     AddEventCard()
@@ -237,7 +236,6 @@ struct EventsScreen: View {
                 }
             }
             .onAppear {
-                vm.selectedEvent = nil
                 path.removeAll()
             }
             .onChange(of: eventToDelete) { newValue in
@@ -262,9 +260,12 @@ struct EventsScreen: View {
     
     private func deleteEvent(event: Event) {
         vm.deleteEvent(event: event)
+        eventToDelete = nil
     }
     private func completeEvent(event: Event) {
         vm.completeEvent(event: event)
+        eventToComplete = nil
+
     }
 }
 

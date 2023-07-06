@@ -170,9 +170,17 @@ struct CheckAllInfoScreen: View {
             }
             .customBackground()
             
-            BackButton(path: $path)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
+            Button {
+                path.removeLast()
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
         }
         .onAppear {
             switch addon {

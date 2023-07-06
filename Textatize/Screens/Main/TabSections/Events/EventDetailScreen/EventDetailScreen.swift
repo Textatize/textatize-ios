@@ -88,7 +88,7 @@ struct EventDetailScreen: View {
                                         Text("Event Date")
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .font(.subheadline.bold())
-                                        if let date = event?.getDate {
+                                        if let date = event?.getDateString {
                                             Text(date)
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .font(.caption)

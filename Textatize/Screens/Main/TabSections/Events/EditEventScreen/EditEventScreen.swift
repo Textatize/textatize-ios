@@ -10,7 +10,6 @@ import SwiftUI
 struct EditEventScreen: View {
     @StateObject private var mvm = EventViewModel.shared
 
-    
     @Binding var path: [Int]
     
     var event: Event? = nil
@@ -18,12 +17,13 @@ struct EditEventScreen: View {
     @State private var eventName: String = ""
     @State private var eventHostName: String = ""
     @State private var eventLocation: String = ""
+    @State private var eventDate: Date = Date.now
     @State private var orientation: Orientation = .portrait
     @State private var camera: Camera = .back
     
-    @State private var date: Date = Date.now
     
     @State private var nextButtonPressed = false
+    @State private var dateIsEdited = false
 
     var orientationOptions: [Orientation] = [.landscape, .portrait, .square]
     var cameraOptions: [Camera] = [.front, .back]
@@ -83,7 +83,7 @@ struct EditEventScreen: View {
                                 Text("Date")
                                     .font(.caption)
                                 
-                                DatePicker("Choose Date", selection: $date, in: Date.now..., displayedComponents: .date)
+                                DatePicker("Choose Date", selection: $eventDate, displayedComponents: .date)
                             }
                             
                             VStack(alignment: .leading) {
@@ -190,17 +190,16 @@ struct EditEventScreen: View {
                         
                         Button {
                             
-                            if getDateString(date: date) != getDateString(date: yesterdayDate()) {
-                                mvm.date = getDateString(date: date)
+                            if dateIsEdited {
+                                mvm.date = getDateString(date: eventDate)
                             } else {
                                 mvm.date = nil
-                                print("No Date Selected")
                             }
                             mvm.name = eventName.trimmingCharacters(in: .whitespacesAndNewlines)
                             mvm.location = eventLocation.trimmingCharacters(in: .whitespacesAndNewlines)
                             mvm.camera = camera
                             mvm.orientation = orientation
-                            mvm.hostName = eventName.trimmingCharacters(in: .whitespacesAndNewlines)
+                            mvm.hostName = eventHostName.trimmingCharacters(in: .whitespacesAndNewlines)
                             path.append(3)
                         } label: {
                             CustomButtonView(filled: true, name: "Next")
@@ -214,19 +213,37 @@ struct EditEventScreen: View {
             }
             .customBackground()
             
-            BackButton(path: $path)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
+            Button {
+                if event == nil {
+                    path.removeAll()
+                } else {
+                    path = [2]
+                }
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
+        }
+        .onChange(of: eventDate) { _ in
+            dateIsEdited = true
         }
         .navigationBarHidden(true)
         .onAppear {
-            date = yesterdayDate()
+            dateIsEdited = false
             if let event = event {
                 eventName = event.getName
                 eventLocation = event.getLocation
                 orientation = event.getOrientation
                 camera = event.getCamera
                 eventHostName = event.hostName ?? ""
+                if let getDate = event.getDate {
+                    eventDate = getDate
+                }
             }
         }
     }

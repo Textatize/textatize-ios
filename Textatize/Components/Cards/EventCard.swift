@@ -31,7 +31,7 @@ struct EventCard: View {
                         .fontWeight(.bold)
                     
                     VStack {
-                        if let date = event.getDate {
+                        if let date = event.getDateString {
                             Text(date)
                                 .font(.subheadline)
                                 .frame(maxWidth: .infinity, alignment: .leading)
