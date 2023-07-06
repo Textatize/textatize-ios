@@ -259,10 +259,17 @@ struct FrameScreen: View {
             }
             .customBackground()
             
-            BackButton(path: $path)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding()
-            
+            Button {
+                path = [1]
+            } label: {
+                HStack {
+                    Image(systemName: "arrow.left")
+                    Text("Back")
+                }
+                .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+            .padding()
         }
         .sheet(isPresented: $showingImagePicker) {
             ImagePicker(image: $watermarkImage)

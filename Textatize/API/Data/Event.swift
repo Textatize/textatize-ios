@@ -64,16 +64,24 @@ class Event: AbstractServerObject, Identifiable {
         numPhotos ?? 0
     }
     
-    var getDate: String? {
+    var getDate: Date? {
+        guard let day = date?.day, let month = date?.month, let year = date?.year else { return nil }
+        var components = DateComponents()
+        components.day = day
+        components.month = month
+        components.year = year
+        return Calendar.current.date(from: components)
+    }
+    
+    var getDateString: String? {
         
-        var dateString = ""
         if let day = date?.day, let month = date?.month, let year = date?.year {
              return "\(month)/\(day)/\(year)"
         } else {
             return nil
         }
     }
-    
+        
     var getLocation: String {
         location ?? "No Location"
     }
