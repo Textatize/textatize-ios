@@ -57,24 +57,9 @@ struct FrameEditingCard: View {
 
             }
             
-//            Button {
-//                print("Frame Selected")
-////                withAnimation {
-////                    isSelected = true
-////                }
-//            } label: {
-//                KFImage.url(URL(string: frame.unwrappedURL))
-//                    .resizable()
-//                    .placeholder({
-//                        ProgressView()
-//                    })
-//                    .loadDiskFileSynchronously()
-//                    .cacheMemoryOnly()
-//                    .fade(duration: 0.25)
-//                    .onProgress { receivedSize, totalSize in  }
-//                    .onSuccess { result in  }
-//                    .onFailure { error in }
-//            }
+            if let name = frame.name {
+                Text(name)
+            }
             
             VStack(alignment: .leading) {
                 Button {
@@ -103,14 +88,6 @@ struct FrameEditingCard: View {
                 .fill(.white)
                 .shadow(color: .black.opacity(0.2), radius: 5, x: 0, y: 0)
         }
-//        .overlay {
-//            AppImages.checkSmall
-//                .resizable()
-//                .frame(width: 20, height: 20)
-//                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-//                .padding()
-//                .opacity(isSelected ? 1 : 0)
-//        }
     }
 }
 
