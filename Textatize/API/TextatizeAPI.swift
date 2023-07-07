@@ -781,12 +781,17 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
-    func createFrame(newFrame: UIImage, orientation: String, completion: @escaping (ServerError?, FrameResponse?) -> Void) {
+    func createFrame(name: String?, newFrame: UIImage, orientation: String, completion: @escaping (ServerError?, FrameResponse?) -> Void) {
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
         
         AF.upload(multipartFormData: { multipartFormData in
+            if let name = name {
+                if let nameData = name.data(using: .utf8) {
+                    multipartFormData.append(nameData, withName: "name")
+                }
+            }
             if let imageData = newFrame.pngData() {
                 multipartFormData.append(imageData, withName: "url", fileName: "frameImage.jpg", mimeType: "image/png")
             }
@@ -812,7 +817,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
-    func updateFrame(frameID: String, newFrame: UIImage, completion: @escaping (ServerError?, FrameResponse?) -> Void) {
+    func updateFrame(frameID: String, name: String?, newFrame: UIImage, completion: @escaping (ServerError?, FrameResponse?) -> Void) {
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
         guard let sessionToken = sessionToken else { return }
@@ -821,6 +826,12 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
             
             if let frameIDData = frameID.data(using: .utf8) {
                 multipartFormData.append(frameIDData, withName: "frameId")
+            }
+            
+            if let name = name {
+                if let nameData = name.data(using: .utf8) {
+                    multipartFormData.append(nameData, withName: "name")
+                }
             }
             
             if let imageData = newFrame.pngData() {

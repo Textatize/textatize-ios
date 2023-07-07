@@ -19,6 +19,7 @@ struct FrameEditingScreen: View {
     @State var frameImage: UIImage?
     @State private var finalImage: UIImage? = nil
     @State private var showImagePicker = false
+    @State private var frameName = ""
     
     @State private var frameOrientation: Orientation? = nil
     
@@ -27,23 +28,29 @@ struct FrameEditingScreen: View {
     var body: some View {
         ZStack {
             AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea(edges: .top)
+                .ignoresSafeArea()
             
             VStack {
                 Text("Frame Editing")
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .font(.title)
                     .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                
+                TextField("Enter Frame Name", text: $frameName)
+                    .frame(height: 50)
+                    .background(Color.white)
+                    .mask(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                    .padding()
+                
             }
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                         
             if let frameImage = frameImage {
                 HostedFrameEditViewController(frameImage: frameImage)
                     .padding()
                     .padding(.top, 40)
                     .frame(width: UIScreen.main.bounds.size.width-50, height: UIScreen.main.bounds.size.height - 100)
-                    .ignoresSafeArea(edges: .top)
+                    //.ignoresSafeArea(edges: .top)
             } else {
                 ProgressView {
                     Text("Loading Image")
@@ -140,11 +147,12 @@ struct FrameEditingScreen: View {
                 }            }
         }
         .navigationBarBackButtonHidden()
+        .toolbar(.hidden, for: .tabBar)
     }
     
     private func addFrame() {
         if let frameOrientation = frameOrientation, let finalImage = finalImage {
-            TextatizeAPI.shared.createFrame(newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
+            TextatizeAPI.shared.createFrame(name: frameName, newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
                 dismiss()
             }
@@ -153,7 +161,7 @@ struct FrameEditingScreen: View {
     
     private func editFrame() {
         if let frame = frame, let frameID = frame.unique_id, let finalImage = finalImage {
-            TextatizeAPI.shared.updateFrame(frameID: frameID, newFrame: finalImage) { _, _ in
+            TextatizeAPI.shared.updateFrame(frameID: frameID, name: frameName, newFrame: finalImage) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
                 dismiss()
             }
@@ -162,6 +170,9 @@ struct FrameEditingScreen: View {
     
     private func loadImage() {
         if let frame = frame, let frameURL = URL(string: frame.unwrappedURL) {
+            if let name = frame.name {
+                frameName = name
+            }
             DispatchQueue.global(qos: .background).async {
                 if let data = try? Data(contentsOf: frameURL) {
                     DispatchQueue.main.async {
