@@ -152,7 +152,7 @@ struct FrameEditingScreen: View {
     
     private func addFrame() {
         if let frameOrientation = frameOrientation, let finalImage = finalImage {
-            TextatizeAPI.shared.createFrame(newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
+            TextatizeAPI.shared.createFrame(name: frameName, newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
                 dismiss()
             }
@@ -161,7 +161,7 @@ struct FrameEditingScreen: View {
     
     private func editFrame() {
         if let frame = frame, let frameID = frame.unique_id, let finalImage = finalImage {
-            TextatizeAPI.shared.updateFrame(frameID: frameID, newFrame: finalImage) { _, _ in
+            TextatizeAPI.shared.updateFrame(frameID: frameID, name: frameName, newFrame: finalImage) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
                 dismiss()
             }
@@ -170,6 +170,9 @@ struct FrameEditingScreen: View {
     
     private func loadImage() {
         if let frame = frame, let frameURL = URL(string: frame.unwrappedURL) {
+            if let name = frame.name {
+                frameName = name
+            }
             DispatchQueue.global(qos: .background).async {
                 if let data = try? Data(contentsOf: frameURL) {
                     DispatchQueue.main.async {
