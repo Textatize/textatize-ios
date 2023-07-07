@@ -23,136 +23,160 @@ struct FrameEditingScreen: View {
     
     @State private var frameOrientation: Orientation? = nil
     
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
+    
     var editType: FrameEditAction
     
     var body: some View {
-        ZStack {
-            AppColors.Onboarding.redLinearGradientBackground
-                .ignoresSafeArea()
-            
-            VStack {
-                Text("Frame Editing")
-                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                    .font(.title)
-                    .fontWeight(.semibold)
-                
-                TextField("Enter Frame Name", text: $frameName)
-                    .frame(height: 50)
-                    .background(Color.white)
-                    .mask(RoundedRectangle(cornerRadius: 10, style: .continuous))
-                    .padding()
-                
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                        
-            if let frameImage = frameImage {
-                HostedFrameEditViewController(frameImage: frameImage)
-                    .padding()
-                    .padding(.top, 40)
-                    .frame(width: UIScreen.main.bounds.size.width-50, height: UIScreen.main.bounds.size.height - 100)
-                    //.ignoresSafeArea(edges: .top)
-            } else {
-                ProgressView {
-                    Text("Loading Image")
+        GeometryReader { geo in
+            ZStack {
+                AppColors.Onboarding.redLinearGradientBackground
+                    .ignoresSafeArea()
+                            
+                if let frameImage = frameImage {
+                    HostedFrameEditViewController(frameImage: frameImage)
+                        .padding()
+                        .padding(.top, 40)
+                        .frame(width: UIScreen.main.bounds.size.width-50, height: UIScreen.main.bounds.size.height - 100)
+                        //.ignoresSafeArea(edges: .top)
+                } else {
+                    ProgressView {
+                        Text("Loading Image")
+                    }
                 }
+                
+                if frame == nil {
+                    Button {
+                        showImagePicker = true
+                    } label: {
+                        CustomButtonView(filled: true, name: "Add Photo")
+                    }
+                    .opacity(frameImage == nil ? 1 : 0)
+                    .padding()
+                }
+                
+                VStack {
+                    Text("Frame Editing")
+                        .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                        .font(.title)
+                        .fontWeight(.semibold)
+                    
+                    TextField("Enter Frame Name", text: $frameName)
+                        .frame(height: 50)
+                        .background(Color.white)
+                        .foregroundColor(Color.black)
+                        .mask(RoundedRectangle(cornerRadius: 10, style: .continuous))
+                        .padding()
+                    
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .ignoresSafeArea(.keyboard, edges: .all)
+                
             }
-            
-            if frame == nil {
-                Button {
-                    showImagePicker = true
+            .alert(alertTitle, isPresented: $showAlert, actions: {
+                Button(role: .cancel) {
                 } label: {
-                    CustomButtonView(filled: true, name: "Add Photo")
+                    Text("Dismiss")
                 }
-                .opacity(frameImage == nil ? 1 : 0)
-                .padding()
-            }
-        }
-        .onAppear {
-            
-            loadImage()
-            
-            switch editType {
-            case .upload:
-                break
-            case .edit:
-                if let frameImage = frameImage {
-                    if frameImage.size.width > frameImage.size.height {
-                        frameOrientation = .landscape
-                    }
-                    if frameImage.size.width < frameImage.size.height {
-                        frameOrientation = .portrait
-                    }
-                    if frameImage.size.width == frameImage.size.height {
-                        frameOrientation = .square
-                    }
-                }
-            case .duplicate:
-                if let frameImage = frameImage {
-                    if frameImage.size.width > frameImage.size.height {
-                        frameOrientation = .landscape
-                    }
-                    if frameImage.size.width < frameImage.size.height {
-                        frameOrientation = .portrait
-                    }
-                    if frameImage.size.width == frameImage.size.height {
-                        frameOrientation = .square
-                    }
-                }
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .editedFrame)) { notification in
-            guard let userInfo = notification.userInfo,
-                  let object = userInfo["object"] as? UIImage else {
-                return
-            }
-            
-            if object.size.width > object.size.height {
-                frameOrientation = .landscape
-            }
-            if object.size.width < object.size.height {
-                frameOrientation = .portrait
-            }
-            if object.size.width == object.size.height {
-                frameOrientation = .square
-            }
-            
-            self.finalImage = object
-            print("@@@EDIT self.finalImage hasAlpha=\(self.finalImage!.hasAlpha2)")
-        }
-        .onChange(of: finalImage) { value in
-            if finalImage != nil {
+            }, message: {
+                Text(alertMessage)
+            })
+            .onAppear {
+                
+                loadImage()
+                
                 switch editType {
                 case .upload:
-                    addFrame()
+                    break
                 case .edit:
-                    editFrame()
+                    if let frameImage = frameImage {
+                        if frameImage.size.width > frameImage.size.height {
+                            frameOrientation = .landscape
+                        }
+                        if frameImage.size.width < frameImage.size.height {
+                            frameOrientation = .portrait
+                        }
+                        if frameImage.size.width == frameImage.size.height {
+                            frameOrientation = .square
+                        }
+                    }
                 case .duplicate:
-                    addFrame()
+                    if let frameImage = frameImage {
+                        if frameImage.size.width > frameImage.size.height {
+                            frameOrientation = .landscape
+                        }
+                        if frameImage.size.width < frameImage.size.height {
+                            frameOrientation = .portrait
+                        }
+                        if frameImage.size.width == frameImage.size.height {
+                            frameOrientation = .square
+                        }
+                    }
                 }
             }
-        }
-        .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $frameImage)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    dismiss()
-                } label: {
-                    HStack {
-                        Image(systemName: "arrow.left")
-                        Text("Back")
+            .onReceive(NotificationCenter.default.publisher(for: .editedFrame)) { notification in
+                guard let userInfo = notification.userInfo,
+                      let object = userInfo["object"] as? UIImage else {
+                    return
+                }
+                
+                if object.size.width > object.size.height {
+                    frameOrientation = .landscape
+                }
+                if object.size.width < object.size.height {
+                    frameOrientation = .portrait
+                }
+                if object.size.width == object.size.height {
+                    frameOrientation = .square
+                }
+                
+                if frameName.trimmingCharacters(in: .whitespacesAndNewlines) == "" {
+                    alertTitle = "Frame Error"
+                    alertMessage = "Please provide a frame name"
+                    showAlert = true
+                } else {
+                    self.finalImage = object
+                    print("@@@EDIT self.finalImage hasAlpha=\(self.finalImage!.hasAlpha2)")
+                }
+            }
+            .onChange(of: finalImage) { value in
+                if finalImage != nil {
+                    switch editType {
+                    case .upload:
+                        addFrame()
+                    case .edit:
+                        editFrame()
+                    case .duplicate:
+                        addFrame()
                     }
-                    .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
-                }            }
-        }
-        .navigationBarBackButtonHidden()
+                }
+            }
+            .sheet(isPresented: $showImagePicker) {
+                ImagePicker(image: $frameImage)
+            }
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        dismiss()
+                    } label: {
+                        HStack {
+                            Image(systemName: "arrow.left")
+                            Text("Back")
+                        }
+                        .accentColor(AppColors.Onboarding.loginScreenForegroundColor)
+                    }            }
+            }
+            .navigationBarBackButtonHidden()
         .toolbar(.hidden, for: .tabBar)
+        }
     }
     
     private func addFrame() {
         if let frameOrientation = frameOrientation, let finalImage = finalImage {
-            TextatizeAPI.shared.createFrame(name: frameName, newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
+            let name = frameName.trimmingCharacters(in: .whitespacesAndNewlines)
+            TextatizeAPI.shared.createFrame(name: name, newFrame: finalImage, orientation: frameOrientation.rawValue) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
                 dismiss()
             }
@@ -161,7 +185,8 @@ struct FrameEditingScreen: View {
     
     private func editFrame() {
         if let frame = frame, let frameID = frame.unique_id, let finalImage = finalImage {
-            TextatizeAPI.shared.updateFrame(frameID: frameID, name: frameName, newFrame: finalImage) { _, _ in
+            let name = frameName.trimmingCharacters(in: .whitespacesAndNewlines)
+            TextatizeAPI.shared.updateFrame(frameID: frameID, name: name, newFrame: finalImage) { _, _ in
                 NotificationCenter.default.post(name: .refreshFrame, object: nil)
                 dismiss()
             }
