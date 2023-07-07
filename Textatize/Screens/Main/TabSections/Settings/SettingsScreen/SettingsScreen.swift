@@ -27,7 +27,7 @@ struct SettingsScreen: View {
                     .ignoresSafeArea(edges: .top)
                 
                 VStack {
-                    Spacer()
+                    //Spacer()
                     Text("Settings")
                         .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                         .font(.title)
@@ -91,30 +91,32 @@ struct SettingsScreen: View {
                             
                         }
                         
-                        VStack(alignment: .leading) {
-                            
-                            VStack(alignment: .leading) {
-                                Text("API Key")
-                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
-                                    .font(.caption)
-                                
-                                TextField("Enter API Key", text: $viewModel.userAPIKey)
-                                    .foregroundColor(.black)
-                                    .padding()
-                                    .frame(height: 50)
-                                    .onboardingBorder()
-                            }
-                            .padding(.top)
-                            
-                        }
-                        .padding()
+                        Spacer()
                         
-                        Button {
-                            viewModel.setAPI()
-                        } label: {
-                            CustomButtonView(filled: false, name: "Set API")
-                                .padding()
-                        }
+//                        VStack(alignment: .leading) {
+//                            
+//                            VStack(alignment: .leading) {
+//                                Text("API Key")
+//                                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+//                                    .font(.caption)
+//                                
+//                                TextField("Enter API Key", text: $viewModel.userAPIKey)
+//                                    .foregroundColor(.black)
+//                                    .padding()
+//                                    .frame(height: 50)
+//                                    .onboardingBorder()
+//                            }
+//                            .padding(.top)
+//                            
+//                        }
+//                        .padding()
+                        
+//                        Button {
+//                            viewModel.setAPI()
+//                        } label: {
+//                            CustomButtonView(filled: false, name: "Set API")
+//                                .padding()
+//                        }
                         
                         Button {
                             viewModel.logout()
