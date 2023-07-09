@@ -65,7 +65,7 @@ struct FrameEditingScreen: View {
                         .font(.title)
                         .fontWeight(.semibold)
                     
-                    TextField("Enter Frame Name", text: $frameName)
+                    TextField("Frame Name", text: $frameName)
                         .frame(height: 50)
                         .background(Color.white)
                         .foregroundColor(Color.black)
