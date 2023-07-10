@@ -91,6 +91,7 @@ class EventDetailScreenViewModel: ObservableObject {
                     if let mediaImage = UIImage(named: path) {
                         DispatchQueue.main.async {
                             self.eventMediaImages.append(mediaImage)
+                            self.medias.append(media)
                         }
                     }
                 }
@@ -126,15 +127,19 @@ class EventDetailScreenViewModel: ObservableObject {
         }
     }
     
-    func shareMedia(number: String, mediaID: String) {
-            TextatizeAPI.shared.shareMedia(phoneNumber: number, mediaID: mediaID) { error, success in
+    func shareMedia(number: String, mediaID: String, name: String?) {
+        TextatizeAPI.shared.shareMedia(phoneNumber: number, mediaID: mediaID, name: name) { error, success in
                 if let error = error {
                     self.alertTitle     = "Share Media Error"
                     self.alertMessage   = error.getMessage() ?? "Error Sharing Media"
                     self.showAlert      = true
                 }
                 if let success = success, success {
-                    self.mediaShared = true
+                    withAnimation {
+                        self.showGalleryImage = false
+                    }
+                    UserDefaults.standard.set(nil, forKey: "shareNumber")
+                    UserDefaults.standard.set(nil, forKey: "shareName")
                 }
             }
     }
