@@ -444,7 +444,7 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         }
     }
     
-    func shareMedia(phoneNumber: String?, mediaID: String, completion: @escaping (ServerError?, Bool?) -> Void) {
+    func shareMedia(phoneNumber: String?, mediaID: String, name: String?, completion: @escaping (ServerError?, Bool?) -> Void) {
         print("=================== SHARE MEDIA")
         guard hasInternet else { return completion(ServerError.noInternet, nil) }
         
@@ -453,6 +453,10 @@ class TextatizeAPI: NSObject, NetworkSpeedProviderDelegate {
         var parameters: Parameters = [:]
         if let phoneNumber = phoneNumber {
             parameters["phone"] = phoneNumber
+        }
+        
+        if let name = name, name != "" {
+            parameters["name"] = name
         }
         
         AF.request(API_URL + "media/share/\(mediaID)",

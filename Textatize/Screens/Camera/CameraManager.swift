@@ -48,6 +48,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
     @Published var alertTitle = ""
     @Published var alertMessage = ""
     @Published var event: Event? = nil
+    @Published var media: Media? = nil
     
     private let sessionQueue = DispatchQueue(label: "Textatize.SessionQueue")
     let textatizeAPI = TextatizeAPI.shared
@@ -301,19 +302,26 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate {
             if let error = error {
                 print("Add Media Error: \(error)")
             }
-            EventViewModel.shared.refreshEvents()
+            
+            if let mediaResponse = mediaResponse, let media = mediaResponse.media {
+                EventViewModel.shared.refreshEvents()
+                self.media = media
+            }
         }
     }
     
-    func shareMedia() {
-        if let mediaID = UserDefaults.standard.object(forKey: "mediaID") as? String, let number = UserDefaults.standard.string(forKey: "shareNumber") as? String {
-            TextatizeAPI.shared.shareMedia(phoneNumber: number, mediaID: mediaID) { error, success in
+    func shareMedia(name: String, number: String) {
+        if let mediaID = media?.unique_id {
+            let trimName = name.trimmingCharacters(in: .whitespacesAndNewlines)
+            let trimNumber = number.trimmingCharacters(in: .whitespacesAndNewlines)
+            TextatizeAPI.shared.shareMedia(phoneNumber: trimNumber, mediaID: mediaID, name: trimName) { error, success in
                 if let error = error {
                     self.alertTitle     = "Share Media Error"
                     self.alertMessage   = error.getMessage() ?? "Error Sharing Media"
                     self.showAlert      = true
                 }
                 if let success = success, success {
+                    self.media = nil
                     self.mediaShared = true
                 }
             }

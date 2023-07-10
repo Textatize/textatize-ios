@@ -23,6 +23,7 @@ struct EventDetailScreen: View {
     var event: Event? = nil
 
     @State private var number = ""
+    @State private var name = ""
     
     @State var watermarkURL: URL? = nil
     
@@ -227,10 +228,13 @@ struct EventDetailScreen: View {
                                 .frame(maxWidth: .infinity, alignment: .center)
                             
                             LazyVGrid(columns: layout) {
-                                ForEach(vm.eventMediaImages) { mediaImage in
+                                ForEach(0..<vm.medias.count, id: \.self) { item in
+                                    let mediaImage = vm.eventMediaImages[item]
+                                    let media = vm.medias[item]
                                     MediaView(mediaImage: mediaImage)
                                         .onTapGesture {
                                             vm.getImageData(mediaImage: mediaImage)
+                                            vm.selectedMedia = media
                                         }
                                         .frame(width: 100, height: 100)
                                         .padding()
@@ -250,7 +254,7 @@ struct EventDetailScreen: View {
                     Color.black.opacity(0.80)
                         .ignoresSafeArea()
                     
-                    ShareGalleryImage(number: $number, eventID: event?.unique_id ?? "No ID", showView: $vm.showGalleryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
+                    ShareGalleryImage(number: $number, name: $name, eventID: event?.unique_id ?? "No ID", showView: $vm.showGalleryImage, imageData: vm.selectedMediaImageData, image: vm.selectedMediaImage, shareMedia: $shareMedia)
                         .padding()
                 }
                 
@@ -279,7 +283,10 @@ struct EventDetailScreen: View {
             if shareMedia {
                 shareMedia = false
                 if let media = vm.selectedMedia {
-                    vm.shareMedia(number: number, mediaID: media.unique_id!)
+                    let nameTrim = name.trimmingCharacters(in: .whitespacesAndNewlines)
+                    vm.shareMedia(number: number, mediaID: media.unique_id!, name: nameTrim)
+                    number = ""
+                    name = ""
                 }
             }
         }

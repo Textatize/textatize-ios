@@ -89,6 +89,7 @@ struct ImageDetailView: View {
 struct ShareGalleryImage: View {
     
     @Binding var number: String
+    @Binding var name: String
     var eventID: String
     @Binding var showView: Bool
     var imageData: Data? = nil
@@ -120,9 +121,16 @@ struct ShareGalleryImage: View {
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .multilineTextAlignment(.center)
                 
+                TextField("Name", text: $name)
+                    .padding()
+                    .frame(height: 50)
+                    .onboardingBorder()
+                    .padding()
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
                 TextField("+1234", text: $number)
                     .padding()
-                    .frame(width: 250, height: 50)
+                    .frame(height: 50)
                     .onboardingBorder()
                     .padding()
                     .keyboardType(.numberPad)
@@ -144,7 +152,6 @@ struct ShareGalleryImage: View {
             let localImage = LocalImage()
             localImage.imageData = imageData
             localImage.eventID = eventID
-            UserDefaults.standard.set(number, forKey: "shareNumber")
             do {
                 try Services.instance.imageBox.put(localImage)
                 ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)
@@ -160,7 +167,8 @@ struct SharePhotoView: View {
     
     //var action: DismissAction
     @Binding var path: [Int]
-    @State private var number = ""
+    @Binding var number: String
+    @Binding var name: String
     var eventID: String
     var imageData: Data? = nil
     var image: UIImage? = nil
@@ -179,11 +187,11 @@ struct SharePhotoView: View {
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 200, height: 200)
+                        .frame(width: 150, height: 150)
                 } else {
                     Image(uiImage: UIImage(data: imageData!) ?? UIImage(systemName: "photo")!)
                         .resizable()
-                        .frame(width: 200, height: 200)
+                        .frame(width: 150, height: 150)
                 }
                 
                 Text("To share a photo via SMS, \nwrite a phone number")
@@ -191,9 +199,16 @@ struct SharePhotoView: View {
                     .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
                     .multilineTextAlignment(.center)
                 
+                TextField("Name", text: $name)
+                    .padding()
+                    .frame(height: 50)
+                    .onboardingBorder()
+                    .padding()
+                    .foregroundColor(AppColors.Onboarding.loginScreenForegroundColor)
+                
                 TextField("+1234", text: $number)
                     .padding()
-                    .frame(width: 250, height: 50)
+                    .frame(height: 50)
                     .onboardingBorder()
                     .padding()
                     .keyboardType(.numberPad)
@@ -212,11 +227,11 @@ struct SharePhotoView: View {
     }
     
     private func savePhoto() {
+        UserDefaults.standard.set(number, forKey: "shareNumber")
         if let imageData = imageData {
             let localImage = LocalImage()
             localImage.imageData = imageData
             localImage.eventID = eventID
-            UserDefaults.standard.set(number, forKey: "shareNumber")
             do {
                 try Services.instance.imageBox.put(localImage)
                 ForegroundUploadManager.shared.restartUploads(unique_id: localImage.unique_id)

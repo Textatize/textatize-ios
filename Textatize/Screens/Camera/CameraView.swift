@@ -154,6 +154,10 @@ struct ImagePreviewScreen: View {
     @StateObject private var camera = CameraManager.shared
     @State private var continuePressed = false
     @State private var shareMedia = false
+    
+    @State private var number = ""
+    @State private var name = ""
+    
     @Binding var path: [Int]
     
     var event: Event?
@@ -213,7 +217,7 @@ struct ImagePreviewScreen: View {
                     Color.black.opacity(0.75)
                         .ignoresSafeArea()
                     
-                    SharePhotoView(path: $path, eventID: event?.unique_id ?? "NO ID", imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
+                    SharePhotoView(path: $path, number: $number, name: $name, eventID: event?.unique_id ?? "NO ID", imageData: camera.retrieveImage()!, image: camera.processedPhoto, shareMedia: $shareMedia)
                         .padding()
                 }
                 
@@ -249,7 +253,7 @@ struct ImagePreviewScreen: View {
         }
     }
     private func sharePhoto() {
-        camera.shareMedia()
+        camera.shareMedia(name: name, number: number)
     }
 }
 
